@@ -43,19 +43,19 @@ public final class GamePacket {
 	}
 
 	/**
-	 * Gets the opcode.
-	 * @return The opcode.
-	 */
-	public int getOpcode() {
-		return opcode;
-	}
-
-	/**
 	 * Gets the payload length.
 	 * @return The payload length.
 	 */
 	public int getLength() {
 		return length;
+	}
+
+	/**
+	 * Gets the opcode.
+	 * @return The opcode.
+	 */
+	public int getOpcode() {
+		return opcode;
 	}
 
 	/**

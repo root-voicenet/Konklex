@@ -85,11 +85,7 @@ public final class Manager {
 	 * @return {@link Boolean}
 	 */
 	private boolean already(Method method) {
-		if (methods.containsValue(method)) {
-			return true;
-		} else {
-			return false;
-		}
+		return methods.containsValue(method);
 	}
 
 	/**
