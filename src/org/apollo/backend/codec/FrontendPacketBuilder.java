@@ -1,6 +1,7 @@
 package org.apollo.backend.codec;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,20 @@ public final class FrontendPacketBuilder {
 	/**
 	 * The parameters requested or being sent.
 	 */
-	private Map<String, List<String>> parameters;
+	private Map<String, List<String>> parameters = new HashMap<String, List<String>>();
+
+	/**
+	 * The error flag.
+	 */
+	private boolean error = false;
+
+	/**
+	 * Creates the frontend packet builder.
+	 * @param method The method.
+	 */
+	public FrontendPacketBuilder(String method) {
+		addParameter("method", method);
+	}
 
 	/**
 	 * Adds a parameter to the list.
@@ -49,10 +63,18 @@ public final class FrontendPacketBuilder {
 	}
 
 	/**
+	 * Sets the error flag.
+	 * @param error The error flag.
+	 */
+	public void setError(boolean error) {
+		this.error = error;
+	}
+
+	/**
 	 * Encodes the opcode to a frontend packet.
 	 * @return The completed frontend packet.
 	 */
 	public FrontendPacket toFrontendPacket() {
-		return new FrontendPacket(parameters);
+		return new FrontendPacket(parameters, error);
 	}
 }

@@ -3,7 +3,6 @@ package org.apollo.backend.codec;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apollo.util.TextUtil;
 
@@ -19,25 +18,37 @@ public final class FrontendPacket {
 	private final Map<String, List<String>> parameters;
 
 	/**
+	 * The error flag.
+	 */
+	private final boolean error;
+
+	/**
 	 * Creates a new frontend packet.
 	 * @param parameters The parameters.
+	 * @param error The error flag.
 	 */
-	public FrontendPacket(Map<String, List<String>> parameters) {
+	public FrontendPacket(Map<String, List<String>> parameters, boolean error) {
 		this.parameters = parameters;
+		this.error = error;
 	}
 
 	/**
 	 * Creates a new frontend packet.
 	 * @param uri The uri being written or reading.
+	 * @param error The error flag.
 	 * @throws IOException TextUtil::getUrlParameters();
 	 */
-	public FrontendPacket(String uri) throws IOException {
+	public FrontendPacket(String uri, boolean error) throws IOException {
 		parameters = TextUtil.getUrlParameters(uri);
-		for (Entry<String, List<String>> kv : parameters.entrySet()) {
-			for (String okv : kv.getValue()) {
-				okv.replaceFirst("\\[", "").replaceFirst("\\]", "");
-			}
-		}
+		this.error = error;
+	}
+
+	/**
+	 * Gets the method.
+	 * @return The method.
+	 */
+	public String getMethod() {
+		return getParameter("method");
 	}
 
 	/**
@@ -47,5 +58,21 @@ public final class FrontendPacket {
 	 */
 	public String getParameter(String parameter) {
 		return parameters.get(parameter).toString();
+	}
+
+	/**
+	 * Gets the whole list of parameters.
+	 * @return The list of parameters.
+	 */
+	public Map<String, List<String>> getParameters() {
+		return parameters;
+	}
+
+	/**
+	 * Gets the error flag.
+	 * @return True if error, false if not.
+	 */
+	public boolean isError() {
+		return error;
 	}
 }
