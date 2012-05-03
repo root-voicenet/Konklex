@@ -6,6 +6,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Map;
 
+import org.apollo.backend.codec.FrontendPacketBuilder;
 import org.apollo.backend.method.Method;
 import org.apollo.backend.util.RequestMethod;
 import org.jboss.netty.buffer.ChannelBuffer;
@@ -92,6 +93,9 @@ public final class Dispatch {
 		result.put("response", response);
 		result.put("error", iserror ? true : false);
 		String callback = getCallback(url);
+		FrontendPacketBuilder builder = new FrontendPacketBuilder("method");
+		builder.addParameter("test", "lmfao hi");
+		builder.toFrontendPacket();
 		return ChannelBuffers.copiedBuffer(callback != null ? callback + "(" + result.toString() + ");" : result.toString(), Charset.defaultCharset());
 	}
 

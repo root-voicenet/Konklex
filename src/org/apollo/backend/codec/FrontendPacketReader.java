@@ -31,6 +31,14 @@ public final class FrontendPacketReader {
 	}
 
 	/**
+	 * Gets the requested method.
+	 * @return The requested method.
+	 */
+	public String getMethod() {
+		return getParameter("method");
+	}
+
+	/**
 	 * Gets the parameter.
 	 * @param parameter The parameter.
 	 * @return The paramter's value.
