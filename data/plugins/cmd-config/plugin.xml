@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>cmd-config</id>
+  <version>1</version>
+  <name>Send a config to the client.</name>
+  <description>Sends a config event to the player.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>config.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

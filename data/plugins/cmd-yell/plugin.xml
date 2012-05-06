@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>cmd-yell</id>
+  <version>1</version>
+  <name>Sends a yell message.</name>
+  <description>Sends a yell message to everyone on the world.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>yell.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

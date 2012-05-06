@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>cmd-object</id>
+  <version>1</version>
+  <name>Object Command</name>
+  <description>Adds a ::object command.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>object.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

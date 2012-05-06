@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-prayer</id>
+  <version>1</version>
+  <name>Prayer</name>
+  <description>Prayer skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>bones.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>
