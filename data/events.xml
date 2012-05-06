@@ -108,9 +108,9 @@
     </chain>
   </event>
   <event>
-    <type>org.apollo.game.event.impl.BuildFriendsEvent</type>
+    <type>org.apollo.game.event.impl.FriendEvent</type>
     <chain>
-       <handler>org.apollo.game.event.handler.impl.BuildFriendsEventHandler</handler>
+       <handler>org.apollo.game.event.handler.impl.FriendEventHandler</handler>
     </chain>
   </event>
   <event>
