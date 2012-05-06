@@ -6,7 +6,7 @@ Konklex
 Introduction
 ------------
 
-Apollo is a RuneScape emulator which aims to encourage a fundamentally-different alternative to the way in which 
+[Apollo](http://www.rune-server.org/runescape-development/rs2-server/projects/257742-apollo.html) is a RuneScape emulator which aims to encourage a fundamentally-different alternative to the way in which 
 private server development is done today. It consists of a high-performance, modular server written in Java as 
 well as a collection of utilities for managing the data files and plugins.
 
@@ -29,9 +29,7 @@ Credits
  * All the people behind [JRuby](http://jruby.org), [JUnit](http://junit.org),
    [Ant](http://ant.apache.org), [Ivy](http://ant.apache.org/ivy),
    [Graphviz](http://graphviz.org) and [Java](http://java.oracle.com).
- * And lastly, the people at Rune-Server for helping with the problems we faced.
-   [Rune Server](http://www.rune-server.org/runescape-development/rs2-server/projects/257742-apollo.html),
-   [Plugins & Tutorials](http://www.rune-server.org/runescape-development/rs2-server/tutorials/364207-apollo-tuts-snippets-plug-ins.html),
+ * And lastly, the people at [Rune Server](http://www.rune-server.org/runescape-development/rs2-server/tutorials/364207-apollo-tuts-snippets-plug-ins.html) for helping with the problems we faced.
 
 Source Code
 -----------
