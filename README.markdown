@@ -41,5 +41,4 @@ are welcome!
 Twitter
 ---
 
-There is an Twitter account for all recent commints. You can view that here.
-[Twitter](https://twitter.com/KonklexDev)
+There is an Twitter account for all recent commints. You can view that [here](https://twitter.com/KonklexDev).
