@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-cooking</id>
+  <version>1</version>
+  <name>Cooking</name>
+  <description>Cooking skill</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>cook.rb</script>
+    <script>food.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

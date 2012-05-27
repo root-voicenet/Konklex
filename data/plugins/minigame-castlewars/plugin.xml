@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>minigame-castlewars</id>
+  <version>1</version>
+  <name>Castle Wars</name>
+  <description>Castle Wars minigame</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>constants.rb</script>
+    <script>listener.rb</script>
+    <script>game.rb</script>
+    <script>objects.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

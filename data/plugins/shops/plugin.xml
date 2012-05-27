@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>shops</id>
+  <version>1</version>
+  <name>World shops</name>
+  <description>Add world shops.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>shops.rb</script>
+    <script>general.rb</script>
+    <script>magic.rb</script>
+    <script>range.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

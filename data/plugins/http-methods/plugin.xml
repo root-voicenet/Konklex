@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>http-methods</id>
+  <version>1</version>
+  <name>API calls</name>
+  <description>Contains methods that can be executed by a api call.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>kick.rb</script>
+    <script>items.rb</script>
+    <script>position.rb</script>
+    <script>privilege.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-crafting</id>
+  <version>1</version>
+  <name>Crafting</name>
+  <description>Crafting</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>battlestave.rb</script>
+    <script>amuletstringing.rb</script>
+    <script>gem-craft.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

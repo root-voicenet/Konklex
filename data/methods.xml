@@ -1,0 +1,28 @@
+<methods>
+  <method>
+    <type>org.apollo.backend.method.impl.StatusMethod</type>
+    <chain>
+      <handler>org.apollo.backend.method.handler.impl.StatusMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.KickMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.GiveItemMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.TakeItemMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.SetPositionMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.SetPrivilegeLevelMethod</type>
+    <chain />
+  </method>
+</methods>

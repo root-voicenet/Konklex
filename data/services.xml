@@ -1,0 +1,7 @@
+<services>
+  <service>org.apollo.game.GameService</service>
+  <service>org.apollo.login.LoginService</service>
+  <service>org.apollo.update.UpdateService</service>
+  <service>org.apollo.game.minigame.MinigameService</service>
+  <service>org.apollo.backend.FrontendService</service>
+</services>

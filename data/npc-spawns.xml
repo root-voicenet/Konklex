@@ -1,0 +1,8 @@
+<spawn>
+  <npc id="1">
+    <position>
+      <x>3095</x>
+      <y>3495</y>
+    </position>
+  </npc>
+</spawn>

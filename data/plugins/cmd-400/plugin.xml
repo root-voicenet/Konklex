@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>cmd-400</id>
+  <version>1</version>
+  <name>Send a config to the client.</name>
+  <description>Sends a config event to the player.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>400.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>
