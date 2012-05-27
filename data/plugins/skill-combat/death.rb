@@ -44,7 +44,7 @@ class Death < ScheduledTask
           GroundItem.get_instance.create character, 526, 1, position
         end
       end
-      release
+      character.stop_animation
       stop
     end
   end
