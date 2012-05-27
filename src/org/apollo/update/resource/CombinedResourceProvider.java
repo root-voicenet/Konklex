@@ -9,39 +9,37 @@ import java.nio.ByteBuffer;
  */
 public final class CombinedResourceProvider extends ResourceProvider {
 
-	/**
-	 * An array of resource providers.
-	 */
-	private final ResourceProvider[] providers;
+    /**
+     * An array of resource providers.
+     */
+    private final ResourceProvider[] providers;
 
-	/**
-	 * Creates the combined resource providers.
-	 * @param providers The providers this provider delegates to.
-	 */
-	public CombinedResourceProvider(ResourceProvider... providers) {
-		this.providers = providers;
-	}
+    /**
+     * Creates the combined resource providers.
+     * @param providers The providers this provider delegates to.
+     */
+    public CombinedResourceProvider(ResourceProvider... providers) {
+	this.providers = providers;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.update.resource.ResourceProvider#accept(java.lang.String)
-	 */
-	@Override
-	public boolean accept(String path) throws IOException {
-		return true;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.update.resource.ResourceProvider#accept(java.lang.String)
+     */
+    @Override
+    public boolean accept(String path) throws IOException {
+	return true;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
-	 */
-	@Override
-	public ByteBuffer get(String path) throws IOException {
-		for (ResourceProvider provider : providers) {
-			if (provider.accept(path)) {
-				return provider.get(path);
-			}
-		}
-		return null;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
+     */
+    @Override
+    public ByteBuffer get(String path) throws IOException {
+	for (final ResourceProvider provider : providers)
+	    if (provider.accept(path))
+		return provider.get(path);
+	return null;
+    }
 }

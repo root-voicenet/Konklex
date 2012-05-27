@@ -9,43 +9,42 @@ import org.apollo.game.model.inter.EnterAmountListener;
  */
 public final class BankDepositEnterAmountListener implements EnterAmountListener {
 
-	/**
-	 * The player.
-	 */
-	private final Player player;
+    /**
+     * The player.
+     */
+    private final Player player;
 
-	/**
-	 * The item slot.
-	 */
-	private final int slot;
+    /**
+     * The item slot.
+     */
+    private final int slot;
 
-	/**
-	 * The item id.
-	 */
-	private final int id;
+    /**
+     * The item id.
+     */
+    private final int id;
 
-	/**
-	 * Creates the bank deposit amount listener.
-	 * @param player The player.
-	 * @param slot The slot.
-	 * @param id The id.
-	 */
-	public BankDepositEnterAmountListener(Player player, int slot, int id) {
-		this.player = player;
-		this.slot = slot;
-		this.id = id;
-	}
+    /**
+     * Creates the bank deposit amount listener.
+     * @param player The player.
+     * @param slot The slot.
+     * @param id The id.
+     */
+    public BankDepositEnterAmountListener(Player player, int slot, int id) {
+	this.player = player;
+	this.slot = slot;
+	this.id = id;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.model.inter.EnterAmountListener#amountEntered(int)
-	 */
-	@Override
-	public void amountEntered(int amount) {
-		if (player.getInterfaceSet().contains(BankConstants.BANK_WINDOW_ID)) {
-			BankUtils.deposit(player, slot, id, amount);
-		} else if (player.getInterfaceSet().contains(DepositBoxConstants.DEPBOX_WINDOW_ID)) {
-			DepositBoxUtils.put(player, slot, id, amount);
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.game.model.inter.EnterAmountListener#amountEntered(int)
+     */
+    @Override
+    public void amountEntered(int amount) {
+	if (player.getInterfaceSet().contains(BankConstants.BANK_WINDOW_ID))
+	    BankUtils.deposit(player, slot, id, amount);
+	else if (player.getInterfaceSet().contains(DepositBoxConstants.DEPBOX_WINDOW_ID))
+	    DepositBoxUtils.put(player, slot, id, amount);
+    }
 }

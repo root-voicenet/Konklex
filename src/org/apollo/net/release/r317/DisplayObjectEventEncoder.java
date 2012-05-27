@@ -12,18 +12,19 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link SecondObjectEvent}.
  * @author Steve
  */
-public class DisplayObjectEventEncoder extends EventEncoder<DisplayObjectEvent> {
+public final class DisplayObjectEventEncoder extends EventEncoder<DisplayObjectEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(DisplayObjectEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(151);
-		builder.put(DataType.BYTE, DataTransformation.ADD, 0);
-		builder.put(DataType.SHORT, DataOrder.LITTLE, event.getObject());
-		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, (event.getTile() << 2) + (event.getOrient() & 3));
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(DisplayObjectEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(151);
+	builder.put(DataType.BYTE, DataTransformation.ADD, 0);
+	builder.put(DataType.SHORT, DataOrder.LITTLE, event.getObject());
+	builder.put(DataType.BYTE, DataTransformation.SUBTRACT, (event.getTile() << 2) + (event.getOrient() & 3));
+	return builder.toGamePacket();
+    }
 }

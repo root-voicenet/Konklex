@@ -8,41 +8,42 @@ import org.jboss.netty.handler.timeout.IdleStateHandler;
 import org.jboss.netty.util.Timer;
 
 /**
- * A {@link ChannelPipelineFactory} which creates {@link ChannelPipeline}s for the service pipeline.
+ * A {@link ChannelPipelineFactory} which creates {@link ChannelPipeline}s for
+ * the service pipeline.
  * @author Graham
  */
 public final class ServicePipelineFactory implements ChannelPipelineFactory {
 
-	/**
-	 * The network event handler.
-	 */
-	private final ApolloHandler handler;
+    /**
+     * The network event handler.
+     */
+    private final ApolloHandler handler;
 
-	/**
-	 * The timer used for idle checking.
-	 */
-	private final Timer timer;
+    /**
+     * The timer used for idle checking.
+     */
+    private final Timer timer;
 
-	/**
-	 * Creates the service pipeline factory.
-	 * @param handler The networking event handler.
-	 * @param timer The timer used for idle checking.
-	 */
-	public ServicePipelineFactory(ApolloHandler handler, Timer timer) {
-		this.handler = handler;
-		this.timer = timer;
-	}
+    /**
+     * Creates the service pipeline factory.
+     * @param handler The networking event handler.
+     * @param timer The timer used for idle checking.
+     */
+    public ServicePipelineFactory(ApolloHandler handler, Timer timer) {
+	this.handler = handler;
+	this.timer = timer;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
-	 */
-	@Override
-	public ChannelPipeline getPipeline() throws Exception {
-		ChannelPipeline pipeline = Channels.pipeline();
-		pipeline.addLast("handshakeDecoder", new HandshakeDecoder());
-		pipeline.addLast("timeout", new IdleStateHandler(timer, NetworkConstants.IDLE_TIME, 0, 0));
-		pipeline.addLast("handler", handler);
-		return pipeline;
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
+     */
+    @Override
+    public ChannelPipeline getPipeline() throws Exception {
+	final ChannelPipeline pipeline = Channels.pipeline();
+	pipeline.addLast("handshakeDecoder", new HandshakeDecoder());
+	pipeline.addLast("timeout", new IdleStateHandler(timer, NetworkConstants.IDLE_TIME, 0, 0));
+	pipeline.addLast("handler", handler);
+	return pipeline;
+    }
 }

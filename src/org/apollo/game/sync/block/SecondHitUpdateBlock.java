@@ -8,11 +8,11 @@ import org.apollo.game.event.impl.DamageEvent;
  */
 public final class SecondHitUpdateBlock extends HitUpdateBlock {
 
-	/**
-	 * Create a new block.
-	 * @param damage the damage
-	 */
-	SecondHitUpdateBlock(DamageEvent damage) {
-		super(damage);
-	}
+    /**
+     * Create a new block.
+     * @param damage the damage
+     */
+    SecondHitUpdateBlock(DamageEvent damage) {
+	super(damage);
+    }
 }

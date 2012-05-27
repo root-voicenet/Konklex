@@ -12,10 +12,10 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class MinimapStateEventEncoder extends EventEncoder<MinimapStateEvent> {
 
-	@Override
-	public GamePacket encode(MinimapStateEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(99);
-		builder.put(DataType.BYTE, event.getState());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(MinimapStateEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(99);
+	builder.put(DataType.BYTE, event.getState());
+	return builder.toGamePacket();
+    }
 }

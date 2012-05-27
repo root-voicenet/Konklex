@@ -12,14 +12,16 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class ThirdPlayerOptionEventDecoder extends EventDecoder<ThirdPlayerOptionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public ThirdPlayerOptionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		final int otherId = (int) reader.getUnsigned(DataType.SHORT);
-		return new ThirdPlayerOptionEvent(otherId);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public ThirdPlayerOptionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int otherId = (int) reader.getUnsigned(DataType.SHORT);
+	return new ThirdPlayerOptionEvent(otherId);
+    }
 }

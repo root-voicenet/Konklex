@@ -13,15 +13,16 @@ import org.apollo.net.release.EventEncoder;
  */
 public class DestroyObjectEventEncoder extends EventEncoder<DestroyObjectEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(DestroyObjectEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(45);
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, 0); // Useless
-		builder.put(DataType.BYTE, (event.getObject() << 2) + (event.getOrient() & 0x3));
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(DestroyObjectEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(45);
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, 0); // Useless
+	builder.put(DataType.BYTE, (event.getObject() << 2) + (event.getOrient() & 0x3));
+	return builder.toGamePacket();
+    }
 }

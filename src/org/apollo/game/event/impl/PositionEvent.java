@@ -9,39 +9,39 @@ import org.apollo.game.model.Position;
  */
 public final class PositionEvent extends Event {
 
-	/**
-	 * The base.
-	 */
-	private final Position base;
+    /**
+     * The base.
+     */
+    private final Position base;
 
-	/**
-	 * The position.
-	 */
-	private final Position position;
+    /**
+     * The position.
+     */
+    private final Position position;
 
-	/**
-	 * Creates the event with the specified base and position.
-	 * @param base The position base.
-	 * @param position The position of the event.
-	 */
-	public PositionEvent(Position base, Position position) {
-		this.base = base;
-		this.position = position;
-	}
+    /**
+     * Creates the event with the specified base and position.
+     * @param base The position base.
+     * @param position The position of the event.
+     */
+    public PositionEvent(Position base, Position position) {
+	this.base = base;
+	this.position = position;
+    }
 
-	/**
-	 * Gets the base.
-	 * @return The base.
-	 */
-	public Position getBase() {
-		return base;
-	}
+    /**
+     * Gets the base.
+     * @return The base.
+     */
+    public Position getBase() {
+	return base;
+    }
 
-	/**
-	 * Gets the position.
-	 * @return The position.
-	 */
-	public Position getPosition() {
-		return position;
-	}
+    /**
+     * Gets the position.
+     * @return The position.
+     */
+    public Position getPosition() {
+	return position;
+    }
 }

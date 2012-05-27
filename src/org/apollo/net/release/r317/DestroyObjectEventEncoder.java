@@ -11,17 +11,18 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link FirstObjectEvent}.
  * @author Steve
  */
-public class DestroyObjectEventEncoder extends EventEncoder<DestroyObjectEvent> {
+public final class DestroyObjectEventEncoder extends EventEncoder<DestroyObjectEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(DestroyObjectEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(101);
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, (event.getTile() << 2) + (event.getOrient() & 3));
-		builder.put(DataType.BYTE, 0);
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(DestroyObjectEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(101);
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, (event.getTile() << 2) + (event.getOrient() & 3));
+	builder.put(DataType.BYTE, 0);
+	return builder.toGamePacket();
+    }
 }

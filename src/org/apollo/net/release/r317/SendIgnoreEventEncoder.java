@@ -12,13 +12,12 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class SendIgnoreEventEncoder extends EventEncoder<SendIgnoreEvent> {
 
-	@Override
-	public GamePacket encode(SendIgnoreEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(214, PacketType.VARIABLE_SHORT);
-		for (Long ignore : event.getFriends()) {
-			builder.putLong(ignore);
-		}
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(SendIgnoreEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(214, PacketType.VARIABLE_SHORT);
+	for (final Long ignore : event.getFriends())
+	    builder.putLong(ignore);
+	return builder.toGamePacket();
+    }
 
 }

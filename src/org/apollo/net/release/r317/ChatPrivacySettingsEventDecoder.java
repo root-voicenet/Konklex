@@ -10,14 +10,14 @@ import org.apollo.net.release.EventDecoder;
  * An {@link EventDecoder} that reads the chat privacy settings.
  * @author Steve
  */
-public class ChatPrivacySettingsEventDecoder extends EventDecoder<ChatPrivacySettingsEvent> {
+public final class ChatPrivacySettingsEventDecoder extends EventDecoder<ChatPrivacySettingsEvent> {
 
-	@Override
-	public ChatPrivacySettingsEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int publicChat = (int) reader.getUnsigned(DataType.BYTE);
-		int privateChat = (int) reader.getUnsigned(DataType.BYTE);
-		int trade = (int) reader.getUnsigned(DataType.BYTE);
-		return new ChatPrivacySettingsEvent(publicChat, privateChat, trade);
-	}
+    @Override
+    public ChatPrivacySettingsEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int publicChat = (int) reader.getUnsigned(DataType.BYTE);
+	final int privateChat = (int) reader.getUnsigned(DataType.BYTE);
+	final int trade = (int) reader.getUnsigned(DataType.BYTE);
+	return new ChatPrivacySettingsEvent(publicChat, privateChat, trade);
+    }
 }

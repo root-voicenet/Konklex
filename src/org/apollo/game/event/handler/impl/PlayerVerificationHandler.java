@@ -12,15 +12,12 @@ import org.apollo.game.model.World;
  */
 public final class PlayerVerificationHandler extends EventHandler<PlayerOptionEvent> {
 
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, PlayerOptionEvent event) {
-		int id = event.getPlayerId();
-		if (id < 0) {
-			ctx.breakHandlerChain();
-		} else {
-			if (World.getWorld().getPlayerRepository().forIndex(id) == null) {
-				ctx.breakHandlerChain();
-			}
-		}
-	}
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, PlayerOptionEvent event) {
+	final int id = event.getPlayerId();
+	if (id < 0)
+	    ctx.breakHandlerChain();
+	else if (World.getWorld().getPlayerRepository().forIndex(id) == null)
+	    ctx.breakHandlerChain();
+    }
 }

@@ -11,18 +11,16 @@ import org.apollo.game.model.World;
  */
 public class ServerHooks extends Thread {
 
-	/**
-	 * The logger for this class.
-	 */
-	private static final Logger logger = Logger.getLogger(ServerHooks.class.getName());
+    /**
+     * The logger for this class.
+     */
+    private static final Logger logger = Logger.getLogger(ServerHooks.class.getName());
 
-	@Override
-	public void run() {
-		logger.info("Stopping Apollo...");
-		if (World.getWorld() != null) {
-			for (Player player : World.getWorld().getPlayerRepository()) {
-				player.logout();
-			}
-		}
-	}
+    @Override
+    public void run() {
+	logger.info("Stopping Apollo...");
+	if (World.getWorld() != null)
+	    for (final Player player : World.getWorld().getPlayerRepository())
+		player.logout();
+    }
 }

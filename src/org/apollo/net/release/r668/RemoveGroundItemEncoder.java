@@ -12,15 +12,16 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class RemoveGroundItemEncoder extends EventEncoder<RemoveGroundItemEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(RemoveGroundItemEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(16);
-		builder.put(DataType.SHORT, event.getId());
-		builder.put(DataType.BYTE, 0);
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(RemoveGroundItemEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(16);
+	builder.put(DataType.SHORT, event.getId());
+	builder.put(DataType.BYTE, 0);
+	return builder.toGamePacket();
+    }
 }

@@ -17,48 +17,49 @@ import org.jboss.netty.channel.Channel;
  */
 public final class OnDemandRequestWorker extends RequestWorker<OnDemandRequest, IndexedFileSystem> {
 
-	/**
-	 * The maximum length of a chunk, in bytes.
-	 */
-	private static final int CHUNK_LENGTH = 500;
+    /**
+     * The maximum length of a chunk, in bytes.
+     */
+    private static final int CHUNK_LENGTH = 500;
 
-	/**
-	 * Creates the 'on-demand' request worker.
-	 * @param dispatcher The dispatcher.
-	 * @param fs The file system.
-	 */
-	public OnDemandRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
-		super(dispatcher, fs);
-	}
+    /**
+     * Creates the 'on-demand' request worker.
+     * @param dispatcher The dispatcher.
+     * @param fs The file system.
+     */
+    public OnDemandRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
+	super(dispatcher, fs);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.update.RequestWorker#nextRequest(org.apollo.update.UpdateDispatcher)
-	 */
-	@Override
-	protected ChannelRequest<OnDemandRequest> nextRequest(UpdateDispatcher dispatcher) throws InterruptedException {
-		return dispatcher.nextOnDemandRequest();
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.update.RequestWorker#nextRequest(org.apollo.update.
+     * UpdateDispatcher)
+     */
+    @Override
+    protected ChannelRequest<OnDemandRequest> nextRequest(UpdateDispatcher dispatcher) throws InterruptedException {
+	return dispatcher.nextOnDemandRequest();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.update.RequestWorker#service(java.lang.Object, org.jboss.netty.channel.Channel, java.lang.Object)
-	 */
-	@Override
-	protected void service(IndexedFileSystem fs, Channel channel, OnDemandRequest request) throws IOException {
-		FileDescriptor desc = request.getFileDescriptor();
-		ByteBuffer buf = fs.getFile(desc);
-		int length = buf.remaining();
-		for (int chunk = 0; buf.remaining() > 0; chunk++) {
-			int chunkSize = buf.remaining();
-			if (chunkSize > CHUNK_LENGTH) {
-				chunkSize = CHUNK_LENGTH;
-			}
-			byte[] tmp = new byte[chunkSize];
-			buf.get(tmp, 0, tmp.length);
-			ChannelBuffer chunkData = ChannelBuffers.wrappedBuffer(tmp, 0, chunkSize);
-			OnDemandResponse response = new OnDemandResponse(desc, length, chunk, chunkData);
-			channel.write(response);
-		}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.update.RequestWorker#service(java.lang.Object,
+     * org.jboss.netty.channel.Channel, java.lang.Object)
+     */
+    @Override
+    protected void service(IndexedFileSystem fs, Channel channel, OnDemandRequest request) throws IOException {
+	final FileDescriptor desc = request.getFileDescriptor();
+	final ByteBuffer buf = fs.getFile(desc);
+	final int length = buf.remaining();
+	for (int chunk = 0; buf.remaining() > 0; chunk++) {
+	    int chunkSize = buf.remaining();
+	    if (chunkSize > CHUNK_LENGTH)
+		chunkSize = CHUNK_LENGTH;
+	    final byte[] tmp = new byte[chunkSize];
+	    buf.get(tmp, 0, tmp.length);
+	    final ChannelBuffer chunkData = ChannelBuffers.wrappedBuffer(tmp, 0, chunkSize);
+	    final OnDemandResponse response = new OnDemandResponse(desc, length, chunk, chunkData);
+	    channel.write(response);
 	}
+    }
 }

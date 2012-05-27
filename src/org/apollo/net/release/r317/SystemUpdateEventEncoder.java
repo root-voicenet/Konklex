@@ -11,12 +11,12 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link SystemUpdateEvent}
  * @author Steve
  */
-public class SystemUpdateEventEncoder extends EventEncoder<SystemUpdateEvent> {
+public final class SystemUpdateEventEncoder extends EventEncoder<SystemUpdateEvent> {
 
-	@Override
-	public GamePacket encode(SystemUpdateEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(114);
-		builder.put(DataType.SHORT, DataOrder.LITTLE, event.getTime());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(SystemUpdateEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(114);
+	builder.put(DataType.SHORT, DataOrder.LITTLE, event.getTime());
+	return builder.toGamePacket();
+    }
 }

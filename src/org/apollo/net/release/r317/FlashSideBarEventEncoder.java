@@ -11,11 +11,12 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link FlashSideBarEvent}.
  * @author Solid Snake
  */
-public class FlashSideBarEventEncoder extends EventEncoder<FlashSideBarEvent> {
+public final class FlashSideBarEventEncoder extends EventEncoder<FlashSideBarEvent> {
 
-	public GamePacket encode(FlashSideBarEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(24);
-		builder.put(DataType.BYTE, DataTransformation.ADD, event.getSideBar());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(FlashSideBarEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(24);
+	builder.put(DataType.BYTE, DataTransformation.ADD, event.getSideBar());
+	return builder.toGamePacket();
+    }
 }

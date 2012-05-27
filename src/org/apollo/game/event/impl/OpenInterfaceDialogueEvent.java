@@ -8,25 +8,25 @@ import org.apollo.game.event.Event;
  */
 public final class OpenInterfaceDialogueEvent extends Event {
 
-	/**
-	 * The interface id.
-	 */
-	private final int interfaceId;
+    /**
+     * The interface id.
+     */
+    private final int interfaceId;
 
-	/**
-	 * Creates a new event with the specified interface id.
-	 * @param interfaceId The interface id.
-	 */
-	public OpenInterfaceDialogueEvent(int interfaceId) {
-		this.interfaceId = interfaceId;
-	}
+    /**
+     * Creates a new event with the specified interface id.
+     * @param interfaceId The interface id.
+     */
+    public OpenInterfaceDialogueEvent(int interfaceId) {
+	this.interfaceId = interfaceId;
+    }
 
-	/**
-	 * Gets the interface id.
-	 * @return The interface id.
-	 */
-	public int getInterfaceId() {
-		return interfaceId;
-	}
+    /**
+     * Gets the interface id.
+     * @return The interface id.
+     */
+    public int getInterfaceId() {
+	return interfaceId;
+    }
 
 }

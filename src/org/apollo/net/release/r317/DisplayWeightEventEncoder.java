@@ -10,12 +10,12 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link DisplayWeightEvent}
  * @author Steve
  */
-public class DisplayWeightEventEncoder extends EventEncoder<DisplayWeightEvent> {
+public final class DisplayWeightEventEncoder extends EventEncoder<DisplayWeightEvent> {
 
-	@Override
-	public GamePacket encode(DisplayWeightEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(240);
-		builder.put(DataType.SHORT, event.getWeight());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(DisplayWeightEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(240);
+	builder.put(DataType.SHORT, event.getWeight());
+	return builder.toGamePacket();
+    }
 }

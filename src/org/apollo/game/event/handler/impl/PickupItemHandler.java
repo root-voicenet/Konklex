@@ -13,14 +13,16 @@ import org.apollo.game.model.Position;
  */
 public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event.handler.EventHandlerContext,
-	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
-	 */
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
-		Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
-		GroundItem.getInstance().pickup(player, position, event.getItemId());
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
+     * .handler.EventHandlerContext, org.apollo.game.model.Player,
+     * org.apollo.game.event.Event)
+     */
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
+	final Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
+	GroundItem.getInstance().pickup(player, position, event.getItemId());
+    }
 }

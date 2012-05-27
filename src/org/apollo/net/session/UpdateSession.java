@@ -14,45 +14,44 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
  */
 public final class UpdateSession extends Session {
 
-	/**
-	 * The server context.
-	 */
-	private final ServerContext context;
+    /**
+     * The server context.
+     */
+    private final ServerContext context;
 
-	/**
-	 * Creates an update session for the specified channel.
-	 * @param channel The channel.
-	 * @param context The server context.
-	 */
-	public UpdateSession(Channel channel, ServerContext context) {
-		super(channel);
-		this.context = context;
-	}
+    /**
+     * Creates an update session for the specified channel.
+     * @param channel The channel.
+     * @param context The server context.
+     */
+    public UpdateSession(Channel channel, ServerContext context) {
+	super(channel);
+	this.context = context;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.session.Session#destroy()
-	 */
-	@Override
-	public void destroy() throws Exception {
-		// TODO implement
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.net.session.Session#destroy()
+     */
+    @Override
+    public void destroy() throws Exception {
+	// TODO implement
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.session.Session#messageReceived(java.lang.Object)
-	 */
-	@Override
-	public void messageReceived(Object message) throws Exception {
-		UpdateDispatcher dispatcher = context.getService(UpdateService.class).getDispatcher();
-		if (message instanceof OnDemandRequest) {
-			dispatcher.dispatch(getChannel(), (OnDemandRequest) message);
-		} else if (message instanceof JagGrabRequest) {
-			dispatcher.dispatch(getChannel(), (JagGrabRequest) message);
-		} else if (message instanceof HttpRequest) {
-			dispatcher.dispatch(getChannel(), (HttpRequest) message);
-		} else {
-			throw new Exception("unknown message type");
-		}
-	}
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.net.session.Session#messageReceived(java.lang.Object)
+     */
+    @Override
+    public void messageReceived(Object message) throws Exception {
+	final UpdateDispatcher dispatcher = context.getService(UpdateService.class).getDispatcher();
+	if (message instanceof OnDemandRequest)
+	    dispatcher.dispatch(getChannel(), (OnDemandRequest) message);
+	else if (message instanceof JagGrabRequest)
+	    dispatcher.dispatch(getChannel(), (JagGrabRequest) message);
+	else if (message instanceof HttpRequest)
+	    dispatcher.dispatch(getChannel(), (HttpRequest) message);
+	else
+	    throw new Exception("unknown message type");
+    }
 }

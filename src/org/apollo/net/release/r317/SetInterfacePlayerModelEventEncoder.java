@@ -14,10 +14,10 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class SetInterfacePlayerModelEventEncoder extends EventEncoder<SetInterfacePlayerModelEvent> {
 
-	@Override
-	public GamePacket encode(SetInterfacePlayerModelEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(185);
-		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, event.getInterfaceId());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(SetInterfacePlayerModelEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(185);
+	builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, event.getInterfaceId());
+	return builder.toGamePacket();
+    }
 }

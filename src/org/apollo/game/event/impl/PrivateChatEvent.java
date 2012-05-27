@@ -8,39 +8,39 @@ import org.apollo.game.event.Event;
  */
 public final class PrivateChatEvent extends Event {
 
-	/**
-	 * The friend.
-	 */
-	private final long friend;
+    /**
+     * The friend.
+     */
+    private final long friend;
 
-	/**
-	 * The compressed message.
-	 */
-	private final byte[] message;
+    /**
+     * The compressed message.
+     */
+    private final byte[] message;
 
-	/**
-	 * Create a new private chat event.
-	 * @param friend The friend to send this message too.
-	 * @param message The decoded message.
-	 */
-	public PrivateChatEvent(long friend, byte[] message) {
-		this.friend = friend;
-		this.message = message;
-	}
+    /**
+     * Create a new private chat event.
+     * @param friend The friend to send this message too.
+     * @param message The decoded message.
+     */
+    public PrivateChatEvent(long friend, byte[] message) {
+	this.friend = friend;
+	this.message = message;
+    }
 
-	/**
-	 * Gets the friend.
-	 * @return The friend.
-	 */
-	public long getFriend() {
-		return friend;
-	}
+    /**
+     * Gets the friend.
+     * @return The friend.
+     */
+    public long getFriend() {
+	return friend;
+    }
 
-	/**
-	 * Gets the message.
-	 * @return The message.
-	 */
-	public byte[] getMessage() {
-		return message;
-	}
+    /**
+     * Gets the message.
+     * @return The message.
+     */
+    public byte[] getMessage() {
+	return message;
+    }
 }

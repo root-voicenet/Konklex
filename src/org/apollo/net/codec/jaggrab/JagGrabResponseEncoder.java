@@ -10,17 +10,19 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
  */
 public final class JagGrabResponseEncoder extends OneToOneEncoder {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss.netty.channel.ChannelHandlerContext,
-	 * org.jboss.netty.channel.Channel, java.lang.Object)
-	 */
-	@Override
-	protected Object encode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {
-		if (msg instanceof JagGrabResponse) {
-			JagGrabResponse resp = (JagGrabResponse) msg;
-			return resp.getFileData();
-		}
-		return msg;
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
+     * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
+     * java.lang.Object)
+     */
+    @Override
+    protected Object encode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {
+	if (msg instanceof JagGrabResponse) {
+	    final JagGrabResponse resp = (JagGrabResponse) msg;
+	    return resp.getFileData();
 	}
+	return msg;
+    }
 }

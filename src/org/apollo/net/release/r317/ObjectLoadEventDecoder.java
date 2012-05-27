@@ -5,17 +5,19 @@ import org.apollo.net.codec.game.GamePacket;
 import org.apollo.net.release.EventDecoder;
 
 /**
- * A {@link EventDecoder} for the {@link ObjectLoadEvent}.
+ * An {@link EventDecoder} for the {@link ObjectLoadEvent}.
  * @author Steve
  */
-public class ObjectLoadEventDecoder extends EventDecoder<ObjectLoadEvent> {
+public final class ObjectLoadEventDecoder extends EventDecoder<ObjectLoadEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public ObjectLoadEvent decode(GamePacket packet) {
-		return new ObjectLoadEvent();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public ObjectLoadEvent decode(GamePacket packet) {
+	return new ObjectLoadEvent();
+    }
 }

@@ -9,10 +9,10 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link ResetButtonsEvent}
  * @author Steve
  */
-public class ResetButtonsEventEncoder extends EventEncoder<ResetButtonsEvent> {
+public final class ResetButtonsEventEncoder extends EventEncoder<ResetButtonsEvent> {
 
-	@Override
-	public GamePacket encode(ResetButtonsEvent event) {
-		return new GamePacketBuilder(68).toGamePacket();
-	}
+    @Override
+    public GamePacket encode(ResetButtonsEvent event) {
+	return new GamePacketBuilder(68).toGamePacket();
+    }
 }

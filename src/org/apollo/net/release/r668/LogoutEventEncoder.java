@@ -11,13 +11,14 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class LogoutEventEncoder extends EventEncoder<LogoutEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(LogoutEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(51);
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(LogoutEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(51);
+	return builder.toGamePacket();
+    }
 }

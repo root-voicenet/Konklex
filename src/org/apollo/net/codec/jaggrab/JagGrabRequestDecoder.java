@@ -10,22 +10,23 @@ import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
  */
 public final class JagGrabRequestDecoder extends OneToOneDecoder {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.jboss.netty.handler.codec.oneone.OneToOneDecoder#decode(org.jboss.netty.channel.ChannelHandlerContext,
-	 * org.jboss.netty.channel.Channel, java.lang.Object)
-	 */
-	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {
-		if (msg instanceof String) {
-			String str = ((String) msg);
-			if (str.startsWith("JAGGRAB /")) {
-				String filePath = str.substring(8).trim();
-				return new JagGrabRequest(filePath);
-			} else {
-				throw new Exception("corrupted request line");
-			}
-		}
-		return msg;
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jboss.netty.handler.codec.oneone.OneToOneDecoder#decode(org.jboss
+     * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
+     * java.lang.Object)
+     */
+    @Override
+    protected Object decode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {
+	if (msg instanceof String) {
+	    final String str = (String) msg;
+	    if (str.startsWith("JAGGRAB /")) {
+		final String filePath = str.substring(8).trim();
+		return new JagGrabRequest(filePath);
+	    } else
+		throw new Exception("corrupted request line");
 	}
+	return msg;
+    }
 }

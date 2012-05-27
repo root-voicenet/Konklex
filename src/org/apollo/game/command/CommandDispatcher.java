@@ -13,37 +13,36 @@ import org.apollo.game.model.Player;
  */
 public final class CommandDispatcher {
 
-	/**
-	 * A map of event listeners.
-	 */
-	private final Map<String, CommandListener> listeners = new HashMap<String, CommandListener>();
+    /**
+     * A map of event listeners.
+     */
+    private final Map<String, CommandListener> listeners = new HashMap<String, CommandListener>();
 
-	/**
-	 * Creates the command dispatcher.
-	 */
-	public CommandDispatcher() {
-		listeners.put("credits", new CreditsCommandListener());
-		listeners.put("shop", new ShopCommandListener());
-	}
+    /**
+     * Creates the command dispatcher.
+     */
+    public CommandDispatcher() {
+	listeners.put("credits", new CreditsCommandListener());
+	listeners.put("shop", new ShopCommandListener());
+    }
 
-	/**
-	 * Dispatches a command to the appropriate listener.
-	 * @param player The player.
-	 * @param command The command.
-	 */
-	public void dispatch(Player player, Command command) {
-		CommandListener listener = listeners.get(command.getName().toLowerCase());
-		if (listener != null) {
-			listener.execute(player, command);
-		}
-	}
+    /**
+     * Dispatches a command to the appropriate listener.
+     * @param player The player.
+     * @param command The command.
+     */
+    public void dispatch(Player player, Command command) {
+	final CommandListener listener = listeners.get(command.getName().toLowerCase());
+	if (listener != null)
+	    listener.execute(player, command);
+    }
 
-	/**
-	 * Registers a listener with the.
-	 * @param command The command's name.
-	 * @param listener The listener.
-	 */
-	public void register(String command, CommandListener listener) {
-		listeners.put(command.toLowerCase(), listener);
-	}
+    /**
+     * Registers a listener with the.
+     * @param command The command's name.
+     * @param listener The listener.
+     */
+    public void register(String command, CommandListener listener) {
+	listeners.put(command.toLowerCase(), listener);
+    }
 }

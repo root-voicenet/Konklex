@@ -14,14 +14,15 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class OpenInterfaceEventEncoder extends EventEncoder<OpenInterfaceEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(OpenInterfaceEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(159);
-		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, event.getId());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(OpenInterfaceEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(159);
+	builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, event.getId());
+	return builder.toGamePacket();
+    }
 }

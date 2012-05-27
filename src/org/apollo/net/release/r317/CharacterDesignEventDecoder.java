@@ -14,23 +14,23 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class CharacterDesignEventDecoder extends EventDecoder<CharacterDesignEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public CharacterDesignEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int genderIntValue = (int) reader.getUnsigned(DataType.BYTE);
-		int[] style = new int[7];
-		for (int i = 0; i < style.length; i++) {
-			style[i] = (int) reader.getUnsigned(DataType.BYTE);
-		}
-		int[] color = new int[5];
-		for (int i = 0; i < color.length; i++) {
-			color[i] = (int) reader.getUnsigned(DataType.BYTE);
-		}
-		Gender gender = genderIntValue == Gender.MALE.toInteger() ? Gender.MALE : Gender.FEMALE;
-		return new CharacterDesignEvent(new Appearance(gender, style, color));
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public CharacterDesignEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int genderIntValue = (int) reader.getUnsigned(DataType.BYTE);
+	final int[] style = new int[7];
+	for (int i = 0; i < style.length; i++)
+	    style[i] = (int) reader.getUnsigned(DataType.BYTE);
+	final int[] color = new int[5];
+	for (int i = 0; i < color.length; i++)
+	    color[i] = (int) reader.getUnsigned(DataType.BYTE);
+	final Gender gender = genderIntValue == Gender.MALE.toInteger() ? Gender.MALE : Gender.FEMALE;
+	return new CharacterDesignEvent(new Appearance(gender, style, color));
+    }
 }

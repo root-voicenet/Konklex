@@ -11,15 +11,17 @@ import org.apollo.game.model.Player;
  */
 public final class ChatPrivacySettingsEventHandler extends EventHandler<ChatPrivacySettingsEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event.handler.EventHandlerContext,
-	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
-	 */
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, ChatPrivacySettingsEvent event) {
-		player.setTrade(event.getTrade());
-		player.setPrivateChat(event.getPrivateChat());
-		player.setPublicChat(event.getPublicChat());
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
+     * .handler.EventHandlerContext, org.apollo.game.model.Player,
+     * org.apollo.game.event.Event)
+     */
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, ChatPrivacySettingsEvent event) {
+	player.setTrade(event.getTrade());
+	player.setPrivateChat(event.getPrivateChat());
+	player.setPublicChat(event.getPublicChat());
+    }
 }

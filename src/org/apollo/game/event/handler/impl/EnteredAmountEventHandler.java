@@ -11,13 +11,15 @@ import org.apollo.game.model.Player;
  */
 public final class EnteredAmountEventHandler extends EventHandler<EnteredAmountEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event.handler.EventHandlerContext,
-	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
-	 */
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, EnteredAmountEvent event) {
-		player.getInterfaceSet().enteredAmount(event.getAmount());
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
+     * .handler.EventHandlerContext, org.apollo.game.model.Player,
+     * org.apollo.game.event.Event)
+     */
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, EnteredAmountEvent event) {
+	player.getInterfaceSet().enteredAmount(event.getAmount());
+    }
 }

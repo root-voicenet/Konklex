@@ -11,44 +11,44 @@ import org.hyperic.sigar.Sigar;
  */
 public final class SystemUtil {
 
-	/**
-	 * The sigar api.
-	 */
-	private static Sigar sigar = new Sigar();
+    /**
+     * The sigar api.
+     */
+    private static Sigar sigar = new Sigar();
 
-	/**
-	 * Get the system load average.
-	 * @return The system load average.
-	 */
-	public static int getCpuUsage() {
-		int cpu = 0;
-		try {
-			ProcCpu procCPU = sigar.getProcCpu(sigar.getPid());
-			cpu = (int) Double.parseDouble(CpuPerc.format(procCPU.getPercent()).replace("%", ""));
-		} catch (Exception e) {
-		}
-		return cpu;
+    /**
+     * Get the system load average.
+     * @return The system load average.
+     */
+    public static int getCpuUsage() {
+	int cpu = 0;
+	try {
+	    final ProcCpu procCPU = sigar.getProcCpu(sigar.getPid());
+	    cpu = (int) Double.parseDouble(CpuPerc.format(procCPU.getPercent()).replace("%", ""));
+	} catch (final Exception e) {
 	}
+	return cpu;
+    }
 
-	/**
-	 * Gets the process id.
-	 * @return pid The process id.
-	 */
-	public static long getProcessId() {
-		return sigar.getPid();
-	}
+    /**
+     * Gets the process id.
+     * @return pid The process id.
+     */
+    public static long getProcessId() {
+	return sigar.getPid();
+    }
 
-	/**
-	 * Get the system ram usage in MB.
-	 * @return The ram usage in MB.
-	 */
-	public static int getRamUsage() {
-		int ram = 0;
-		try {
-			ProcMem procMem = sigar.getProcMem(sigar.getPid());
-			ram = (int) (procMem.getResident() / 1024) / 1024;
-		} catch (Exception e) {
-		}
-		return ram;
+    /**
+     * Get the system ram usage in MB.
+     * @return The ram usage in MB.
+     */
+    public static int getRamUsage() {
+	int ram = 0;
+	try {
+	    final ProcMem procMem = sigar.getProcMem(sigar.getPid());
+	    ram = (int) (procMem.getResident() / 1024) / 1024;
+	} catch (final Exception e) {
 	}
+	return ram;
+    }
 }

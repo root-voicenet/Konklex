@@ -15,16 +15,18 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class FirstObjectActionEventDecoder extends EventDecoder<FirstObjectActionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public FirstObjectActionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int x = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		int id = (int) reader.getUnsigned(DataType.SHORT);
-		int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		return new FirstObjectActionEvent(id, new Position(x, y));
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public FirstObjectActionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int x = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final int id = (int) reader.getUnsigned(DataType.SHORT);
+	final int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	return new FirstObjectActionEvent(id, new Position(x, y));
+    }
 }

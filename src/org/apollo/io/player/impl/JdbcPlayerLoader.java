@@ -13,16 +13,17 @@ import org.apollo.util.MysqlUtil;
  */
 public final class JdbcPlayerLoader implements PlayerLoader {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.io.player.PlayerLoader#loadPlayer(org.apollo.security.PlayerCredentials)
-	 */
-	@Override
-	public PlayerLoaderResponse loadPlayer(PlayerCredentials credentials) throws Exception {
-		CachedRowSet rs = MysqlUtil.query("");
-		while (rs.next()) {
-			// Do stuff
-		}
-		return null;
+    /*
+     * (non-Javadoc)
+     * @see org.apollo.io.player.PlayerLoader#loadPlayer(org.apollo.security.
+     * PlayerCredentials)
+     */
+    @Override
+    public PlayerLoaderResponse loadPlayer(PlayerCredentials credentials) throws Exception {
+	final CachedRowSet rs = MysqlUtil.query("");
+	while (rs.next()) {
+	    // Do stuff
 	}
+	return null;
+    }
 }

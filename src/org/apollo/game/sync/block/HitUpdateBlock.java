@@ -8,24 +8,24 @@ import org.apollo.game.event.impl.DamageEvent;
  */
 public class HitUpdateBlock extends SynchronizationBlock {
 
-	/**
-	 * The damage.
-	 */
-	private final DamageEvent damage;
+    /**
+     * The damage.
+     */
+    private final DamageEvent damage;
 
-	/**
-	 * Create a new block.
-	 * @param damage the damage
-	 */
-	HitUpdateBlock(DamageEvent damage) {
-		this.damage = damage;
-	}
+    /**
+     * Create a new block.
+     * @param damage the damage
+     */
+    HitUpdateBlock(DamageEvent damage) {
+	this.damage = damage;
+    }
 
-	/**
-	 * The damage.
-	 * @return {@link DamageEvent}
-	 */
-	public DamageEvent getDamage() {
-		return damage;
-	}
+    /**
+     * The damage.
+     * @return {@link DamageEvent}
+     */
+    public DamageEvent getDamage() {
+	return damage;
+    }
 }

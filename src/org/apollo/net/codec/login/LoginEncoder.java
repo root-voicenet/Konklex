@@ -12,23 +12,24 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
  */
 public final class LoginEncoder extends OneToOneEncoder {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss.netty.channel.ChannelHandlerContext,
-	 * org.jboss.netty.channel.Channel, java.lang.Object)
-	 */
-	@Override
-	protected Object encode(ChannelHandlerContext ctx, Channel channel, Object message) throws Exception {
-		if (!(message instanceof LoginResponse)) {
-			return message;
-		}
-		LoginResponse response = (LoginResponse) message;
-		ChannelBuffer buffer = ChannelBuffers.buffer(3);
-		buffer.writeByte(response.getStatus());
-		if (response.getStatus() == LoginConstants.STATUS_OK) {
-			buffer.writeByte(response.getRights());
-			buffer.writeByte(response.isFlagged() ? 1 : 0);
-		}
-		return buffer;
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
+     * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
+     * java.lang.Object)
+     */
+    @Override
+    protected Object encode(ChannelHandlerContext ctx, Channel channel, Object message) throws Exception {
+	if (!(message instanceof LoginResponse))
+	    return message;
+	final LoginResponse response = (LoginResponse) message;
+	final ChannelBuffer buffer = ChannelBuffers.buffer(3);
+	buffer.writeByte(response.getStatus());
+	if (response.getStatus() == LoginConstants.STATUS_OK) {
+	    buffer.writeByte(response.getRights());
+	    buffer.writeByte(response.isFlagged() ? 1 : 0);
 	}
+	return buffer;
+    }
 }

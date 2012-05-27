@@ -13,14 +13,16 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class SecondPlayerOptionEventDecoder extends EventDecoder<SecondPlayerOptionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public SecondPlayerOptionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		final int otherId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new SecondPlayerOptionEvent(otherId);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public SecondPlayerOptionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int otherId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new SecondPlayerOptionEvent(otherId);
+    }
 }

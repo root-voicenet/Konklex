@@ -13,14 +13,16 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class FirstNpcOptionEventDecoder extends EventDecoder<FirstNpcOptionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public FirstNpcOptionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		final int slot = (int) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
-		return new FirstNpcOptionEvent(slot);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public FirstNpcOptionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int slot = (int) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
+	return new FirstNpcOptionEvent(slot);
+    }
 }

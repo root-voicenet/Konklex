@@ -11,13 +11,13 @@ import org.apollo.backend.method.impl.SetPrivilegeLevelMethod;
  */
 public final class SetPrivilegeLevelMethodDecoder extends MethodDecoder<SetPrivilegeLevelMethod> {
 
-	@Override
-	public SetPrivilegeLevelMethod decode(FrontendPacket packet) {
-		FrontendPacketReader reader = new FrontendPacketReader(packet);
-		String player = reader.getString("player");
-		int rights = reader.getInt("rights");
-		String key = reader.getString("key");
-		return new SetPrivilegeLevelMethod(player, rights, key);
-	}
+    @Override
+    public SetPrivilegeLevelMethod decode(FrontendPacket packet) {
+	final FrontendPacketReader reader = new FrontendPacketReader(packet);
+	final String player = reader.getString("player");
+	final int rights = reader.getInt("rights");
+	final String key = reader.getString("key");
+	return new SetPrivilegeLevelMethod(player, rights, key);
+    }
 
 }

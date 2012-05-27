@@ -14,11 +14,11 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class MagicOnPlayerEventDecoder extends EventDecoder<MagicOnPlayerEvent> {
 
-	@Override
-	public MagicOnPlayerEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int playerIndex = (short) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
-		int spellId = (short) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new MagicOnPlayerEvent(playerIndex, spellId);
-	}
+    @Override
+    public MagicOnPlayerEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int playerIndex = (short) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
+	final int spellId = (short) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new MagicOnPlayerEvent(playerIndex, spellId);
+    }
 }

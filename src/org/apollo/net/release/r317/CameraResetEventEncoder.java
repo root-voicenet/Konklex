@@ -11,9 +11,9 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class CameraResetEventEncoder extends EventEncoder<CameraResetEvent> {
 
-	@Override
-	public GamePacket encode(CameraResetEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(107);
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(CameraResetEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(107);
+	return builder.toGamePacket();
+    }
 }

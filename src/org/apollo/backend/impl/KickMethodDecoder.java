@@ -11,12 +11,12 @@ import org.apollo.backend.method.impl.KickMethod;
  */
 public final class KickMethodDecoder extends MethodDecoder<KickMethod> {
 
-	@Override
-	public KickMethod decode(FrontendPacket packet) {
-		FrontendPacketReader reader = new FrontendPacketReader(packet);
-		String player = reader.getString("player");
-		String key = reader.getString("key");
-		return new KickMethod(player, key);
-	}
+    @Override
+    public KickMethod decode(FrontendPacket packet) {
+	final FrontendPacketReader reader = new FrontendPacketReader(packet);
+	final String player = reader.getString("player");
+	final String key = reader.getString("key");
+	return new KickMethod(player, key);
+    }
 
 }

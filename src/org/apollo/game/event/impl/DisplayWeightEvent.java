@@ -8,24 +8,24 @@ import org.apollo.game.event.Event;
  */
 public final class DisplayWeightEvent extends Event {
 
-	/**
-	 * The weight of the player.
-	 */
-	private final int weight;
+    /**
+     * The weight of the player.
+     */
+    private final int weight;
 
-	/**
-	 * Creates the display weight event.
-	 * @param weight The player's current weight.
-	 */
-	public DisplayWeightEvent(int weight) {
-		this.weight = weight;
-	}
+    /**
+     * Creates the display weight event.
+     * @param weight The player's current weight.
+     */
+    public DisplayWeightEvent(int weight) {
+	this.weight = weight;
+    }
 
-	/**
-	 * Gets the weight of the player.
-	 * @return The weight of the player.
-	 */
-	public int getWeight() {
-		return weight;
-	}
+    /**
+     * Gets the weight of the player.
+     * @return The weight of the player.
+     */
+    public int getWeight() {
+	return weight;
+    }
 }

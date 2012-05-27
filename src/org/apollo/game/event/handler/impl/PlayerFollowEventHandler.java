@@ -13,13 +13,13 @@ import org.apollo.game.model.World;
  */
 public final class PlayerFollowEventHandler extends EventHandler<PlayerFollowEvent> {
 
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, PlayerFollowEvent event) {
-		if (player.isDead() || !player.isActive()) {
-			ctx.breakHandlerChain();
-		} else {
-			Player other = World.getWorld().getPlayerRepository().forIndex(event.getPlayerId());
-			player.startAction(new PlayerFollowAction(player, other));
-		}
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, PlayerFollowEvent event) {
+	if (player.isDead() || !player.isActive())
+	    ctx.breakHandlerChain();
+	else {
+	    final Player other = World.getWorld().getPlayerRepository().forIndex(event.getPlayerId());
+	    player.startAction(new PlayerFollowAction(player, other));
 	}
+    }
 }

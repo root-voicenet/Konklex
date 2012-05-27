@@ -14,13 +14,13 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class ItemOnPlayerEventDecoder extends EventDecoder<ItemOnPlayerEvent> {
 
-	@Override
-	public ItemOnPlayerEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int interfaceId = (short) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
-		int playerIndex = (short) reader.getSigned(DataType.SHORT);
-		int itemId = (int) reader.getSigned(DataType.SHORT);
-		int itemSlot = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new ItemOnPlayerEvent(interfaceId, playerIndex, itemId, itemSlot);
-	}
+    @Override
+    public ItemOnPlayerEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int interfaceId = (short) reader.getSigned(DataType.SHORT, DataTransformation.ADD);
+	final int playerIndex = (short) reader.getSigned(DataType.SHORT);
+	final int itemId = (int) reader.getSigned(DataType.SHORT);
+	final int itemSlot = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new ItemOnPlayerEvent(interfaceId, playerIndex, itemId, itemSlot);
+    }
 }

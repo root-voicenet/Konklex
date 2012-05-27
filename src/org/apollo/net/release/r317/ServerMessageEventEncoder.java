@@ -12,14 +12,15 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class ServerMessageEventEncoder extends EventEncoder<ServerMessageEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(ServerMessageEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(253, PacketType.VARIABLE_BYTE);
-		builder.putString(event.getMessage());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(ServerMessageEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(253, PacketType.VARIABLE_BYTE);
+	builder.putString(event.getMessage());
+	return builder.toGamePacket();
+    }
 }

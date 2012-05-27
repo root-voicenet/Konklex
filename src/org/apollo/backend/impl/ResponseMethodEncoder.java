@@ -11,11 +11,11 @@ import org.apollo.backend.method.impl.ResponseMethod;
  */
 public final class ResponseMethodEncoder extends MethodEncoder<ResponseMethod> {
 
-	@Override
-	public FrontendPacket encode(ResponseMethod method) {
-		FrontendPacketBuilder builder = new FrontendPacketBuilder(method.getRequestedMethod());
-		builder.addParameter("response", method.getResponseMessage());
-		builder.setError(method.isError());
-		return builder.toFrontendPacket();
-	}
+    @Override
+    public FrontendPacket encode(ResponseMethod method) {
+	final FrontendPacketBuilder builder = new FrontendPacketBuilder(method.getRequestedMethod());
+	builder.addParameter("response", method.getResponseMessage());
+	builder.setError(method.isError());
+	return builder.toFrontendPacket();
+    }
 }

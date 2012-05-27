@@ -11,14 +11,16 @@ import org.apollo.game.model.Player;
  */
 public final class ObjectLoadEventHandler extends EventHandler<ObjectLoadEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event.handler.EventHandlerContext,
-	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
-	 */
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, ObjectLoadEvent event) {
-		player.getObjectSet().process();
-		ctx.breakHandlerChain();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
+     * .handler.EventHandlerContext, org.apollo.game.model.Player,
+     * org.apollo.game.event.Event)
+     */
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, ObjectLoadEvent event) {
+	player.getObjectSet().process();
+	ctx.breakHandlerChain();
+    }
 }

@@ -18,123 +18,110 @@ import org.apollo.game.model.inv.SynchronizationInventoryListener;
  */
 public final class DepositBoxUtils {
 
-	/**
-	 * Deposits an item from the deposit box to the bank.
-	 * @param player The player.
-	 * @param slot The slot.
-	 * @param id The id.
-	 * @param amount The amount.
-	 * @return {@code false} if the chain should be broken.
-	 */
-	public static boolean deposit(Player player, int slot, int id, int amount) {
-		if (amount == 0) {
-			return true;
-		}
-		Inventory box = player.getDepositBox();
-		int removed;
-		if (amount > 1) {
-			box.stopFiringEvents();
-		}
-		try {
-			removed = box.remove(id, amount);
-		} finally {
-			if (amount > 1) {
-				box.startFiringEvents();
-			}
-		}
-		if (amount > 1) {
-			box.forceRefresh();
-		}
-		player.getBank().add(id, removed);
-		return true;
+    /**
+     * Deposits an item from the deposit box to the bank.
+     * @param player The player.
+     * @param slot The slot.
+     * @param id The id.
+     * @param amount The amount.
+     * @return {@code false} if the chain should be broken.
+     */
+    public static boolean deposit(Player player, int slot, int id, int amount) {
+	if (amount == 0)
+	    return true;
+	final Inventory box = player.getDepositBox();
+	int removed;
+	if (amount > 1)
+	    box.stopFiringEvents();
+	try {
+	    removed = box.remove(id, amount);
+	} finally {
+	    if (amount > 1)
+		box.startFiringEvents();
 	}
+	if (amount > 1)
+	    box.forceRefresh();
+	player.getBank().add(id, removed);
+	return true;
+    }
 
-	/**
-	 * Opens a player's deposit box.
-	 * @param player The player.
-	 */
-	public static void openBox(Player player) {
-		InventoryListener invListener = new SynchronizationInventoryListener(player, SIDEBAR_INVENTORY_ID);
-		InventoryListener boxListener = new SynchronizationInventoryListener(player, DEPBOX_INVENTORY_ID);
-		player.getInventory().addListener(invListener);
-		player.getDepositBox().addListener(boxListener);
-		player.getInventory().forceRefresh();
-		player.getDepositBox().forceRefresh();
-		player.getDepositBox().startFiringEvents();
-		DepositBoxInterfaceListener interListener = new DepositBoxInterfaceListener(invListener, boxListener);
-		player.getInterfaceSet().openWindowWithSidebar(interListener, DEPBOX_WINDOW_ID, SIDEBAR_ID);
-	}
+    /**
+     * Opens a player's deposit box.
+     * @param player The player.
+     */
+    public static void openBox(Player player) {
+	final InventoryListener invListener = new SynchronizationInventoryListener(player, SIDEBAR_INVENTORY_ID);
+	final InventoryListener boxListener = new SynchronizationInventoryListener(player, DEPBOX_INVENTORY_ID);
+	player.getInventory().addListener(invListener);
+	player.getDepositBox().addListener(boxListener);
+	player.getInventory().forceRefresh();
+	player.getDepositBox().forceRefresh();
+	player.getDepositBox().startFiringEvents();
+	final DepositBoxInterfaceListener interListener = new DepositBoxInterfaceListener(invListener, boxListener);
+	player.getInterfaceSet().openWindowWithSidebar(interListener, DEPBOX_WINDOW_ID, SIDEBAR_ID);
+    }
 
-	/**
-	 * Deposits an item into the player's deposit box.
-	 * @param player The player.
-	 * @param slot The slot.
-	 * @param id The id.
-	 * @param amount The amount.
-	 * @return {@code false} if the chain should be broken.
-	 */
-	public static boolean put(Player player, int slot, int id, int amount) {
-		if (amount == 0) {
-			return true;
-		}
-		Inventory inventory = player.getInventory();
-		Inventory box = player.getDepositBox();
-		int newId = ItemDefinition.noteToItem(id);
-		int freeSpace = player.getBank().freeSpace(newId);
-		if (amount > freeSpace) {
-			player.getBank().forceCapacityExceeded();
-			if (freeSpace <= 0) {
-				return false;
-			}
-			amount = freeSpace;
-		}
-		int removed;
-		if (amount > 1) {
-			inventory.stopFiringEvents();
-		}
-		try {
-			removed = inventory.remove(id, amount);
-		} finally {
-			if (amount > 1) {
-				inventory.startFiringEvents();
-			}
-		}
-		if (amount > 1) {
-			inventory.forceRefresh();
-		}
-		box.add(id, removed);
-		return true;
+    /**
+     * Deposits an item into the player's deposit box.
+     * @param player The player.
+     * @param slot The slot.
+     * @param id The id.
+     * @param amount The amount.
+     * @return {@code false} if the chain should be broken.
+     */
+    public static boolean put(Player player, int slot, int id, int amount) {
+	if (amount == 0)
+	    return true;
+	final Inventory inventory = player.getInventory();
+	final Inventory box = player.getDepositBox();
+	final int newId = ItemDefinition.noteToItem(id);
+	final int freeSpace = player.getBank().freeSpace(newId);
+	if (amount > freeSpace) {
+	    player.getBank().forceCapacityExceeded();
+	    if (freeSpace <= 0)
+		return false;
+	    amount = freeSpace;
 	}
+	int removed;
+	if (amount > 1)
+	    inventory.stopFiringEvents();
+	try {
+	    removed = inventory.remove(id, amount);
+	} finally {
+	    if (amount > 1)
+		inventory.startFiringEvents();
+	}
+	if (amount > 1)
+	    inventory.forceRefresh();
+	box.add(id, removed);
+	return true;
+    }
 
-	/**
-	 * Reverts the actions made while the deposit box was open.
-	 * @param player The player.
-	 */
-	static void revert(Player player) {
-		Inventory box = player.getDepositBox();
-		Inventory inventory = player.getInventory();
-		// box.stopFiringEvents();
-		int amount = box.size();
-		if (amount > 1) {
-			inventory.stopFiringEvents();
-		}
-		try {
-			for (Item item : box.getItems()) {
-				if (item != null) {
-					inventory.add(item);
-				}
-			}
-			box.clear();
-		} finally {
-			if (amount > 1) {
-				inventory.startFiringEvents();
-			}
-		}
+    /**
+     * Reverts the actions made while the deposit box was open.
+     * @param player The player.
+     */
+    static void revert(Player player) {
+	final Inventory box = player.getDepositBox();
+	final Inventory inventory = player.getInventory();
+	// box.stopFiringEvents();
+	final int amount = box.size();
+	if (amount > 1)
+	    inventory.stopFiringEvents();
+	try {
+	    for (final Item item : box.getItems())
+		if (item != null)
+		    inventory.add(item);
+	    box.clear();
+	} finally {
+	    if (amount > 1)
+		inventory.startFiringEvents();
 	}
+    }
 
-	/**
-	 * Default private constructor to prevent instantiation.
-	 */
-	private DepositBoxUtils() {
-	}
+    /**
+     * Default private constructor to prevent instantiation.
+     */
+    private DepositBoxUtils() {
+    }
 }

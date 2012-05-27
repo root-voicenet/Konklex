@@ -13,16 +13,17 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class GroundItemEncoder extends EventEncoder<GroundItemEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(GroundItemEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(48);
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, 0);
-		builder.put(DataType.SHORT, DataTransformation.ADD, event.getId());
-		builder.put(DataType.SHORT, event.getItemAmount());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(GroundItemEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(48);
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, 0);
+	builder.put(DataType.SHORT, DataTransformation.ADD, event.getId());
+	builder.put(DataType.SHORT, event.getItemAmount());
+	return builder.toGamePacket();
+    }
 }
