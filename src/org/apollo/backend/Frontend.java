@@ -7,6 +7,7 @@ import org.apollo.backend.impl.GiveItemMethodDecoder;
 import org.apollo.backend.impl.KickMethodDecoder;
 import org.apollo.backend.impl.ResponseMethodEncoder;
 import org.apollo.backend.impl.SetPositionMethodDecoder;
+import org.apollo.backend.impl.SetPrivilegeLevelMethodDecoder;
 import org.apollo.backend.impl.StatusMethodDecoder;
 import org.apollo.backend.impl.StatusMethodEncoder;
 import org.apollo.backend.impl.TakeItemMethodDecoder;
