@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apollo.backend.Frontend;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.impl.UpdateFriendsTask;
@@ -19,7 +20,6 @@ import org.apollo.net.ServicePipelineFactory;
 import org.apollo.net.release.Release;
 import org.apollo.net.release.r317.Release317;
 import org.apollo.util.MysqlUtil;
-import org.apollo.util.event.EventManager;
 import org.apollo.util.plugin.PluginContext;
 import org.apollo.util.plugin.PluginManager;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -156,27 +156,28 @@ public final class Server {
 
     /**
      * Check if the filesystem is windows.
-     * @return True if windows, false if other.
+     * @return True if windows, false if otherwise.
      */
-    public boolean isWindows() {
+    private boolean isWindows() {
 	final String os = System.getProperty("os.name").toLowerCase();
 	return os.indexOf("win") >= 0;
     }
 
     /**
-     * Tries to load the sigar library; if possible.
+     * Load's the sigar library for the {@link Frontend}.
      */
-    public void loadSigar() {
+    private void loadSigar() {
 	try {
 	    logger.info("Loading the SIGAR library...");
 	    System.setProperty("org.hyperic.sigar.path", "-");
 	    final String seperator = System.getProperty("file.separator");
 
 	    String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
-	    if (System.getProperty("os.arch").contains("x86"))
+	    if (System.getProperty("os.arch").contains("x86")) {
 		file += "sigar-32.dll";
-	    else
+	    } else {
 		file += isWindows() ? "sigar.dll" : "sigar.so";
+	    }
 	    Runtime.getRuntime().load(file);
 	} catch (final Exception e) {
 	    logger.log(Level.INFO, "Failed to load SIGAR library.", e);
@@ -188,15 +189,21 @@ public final class Server {
      * @throws Exception if an error occurs.
      */
     public void start() throws Exception {
+	loadSigar();
 	final PluginManager mgr = new PluginManager(new PluginContext(context));
 	serviceManager.startAll();
+	MysqlUtil.open();
 	final int releaseNo = context.getRelease().getReleaseNumber();
 	final IndexedFileSystem fs = new IndexedFileSystem(new File("data/fs/" + releaseNo), true);
 	World.getWorld().init(releaseNo, fs, mgr, context);
 	mgr.start();
-	loadSigar();
-	MysqlUtil.open();
-	EventManager.initialise();
+	startTasks();
+    }
+
+    /**
+     * Starts the tasks required for this server.
+     */
+    private void startTasks() {
 	UpdateFriendsTask.start();
     }
 }
