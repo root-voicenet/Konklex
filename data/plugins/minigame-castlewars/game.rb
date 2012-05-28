@@ -47,16 +47,7 @@ class Game < Minigame
         end
         if get_attribute 2
           time = tick / 60 == 0 ? 1 : tick / 60
-          get_players(SARA_TEAM_LOBBY).each do |player|
-            player.send ConfigEvent.new(380, time)
-          end
-          get_players(SARA_TEAM_GAME).each do |player|
-            player.send ConfigEvent.new(380, time)
-          end
-          get_players(ZAMM_TEAM_LOBBY).each do |player|
-            player.send ConfigEvent.new(380, time)
-          end
-          get_players(ZAMM_TEAM_GAME).each do |player|
+          get_players(SARA_TEAM_LOBBY, SARA_TEAM_GAME, ZAMM_TEAM_LOBBY, ZAMM_TEAM_GAME).each do |player|
             player.send ConfigEvent.new(380, time)
           end
           set_attribute 2, false
@@ -79,7 +70,6 @@ class Game < Minigame
           player.send ConfigEvent.new(380, time)
           player.teleport SARA_GAME, false
           player.get_interface_set.open_walkable 11146
-          player.send_message "Sent to game"
         end
       end
       get_players(ZAMM_TEAM_LOBBY).each do |player|
@@ -94,10 +84,7 @@ class Game < Minigame
     else
       if get_attribute 2
         time = tick / 60 == 0 ? 1 : tick / 60
-        get_players(SARA_TEAM_LOBBY).each do |player|
-          player.send ConfigEvent.new(380, time)
-        end
-        get_players(ZAMM_TEAM_LOBBY).each do |player|
+        get_players(SARA_TEAM_LOBBY, ZAMM_TEAM_LOBBY).each do |player|
           player.send ConfigEvent.new(380, time)
         end
         set_attribute 2, false
