@@ -3,6 +3,7 @@ package org.apollo.game.model;
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.def.NpcDefinition;
+import org.apollo.game.model.region.Region;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
@@ -85,8 +86,24 @@ public final class Npc extends Character {
     }
 
     @Override
+    public void setPosition(Position position) {
+	Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
+	if (getRegion() != null) {
+	    if (getRegion() != region) {
+		getRegion().removeNpc(this);
+		setRegion(region);
+		region.addNpc(this);
+	    }
+	} else {
+	    setRegion(region);
+	    region.addNpc(this);
+	}
+	super.setPosition(position);
+    }
+
+    @Override
     public String toString() {
-	return Npc.class.getName() + "[id=" + id + "]";
+	return Npc.class.getName() + " [id=" + id + "]";
     }
 
 }

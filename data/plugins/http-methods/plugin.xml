@@ -12,6 +12,7 @@
     <script>items.rb</script>
     <script>position.rb</script>
     <script>privilege.rb</script>
+    <script>message.rb</script>
   </scripts>
   <dependencies />
 </plugin>

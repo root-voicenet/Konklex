@@ -44,7 +44,7 @@ public final class PrePlayerSynchronizationTask extends SynchronizationTask {
     @Override
     public void run() {
 	player.getWalkingQueue().pulse();
-	if (player.isTeleporting())
+	if (player.isTeleporting()) {
 	    // TODO check if this should be done anywhere else if the conditions
 	    // should be different
 	    // e.g. if the player teleports one tile away should the viewing
@@ -53,7 +53,10 @@ public final class PrePlayerSynchronizationTask extends SynchronizationTask {
 	    // before it is reset?
 	    // or is this correct anyway?!
 	    player.resetViewingDistance();
+	}
 	if (!player.hasLastKnownRegion() || isRegionUpdateRequired()) {
+	    player.getLocalGameObjectList().clear();
+	    player.getLocalGroundItemList().clear();
 	    player.setTeleporting(true);
 	    player.setRegionChanged(true);
 	    final Position position = player.getPosition();

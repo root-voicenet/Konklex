@@ -1,14 +1,14 @@
-package org.apollo.net.release.r668;
+package org.apollo.net.release.r317;
 
 import org.apollo.game.event.impl.RegionLoadEvent;
 import org.apollo.net.codec.game.GamePacket;
 import org.apollo.net.release.EventDecoder;
 
 /**
- * A {@link EventDecoder} for the {@link RegionLoadEvent}.
+ * An {@link EventDecoder} for the {@link RegionLoadEvent}.
  * @author Steve
  */
-public class ObjectLoadEventDecoder extends EventDecoder<RegionLoadEvent> {
+public final class RegionLoadEventDecoder extends EventDecoder<RegionLoadEvent> {
 
     /*
      * (non-Javadoc)

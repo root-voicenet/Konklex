@@ -19,7 +19,7 @@ class Pickpocket < Action
 
   def start_thieve
     @started = true
-    player.face_entity npc.get_index
+    player.start_facing npc.get_index
     player.send_message "You attempt to pick the man's pocket."
     player.play_animation PICKPOCKET_ANIMATION
   end

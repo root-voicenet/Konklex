@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apollo.backend.impl.GiveItemMethodDecoder;
 import org.apollo.backend.impl.KickMethodDecoder;
 import org.apollo.backend.impl.ResponseMethodEncoder;
+import org.apollo.backend.impl.SendMessageMethodDecoder;
 import org.apollo.backend.impl.SetPositionMethodDecoder;
 import org.apollo.backend.impl.SetPrivilegeLevelMethodDecoder;
 import org.apollo.backend.impl.StatusMethodDecoder;
@@ -57,6 +58,7 @@ public final class Frontend {
 	register("takeItem", new TakeItemMethodDecoder());
 	register("setPosition", new SetPositionMethodDecoder());
 	register("setPrivilege", new SetPrivilegeLevelMethodDecoder());
+	register("sendMessage", new SendMessageMethodDecoder());
 	// encoders
 	register(StatusMethod.class, new StatusMethodEncoder());
 	register(ResponseMethod.class, new ResponseMethodEncoder());

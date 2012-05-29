@@ -8,6 +8,7 @@ import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.Inventory.StackMode;
+import org.apollo.game.model.region.Region;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.game.sync.block.SynchronizationBlockSet;
@@ -62,6 +63,16 @@ public abstract class Character {
     private final List<Npc> localNPCs = new ArrayList<Npc>();
 
     /**
+     * A list of local objects.
+     */
+    private final List<GameObject> localObjects = new ArrayList<GameObject>();
+
+    /**
+     * A list of local ground items.
+     */
+    private final List<GroundItem> localGroundItems = new ArrayList<GroundItem>();
+
+    /**
      * A set of {@link SynchronizationBlock}s.
      */
     private SynchronizationBlockSet blockSet = new SynchronizationBlockSet();
@@ -95,6 +106,11 @@ public abstract class Character {
      * The character's melee set.
      */
     private final MeleeSet meleeSet = new MeleeSet(this);
+
+    /**
+     * The character's current region.
+     */
+    private Region region = null;
 
     /**
      * The default energy level.
@@ -171,12 +187,14 @@ public abstract class Character {
      */
     public Direction[] getDirections() {
 	if (firstDirection != Direction.NONE) {
-	    if (secondDirection != Direction.NONE)
+	    if (secondDirection != Direction.NONE) {
 		return new Direction[] { firstDirection, secondDirection };
-	    else
+	    } else {
 		return new Direction[] { firstDirection };
-	} else
+	    }
+	} else {
 	    return Direction.EMPTY_DIRECTION_ARRAY;
+	}
     }
 
     /**
@@ -230,6 +248,22 @@ public abstract class Character {
     }
 
     /**
+     * Gets the local game object list.
+     * @return The local game object list.
+     */
+    public List<GameObject> getLocalGameObjectList() {
+	return localObjects;
+    }
+
+    /**
+     * Gets the local ground item list.
+     * @return The local ground item list.
+     */
+    public List<GroundItem> getLocalGroundItemList() {
+	return localGroundItems;
+    }
+
+    /**
      * Gets the local NPC list.
      * @return The local NPC list.
      */
@@ -259,6 +293,14 @@ public abstract class Character {
      */
     public Position getPosition() {
 	return position;
+    }
+
+    /**
+     * Gets the region of this character.
+     * @return The region of this character.
+     */
+    public Region getRegion() {
+	return region;
     }
 
     /**
@@ -403,6 +445,14 @@ public abstract class Character {
     }
 
     /**
+     * Sets the region of this character.
+     * @param region The region of this character.
+     */
+    public void setRegion(Region region) {
+	this.region = region;
+    }
+
+    /**
      * Set the energy level.
      * @param runEnergy the new run energy
      */
@@ -426,8 +476,9 @@ public abstract class Character {
      */
     public boolean startAction(Action<?> action) {
 	if (this.action != null) {
-	    if (this.action.equals(action))
+	    if (this.action.equals(action)) {
 		return false;
+	    }
 	    stopAction();
 	}
 	this.action = action;

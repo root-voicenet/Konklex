@@ -4,7 +4,9 @@ import org.apollo.game.GameService;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
+import org.apollo.game.scheduling.impl.ProcessRegionTask;
 import org.apollo.game.sync.task.NpcSynchronizationTask;
+import org.apollo.game.sync.task.PlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PlayerSynchronizationTask;
 import org.apollo.game.sync.task.PostNpcSynchronizationTask;
 import org.apollo.game.sync.task.PostPlayerSynchronizationTask;
@@ -42,6 +44,14 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 	    final SynchronizationTask task = new PostPlayerSynchronizationTask(player);
 	    task.run();
 	}
+
+	for (final Player player : players) {
+	    final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
+	    task.run();
+	}
+
+	ProcessRegionTask process = new ProcessRegionTask();
+	process.execute();
 
 	final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
 

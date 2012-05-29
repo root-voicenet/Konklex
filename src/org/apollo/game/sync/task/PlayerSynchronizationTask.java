@@ -1,6 +1,7 @@
 package org.apollo.game.sync.task;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import org.apollo.game.sync.seg.MovementSegment;
 import org.apollo.game.sync.seg.RemoveCharacterSegment;
 import org.apollo.game.sync.seg.SynchronizationSegment;
 import org.apollo.game.sync.seg.TeleportSegment;
-import org.apollo.util.CharacterRepository;
 
 /**
  * A {@link SynchronizationTask} which synchronizes the specified {@link Player}
@@ -60,10 +60,11 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 	    blockSet = blockSet.clone();
 	    blockSet.remove(ChatBlock.class);
 	}
-	if (player.isTeleporting())
+	if (player.isTeleporting()) {
 	    segment = new TeleportSegment(blockSet, player.getPosition());
-	else
+	} else {
 	    segment = new MovementSegment(blockSet, player.getDirections());
+	}
 	final List<Player> localPlayers = player.getLocalPlayerList();
 	final int oldLocalPlayers = localPlayers.size();
 	final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
@@ -73,19 +74,20 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		    || p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 		it.remove();
 		segments.add(new RemoveCharacterSegment());
-	    } else
+	    } else {
 		segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+	    }
 	}
 	int added = 0;
-	final CharacterRepository<Player> repository = World.getWorld().getPlayerRepository();
+	final Collection<Player> repository = World.getWorld().getRegionManager().getLocalPlayers(player);
 	for (final Player p : repository) {
 	    if (localPlayers.size() >= 255) {
 		player.flagExcessivePlayers();
 		break;
-	    } else if (added >= NEW_PLAYERS_PER_CYCLE)
+	    } else if (added >= NEW_PLAYERS_PER_CYCLE) {
 		break;
-	    if (p != player && p.getPosition().isWithinDistance(player.getPosition(), player.getViewingDistance())
-		    && !localPlayers.contains(p)) {
+	    }
+	    if (p != player && !localPlayers.contains(p)) {
 		localPlayers.add(p);
 		added++;
 		blockSet = p.getBlockSet();

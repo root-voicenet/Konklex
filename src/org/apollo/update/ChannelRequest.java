@@ -37,7 +37,7 @@ public final class ChannelRequest<T> implements Comparable<ChannelRequest<T>> {
     @SuppressWarnings("unchecked")
     @Override
     public int compareTo(ChannelRequest<T> o) {
-	if (request instanceof Comparable<?> && o.request instanceof Comparable<?>) {
+	if (request instanceof Comparable<?> && o.request instanceof Comparable) {
 	    return ((Comparable<T>) request).compareTo(o.request);
 	}
 	return 0;

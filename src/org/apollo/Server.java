@@ -204,6 +204,6 @@ public final class Server {
      * Starts the tasks required for this server.
      */
     private void startTasks() {
-	UpdateFriendsTask.start();
+	World.getWorld().schedule(new UpdateFriendsTask());
     }
 }

@@ -21,14 +21,13 @@ import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
 import org.apollo.game.model.messaging.PlayerMessaging;
-import org.apollo.game.model.obj.PlayerObject;
+import org.apollo.game.model.region.Region;
 import org.apollo.game.model.skill.HitpointSkillListener;
 import org.apollo.game.model.skill.LevelUpSkillListener;
 import org.apollo.game.model.skill.PrayerSkillListener;
 import org.apollo.game.model.skill.SkillListener;
 import org.apollo.game.model.skill.SynchronizationSkillListener;
 import org.apollo.game.scheduling.impl.NormalizeEnergyTask;
-import org.apollo.game.scheduling.impl.UpdateObjectsTask;
 import org.apollo.game.scheduling.impl.UpdateSpecialTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.net.session.GameSession;
@@ -76,9 +75,11 @@ public final class Player extends Character {
 	 * @return The privilege level.
 	 */
 	public static PrivilegeLevel valueOf(int numericalLevel) {
-	    for (final PrivilegeLevel level : values())
-		if (level.numericalLevel == numericalLevel)
+	    for (final PrivilegeLevel level : values()) {
+		if (level.numericalLevel == numericalLevel) {
 		    return level;
+		}
+	    }
 	    throw new IllegalArgumentException("invalid numerical level");
 	}
 
@@ -170,11 +171,6 @@ public final class Player extends Character {
     private final InterfaceSet interfaceSet = new InterfaceSet(this);
 
     /**
-     * The player's objects.
-     */
-    private final PlayerObject objectSet = new PlayerObject(this);
-
-    /**
      * The player's deposit box.
      */
     private final Inventory depositBox = new Inventory(InventoryConstants.INVENTORY_CAPACITY,
@@ -245,8 +241,9 @@ public final class Player extends Character {
      * Decrements this player's viewing distance if it is greater than 1.
      */
     public void decrementViewingDistance() {
-	if (viewingDistance > 1)
+	if (viewingDistance > 1) {
 	    viewingDistance--;
+	}
     }
 
     /**
@@ -337,14 +334,6 @@ public final class Player extends Character {
      */
     public String getName() {
 	return credentials.getUsername();
-    }
-
-    /**
-     * Gets this player's object set.
-     * @return The object set for this player.
-     */
-    public PlayerObject getObjectSet() {
-	return objectSet;
     }
 
     /**
@@ -456,8 +445,9 @@ public final class Player extends Character {
      * viewing distance.
      */
     public void incrementViewingDistance() {
-	if (viewingDistance < Position.MAX_DISTANCE)
+	if (viewingDistance < Position.MAX_DISTANCE) {
 	    viewingDistance++;
+	}
     }
 
     /**
@@ -528,7 +518,7 @@ public final class Player extends Character {
      */
     private void initTasks() {
 	World.getWorld().schedule(new UpdateSpecialTask(this));
-	World.getWorld().schedule(new UpdateObjectsTask(this));
+	// World.getWorld().schedule(new UpdateObjectsTask(this));
 	World.getWorld().schedule(new NormalizeEnergyTask(this));
     }
 
@@ -569,10 +559,11 @@ public final class Player extends Character {
      * @param temp Is the sound temporary.
      */
     public void playSound(int id, boolean temp) {
-	if (temp && currentSound != -1)
+	if (temp && currentSound != -1) {
 	    send(new SoundEvent(id, currentSound));
-	else
+	} else {
 	    send(new SoundEvent(id));
+	}
 	currentSound = id;
     }
 
@@ -598,13 +589,15 @@ public final class Player extends Character {
     public void send(org.apollo.game.event.Event event) {
 	if (isActive()) {
 	    if (!queuedEvents.isEmpty()) {
-		for (final org.apollo.game.event.Event queuedEvent : queuedEvents)
+		for (final org.apollo.game.event.Event queuedEvent : queuedEvents) {
 		    session.dispatchEvent(queuedEvent);
+		}
 		queuedEvents.clear();
 	    }
 	    session.dispatchEvent(event);
-	} else
+	} else {
 	    queuedEvents.add(event);
+	}
     }
 
     /**
@@ -615,14 +608,17 @@ public final class Player extends Character {
 	send(new IdAssignmentEvent(getIndex(), members)); // TODO Should this be
 							  // sent on a
 							  // reconnect?
-	if (Config.SERVER_LOGIN_SHOW)
+	if (Config.SERVER_LOGIN_SHOW) {
 	    sendMessage("Wecome to " + Config.SERVER_NAME + ".");
+	}
 	// character design screen
-	if (!designedCharacter)
+	if (!designedCharacter) {
 	    interfaceSet.openWindow(3559);
+	}
 	// send tabs
-	for (int i = 0; i < PlayerConstants.TABS.length; i++)
+	for (int i = 0; i < PlayerConstants.TABS.length; i++) {
 	    send(new SwitchTabInterfaceEvent(i, PlayerConstants.TABS[i]));
+	}
 	// force inventories to update
 	getInventory().forceRefresh();
 	getEquipment().forceRefresh();
@@ -635,13 +631,12 @@ public final class Player extends Character {
 	send(new BuildPlayerMenuEvent(5, false, "Trade with"));
 	// send privacy settings
 	send(new ChatPrivacySettingsEvent(publicChat, privateChat, trade));
-	// register ground items
-	GroundItem.getInstance().login(this);
 	// send private chat
 	World.getWorld().getMessaging().register(this);
 	// send the motd
-	if (Config.SERVER_MOTD_SHOW)
+	if (Config.SERVER_MOTD_SHOW) {
 	    sendMessage("Alert##Message of the Day##" + Config.SERVER_MOTD);
+	}
 	// lastly, send the run
 	send(new UpdateRunEnergyEvent(getRunEnergy()));
     }
@@ -686,9 +681,27 @@ public final class Player extends Character {
      */
     public void setMembers(boolean members) {
 	this.members = members;
-	if (members)
-	    if (privilegeLevel.toInteger() < PrivilegeLevel.MEMBER.toInteger())
+	if (members) {
+	    if (privilegeLevel.toInteger() < PrivilegeLevel.MEMBER.toInteger()) {
 		privilegeLevel = PrivilegeLevel.MEMBER;
+	    }
+	}
+    }
+
+    @Override
+    public void setPosition(Position position) {
+	Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
+	if (getRegion() != null) {
+	    if (getRegion() != region) {
+		getRegion().removePlayer(this);
+		setRegion(region);
+		region.addPlayer(this);
+	    }
+	} else {
+	    setRegion(region);
+	    region.addPlayer(this);
+	}
+	super.setPosition(position);
     }
 
     /**
@@ -746,8 +759,9 @@ public final class Player extends Character {
      */
     public void setSession(GameSession session, boolean reconnecting) {
 	this.session = session;
-	if (!reconnecting)
+	if (!reconnecting) {
 	    sendInitialEvents();
+	}
 	getBlockSet().add(SynchronizationBlock.createAppearanceBlock(this));
     }
 
@@ -792,10 +806,11 @@ public final class Player extends Character {
      */
     @Override
     public void teleport(Position position, boolean action) {
-	if (action)
+	if (action) {
 	    startAction(new TeleportAction(this, position));
-	else
+	} else {
 	    super.teleport(position, action);
+	}
     }
 
     /*

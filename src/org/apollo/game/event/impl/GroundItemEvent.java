@@ -1,46 +1,32 @@
 package org.apollo.game.event.impl;
 
 import org.apollo.game.event.Event;
+import org.apollo.game.model.GroundItem;
 
 /**
- * An {@link Event} that sends an item to the map tile.
+ * An {@link Event} that sends items to the map tile.
  * @author Steve
  */
 public final class GroundItemEvent extends Event {
 
     /**
-     * The item id.
+     * The ground item.
      */
-    private final int itemId;
+    private final GroundItem item;
 
     /**
-     * The item amount.
+     * Create a new ground item event.
+     * @param item The ground item.
      */
-    private final int itemAmount;
-
-    /**
-     * Create a new item.
-     * @param itemId the item id
-     * @param itemAmount the item amount
-     */
-    public GroundItemEvent(int itemId, int itemAmount) {
-	this.itemId = itemId;
-	this.itemAmount = itemAmount;
+    public GroundItemEvent(GroundItem item) {
+	this.item = item;
     }
 
     /**
-     * Gets the item id.
-     * @return The item id.
+     * Gets the ground item.
+     * @return The ground item.
      */
-    public int getId() {
-	return itemId;
-    }
-
-    /**
-     * Gets the item amount.
-     * @return The item amount.
-     */
-    public int getItemAmount() {
-	return itemAmount;
+    public GroundItem getGroundItem() {
+	return item;
     }
 }

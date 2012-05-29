@@ -4,6 +4,11 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
@@ -21,7 +26,6 @@ import org.apollo.game.model.def.NpcDefinition;
 import org.apollo.game.model.def.ObjectDefinition;
 import org.apollo.game.model.inter.store.WorldStore;
 import org.apollo.game.model.messaging.WorldMessaging;
-import org.apollo.game.model.obj.WorldObject;
 import org.apollo.game.model.region.RegionManager;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.Scheduler;
@@ -30,7 +34,6 @@ import org.apollo.io.EquipmentDefinitionParser;
 import org.apollo.io.NpcSpawnParser;
 import org.apollo.util.CharacterRepository;
 import org.apollo.util.plugin.PluginManager;
-import org.xml.sax.SAXException;
 
 /**
  * The world class is a singleton which contains objects like the
@@ -98,11 +101,6 @@ public final class World {
     }
 
     /**
-     * The objects.
-     */
-    private final WorldObject globalObjects = new WorldObject();
-
-    /**
      * The scheduler.
      */
     private final Scheduler scheduler = new Scheduler();
@@ -127,6 +125,16 @@ public final class World {
      * The {@link CharacterRepository} of {@link Npc}s.
      */
     private final CharacterRepository<Npc> npcRepository = new CharacterRepository<Npc>(WorldConstants.MAXIMUM_NPCS);
+
+    /**
+     * The list of ground items.
+     */
+    private List<GroundItem> items = new ArrayList<GroundItem>();
+
+    /**
+     * The list of game objects.
+     */
+    private List<GameObject> objects = new ArrayList<GameObject>();
 
     /**
      * The region manager.
@@ -161,6 +169,16 @@ public final class World {
     }
 
     /**
+     * Gets the items.
+     * @return The items.
+     */
+    public Collection<GroundItem> getItems() {
+	synchronized (this) {
+	    return Collections.unmodifiableCollection(new LinkedList<GroundItem>(items));
+	}
+    }
+
+    /**
      * Gets the world messaging.
      * @return The world messaging.
      */
@@ -177,11 +195,13 @@ public final class World {
     }
 
     /**
-     * Gets the world object class.
-     * @return The world object class.
+     * Gets the objects.
+     * @return The objects.
      */
-    public WorldObject getObjectManager() {
-	return globalObjects;
+    public Collection<GameObject> getObjects() {
+	synchronized (this) {
+	    return Collections.unmodifiableCollection(new LinkedList<GameObject>(objects));
+	}
     }
 
     /**
@@ -190,9 +210,11 @@ public final class World {
      * @return player The player.
      */
     public Player getPlayer(String name) {
-	for (final Player player : getPlayerRepository())
-	    if (player.getName().equalsIgnoreCase(name))
+	for (final Player player : getPlayerRepository()) {
+	    if (player.getName().equalsIgnoreCase(name)) {
 		return player;
+	    }
+	}
 	return null;
     }
 
@@ -258,9 +280,11 @@ public final class World {
 	try {
 	    final EquipmentDefinitionParser equipParser = new EquipmentDefinitionParser(is);
 	    final EquipmentDefinition[] equipDefs = equipParser.parse();
-	    for (final EquipmentDefinition def : equipDefs)
-		if (def != null)
+	    for (final EquipmentDefinition def : equipDefs) {
+		if (def != null) {
 		    nonNull++;
+		}
+	    }
 	    EquipmentDefinition.init(equipDefs);
 	} finally {
 	    is.close();
@@ -282,18 +306,13 @@ public final class World {
 	logger.info("Loading NPC spawns...");
 	nonNull = 0;
 	is = new FileInputStream("data/npc-spawns.xml");
-	try {
-	    final NpcSpawnParser npcParser = new NpcSpawnParser(is);
-	    final Npc[] npcSpawns = npcParser.parse();
-	    for (final Npc npc : npcSpawns)
-		if (npc != null) { // Shouldn't have to, but just in case.
-		    nonNull++;
-		    register(npc);
-		}
-	} catch (final SAXException e) {
-	    throw new IOException(e);
-	} finally {
-	    is.close();
+	final NpcSpawnParser npcParser = new NpcSpawnParser(is);
+	final Npc[] npcSpawns = npcParser.parse();
+	for (final Npc npc : npcSpawns) {
+	    if (npc != null) { // Shouldn't have to, but just in case.
+		nonNull++;
+		register(npc);
+	    }
 	}
 	logger.info("Done (loaded " + nonNull + " NPC spawns).");
 
@@ -307,9 +326,11 @@ public final class World {
      * @return {@code true} if so, {@code false} if not.
      */
     public boolean isPlayerOnline(String name) {
-	for (final Player player : playerRepository)
-	    if (player.getName().equalsIgnoreCase(name))
+	for (final Player player : playerRepository) {
+	    if (player.getName().equalsIgnoreCase(name)) {
 		return true;
+	    }
+	}
 	return false;
     }
 
@@ -318,6 +339,30 @@ public final class World {
      */
     public void pulse() {
 	scheduler.pulse();
+    }
+
+    /**
+     * Registers an game object.
+     * @param object The game object.
+     */
+    public void register(final GameObject object) {
+	synchronized (this) {
+	    if (objects.add(object)) {
+		World.getWorld().getRegionManager().getRegionByLocation(object.getLocation()).addObject(object);
+	    }
+	}
+    }
+
+    /**
+     * Registers an ground item.
+     * @param item The ground item.
+     */
+    public void register(final GroundItem item) {
+	synchronized (this) {
+	    if (items.add(item)) {
+		World.getWorld().getRegionManager().getRegionByLocation(item.getPosition()).addItem(item);
+	    }
+	}
     }
 
     /**
@@ -332,9 +377,13 @@ public final class World {
      * Registers an NPC.
      * @param npc The NPC.
      */
-    public void register(Npc npc) {
-	regionManager.getRegionByLocation(npc.getPosition()).addNPC(npc);
-	npcRepository.add(npc);
+    public void register(final Npc npc) {
+	if (npcRepository.add(npc)) {
+	    regionManager.getRegionByLocation(npc.getPosition()).addNpc(npc);
+	    logger.info("Registered npc: " + npc + " [online=" + npcRepository.size() + "]");
+	} else {
+	    logger.info("Failed to register npc (server full): " + npc + " [online=" + npcRepository.size() + "]");
+	}
     }
 
     /**
@@ -343,8 +392,9 @@ public final class World {
      * @return A {@link RegistrationStatus}.
      */
     public RegistrationStatus register(final Player player) {
-	if (isPlayerOnline(player.getName()))
+	if (isPlayerOnline(player.getName())) {
 	    return RegistrationStatus.ALREADY_ONLINE;
+	}
 	if (SystemUpdateTask.isUpdating()) {
 	    logger.warning("Failed to register player (server updating): " + player + " [online="
 		    + playerRepository.size() + "]");
@@ -375,13 +425,52 @@ public final class World {
     }
 
     /**
+     * Unregisters an game object.
+     * @param object The game object.
+     */
+    public void unregister(GameObject object) {
+	synchronized (this) {
+	    if (objects.remove(object)) {
+		regionManager.getRegionByLocation(object.getLocation()).removeObject(object);
+	    }
+	}
+    }
+
+    /**
+     * Unregisters an ground item.
+     * @param item The ground item.
+     */
+    public void unregister(GroundItem item) {
+	synchronized (this) {
+	    if (items.remove(item)) {
+		regionManager.getRegionByLocation(item.getPosition()).removeItem(item);
+	    }
+	}
+    }
+
+    /**
+     * Unregisters the specified npc.
+     * @param npc The npc.
+     */
+    public void unregister(Npc npc) {
+	if (npcRepository.remove(npc)) {
+	    regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
+	    logger.info("Unregistered npc: " + npc + " [online=" + npcRepository.size() + "]");
+	} else {
+	    logger.warning("Could not find npc to unregister: " + npc + "!");
+	}
+    }
+
+    /**
      * Unregisters the specified player.
      * @param player The player.
      */
     public void unregister(Player player) {
-	if (playerRepository.remove(player))
+	if (playerRepository.remove(player)) {
+	    regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 	    logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
-	else
+	} else {
 	    logger.warning("Could not find player to unregister: " + player + "!");
+	}
     }
 }

@@ -1,6 +1,7 @@
 package org.apollo.game.sync.task;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import org.apollo.game.sync.seg.AddNpcSegment;
 import org.apollo.game.sync.seg.MovementSegment;
 import org.apollo.game.sync.seg.RemoveCharacterSegment;
 import org.apollo.game.sync.seg.SynchronizationSegment;
-import org.apollo.util.CharacterRepository;
 
 /**
  * NPCSynchronizzationTask.java
@@ -54,25 +54,27 @@ public class NpcSynchronizationTask extends SynchronizationTask {
 		    || n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 		it.remove();
 		segments.add(new RemoveCharacterSegment());
-	    } else
+	    } else {
 		segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
+	    }
 	}
 	int added = 0;
-	final CharacterRepository<Npc> repository = World.getWorld().getNpcRepository();
-	for (final Npc n : repository)
-	    if (localNPCs.size() >= 255 || !Config.SERVER_NPCS)
+	final Collection<Npc> repository = World.getWorld().getRegionManager().getLocalNpcs(player);
+	for (final Npc n : repository) {
+	    if (localNPCs.size() >= 255 || !Config.SERVER_NPCS) {
 		break;
-	    else {
-		if (added >= NEW_NPCS_PER_CYCLE)
+	    } else {
+		if (added >= NEW_NPCS_PER_CYCLE) {
 		    break;
-		if (n.getPosition().isWithinDistance(player.getPosition(), player.getViewingDistance())
-			&& !localNPCs.contains(n)) {
+		}
+		if (!localNPCs.contains(n)) {
 		    localNPCs.add(n);
 		    added++;
 		    blockSet = n.getBlockSet();
 		    segments.add(new AddNpcSegment(blockSet, n.getIndex(), n.getPosition(), n.getDefinition().getId()));
 		}
 	    }
+	}
 	final NpcSynchronizationEvent event = new NpcSynchronizationEvent(player.getPosition(), oldLocalPlayers,
 		segments);
 	player.send(event);
