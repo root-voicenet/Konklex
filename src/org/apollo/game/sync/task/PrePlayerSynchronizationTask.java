@@ -55,8 +55,6 @@ public final class PrePlayerSynchronizationTask extends SynchronizationTask {
 	    player.resetViewingDistance();
 	}
 	if (!player.hasLastKnownRegion() || isRegionUpdateRequired()) {
-	    player.getLocalGameObjectList().clear();
-	    player.getLocalGroundItemList().clear();
 	    player.setTeleporting(true);
 	    player.setRegionChanged(true);
 	    final Position position = player.getPosition();
