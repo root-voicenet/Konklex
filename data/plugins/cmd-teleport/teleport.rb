@@ -2,7 +2,7 @@ require 'java'
 java_import 'org.apollo.game.model.Position'
 java_import 'org.apollo.game.model.World'
 
-on :command, :pos, RIGHTS_ADMIN do |player, command|
+on :command, :pos, RIGHTS_MOD do |player, command|
   player.send_message "You are at: " + player.position.to_s
 end
 
