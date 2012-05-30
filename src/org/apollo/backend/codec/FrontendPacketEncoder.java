@@ -66,10 +66,13 @@ public final class FrontendPacketEncoder {
 	if (encoder != null) {
 	    final FrontendPacket packet = encoder.encode(method);
 	    encode(packet);
-	    if (getAttribute(2))
-		channel.getPipeline().remove("timeout");
-	    else
+	    if (getAttribute(2)) {
+		if (channel.getPipeline().get("timeout") != null) {
+		    channel.getPipeline().remove("timeout");
+		}
+	    } else {
 		attributes.clear();
+	    }
 	}
     }
 
@@ -84,9 +87,9 @@ public final class FrontendPacketEncoder {
 	    final HttpResponse resp = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
 	    resp.setHeader("Date", new Date());
 	    resp.setHeader("Server", HttpRequestWorker.SERVER_IDENTIFIER);
-	    resp.setHeader("Content-type", "json, charset=" + HttpRequestWorker.CHARACTER_SET.name());
+	    resp.setHeader("Content-type", "application/json, charset=" + HttpRequestWorker.CHARACTER_SET.name());
 	    resp.setHeader("Cache-control", "no-cache");
-	    resp.setHeader("Pragma", "no-cache");
+	    resp.setHeader("Pragma", "no-cache, must-revalidate");
 	    resp.setHeader("Expires", new Date(0));
 	    resp.setHeader("Connection", isStreaming ? "keep-alive" : "close");
 	    if (!isStreaming) {
@@ -98,10 +101,11 @@ public final class FrontendPacketEncoder {
 	    channel.write(resp);
 	    setAttribute(1, true);
 	}
-	if (isStreaming)
+	if (isStreaming) {
 	    writeStream(encodedString);
-	else
+	} else {
 	    channel.getCloseFuture().addListener(ChannelFutureListener.CLOSE);
+	}
     }
 
     /**

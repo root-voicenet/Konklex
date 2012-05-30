@@ -9,14 +9,15 @@ import org.apollo.game.GameService;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
-import org.apollo.game.scheduling.impl.ProcessRegionTask;
 import org.apollo.game.sync.task.NpcSynchronizationTask;
 import org.apollo.game.sync.task.PhasedSynchronizationTask;
 import org.apollo.game.sync.task.PlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PlayerSynchronizationTask;
 import org.apollo.game.sync.task.PostNpcSynchronizationTask;
+import org.apollo.game.sync.task.PostPlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PostPlayerSynchronizationTask;
 import org.apollo.game.sync.task.PreNpcSynchronizationTask;
+import org.apollo.game.sync.task.PrePlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PrePlayerSynchronizationTask;
 import org.apollo.game.sync.task.SynchronizationTask;
 import org.apollo.util.CharacterRepository;
@@ -82,13 +83,21 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 
 	phaser.bulkRegister(playerCount);
 	for (final Player player : players) {
+	    final SynchronizationTask task = new PrePlayerRegionSynchronizationTask(player);
+	    executor.submit(new PhasedSynchronizationTask(phaser, task));
+	}
+	phaser.arriveAndAwaitAdvance();
+
+	phaser.bulkRegister(playerCount);
+	for (final Player player : players) {
 	    final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
 	    executor.submit(new PhasedSynchronizationTask(phaser, task));
 	}
 	phaser.arriveAndAwaitAdvance();
 
-	ProcessRegionTask process = new ProcessRegionTask();
-	process.execute();
+	phaser.bulkRegister(1);
+	executor.submit(new PhasedSynchronizationTask(phaser, new PostPlayerRegionSynchronizationTask()));
+	phaser.arriveAndAwaitAdvance();
 
 	final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
 	final int npcCount = npcs.size();

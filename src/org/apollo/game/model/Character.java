@@ -118,6 +118,11 @@ public abstract class Character {
     private int runEnergy = 100;
 
     /**
+     * True if facing, false if not.
+     */
+    private boolean facing = false;
+
+    /**
      * Creates a new character with the specified initial position.
      * @param position The initial position of this character.
      */
@@ -493,6 +498,7 @@ public abstract class Character {
      */
     public void startFacing(int id) {
 	blockSet.add(SynchronizationBlock.createTurnToEntityBlock(id));
+	facing = true;
     }
 
     /**
@@ -516,7 +522,9 @@ public abstract class Character {
      * Stops facing a entity.
      */
     public void stopFacing() {
-	startFacing(65535);
+	if (facing) {
+	    startFacing(65535);
+	}
     }
 
     /**

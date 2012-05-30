@@ -80,7 +80,7 @@ public class DamageEvent extends Event {
      */
     public DamageEvent(int damageDone, int currentHp, int maxHp) {
 	this.damageDone = damageDone;
-	this.hitType = damageDone == 0 ? 1 : 0;
+	this.hitType = damageDone == 0 ? 0 : 1;
 	this.currentHp = currentHp;
 	this.maxHp = maxHp;
     }

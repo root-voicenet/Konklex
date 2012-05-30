@@ -60,11 +60,6 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 		added++;
 	    }
 	}
-	for (GameObject object : localObjects) {
-	    if (!objects.contains(object)) {
-		localObjects.remove(object);
-	    }
-	}
 	added = 0;
 	final Collection<GroundItem> groundItems = World.getWorld().getRegionManager().getLocalGroundItems(player);
 	for (final GroundItem groundItem : groundItems) {
@@ -81,11 +76,6 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 		    }
 		    added++;
 		}
-	    }
-	}
-	for (GroundItem groundItem : localGroundItems) {
-	    if (!groundItems.contains(groundItem)) {
-		localGroundItems.remove(groundItem);
 	    }
 	}
     }

@@ -27,13 +27,16 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 	for (int i = 0; i < steps.length; i++) {
 	    final Position step = steps[i];
 	    if (i == 0) {
-		if (!queue.addFirstStep(step))
+		if (!queue.addFirstStep(step)) {
 		    return; /* ignore packet */
-	    } else
+		}
+	    } else {
 		queue.addStep(step);
+	    }
 	}
-	if (!player.getWalkingQueue().getRunning())
+	if (!player.getWalkingQueue().getRunning()) {
 	    queue.setRunning(event.isRunning());
+	}
 	if (queue.size() > 0) {
 	    player.stopAction();
 	    player.stopFacing();
