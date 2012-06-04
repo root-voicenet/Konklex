@@ -67,7 +67,6 @@ public final class FrontendPacketReader {
 	try {
 	    returnz = (E) packet.getParameters().get(parameter);
 	} catch (final JSONException e) {
-	    e.printStackTrace();
 	}
 	return returnz;
     }

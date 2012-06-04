@@ -29,13 +29,9 @@ class Game < Minigame
       if tick < 0 or tick == 0
         # Clearing active game
         get_players(ZAMM_TEAM_GAME).each do |player|
-          player.teleport GAME_LOBBY, false
-          player.get_interface_set.open_walkable -1
           remove_player ZAMM_TEAM_GAME, player
         end
         get_players(SARA_TEAM_GAME).each do |player|
-          player.teleport GAME_LOBBY, false
-          player.get_interface_set.open_walkable -1
           remove_player SARA_TEAM_GAME, player
         end
         set_attribute 0, false
@@ -63,21 +59,11 @@ class Game < Minigame
         @tick = tick - 1
       end
     elsif tick < 0 or tick == 0
-      # For waiting teleport to ingame
-      time = tick / 60 == 0 ? 1 : tick / 60
       get_players(SARA_TEAM_LOBBY).each do |player|
-        if transfer_team player, SARA_TEAM_GAME
-          player.send ConfigEvent.new(380, time)
-          player.teleport SARA_GAME, false
-          player.get_interface_set.open_walkable 11146
-        end
+        transfer_team player, SARA_TEAM_GAME
       end
       get_players(ZAMM_TEAM_LOBBY).each do |player|
-        if transfer_team player, ZAMM_TEAM_GAME
-          player.send ConfigEvent.new(380, time)
-          player.teleport ZAMM_GAME, false
-          player.get_interface_set.open_walkable 11146
-        end
+        transfer_team player, ZAMM_TEAM_GAME
       end
       set_attribute 0, true
       @tick = 1200

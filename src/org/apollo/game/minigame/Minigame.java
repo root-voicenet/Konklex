@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apollo.game.minigame.event.JoinEvent;
+import org.apollo.game.minigame.event.LeaveEvent;
 import org.apollo.game.model.Player;
 
 /**
@@ -49,8 +51,9 @@ public abstract class Minigame {
      */
     public Minigame(String game, int teams) {
 	this.game = game;
-	for (int i = 0; i - 1 < teams; i++)
+	for (int i = 0; i - 1 < teams; i++) {
 	    players.put(i, new ArrayList<Player>());
+	}
     }
 
     /**
@@ -70,8 +73,9 @@ public abstract class Minigame {
     public boolean addPlayer(int team, Player player) {
 	if (!players.get(team).contains(player)) {
 	    players.get(team).add(player);
-	    for (final MinigameListener listener : listeners)
-		listener.playerAdded(player);
+	    for (final MinigameListener listener : listeners) {
+		listener.playerAdded(new JoinEvent(player, team));
+	    }
 	    return true;
 	}
 	return false;
@@ -118,8 +122,9 @@ public abstract class Minigame {
      */
     public ArrayList<Player> getPlayers(int... teams) {
 	final ArrayList<Player> players = new ArrayList<Player>();
-	for (final int team : teams)
+	for (final int team : teams) {
 	    players.addAll(this.players.get(team));
+	}
 	return players;
     }
 
@@ -129,9 +134,11 @@ public abstract class Minigame {
      * @return The team if found, -1 otherwise.
      */
     public int getTeam(Player player) {
-	for (final Entry<Integer, ArrayList<Player>> kv : players.entrySet())
-	    if (kv.getValue().contains(player))
+	for (final Entry<Integer, ArrayList<Player>> kv : players.entrySet()) {
+	    if (kv.getValue().contains(player)) {
 		return kv.getKey();
+	    }
+	}
 	return -1;
     }
 
@@ -140,8 +147,9 @@ public abstract class Minigame {
      * @param player The player that is disconnecting.
      */
     protected void playerDisconnected(Player player) {
-	for (final MinigameListener listener : listeners)
+	for (final MinigameListener listener : listeners) {
 	    listener.playerDisconnected(player);
+	}
     }
 
     /**
@@ -158,8 +166,9 @@ public abstract class Minigame {
     public boolean removePlayer(int team, Player player) {
 	if (players.get(team).contains(player)) {
 	    players.get(team).remove(player);
-	    for (final MinigameListener listener : listeners)
-		listener.playerRemoved(player);
+	    for (final MinigameListener listener : listeners) {
+		listener.playerRemoved(new LeaveEvent(player, team));
+	    }
 	    return true;
 	}
 	return false;
@@ -172,13 +181,15 @@ public abstract class Minigame {
      */
     public boolean removePlayer(Player player) {
 	final int team = getTeam(player);
-	if (team != -1)
+	if (team != -1) {
 	    if (players.get(team).contains(player)) {
 		players.get(team).remove(player);
-		for (final MinigameListener listener : listeners)
-		    listener.playerRemoved(player);
+		for (final MinigameListener listener : listeners) {
+		    listener.playerRemoved(new LeaveEvent(player, team));
+		}
 		return true;
 	    }
+	}
 	return false;
     }
 
@@ -199,8 +210,9 @@ public abstract class Minigame {
      */
     public boolean transferTeam(Player player, int team) {
 	final int current = getTeam(player);
-	if (current != -1)
+	if (current != -1) {
 	    return removePlayer(current, player) == addPlayer(team, player);
+	}
 	return false;
     }
 

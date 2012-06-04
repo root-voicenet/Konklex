@@ -14,35 +14,16 @@ class Actions < DistancedAction
     @object = object
   end
 
-  def getTeam(player)
-    return $cwars.get_team player
-  end
-
   def executeAction
-    time = $cwars.get_tick / 60 == 0 ? 1 : $cwars.get_tick / 60
     case object
       when 4387
-        if $cwars.add_player SARA_TEAM_LOBBY, character
-          character.teleport ENTER_SARA_PORTAL, false
-          character.send ConfigEvent.new(380, time)
-          character.get_interface_set.open_walkable 11479
-        end
+        $cwars.add_player SARA_TEAM_LOBBY, character
       when 4389
-        if $cwars.remove_player SARA_TEAM_LOBBY, character
-          character.teleport LEAVE_SARA_PORTAL, false
-          character.get_interface_set.open_walkable -1
-        end
+        $cwars.remove_player SARA_TEAM_LOBBY, character
       when 4388
-        if $cwars.add_player ZAMM_TEAM_LOBBY, character
-          character.teleport ENTER_ZAMM_PORTAL, false
-          character.send ConfigEvent.new(380, time)
-          character.get_interface_set.open_walkable 11479
-        end
+        $cwars.add_player ZAMM_TEAM_LOBBY, character
       when 4390
-        if $cwars.remove_player ZAMM_TEAM_LOBBY, character
-          character.teleport LEAVE_ZAMM_PORTAL, false
-          character.get_interface_set.open_walkable -1
-        end
+        $cwars.remove_player ZAMM_TEAM_LOBBY, character
     end
     stop
   end

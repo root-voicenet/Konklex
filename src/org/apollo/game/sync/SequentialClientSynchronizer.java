@@ -56,7 +56,8 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 	    task.run();
 	}
 
-	new PostPlayerRegionSynchronizationTask().run();
+	final SynchronizationTask regionUpdate = new PostPlayerRegionSynchronizationTask();
+	regionUpdate.run();
 
 	final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
 

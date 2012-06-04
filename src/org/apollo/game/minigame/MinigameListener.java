@@ -1,5 +1,7 @@
 package org.apollo.game.minigame;
 
+import org.apollo.game.minigame.event.JoinEvent;
+import org.apollo.game.minigame.event.LeaveEvent;
 import org.apollo.game.model.Player;
 
 /**
@@ -10,9 +12,9 @@ public abstract class MinigameListener {
 
     /**
      * Called when a player is added.
-     * @param player The player that was added.
+     * @param event The event that contains player variables.
      */
-    public void playerAdded(Player player) {
+    public void playerAdded(JoinEvent event) {
 
     }
 
@@ -26,9 +28,9 @@ public abstract class MinigameListener {
 
     /**
      * Called when a player is removed.
-     * @param player The player that was removed.
+     * @param event The event that contains player variables.
      */
-    public void playerRemoved(Player player) {
+    public void playerRemoved(LeaveEvent event) {
 
     }
 

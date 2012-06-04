@@ -72,8 +72,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 	logger.info("Channel disconnected: " + channel);
 	serverContext.getChannelGroup().remove(channel);
 	final Object attachment = ctx.getAttachment();
-	if (attachment != null)
+	if (attachment != null) {
 	    ((Session) attachment).destroy();
+	}
     }
 
     /*
@@ -99,7 +100,6 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
     public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
 	logger.log(Level.WARNING, "Exception occured for channel: " + e.getChannel() + ", closing...", e);
 	ctx.getChannel().close();
-	e.getCause().printStackTrace();
     }
 
     /*
@@ -129,7 +129,8 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 		    throw new Exception("Invalid service id");
 		}
 	    }
-	} else
+	} else {
 	    ((Session) ctx.getAttachment()).messageReceived(e.getMessage());
+	}
     }
 }
