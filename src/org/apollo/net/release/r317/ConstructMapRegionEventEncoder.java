@@ -24,18 +24,15 @@ public final class ConstructMapRegionEventEncoder extends EventEncoder<Construct
 	final Position position = event.getPosition();
 	builder.put(DataType.SHORT, DataTransformation.ADD, position.getRegionY() + 6);
 	builder.switchToBitAccess();
-	for (int z = 0; z < 4; z++) {
-	    for (int x = 0; x < 13; x++) {
+	for (int z = 0; z < 4; z++)
+	    for (int x = 0; x < 13; x++)
 		for (int y = 0; y < 13; y++) {
 		    final PaletteTile tile = palette.getTile(x, y, z);
 		    builder.putBit(tile != null);
-		    if (tile != null) {
+		    if (tile != null)
 			builder.putBits(26,
 				tile.getX() << 14 | tile.getY() << 3 | tile.getZ() << 24 | tile.getRotation() << 1);
-		    }
 		}
-	    }
-	}
 	builder.switchToByteAccess();
 	builder.put(DataType.SHORT, position.getRegionX() + 6);
 	return builder.toGamePacket();

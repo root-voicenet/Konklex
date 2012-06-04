@@ -54,19 +54,17 @@ public class NpcSynchronizationTask extends SynchronizationTask {
 		    || n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 		it.remove();
 		segments.add(new RemoveCharacterSegment());
-	    } else {
+	    } else
 		segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
-	    }
 	}
 	int added = 0;
 	final Collection<Npc> repository = World.getWorld().getRegionManager().getLocalNpcs(player);
-	for (final Npc n : repository) {
-	    if (localNPCs.size() >= 255 || !Config.SERVER_NPCS) {
+	for (final Npc n : repository)
+	    if (localNPCs.size() >= 255 || !Config.SERVER_NPCS)
 		break;
-	    } else {
-		if (added >= NEW_NPCS_PER_CYCLE) {
+	    else {
+		if (added >= NEW_NPCS_PER_CYCLE)
 		    break;
-		}
 		if (!localNPCs.contains(n)) {
 		    localNPCs.add(n);
 		    added++;
@@ -74,7 +72,6 @@ public class NpcSynchronizationTask extends SynchronizationTask {
 		    segments.add(new AddNpcSegment(blockSet, n.getIndex(), n.getPosition(), n.getDefinition().getId()));
 		}
 	    }
-	}
 	final NpcSynchronizationEvent event = new NpcSynchronizationEvent(player.getPosition(), oldLocalPlayers,
 		segments);
 	player.send(event);

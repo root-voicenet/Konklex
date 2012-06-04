@@ -26,19 +26,17 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
     @Override
     public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
 	final Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
-	GroundItem item = pickup(player.getName(), event.getItemId(), position);
+	final GroundItem item = pickup(player.getName(), event.getItemId(), position);
 	if (item != null) {
 	    if (item.getPosition().isWithinDistance(player.getPosition(), 1)) {
 		World.getWorld().unregister(item);
 		World.getWorld().register(
 			new GroundItem(item.getControllerName(), item.getItem(), item.getPosition(), true));
 		player.getInventory().add(item.getItem());
-	    } else {
+	    } else
 		ctx.breakHandlerChain();
-	    }
-	} else {
+	} else
 	    ctx.breakHandlerChain();
-	}
     }
 
     /**
@@ -49,19 +47,14 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
      * @return The ground item to pickup, or null if not able to.
      */
     private GroundItem pickup(String controller, int item, Position position) {
-	Collection<GroundItem> collection = World.getWorld().getRegionManager().getRegionByLocation(position)
+	final Collection<GroundItem> collection = World.getWorld().getRegionManager().getRegionByLocation(position)
 		.getGroundItems();
-	for (GroundItem groundItem : collection) {
-	    if (groundItem.getPosition().equals(position)) {
-		if (groundItem.getItem().getId() == item) {
-		    if (groundItem.getControllerName().equalsIgnoreCase(controller) || groundItem.getPulses() == 0) {
-			if (!groundItem.isRemoving()) {
+	for (final GroundItem groundItem : collection)
+	    if (groundItem.getPosition().equals(position))
+		if (groundItem.getItem().getId() == item)
+		    if (groundItem.getControllerName().equalsIgnoreCase(controller) || groundItem.getPulses() == 0)
+			if (!groundItem.isRemoving())
 			    return groundItem;
-			}
-		    }
-		}
-	    }
-	}
 	return null;
     }
 }

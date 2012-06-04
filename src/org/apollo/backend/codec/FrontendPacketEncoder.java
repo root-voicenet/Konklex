@@ -67,12 +67,10 @@ public final class FrontendPacketEncoder {
 	    final FrontendPacket packet = encoder.encode(method);
 	    encode(packet);
 	    if (getAttribute(2)) {
-		if (channel.getPipeline().get("timeout") != null) {
+		if (channel.getPipeline().get("timeout") != null)
 		    channel.getPipeline().remove("timeout");
-		}
-	    } else {
+	    } else
 		attributes.clear();
-	    }
 	}
     }
 
@@ -101,11 +99,10 @@ public final class FrontendPacketEncoder {
 	    channel.write(resp);
 	    setAttribute(1, true);
 	}
-	if (isStreaming) {
+	if (isStreaming)
 	    writeStream(encodedString);
-	} else {
+	else
 	    channel.getCloseFuture().addListener(ChannelFutureListener.CLOSE);
-	}
     }
 
     /**

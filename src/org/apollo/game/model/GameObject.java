@@ -63,18 +63,13 @@ public final class GameObject {
     @Override
     public boolean equals(Object object) {
 	if (object instanceof GameObject) {
-	    GameObject go = (GameObject) object;
-	    if (go.getDefinition().getId() == definition.getId()) {
-		if (go.getLocation().equals(location)) {
-		    if (go.getRotation() == rotation) {
-			if (go.getType() == type) {
-			    if (go.isRemoving() == remove) {
+	    final GameObject go = (GameObject) object;
+	    if (go.getDefinition().getId() == definition.getId())
+		if (go.getLocation().equals(location))
+		    if (go.getRotation() == rotation)
+			if (go.getType() == type)
+			    if (go.isRemoving() == remove)
 				return true;
-			    }
-			}
-		    }
-		}
-	    }
 	}
 	return false;
     }

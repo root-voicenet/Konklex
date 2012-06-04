@@ -9,6 +9,7 @@ import org.apollo.game.GameService;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
+import org.apollo.game.sync.task.NpcSynchronizationTask;
 import org.apollo.game.sync.task.PhasedSynchronizationTask;
 import org.apollo.game.sync.task.PlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PlayerSynchronizationTask;
@@ -109,12 +110,12 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 	}
 	phaser.arriveAndAwaitAdvance();
 
-	// phaser.bulkRegister(playerCount);
-	// for (final Player player : players) {
-	// final SynchronizationTask task = new NpcSynchronizationTask(player);
-	// executor.submit(new PhasedSynchronizationTask(phaser, task));
-	// }
-	// phaser.arriveAndAwaitAdvance();
+	phaser.bulkRegister(playerCount);
+	for (final Player player : players) {
+	    final SynchronizationTask task = new NpcSynchronizationTask(player);
+	    executor.submit(new PhasedSynchronizationTask(phaser, task));
+	}
+	phaser.arriveAndAwaitAdvance();
 
 	phaser.bulkRegister(npcCount);
 	for (final Npc npc : npcs) {

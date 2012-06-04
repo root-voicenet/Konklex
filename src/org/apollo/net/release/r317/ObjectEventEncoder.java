@@ -22,7 +22,7 @@ public final class ObjectEventEncoder extends EventEncoder<ObjectEvent> {
      */
     @Override
     public GamePacket encode(ObjectEvent event) {
-	GameObject object = event.getObject();
+	final GameObject object = event.getObject();
 	final GamePacketBuilder builder = new GamePacketBuilder(object.isRemoving() ? 101 : 151);
 	if (object.isRemoving()) {
 	    builder.put(DataType.BYTE, DataTransformation.NEGATE, (object.getType() << 2) + (object.getRotation() & 3));

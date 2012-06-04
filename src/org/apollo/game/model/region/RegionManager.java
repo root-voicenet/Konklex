@@ -19,7 +19,7 @@ import org.apollo.game.model.Position;
  * Manages the world regions.
  * @author Graham Edgecombe
  */
-public class RegionManager {
+public final class RegionManager {
 
     /**
      * The region size.
@@ -35,7 +35,7 @@ public class RegionManager {
     /**
      * The active (loaded) region map.
      */
-    private Map<RegionCoordinates, Region> activeRegions = new HashMap<RegionCoordinates, Region>();
+    private final Map<RegionCoordinates, Region> activeRegions = new HashMap<RegionCoordinates, Region>();
 
     /**
      * Gets the local {@link GroundItem}'s around an character.
@@ -43,15 +43,14 @@ public class RegionManager {
      * @return The collection of local {@link GroundItem}'s.
      */
     public Collection<GroundItem> getLocalGroundItems(Character character) {
-	List<GroundItem> localItems = new ArrayList<GroundItem>();
-	Region[] regions = getSurroundingRegions(character.getPosition());
-	for (Region region : regions) {
-	    for (GroundItem item : region.getGroundItems()) {
-		if (item.getPosition().getDistance(character.getPosition()) <= Position.MAX_DISTANCE) {
+	final List<GroundItem> localItems = new ArrayList<GroundItem>();
+	final Region[] regions = getSurroundingRegions(character.getPosition());
+	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
+		: Position.MAX_DISTANCE;
+	for (final Region region : regions)
+	    for (final GroundItem item : region.getGroundItems())
+		if (item.getPosition().getDistance(character.getPosition()) <= distance)
 		    localItems.add(item);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localItems);
     }
 
@@ -61,15 +60,14 @@ public class RegionManager {
      * @return The collection of local npc's.
      */
     public Collection<Npc> getLocalNpcs(Character character) {
-	List<Npc> localPlayers = new LinkedList<Npc>();
-	Region[] regions = getSurroundingRegions(character.getPosition());
-	for (Region region : regions) {
-	    for (Npc npc : region.getNpcs()) {
-		if (npc.getPosition().getDistance(character.getPosition()) <= Position.MAX_DISTANCE) {
+	final List<Npc> localPlayers = new LinkedList<Npc>();
+	final Region[] regions = getSurroundingRegions(character.getPosition());
+	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
+		: Position.MAX_DISTANCE;
+	for (final Region region : regions)
+	    for (final Npc npc : region.getNpcs())
+		if (npc.getPosition().getDistance(character.getPosition()) <= distance)
 		    localPlayers.add(npc);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -79,15 +77,14 @@ public class RegionManager {
      * @return The collection of local {@link GameObject}'s.
      */
     public Collection<GameObject> getLocalObjects(Character character) {
-	List<GameObject> localObjects = new ArrayList<GameObject>();
-	Region[] regions = getSurroundingRegions(character.getPosition());
-	for (Region region : regions) {
-	    for (GameObject object : region.getGameObjects()) {
-		if (object.getLocation().getDistance(character.getPosition()) <= Position.MAX_DISTANCE) {
+	final List<GameObject> localObjects = new ArrayList<GameObject>();
+	final Region[] regions = getSurroundingRegions(character.getPosition());
+	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
+		: Position.MAX_DISTANCE;
+	for (final Region region : regions)
+	    for (final GameObject object : region.getGameObjects())
+		if (object.getLocation().getDistance(character.getPosition()) <= distance)
 		    localObjects.add(object);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localObjects);
     }
 
@@ -97,15 +94,14 @@ public class RegionManager {
      * @return The collection of local players.
      */
     public Collection<Player> getLocalPlayers(Character character) {
-	List<Player> localPlayers = new LinkedList<Player>();
-	Region[] regions = getSurroundingRegions(character.getPosition());
-	for (Region region : regions) {
-	    for (Player player : region.getPlayers()) {
-		if (player.getPosition().getDistance(character.getPosition()) <= Position.MAX_DISTANCE) {
+	final List<Player> localPlayers = new LinkedList<Player>();
+	final Region[] regions = getSurroundingRegions(character.getPosition());
+	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
+		: Position.MAX_DISTANCE;
+	for (final Region region : regions)
+	    for (final Player player : region.getPlayers())
+		if (player.getPosition().getDistance(character.getPosition()) <= distance)
 		    localPlayers.add(player);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -116,11 +112,11 @@ public class RegionManager {
      * @return The region.
      */
     public Region getRegion(int x, int y) {
-	RegionCoordinates key = new RegionCoordinates(x, y);
-	if (activeRegions.containsKey(key)) {
+	final RegionCoordinates key = new RegionCoordinates(x, y);
+	if (activeRegions.containsKey(key))
 	    return activeRegions.get(key);
-	} else {
-	    Region region = new Region(key);
+	else {
+	    final Region region = new Region(key);
 	    activeRegions.put(key, region);
 	    return region;
 	}
@@ -141,13 +137,10 @@ public class RegionManager {
      * @return The regions surrounding the location.
      */
     public Region[] getSurroundingRegions(Position location) {
-	int regionX = location.getX() / REGION_SIZE;
-	int regionY = location.getY() / REGION_SIZE;
+	final int regionX = location.getX() / REGION_SIZE;
+	final int regionY = location.getY() / REGION_SIZE;
 
-	// int regionPositionX = location.getX() % REGION_SIZE;
-	// int regionPositionY = location.getY() % REGION_SIZE;
-
-	Region[] surrounding = new Region[9];
+	final Region[] surrounding = new Region[9];
 	surrounding[0] = getRegion(regionX, regionY);
 	surrounding[1] = getRegion(regionX - 1, regionY - 1);
 	surrounding[2] = getRegion(regionX + 1, regionY + 1);
@@ -157,29 +150,6 @@ public class RegionManager {
 	surrounding[6] = getRegion(regionX, regionY + 1);
 	surrounding[7] = getRegion(regionX - 1, regionY + 1);
 	surrounding[8] = getRegion(regionX + 1, regionY - 1);
-
-	// FIXME
-	// if(regionPositionX <= LOWER_BOUND) {
-	// if(regionPositionY <= LOWER_BOUND) {
-	// surrounding[1] = getRegion(regionX - 1, regionY - 1);
-	// surrounding[2] = getRegion(regionX - 1, regionY);
-	// surrounding[3] = getRegion(regionX, regionY - 1);
-	// } else {
-	// surrounding[1] = getRegion(regionX + 1, regionY - 1);
-	// surrounding[2] = getRegion(regionX + 1, regionY);
-	// surrounding[3] = getRegion(regionX, regionY - 1);
-	// }
-	// } else {
-	// if(regionPositionY <= LOWER_BOUND) {
-	// surrounding[1] = getRegion(regionX - 1, regionY + 1);
-	// surrounding[2] = getRegion(regionX - 1, regionY);
-	// surrounding[3] = getRegion(regionX, regionY + 1);
-	// } else {
-	// surrounding[1] = getRegion(regionX + 1, regionY + 1);
-	// surrounding[2] = getRegion(regionX + 1, regionY);
-	// surrounding[3] = getRegion(regionX, regionY + 1);
-	// }
-	// }
 
 	return surrounding;
     }

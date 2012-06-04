@@ -173,11 +173,10 @@ public final class Server {
 	    final String seperator = System.getProperty("file.separator");
 
 	    String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
-	    if (System.getProperty("os.arch").contains("x86")) {
+	    if (System.getProperty("os.arch").contains("x86"))
 		file += "sigar-32.dll";
-	    } else {
+	    else
 		file += isWindows() ? "sigar.dll" : "sigar.so";
-	    }
 	    Runtime.getRuntime().load(file);
 	} catch (final Exception e) {
 	    logger.log(Level.INFO, "Failed to load SIGAR library.", e);

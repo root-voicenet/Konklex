@@ -12,19 +12,15 @@ public final class PostPlayerRegionSynchronizationTask extends SynchronizationTa
 
     @Override
     public void run() {
-	for (GroundItem item : World.getWorld().getItems()) {
-	    if (item.getPulses() != 0) {
+	for (final GroundItem item : World.getWorld().getItems()) {
+	    if (item.getPulses() != 0)
 		item.decreasePulses();
-	    }
-	    if (item.isRemoving()) {
+	    if (item.isRemoving())
 		World.getWorld().unregister(item);
-	    }
 	}
-	for (GameObject object : World.getWorld().getObjects()) {
-	    if (object.isRemoving()) {
+	for (final GameObject object : World.getWorld().getObjects())
+	    if (object.isRemoving())
 		World.getWorld().unregister(object);
-	    }
-	}
     }
 
 }

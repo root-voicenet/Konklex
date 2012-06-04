@@ -48,35 +48,30 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 	int added = 0;
 	final Collection<GameObject> objects = World.getWorld().getRegionManager().getLocalObjects(player);
 	for (final GameObject object : objects) {
-	    if (added >= EVENTS_PER_CYCLE) {
+	    if (added >= EVENTS_PER_CYCLE)
 		break;
-	    }
 	    if (!localObjects.contains(object)) {
 		player.send(new PositionEvent(player.getLastKnownRegion(), object.getLocation()));
 		player.send(new ObjectEvent(object));
-		if (!object.isRemoving()) {
+		if (!object.isRemoving())
 		    localObjects.add(object);
-		}
 		added++;
 	    }
 	}
 	added = 0;
 	final Collection<GroundItem> groundItems = World.getWorld().getRegionManager().getLocalGroundItems(player);
 	for (final GroundItem groundItem : groundItems) {
-	    if (added >= EVENTS_PER_CYCLE) {
+	    if (added >= EVENTS_PER_CYCLE)
 		break;
-	    }
-	    if (!localGroundItems.contains(groundItem)) {
+	    if (!localGroundItems.contains(groundItem))
 		if (groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0) {
-		    Item item = groundItem.getItem();
+		    final Item item = groundItem.getItem();
 		    player.send(new PositionEvent(player.getLastKnownRegion(), groundItem.getPosition()));
 		    player.send(new GroundItemEvent(groundItem));
-		    if (!groundItem.isRemoving()) {
+		    if (!groundItem.isRemoving())
 			localGroundItems.add(groundItem);
-		    }
 		    added++;
 		}
-	    }
 	}
     }
 

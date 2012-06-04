@@ -24,9 +24,8 @@ public final class Release668 extends Release {
      * one.
      */
     static {
-	for (int id = 0; id < PACKET_LENGTHS.length; id++) {
+	for (int id = 0; id < PACKET_LENGTHS.length; id++)
 	    PACKET_LENGTHS[id] = -4;
-	}
 	PACKET_LENGTHS[64] = 8;
 	PACKET_LENGTHS[18] = 8;
 	PACKET_LENGTHS[25] = 8;

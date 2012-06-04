@@ -38,7 +38,7 @@ public final class NpcSpawnParser {
     public NpcSpawnParser(InputStream is) {
 	try {
 	    this.parser = new XmlParser();
-	} catch (SAXException e) {
+	} catch (final SAXException e) {
 	    this.parser = null;
 	}
 	this.is = is;
@@ -55,10 +55,10 @@ public final class NpcSpawnParser {
 	XmlNode rootNode = null;
 	try {
 	    rootNode = parser.parse(is);
-	} catch (IOException e) {
+	} catch (final IOException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
-	} catch (SAXException e) {
+	} catch (final SAXException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
@@ -71,9 +71,8 @@ public final class NpcSpawnParser {
 	    final int id = Integer.parseInt(npcNode.getAttribute("id"));
 	    // We simply ignore any ids above the maximum for the current
 	    // release.
-	    if (id > maxId) {
+	    if (id > maxId)
 		continue;
-	    }
 
 	    final XmlNode posNode = npcNode.getChild("position");
 	    final XmlNode nodeX = posNode.getChild("x");
@@ -88,9 +87,8 @@ public final class NpcSpawnParser {
 	    if (nodeZ != null) {
 		final int height = Integer.parseInt(nodeZ.getValue());
 		pos = new Position(x, y, height);
-	    } else {
+	    } else
 		pos = new Position(x, y);
-	    }
 
 	    final Npc npc = new Npc(id, pos);
 	    npcs.add(npc);

@@ -87,7 +87,7 @@ public final class Npc extends Character {
 
     @Override
     public void setPosition(Position position) {
-	Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
+	final Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
 	if (getRegion() != null) {
 	    if (getRegion() != region) {
 		getRegion().removeNpc(this);

@@ -19,27 +19,27 @@ public class Region {
     /**
      * The region coordinates.
      */
-    private RegionCoordinates coordinate;
+    private final RegionCoordinates coordinate;
 
     /**
      * A list of players in this region.
      */
-    private List<Player> players = new LinkedList<Player>();
+    private final List<Player> players = new LinkedList<Player>();
 
     /**
      * A list of NPCs in this region.
      */
-    private List<Npc> npcs = new LinkedList<Npc>();
+    private final List<Npc> npcs = new LinkedList<Npc>();
 
     /**
      * A list of objects in this region.
      */
-    private List<GameObject> objects = new LinkedList<GameObject>();
+    private final List<GameObject> objects = new LinkedList<GameObject>();
 
     /**
      * A list of ground items in this region.
      */
-    private List<GroundItem> items = new LinkedList<GroundItem>();
+    private final List<GroundItem> items = new LinkedList<GroundItem>();
 
     /**
      * Creates a region.

@@ -34,16 +34,12 @@ public final class PrePlayerRegionSynchronizationTask extends SynchronizationTas
 	final List<GroundItem> localGroundItems = player.getLocalGroundItemList();
 	final Collection<GameObject> objects = World.getWorld().getRegionManager().getLocalObjects(player);
 	final Collection<GroundItem> groundItems = World.getWorld().getRegionManager().getLocalGroundItems(player);
-	for (GameObject object : localObjects) {
-	    if (!objects.contains(object)) {
+	for (final GameObject object : localObjects)
+	    if (!objects.contains(object))
 		localObjects.remove(object);
-	    }
-	}
-	for (GroundItem groundItem : localGroundItems) {
-	    if (!groundItems.contains(groundItem)) {
+	for (final GroundItem groundItem : localGroundItems)
+	    if (!groundItems.contains(groundItem))
 		localGroundItems.remove(groundItem);
-	    }
-	}
     }
 
 }

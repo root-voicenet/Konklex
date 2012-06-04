@@ -27,12 +27,11 @@ public final class DropItemEventHandler extends EventHandler<ItemOptionEvent> {
 	    final int slot = event.getSlot();
 	    final Item item = player.getInventory().get(slot);
 	    if (item != null) {
-		GroundItem groundItem = new GroundItem(player.getName(), item, player.getPosition());
+		final GroundItem groundItem = new GroundItem(player.getName(), item, player.getPosition());
 		World.getWorld().register(groundItem);
 		player.getInventory().reset(slot);
-	    } else {
+	    } else
 		ctx.breakHandlerChain();
-	    }
 	}
     }
 }
