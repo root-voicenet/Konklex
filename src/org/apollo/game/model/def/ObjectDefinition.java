@@ -28,8 +28,9 @@ public final class ObjectDefinition {
      * @throws IndexOutOfBoundsException if the id is out of bounds.
      */
     public static ObjectDefinition forId(int id) {
-	if (id < 0 || id >= definitions.length)
+	if (id < 0 || id >= definitions.length) {
 	    throw new IndexOutOfBoundsException();
+	}
 	return definitions[id];
     }
 
@@ -42,8 +43,9 @@ public final class ObjectDefinition {
 	ObjectDefinition.definitions = definitions;
 	for (int id = 0; id < definitions.length; id++) {
 	    final ObjectDefinition def = definitions[id];
-	    if (def.getId() != id)
+	    if (def.getId() != id) {
 		throw new RuntimeException("Object definition id mismatch");
+	    }
 	}
     }
 
@@ -141,8 +143,9 @@ public final class ObjectDefinition {
      * @param action The action to add.
      */
     public void addAction(int code, String action) {
-	if (!action.equalsIgnoreCase("hidden"))
+	if (!action.equalsIgnoreCase("hidden")) {
 	    actions[code] = action;
+	}
     }
 
     /**

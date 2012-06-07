@@ -53,9 +53,9 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	builder.putBits(8, event.getLocalPlayers());
 	for (final SynchronizationSegment segment : event.getSegments()) {
 	    final SegmentType type = segment.getType();
-	    if (type == SegmentType.REMOVE_CHARACTER)
+	    if (type == SegmentType.REMOVE_CHARACTER) {
 		putRemoveCharacterUpdate(builder);
-	    else if (type == SegmentType.ADD_CHARACTER) {
+	    } else if (type == SegmentType.ADD_CHARACTER) {
 		putAddCharacterUpdate((AddCharacterSegment) segment, event, builder);
 		putBlocks(segment, blockBuilder);
 	    } else {
@@ -67,8 +67,9 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	    builder.putBits(11, 2047);
 	    builder.switchToByteAccess();
 	    builder.putRawBuilder(blockBuilder);
-	} else
+	} else {
 	    builder.switchToByteAccess();
+	}
 	return builder.toGamePacket();
     }
 
@@ -115,57 +116,71 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	Item item, chest, helm, weapon;
 	weapon = equipment.get(EquipmentConstants.WEAPON) != null ? equipment.get(EquipmentConstants.WEAPON)
 		: new Item(0);
-	for (int slot = 0; slot < 4; slot++)
-	    if ((item = equipment.get(slot)) != null)
+	for (int slot = 0; slot < 4; slot++) {
+	    if ((item = equipment.get(slot)) != null) {
 		playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-	    else
+	    } else {
 		playerProperties.put(DataType.BYTE, 0);
-	if ((chest = equipment.get(EquipmentConstants.CHEST)) != null)
+	    }
+	}
+	if ((chest = equipment.get(EquipmentConstants.CHEST)) != null) {
 	    playerProperties.put(DataType.SHORT, 0x200 + chest.getId());
-	else
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[2]);
-	if ((item = equipment.get(EquipmentConstants.SHIELD)) != null)
+	}
+	if ((item = equipment.get(EquipmentConstants.SHIELD)) != null) {
 	    playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-	else
+	} else {
 	    playerProperties.put(DataType.BYTE, 0);
+	}
 	if (chest != null) {
 	    final EquipmentDefinition def = EquipmentDefinition.forId(chest.getId());
-	    if (def != null && !def.isFullBody())
+	    if (def != null && !def.isFullBody()) {
 		playerProperties.put(DataType.SHORT, 0x100 + style[3]);
-	    else
+	    } else {
 		playerProperties.put(DataType.BYTE, 0);
-	} else
+	    }
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[3]);
-	if ((item = equipment.get(EquipmentConstants.LEGS)) != null)
+	}
+	if ((item = equipment.get(EquipmentConstants.LEGS)) != null) {
 	    playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-	else
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[5]);
+	}
 	if ((helm = equipment.get(EquipmentConstants.HAT)) != null) {
 	    final EquipmentDefinition def = EquipmentDefinition.forId(helm.getId());
-	    if (def != null && !def.isFullHat() && !def.isFullMask())
+	    if (def != null && !def.isFullHat() && !def.isFullMask()) {
 		playerProperties.put(DataType.SHORT, 0x100 + style[0]);
-	    else
+	    } else {
 		playerProperties.put(DataType.BYTE, 0);
-	} else
+	    }
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[0]);
-	if ((item = equipment.get(EquipmentConstants.HANDS)) != null)
+	}
+	if ((item = equipment.get(EquipmentConstants.HANDS)) != null) {
 	    playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-	else
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[4]);
-	if ((item = equipment.get(EquipmentConstants.FEET)) != null)
+	}
+	if ((item = equipment.get(EquipmentConstants.FEET)) != null) {
 	    playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-	else
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[6]);
+	}
 	EquipmentDefinition def = null;
-	if (helm != null)
+	if (helm != null) {
 	    def = EquipmentDefinition.forId(helm.getId());
-	if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.getGender() == Gender.FEMALE)
+	}
+	if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.getGender() == Gender.FEMALE) {
 	    playerProperties.put(DataType.BYTE, 0);
-	else
+	} else {
 	    playerProperties.put(DataType.SHORT, 0x100 + style[1]);
+	}
 	final int[] colors = appearance.getColors();
-	for (final int color : colors)
+	for (final int color : colors) {
 	    playerProperties.put(DataType.BYTE, color);
+	}
 	playerProperties.put(DataType.SHORT, MeleeConstants.getStandAnimation(weapon.getId())); // stand
 	playerProperties.put(DataType.SHORT, 0x337); // stand turn
 	playerProperties.put(DataType.SHORT, MeleeConstants.getWalkAnimation(weapon.getId())); // walk
@@ -189,51 +204,72 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	final SynchronizationBlockSet blockSet = segment.getBlockSet();
 	if (blockSet.size() > 0) {
 	    int mask = 0;
-	    if (blockSet.contains(ForceMovementBlock.class))
+	    if (blockSet.contains(ForceMovementBlock.class)) {
 		mask |= 0x400;
-	    if (blockSet.contains(GraphicBlock.class))
+	    }
+	    if (blockSet.contains(GraphicBlock.class)) {
 		mask |= 0x100;
-	    if (blockSet.contains(AnimationBlock.class))
-		mask |= 0x8;
-	    if (blockSet.contains(ForceChatBlock.class))
+	    }
+	    if (blockSet.contains(AnimationBlock.class)) {
+		mask |= 8;
+	    }
+	    if (blockSet.contains(ForceChatBlock.class)) {
 		mask |= 4;
-	    if (blockSet.contains(ChatBlock.class))
+	    }
+	    if (blockSet.contains(ChatBlock.class)) {
 		mask |= 0x80;
-	    if (blockSet.contains(InteractingEntityBlock.class))
+	    }
+	    if (blockSet.contains(InteractingEntityBlock.class)) {
 		mask |= 1;
-	    if (blockSet.contains(AppearanceBlock.class))
+	    }
+	    if (blockSet.contains(AppearanceBlock.class)) {
 		mask |= 0x10;
-	    if (blockSet.contains(TurnToPositionBlock.class))
-		mask |= 0x2;
-	    if (blockSet.contains(HitUpdateBlock.class))
+	    }
+	    if (blockSet.contains(TurnToPositionBlock.class)) {
+		mask |= 2;
+	    }
+	    if (blockSet.contains(HitUpdateBlock.class)) {
 		mask |= 0x20;
-	    if (blockSet.contains(SecondHitUpdateBlock.class))
+	    }
+	    if (blockSet.contains(SecondHitUpdateBlock.class)) {
 		mask |= 0x200;
+	    }
 	    if (mask >= 0x100) {
 		mask |= 0x40;
 		blockBuilder.put(DataType.SHORT, DataOrder.LITTLE, mask);
-	    } else
+	    } else {
 		blockBuilder.put(DataType.BYTE, mask);
-	    if (blockSet.contains(ForceMovementBlock.class))
+	    }
+	    if (blockSet.contains(ForceMovementBlock.class)) {
 		putForceMovementBlock(blockSet.get(ForceMovementBlock.class), blockBuilder);
-	    if (blockSet.contains(GraphicBlock.class))
+	    }
+	    if (blockSet.contains(GraphicBlock.class)) {
 		putGraphicBlock(blockSet.get(GraphicBlock.class), blockBuilder);
-	    if (blockSet.contains(AnimationBlock.class))
+	    }
+	    if (blockSet.contains(AnimationBlock.class)) {
 		putAnimationBlock(blockSet.get(AnimationBlock.class), blockBuilder);
-	    if (blockSet.contains(ForceChatBlock.class))
+	    }
+	    if (blockSet.contains(ForceChatBlock.class)) {
 		putForceChatBlock(blockSet.get(ForceChatBlock.class), blockBuilder);
-	    if (blockSet.contains(ChatBlock.class))
+	    }
+	    if (blockSet.contains(ChatBlock.class)) {
 		putChatBlock(blockSet.get(ChatBlock.class), blockBuilder);
-	    if (blockSet.contains(InteractingEntityBlock.class))
+	    }
+	    if (blockSet.contains(InteractingEntityBlock.class)) {
 		putInteractingEntityBlock(blockSet.get(InteractingEntityBlock.class), blockBuilder);
-	    if (blockSet.contains(AppearanceBlock.class))
+	    }
+	    if (blockSet.contains(AppearanceBlock.class)) {
 		putAppearanceBlock(blockSet.get(AppearanceBlock.class), blockBuilder);
-	    if (blockSet.contains(TurnToPositionBlock.class))
+	    }
+	    if (blockSet.contains(TurnToPositionBlock.class)) {
 		putTurnToPositionBlock(blockSet.get(TurnToPositionBlock.class), blockBuilder);
-	    if (blockSet.contains(HitUpdateBlock.class))
+	    }
+	    if (blockSet.contains(HitUpdateBlock.class)) {
 		putHitUpdateBlock(blockSet.get(HitUpdateBlock.class), blockBuilder);
-	    if (blockSet.contains(SecondHitUpdateBlock.class))
+	    }
+	    if (blockSet.contains(SecondHitUpdateBlock.class)) {
 		putSecondHitUpdateBlock(blockSet.get(SecondHitUpdateBlock.class), blockBuilder);
+	    }
 	}
     }
 
@@ -269,8 +305,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	final Position reachable = block.getPosition();
 	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, current.getLocalX());
 	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, current.getLocalY());
-	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, reachable.getLocalX());
-	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, reachable.getLocalY());
+	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, reachable.getLocalX(current));
+	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, reachable.getLocalY(current));
 	blockBuilder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, block.getFirstSpeed());
 	blockBuilder.put(DataType.SHORT, DataTransformation.ADD, block.getSecondSpeed());
 	blockBuilder.put(DataType.BYTE, DataTransformation.SUBTRACT, block.getDirection());
@@ -342,8 +378,9 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	} else if (updateRequired) {
 	    builder.putBits(1, 1);
 	    builder.putBits(2, 0);
-	} else
+	} else {
 	    builder.putBits(1, 0);
+	}
     }
 
     /**

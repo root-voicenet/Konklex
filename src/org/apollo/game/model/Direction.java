@@ -55,23 +55,26 @@ public enum Direction {
      */
     public static Direction fromDeltas(int deltaX, int deltaY) {
 	if (deltaY == 1) {
-	    if (deltaX == 1)
+	    if (deltaX == 1) {
 		return Direction.NORTH_EAST;
-	    else if (deltaX == 0)
+	    } else if (deltaX == 0) {
 		return Direction.NORTH;
-	    else
+	    } else {
 		return Direction.NORTH_WEST;
+	    }
 	} else if (deltaY == -1) {
-	    if (deltaX == 1)
+	    if (deltaX == 1) {
 		return Direction.SOUTH_EAST;
-	    else if (deltaX == 0)
+	    } else if (deltaX == 0) {
 		return Direction.SOUTH;
-	    else
+	    } else {
 		return Direction.SOUTH_WEST;
-	} else if (deltaX == 1)
+	    }
+	} else if (deltaX == 1) {
 	    return Direction.EAST;
-	else if (deltaX == -1)
+	} else if (deltaX == -1) {
 	    return Direction.WEST;
+	}
 	return Direction.NONE;
     }
 

@@ -95,30 +95,35 @@ public final class PlayerMessaging {
      */
     public void add(String who, Event what, boolean loader) throws Exception {
 	who = who.toLowerCase();
-	if (loader)
+	if (loader) {
 	    friends.put(who, what);
-	else if (size > capacity)
+	} else if (size > capacity) {
 	    throw new Exception("Friends list full.");
-	else if (what == Event.FRIEND) {
+	} else if (what == Event.FRIEND) {
 	    if (friends.get(who) != null) {
-		if (friends.get(who).equals(Event.IGNORE))
+		if (friends.get(who).equals(Event.IGNORE)) {
 		    throw new Exception("Friend is already ignored.");
-		else if (friends.get(who).equals(Event.FRIEND))
+		} else if (friends.get(who).equals(Event.FRIEND)) {
 		    throw new Exception("Friend is already added.");
-		else
+		} else {
 		    friends.put(who, what);
-	    } else
+		}
+	    } else {
 		friends.put(who, what);
-	} else if (what == Event.IGNORE)
+	    }
+	} else if (what == Event.IGNORE) {
 	    if (friends.get(who) != null) {
-		if (friends.get(who).equals(Event.FRIEND))
+		if (friends.get(who).equals(Event.FRIEND)) {
 		    throw new Exception("Friend is already added.");
-		else if (friends.get(who).equals(Event.IGNORE))
+		} else if (friends.get(who).equals(Event.IGNORE)) {
 		    throw new Exception("Friend is already ignored.");
-		else
+		} else {
 		    friends.put(who, what);
-	    } else
+		}
+	    } else {
 		friends.put(who, what);
+	    }
+	}
 	this.size = friends.size();
     }
 
@@ -140,24 +145,29 @@ public final class PlayerMessaging {
 	who = who.toLowerCase();
 	if (what == Event.FRIEND) {
 	    if (friends.get(who) != null) {
-		if (friends.get(who).equals(Event.IGNORE))
+		if (friends.get(who).equals(Event.IGNORE)) {
 		    throw new Exception("Friend is ignored.");
-		else if (!friends.get(who).equals(Event.FRIEND))
+		} else if (!friends.get(who).equals(Event.FRIEND)) {
 		    throw new Exception("Friend is not added.");
-		else
+		} else {
 		    friends.remove(who);
-	    } else
+		}
+	    } else {
 		friends.remove(who);
-	} else if (what == Event.IGNORE)
+	    }
+	} else if (what == Event.IGNORE) {
 	    if (friends.get(who) != null) {
-		if (friends.get(who).equals(Event.FRIEND))
+		if (friends.get(who).equals(Event.FRIEND)) {
 		    throw new Exception("Friend is added.");
-		else if (!friends.get(who).equals(Event.IGNORE))
+		} else if (!friends.get(who).equals(Event.IGNORE)) {
 		    throw new Exception("Friend is not ignored.");
-		else
+		} else {
 		    friends.remove(who);
-	    } else
+		}
+	    } else {
 		friends.remove(who);
+	    }
+	}
 	this.size = friends.size();
     }
 
@@ -175,9 +185,11 @@ public final class PlayerMessaging {
      */
     private int getIgnoreSize() {
 	int size = 0;
-	for (final Entry<String, Event> entry : friends.entrySet())
-	    if (entry.getValue().toInteger() == 2)
+	for (final Entry<String, Event> entry : friends.entrySet()) {
+	    if (entry.getValue().toInteger() == 2) {
 		size++;
+	    }
+	}
 	return size;
     }
 
@@ -196,12 +208,13 @@ public final class PlayerMessaging {
      * @throws Exception the exception
      */
     public int getValue(Event what) throws Exception {
-	if (what == Event.FRIEND)
+	if (what == Event.FRIEND) {
 	    return 1;
-	else if (what == Event.IGNORE)
+	} else if (what == Event.IGNORE) {
 	    return 2;
-	else
+	} else {
 	    throw new Exception("Invalid event.");
+	}
     }
 
     /**
@@ -211,12 +224,13 @@ public final class PlayerMessaging {
      * @throws Exception the exception
      */
     public Event getValue(int what) throws Exception {
-	if (what == 1)
+	if (what == 1) {
 	    return Event.FRIEND;
-	else if (what == 2)
+	} else if (what == 2) {
 	    return Event.IGNORE;
-	else
+	} else {
 	    throw new Exception("Invalid event.");
+	}
     }
 
     /**
@@ -226,14 +240,16 @@ public final class PlayerMessaging {
     public void refresh() throws Exception {
 	final long[] ignores = new long[getIgnoreSize()];
 	int i = 0;
-	for (final Entry<String, Event> entry : friends.entrySet())
+	for (final Entry<String, Event> entry : friends.entrySet()) {
 	    if (entry.getValue().toInteger() == 1) {
 		final boolean online = World.getWorld().isPlayerOnline(entry.getKey());
 		final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(entry.getKey()),
 			online ? 1 : 0);
 		player.send(sendFriend);
-	    } else
+	    } else {
 		ignores[i++] = NameUtil.encodeBase37(entry.getKey());
+	    }
+	}
 	final SendIgnoreEvent sendIgnore = new SendIgnoreEvent(ignores);
 	player.send(sendIgnore);
     }
@@ -252,14 +268,6 @@ public final class PlayerMessaging {
 		final boolean online = World.getWorld().isPlayerOnline(user);
 		final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(user), online ? 1 : 0);
 		player.send(sendFriend);
-	    } else {
-		final long[] ignores = new long[getIgnoreSize()];
-		int i = 0;
-		for (final Entry<String, Event> kv : friends.entrySet())
-		    if (kv.getValue().toInteger() == 2)
-			ignores[i++] = NameUtil.encodeBase37(kv.getKey());
-		final SendIgnoreEvent sendIgnore = new SendIgnoreEvent(ignores);
-		player.send(sendIgnore);
 	    }
 	}
     }

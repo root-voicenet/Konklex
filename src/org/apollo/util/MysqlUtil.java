@@ -17,7 +17,7 @@ import com.sun.rowset.CachedRowSetImpl;
  * A utility class which contains mysql-related methods.
  * @author Steve
  */
-public class MysqlUtil {
+public final class MysqlUtil {
 
     /**
      * The driver.
@@ -39,13 +39,14 @@ public class MysqlUtil {
      * @throws SQLException If the server could not connect.
      */
     public static void open() {
-	if (driver == null)
+	if (driver == null) {
 	    try {
 		driver = (Driver) Class.forName("com.mysql.jdbc.Driver").newInstance();
 		connections = new ConnectionPool("konklex", 3, 5, 10, 110, "jdbc:mysql://", "", ""); // Edit
 	    } catch (final Exception e) {
 		logger.log(Level.SEVERE, "Error while starting the Jdbs instance.", e);
 	    }
+	}
     }
 
     /**
@@ -64,8 +65,9 @@ public class MysqlUtil {
 		if (query.toLowerCase().startsWith("select")) {
 		    rowset.populate(stmt.executeQuery(query));
 		    return rowset;
-		} else
+		} else {
 		    stmt.executeUpdate(query);
+		}
 	    }
 	} catch (final SQLException e) {
 	} finally {

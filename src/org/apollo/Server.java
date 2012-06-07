@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import org.apollo.backend.Frontend;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.World;
+import org.apollo.game.scheduling.impl.SystemCleanTask;
 import org.apollo.game.scheduling.impl.UpdateFriendsTask;
 import org.apollo.net.ApolloHandler;
 import org.apollo.net.HttpPipelineFactory;
@@ -19,7 +20,6 @@ import org.apollo.net.NetworkConstants;
 import org.apollo.net.ServicePipelineFactory;
 import org.apollo.net.release.Release;
 import org.apollo.net.release.r317.Release317;
-import org.apollo.util.MysqlUtil;
 import org.apollo.util.plugin.PluginContext;
 import org.apollo.util.plugin.PluginManager;
 import org.jboss.netty.bootstrap.ServerBootstrap;
@@ -173,10 +173,11 @@ public final class Server {
 	    final String seperator = System.getProperty("file.separator");
 
 	    String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
-	    if (System.getProperty("os.arch").contains("x86"))
+	    if (System.getProperty("os.arch").contains("x86")) {
 		file += "sigar-32.dll";
-	    else
+	    } else {
 		file += isWindows() ? "sigar.dll" : "sigar.so";
+	    }
 	    Runtime.getRuntime().load(file);
 	} catch (final Exception e) {
 	    logger.log(Level.INFO, "Failed to load SIGAR library.", e);
@@ -191,7 +192,8 @@ public final class Server {
 	loadSigar();
 	final PluginManager mgr = new PluginManager(new PluginContext(context));
 	serviceManager.startAll();
-	MysqlUtil.open();
+	// TODO Have this not run on 2 threads
+	// MysqlUtil.open();
 	final int releaseNo = context.getRelease().getReleaseNumber();
 	final IndexedFileSystem fs = new IndexedFileSystem(new File("data/fs/" + releaseNo), true);
 	World.getWorld().init(releaseNo, fs, mgr, context);
@@ -204,5 +206,6 @@ public final class Server {
      */
     private void startTasks() {
 	World.getWorld().schedule(new UpdateFriendsTask());
+	World.getWorld().schedule(new SystemCleanTask());
     }
 }

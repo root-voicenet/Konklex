@@ -13,7 +13,9 @@ public final class PlayerIdleEventHandler extends EventHandler<PlayerIdleEvent> 
 
     @Override
     public void handle(EventHandlerContext ctx, Player player, PlayerIdleEvent event) {
-	if (!player.isMembers())
+	if (!player.isMembers()
+		|| player.getPrivilegeLevel().toInteger() <= Player.PrivilegeLevel.MODERATOR.toInteger()) {
 	    player.logout();
+	}
     }
 }

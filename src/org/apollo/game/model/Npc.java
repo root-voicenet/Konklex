@@ -4,6 +4,7 @@ import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.def.NpcDefinition;
 import org.apollo.game.model.region.Region;
+import org.apollo.game.scheduling.impl.RandomizedNpcWalkingTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
@@ -74,7 +75,7 @@ public final class Npc extends Character {
      * Initializes this npc.
      */
     public void init() {
-	// World.getWorld().schedule(new RandomizedNpcWalkingTask(this));
+	World.getWorld().schedule(new RandomizedNpcWalkingTask(this));
     }
 
     @Override
