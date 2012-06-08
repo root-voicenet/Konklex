@@ -26,6 +26,7 @@ import org.apollo.game.event.impl.OpenWelcomeScreenEvent;
 import org.apollo.game.event.impl.PlayerSynchronizationEvent;
 import org.apollo.game.event.impl.PositionEvent;
 import org.apollo.game.event.impl.PrivateChatLoadedEvent;
+import org.apollo.game.event.impl.ProjectileEvent;
 import org.apollo.game.event.impl.RegionChangeEvent;
 import org.apollo.game.event.impl.RemoveGroundItemEvent;
 import org.apollo.game.event.impl.ResetButtonsEvent;
@@ -192,5 +193,6 @@ public final class Release317 extends Release {
 	register(ConstructMapRegionEvent.class, new ConstructMapRegionEventEncoder());
 	register(CameraResetEvent.class, new CameraResetEventEncoder());
 	register(CameraShakeEvent.class, new CameraShakeEventEncoder());
+	register(ProjectileEvent.class, new ProjectileEventEncoder());
     }
 }
