@@ -11,6 +11,7 @@
 	<script>fletch.rb</script>
         <script>bow.rb</script>
         <script>arrow.rb</script>
+        <script>item.rb</script>
   </scripts>
   <dependencies />
 </plugin>
