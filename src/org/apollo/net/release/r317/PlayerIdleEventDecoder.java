@@ -10,8 +10,8 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class PlayerIdleEventDecoder extends EventDecoder<PlayerIdleEvent> {
 
-	@Override
-	public PlayerIdleEvent decode(GamePacket packet) {
-		return new PlayerIdleEvent();
-	}
+    @Override
+    public PlayerIdleEvent decode(GamePacket packet) {
+	return new PlayerIdleEvent();
+    }
 }

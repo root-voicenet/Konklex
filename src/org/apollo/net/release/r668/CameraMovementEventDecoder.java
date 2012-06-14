@@ -12,11 +12,11 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class CameraMovementEventDecoder extends EventDecoder<CameraMovementEvent> {
 
-	@Override
-	public CameraMovementEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int y = (int) reader.getUnsigned(DataType.SHORT);
-		int x = (int) reader.getUnsigned(DataType.SHORT);
-		return new CameraMovementEvent(x, y);
-	}
+    @Override
+    public CameraMovementEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int y = (int) reader.getUnsigned(DataType.SHORT);
+	final int x = (int) reader.getUnsigned(DataType.SHORT);
+	return new CameraMovementEvent(x, y);
+    }
 }

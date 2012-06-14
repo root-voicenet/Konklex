@@ -12,15 +12,16 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class SendFriendEventEncoder extends EventEncoder<SendFriendEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(SendFriendEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(50);
-		builder.putLong(event.getFriend());
-		builder.put(DataType.BYTE, event.getStatus());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(SendFriendEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(50);
+	builder.putLong(event.getFriend());
+	builder.put(DataType.BYTE, event.getStatus());
+	return builder.toGamePacket();
+    }
 }

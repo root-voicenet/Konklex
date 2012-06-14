@@ -98,7 +98,7 @@
   <event>
     <type>org.apollo.game.event.impl.PlayerOptionEvent</type>
     <chain>
-       <handler>org.apollo.game.event.handler.impl.PlayerVerificationHandler</handler>
+       <handler>org.apollo.game.event.handler.impl.PlayerVerificationEventHandler</handler>
     </chain>
   </event>
   <event>
@@ -132,12 +132,6 @@
     </chain>
   </event>
   <event>
-    <type>org.apollo.game.event.impl.ObjectLoadEvent</type>
-    <chain>
-       <handler>org.apollo.game.event.handler.impl.ObjectLoadEventHandler</handler>
-    </chain>
-  </event>
-  <event>
     <type>org.apollo.game.event.impl.ChatPrivacySettingsEvent</type>
     <chain>
        <handler>org.apollo.game.event.handler.impl.ChatPrivacySettingsEventHandler</handler>
@@ -165,5 +159,12 @@
   <event>
     <type>org.apollo.game.event.impl.ClientFocusChangeEvent</type>
     <chain/>
+  </event>
+  <event>
+    <type>org.apollo.game.event.impl.PlayerFollowEvent</type>
+    <chain>
+      <handler>org.apollo.game.event.handler.impl.PlayerVerificationEventHandler</handler>
+      <handler>org.apollo.game.event.handler.impl.PlayerFollowEventHandler</handler>
+    </chain>
   </event>
 </events>

@@ -14,12 +14,12 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class FirstItemOptionEventDecoder extends EventDecoder<FirstItemOptionEvent> {
 
-	@Override
-	public FirstItemOptionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int interfaceId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		int slot = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		int id = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new FirstItemOptionEvent(interfaceId, id, slot);
-	}
+    @Override
+    public FirstItemOptionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int interfaceId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final int slot = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	final int id = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new FirstItemOptionEvent(interfaceId, id, slot);
+    }
 }

@@ -12,13 +12,12 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class CameraShakeEventEncoder extends EventEncoder<CameraShakeEvent> {
 
-	@Override
-	public GamePacket encode(CameraShakeEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(35);
-		builder.put(DataType.BYTE, event.getType());
-		for (int i = 0; i < CameraShakeEvent.MAX_MAGNITUDES; i++) {
-			builder.put(DataType.BYTE, event.getMagnitudes()[i]);
-		}
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(CameraShakeEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(35);
+	builder.put(DataType.BYTE, event.getType());
+	for (int i = 0; i < CameraShakeEvent.MAX_MAGNITUDES; i++)
+	    builder.put(DataType.BYTE, event.getMagnitudes()[i]);
+	return builder.toGamePacket();
+    }
 }

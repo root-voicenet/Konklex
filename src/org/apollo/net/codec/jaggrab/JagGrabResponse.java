@@ -8,24 +8,24 @@ import org.jboss.netty.buffer.ChannelBuffer;
  */
 public final class JagGrabResponse {
 
-	/**
-	 * The file data.
-	 */
-	private final ChannelBuffer fileData;
+    /**
+     * The file data.
+     */
+    private final ChannelBuffer fileData;
 
-	/**
-	 * Creates the response.
-	 * @param fileData The file data.
-	 */
-	public JagGrabResponse(ChannelBuffer fileData) {
-		this.fileData = fileData;
-	}
+    /**
+     * Creates the response.
+     * @param fileData The file data.
+     */
+    public JagGrabResponse(ChannelBuffer fileData) {
+	this.fileData = fileData;
+    }
 
-	/**
-	 * Gets the file data.
-	 * @return The file data.
-	 */
-	public ChannelBuffer getFileData() {
-		return fileData;
-	}
+    /**
+     * Gets the file data.
+     * @return The file data.
+     */
+    public ChannelBuffer getFileData() {
+	return fileData;
+    }
 }

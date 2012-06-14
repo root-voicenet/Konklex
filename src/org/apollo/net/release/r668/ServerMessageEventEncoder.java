@@ -13,13 +13,13 @@ import org.apollo.net.release.EventEncoder;
  */
 public class ServerMessageEventEncoder extends EventEncoder<ServerMessageEvent> {
 
-	@Override
-	public GamePacket encode(ServerMessageEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(102, PacketType.VARIABLE_BYTE);
-		builder.putSmart(101);
-		builder.put(DataType.INT, 0);
-		builder.put(DataType.BYTE, 0x1);
-		builder.putString(event.getMessage());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(ServerMessageEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(102, PacketType.VARIABLE_BYTE);
+	builder.putSmart(101);
+	builder.put(DataType.INT, 0);
+	builder.put(DataType.BYTE, 0x1);
+	builder.putString(event.getMessage());
+	return builder.toGamePacket();
+    }
 }

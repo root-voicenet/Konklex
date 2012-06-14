@@ -8,24 +8,24 @@ import org.apollo.game.event.Event;
  */
 public abstract class CreateObjectEvent extends Event {
 
-	/**
-	 * The object type.
-	 */
-	private final int object;
+    /**
+     * The object type.
+     */
+    private final int object;
 
-	/**
-	 * Creates a new create object action event.
-	 * @param object The object id.
-	 */
-	public CreateObjectEvent(int object) {
-		this.object = object;
-	}
+    /**
+     * Creates a new create object action event.
+     * @param object The object id.
+     */
+    public CreateObjectEvent(int object) {
+	this.object = object;
+    }
 
-	/**
-	 * Returns the object id.
-	 * @return {@link Integer} The object id.
-	 */
-	public int getObject() {
-		return object;
-	}
+    /**
+     * Returns the object id.
+     * @return {@link Integer} The object id.
+     */
+    public int getObject() {
+	return object;
+    }
 }

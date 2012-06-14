@@ -8,24 +8,24 @@ import org.apollo.game.model.Graphic;
  */
 public final class GraphicBlock extends SynchronizationBlock {
 
-	/**
-	 * The graphic.
-	 */
-	private final Graphic graphic;
+    /**
+     * The graphic.
+     */
+    private final Graphic graphic;
 
-	/**
-	 * Creates the graphic block.
-	 * @param graphic The graphic.
-	 */
-	GraphicBlock(Graphic graphic) {
-		this.graphic = graphic;
-	}
+    /**
+     * Creates the graphic block.
+     * @param graphic The graphic.
+     */
+    GraphicBlock(Graphic graphic) {
+	this.graphic = graphic;
+    }
 
-	/**
-	 * Gets the graphic.
-	 * @return The graphic.
-	 */
-	public Graphic getGraphic() {
-		return graphic;
-	}
+    /**
+     * Gets the graphic.
+     * @return The graphic.
+     */
+    public Graphic getGraphic() {
+	return graphic;
+    }
 }

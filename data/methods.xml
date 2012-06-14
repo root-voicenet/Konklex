@@ -25,4 +25,8 @@
     <type>org.apollo.backend.method.impl.SetPrivilegeLevelMethod</type>
     <chain />
   </method>
+  <method>
+    <type>org.apollo.backend.method.impl.SendMessageMethod</type>
+    <chain />
+  </method>
 </methods>

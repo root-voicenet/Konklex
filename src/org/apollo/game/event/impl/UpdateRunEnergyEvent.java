@@ -8,24 +8,24 @@ import org.apollo.game.event.Event;
  */
 public class UpdateRunEnergyEvent extends Event {
 
-	/**
-	 * The run energy.
-	 */
-	private final int energy;
+    /**
+     * The run energy.
+     */
+    private final int energy;
 
-	/**
-	 * Creates a new send run event.
-	 * @param energy The energy to send.
-	 */
-	public UpdateRunEnergyEvent(int energy) {
-		this.energy = energy;
-	}
+    /**
+     * Creates a new send run event.
+     * @param energy The energy to send.
+     */
+    public UpdateRunEnergyEvent(int energy) {
+	this.energy = energy;
+    }
 
-	/**
-	 * Gets the run energy.
-	 * @return The run energy.
-	 */
-	public int getEnergy() {
-		return energy;
-	}
+    /**
+     * Gets the run energy.
+     * @return The run energy.
+     */
+    public int getEnergy() {
+	return energy;
+    }
 }

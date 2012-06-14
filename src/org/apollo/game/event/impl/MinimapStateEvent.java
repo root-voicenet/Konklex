@@ -8,24 +8,24 @@ import org.apollo.game.event.Event;
  */
 public final class MinimapStateEvent extends Event {
 
-	/**
-	 * The minimap state.
-	 */
-	private final int state;
+    /**
+     * The minimap state.
+     */
+    private final int state;
 
-	/**
-	 * Creates the minimap state event.
-	 * @param state The state to set.
-	 */
-	public MinimapStateEvent(int state) {
-		this.state = state;
-	}
+    /**
+     * Creates the minimap state event.
+     * @param state The state to set.
+     */
+    public MinimapStateEvent(int state) {
+	this.state = state;
+    }
 
-	/**
-	 * Gets the state.
-	 * @return The state.
-	 */
-	public int getState() {
-		return state;
-	}
+    /**
+     * Gets the state.
+     * @return The state.
+     */
+    public int getState() {
+	return state;
+    }
 }

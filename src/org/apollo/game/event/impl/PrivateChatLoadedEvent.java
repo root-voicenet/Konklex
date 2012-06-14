@@ -9,24 +9,24 @@ import org.apollo.net.release.r317.PrivateChatLoadedEventEncoder;
  */
 public final class PrivateChatLoadedEvent extends Event {
 
-	/**
-	 * Private chat id.
-	 */
-	private final int id;
+    /**
+     * Private chat id.
+     */
+    private final int id;
 
-	/**
-	 * Load a private chat event.
-	 * @param id The loading id.
-	 */
-	public PrivateChatLoadedEvent(int id) {
-		this.id = id;
-	}
+    /**
+     * Load a private chat event.
+     * @param id The loading id.
+     */
+    public PrivateChatLoadedEvent(int id) {
+	this.id = id;
+    }
 
-	/**
-	 * Return the private chat id.
-	 * @return {@link Integer}
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     * Return the private chat id.
+     * @return {@link Integer}
+     */
+    public int getId() {
+	return id;
+    }
 }

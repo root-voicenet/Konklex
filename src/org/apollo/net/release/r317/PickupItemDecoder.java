@@ -14,16 +14,18 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class PickupItemDecoder extends EventDecoder<PickupItemEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public PickupItemEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int y = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		int id = (int) reader.getSigned(DataType.SHORT);
-		int x = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new PickupItemEvent(id, x, y);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public PickupItemEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int y = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	final int id = (int) reader.getSigned(DataType.SHORT);
+	final int x = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new PickupItemEvent(id, x, y);
+    }
 }

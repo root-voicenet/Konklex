@@ -12,11 +12,11 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class SetInterfaceModelMoodEventEncoder extends EventEncoder<SetInterfaceModelMoodEvent> {
 
-	@Override
-	public GamePacket encode(SetInterfaceModelMoodEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(200);
-		builder.put(DataType.SHORT, event.getInterfaceId() & 0xFFFF);
-		builder.put(DataType.SHORT, event.getMood());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(SetInterfaceModelMoodEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(200);
+	builder.put(DataType.SHORT, event.getInterfaceId() & 0xFFFF);
+	builder.put(DataType.SHORT, event.getMood());
+	return builder.toGamePacket();
+    }
 }

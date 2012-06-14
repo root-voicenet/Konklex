@@ -11,9 +11,9 @@ import org.apollo.game.model.Player;
  */
 public final class PlayerReportEventHandler extends EventHandler<PlayerReportEvent> {
 
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, PlayerReportEvent event) {
-		player.sendMessage("Thank you, your report has been recieved.");
-	}
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, PlayerReportEvent event) {
+	player.sendMessage("Thank you, your report has been recieved.");
+    }
 
 }

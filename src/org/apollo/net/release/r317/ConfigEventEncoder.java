@@ -16,23 +16,24 @@ import org.apollo.net.release.EventEncoder;
  */
 public class ConfigEventEncoder extends EventEncoder<ConfigEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(ConfigEvent event) {
-		GamePacketBuilder builder;
-		int value = event.getValue();
-		if (value > MIN_VALUE && value < MAX_VALUE) {
-			builder = new GamePacketBuilder(36);
-			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getId());
-			builder.put(DataType.BYTE, value & 0xFF);
-		} else {
-			builder = new GamePacketBuilder(87);
-			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getId());
-			builder.put(DataType.INT, DataOrder.MIDDLE, value);
-		}
-		return builder.toGamePacket();
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(ConfigEvent event) {
+	GamePacketBuilder builder;
+	final int value = event.getValue();
+	if (value > MIN_VALUE && value < MAX_VALUE) {
+	    builder = new GamePacketBuilder(36);
+	    builder.put(DataType.SHORT, DataOrder.LITTLE, event.getId());
+	    builder.put(DataType.BYTE, value & 0xFF);
+	} else {
+	    builder = new GamePacketBuilder(87);
+	    builder.put(DataType.SHORT, DataOrder.LITTLE, event.getId());
+	    builder.put(DataType.INT, DataOrder.MIDDLE, value);
 	}
+	return builder.toGamePacket();
+    }
 }

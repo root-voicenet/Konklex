@@ -11,10 +11,11 @@ import org.apollo.game.model.Player;
  */
 public final class PlayerIdleEventHandler extends EventHandler<PlayerIdleEvent> {
 
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, PlayerIdleEvent event) {
-		if (!player.isMembers()) {
-			player.logout();
-		}
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, PlayerIdleEvent event) {
+	if (!player.isMembers()
+		|| player.getPrivilegeLevel().toInteger() <= Player.PrivilegeLevel.MODERATOR.toInteger()) {
+	    player.logout();
 	}
+    }
 }

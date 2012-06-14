@@ -12,18 +12,19 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class HintIconEventEncoder extends EventEncoder<HintIconEvent> {
 
-	public GamePacket encode(HintIconEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(254);
-		if (event.getVal() == 2) {
-			builder.put(DataType.BYTE, event.getType());
-			builder.put(DataType.SHORT, event.getId());
-			builder.put(DataType.TRI_BYTE, 0);
-		} else if (event.getVal() == 1) {
-			builder.put(DataType.BYTE, event.getOrient());
-			builder.put(DataType.SHORT, event.getPos().getX());
-			builder.put(DataType.SHORT, event.getPos().getY());
-			builder.put(DataType.BYTE, event.getPos().getHeight());
-		}
-		return builder.toGamePacket();
+    @Override
+    public GamePacket encode(HintIconEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(254);
+	if (event.getVal() == 2) {
+	    builder.put(DataType.BYTE, event.getType());
+	    builder.put(DataType.SHORT, event.getId());
+	    builder.put(DataType.TRI_BYTE, 0);
+	} else if (event.getVal() == 1) {
+	    builder.put(DataType.BYTE, event.getOrient());
+	    builder.put(DataType.SHORT, event.getPos().getX());
+	    builder.put(DataType.SHORT, event.getPos().getY());
+	    builder.put(DataType.BYTE, event.getPos().getHeight());
 	}
+	return builder.toGamePacket();
+    }
 }

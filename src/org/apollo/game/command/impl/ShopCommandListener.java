@@ -12,15 +12,15 @@ import org.apollo.game.model.inter.store.Shop;
  */
 public final class ShopCommandListener implements CommandListener {
 
-	@Override
-	public void execute(Player player, Command command) {
-		if (command.getArguments().length == 1) {
-			int shop = Integer.parseInt(command.getArguments()[0]);
-			World.getWorld().getStores().openShop(player, shop);
-		} else if (command.getArguments().length == 2) {
-			int shop = Integer.parseInt(command.getArguments()[0]);
-			String name = command.getArguments()[1];
-			World.getWorld().getStores().addShop(shop, new Shop(name));
-		}
+    @Override
+    public void execute(Player player, Command command) {
+	if (command.getArguments().length == 1) {
+	    final int shop = Integer.parseInt(command.getArguments()[0]);
+	    World.getWorld().getStores().openShop(player, shop);
+	} else if (command.getArguments().length == 2) {
+	    final int shop = Integer.parseInt(command.getArguments()[0]);
+	    final String name = command.getArguments()[1];
+	    World.getWorld().getStores().addShop(shop, new Shop(name));
 	}
+    }
 }

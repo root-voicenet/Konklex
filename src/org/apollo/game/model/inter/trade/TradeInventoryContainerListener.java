@@ -13,23 +13,23 @@ import org.apollo.game.model.inv.InventoryAdapter;
  */
 public final class TradeInventoryContainerListener extends InventoryAdapter {
 
-	private final Player player;
+    private final Player player;
 
-	/**
-	 * @param player
-	 */
-	public TradeInventoryContainerListener(Player player) {
-		this.player = player;
-	}
+    /**
+     * @param player
+     */
+    public TradeInventoryContainerListener(Player player) {
+	this.player = player;
+    }
 
-	@Override
-	public void itemsUpdated(Inventory container) {
-		player.send(new UpdateItemsEvent(3322, container.getItems()));
-	}
+    @Override
+    public void itemsUpdated(Inventory container) {
+	player.send(new UpdateItemsEvent(3322, container.getItems()));
+    }
 
-	@Override
-	public void itemUpdated(Inventory container, int slot, Item item) {
-		SlottedItem si = new SlottedItem(slot, item);
-		player.send(new UpdateSlottedItemsEvent(3322, si));
-	}
+    @Override
+    public void itemUpdated(Inventory container, int slot, Item item) {
+	final SlottedItem si = new SlottedItem(slot, item);
+	player.send(new UpdateSlottedItemsEvent(3322, si));
+    }
 }

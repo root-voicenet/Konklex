@@ -12,18 +12,19 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link PositionEvent}.
  * @author Steve
  */
-public class PositionEventEncoder extends EventEncoder<PositionEvent> {
+public final class PositionEventEncoder extends EventEncoder<PositionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(PositionEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(85);
-		final Position base = event.getBase(), pos = event.getPosition();
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalY(base));
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalX(base));
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(PositionEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(85);
+	final Position base = event.getBase(), pos = event.getPosition();
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalY(base));
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalX(base));
+	return builder.toGamePacket();
+    }
 }

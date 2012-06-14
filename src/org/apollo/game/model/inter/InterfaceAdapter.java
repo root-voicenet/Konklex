@@ -8,14 +8,14 @@ import org.apollo.game.model.Player;
  */
 public abstract class InterfaceAdapter implements InterfaceListener {
 
-	@Override
-	public boolean buttonClicked(Player player, int button) {
-		/* empty */
-		return false;
-	}
+    @Override
+    public boolean buttonClicked(Player player, int button) {
+	/* empty */
+	return false;
+    }
 
-	@Override
-	public void interfaceClosed(Player player, boolean manually) {
-		/* empty */
-	}
+    @Override
+    public void interfaceClosed(Player player, boolean manually) {
+	/* empty */
+    }
 }

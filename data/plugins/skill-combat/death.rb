@@ -31,7 +31,7 @@ class Death < ScheduledTask
       @started = true
     else
       if npc
-        World.get_world.get_npc_repository.remove character
+        World.get_world.unregister character
         GroundItem.get_instance.create killer, 526, 1, character.get_position
         GroundItem.get_instance.create killer, 995, 5000, character.get_position
       else
@@ -44,7 +44,7 @@ class Death < ScheduledTask
           GroundItem.get_instance.create character, 526, 1, position
         end
       end
-      release
+      character.stop_animation
       stop
     end
   end

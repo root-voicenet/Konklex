@@ -12,15 +12,17 @@ import org.apollo.game.model.Player;
  */
 public final class CharacterDesignEventHandler extends EventHandler<CharacterDesignEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event.handler.EventHandlerContext,
-	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
-	 */
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, CharacterDesignEvent event) {
-		player.setAppearance(event.getAppearance());
-		player.setDesignedCharacter(true);
-		player.send(new CloseInterfaceEvent());
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
+     * .handler.EventHandlerContext, org.apollo.game.model.Player,
+     * org.apollo.game.event.Event)
+     */
+    @Override
+    public void handle(EventHandlerContext ctx, Player player, CharacterDesignEvent event) {
+	player.setAppearance(event.getAppearance());
+	player.setDesignedCharacter(true);
+	player.send(new CloseInterfaceEvent());
+    }
 }

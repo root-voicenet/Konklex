@@ -15,15 +15,15 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class ItemOnFloorEventDecoder extends EventDecoder<ItemOnFloorEvent> {
 
-	@Override
-	public ItemOnFloorEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int interfaceId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		int id = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		int floorId = (int) reader.getSigned(DataType.SHORT);
-		int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		int slot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		int x = (int) reader.getSigned(DataType.SHORT);
-		return new ItemOnFloorEvent(interfaceId, id, floorId, slot, new Position(x, y));
-	}
+    @Override
+    public ItemOnFloorEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int interfaceId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	final int id = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	final int floorId = (int) reader.getSigned(DataType.SHORT);
+	final int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	final int slot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final int x = (int) reader.getSigned(DataType.SHORT);
+	return new ItemOnFloorEvent(interfaceId, id, floorId, slot, new Position(x, y));
+    }
 }

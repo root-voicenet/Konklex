@@ -15,16 +15,18 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class ThirdObjectActionEventDecoder extends EventDecoder<ThirdObjectActionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public ThirdObjectActionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		int x = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
-		int id = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		return new ThirdObjectActionEvent(id, new Position(x, y));
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public ThirdObjectActionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int y = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	final int x = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
+	final int id = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	return new ThirdObjectActionEvent(id, new Position(x, y));
+    }
 }

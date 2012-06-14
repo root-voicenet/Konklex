@@ -12,18 +12,19 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link BuildPlayerMenuEvent}.
  * @author Steve
  */
-public class BuildPlayerMenuEventEncoder extends EventEncoder<BuildPlayerMenuEvent> {
+public final class BuildPlayerMenuEventEncoder extends EventEncoder<BuildPlayerMenuEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(BuildPlayerMenuEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(104, PacketType.VARIABLE_BYTE);
-		builder.put(DataType.BYTE, DataTransformation.NEGATE, event.getId());
-		builder.put(DataType.BYTE, DataTransformation.ADD, event.isFirst() ? 1 : 0);
-		builder.putString(event.getMessage());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(BuildPlayerMenuEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(104, PacketType.VARIABLE_BYTE);
+	builder.put(DataType.BYTE, DataTransformation.NEGATE, event.getId());
+	builder.put(DataType.BYTE, DataTransformation.ADD, event.isFirst() ? 1 : 0);
+	builder.putString(event.getMessage());
+	return builder.toGamePacket();
+    }
 }

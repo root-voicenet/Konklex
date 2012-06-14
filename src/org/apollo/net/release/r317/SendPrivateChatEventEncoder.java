@@ -14,17 +14,18 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class SendPrivateChatEventEncoder extends EventEncoder<SendPrivateChatEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(SendPrivateChatEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(196, PacketType.VARIABLE_BYTE);
-		builder.put(DataType.LONG, event.getFrom());
-		builder.put(DataType.INT, event.getId());
-		builder.put(DataType.BYTE, event.getRights());
-		builder.putBytes(event.getMessage());
-		return builder.toGamePacket();
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(SendPrivateChatEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(196, PacketType.VARIABLE_BYTE);
+	builder.put(DataType.LONG, event.getFrom());
+	builder.put(DataType.INT, event.getId());
+	builder.put(DataType.BYTE, event.getRights());
+	builder.putBytes(event.getMessage());
+	return builder.toGamePacket();
+    }
 }

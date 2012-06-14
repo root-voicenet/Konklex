@@ -14,26 +14,28 @@ import org.apollo.util.TextUtil;
  */
 public final class ChatEventDecoder extends EventDecoder<ChatEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public ChatEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int color = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.NEGATE);
-		int effects = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.ADD);
-		int length = packet.getLength() - 2;
-		byte[] originalCompressed = new byte[length];
-		reader.getBytes(originalCompressed);
-		String uncompressed = TextUtil.uncompress(originalCompressed, length);
-		uncompressed = TextUtil.filterInvalidCharacters(uncompressed);
-		uncompressed = TextUtil.capitalize(uncompressed);
-		byte[] recompressed = new byte[length];
-		TextUtil.compress(uncompressed, recompressed); // in case invalid data
-		// gets sent, this
-		// effectively verifies
-		// it
-		return new ChatEvent(uncompressed, recompressed, color, effects);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public ChatEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int color = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.NEGATE);
+	final int effects = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.ADD);
+	final int length = packet.getLength() - 2;
+	final byte[] originalCompressed = new byte[length];
+	reader.getBytes(originalCompressed);
+	String uncompressed = TextUtil.uncompress(originalCompressed, length);
+	uncompressed = TextUtil.filterInvalidCharacters(uncompressed);
+	uncompressed = TextUtil.capitalize(uncompressed);
+	final byte[] recompressed = new byte[length];
+	TextUtil.compress(uncompressed, recompressed); // in case invalid data
+	// gets sent, this
+	// effectively verifies
+	// it
+	return new ChatEvent(uncompressed, recompressed, color, effects);
+    }
 }

@@ -8,24 +8,24 @@ import org.apollo.game.event.Event;
  */
 public final class ButtonEvent extends Event {
 
-	/**
-	 * The interface id.
-	 */
-	private final int interfaceId;
+    /**
+     * The interface id.
+     */
+    private final int interfaceId;
 
-	/**
-	 * Creates the button event.
-	 * @param interfaceId The interface id.
-	 */
-	public ButtonEvent(int interfaceId) {
-		this.interfaceId = interfaceId;
-	}
+    /**
+     * Creates the button event.
+     * @param interfaceId The interface id.
+     */
+    public ButtonEvent(int interfaceId) {
+	this.interfaceId = interfaceId;
+    }
 
-	/**
-	 * Gets the interface id.
-	 * @return The interface id.
-	 */
-	public int getInterfaceId() {
-		return interfaceId;
-	}
+    /**
+     * Gets the interface id.
+     * @return The interface id.
+     */
+    public int getInterfaceId() {
+	return interfaceId;
+    }
 }

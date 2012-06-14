@@ -12,12 +12,13 @@ import org.jboss.netty.buffer.ChannelBuffers;
  */
 public final class EnterAmountEventEncoder extends EventEncoder<EnterAmountEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
-	 */
-	@Override
-	public GamePacket encode(EnterAmountEvent event) {
-		return new GamePacket(27, PacketType.FIXED, ChannelBuffers.EMPTY_BUFFER);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+     */
+    @Override
+    public GamePacket encode(EnterAmountEvent event) {
+	return new GamePacket(27, PacketType.FIXED, ChannelBuffers.EMPTY_BUFFER);
+    }
 }

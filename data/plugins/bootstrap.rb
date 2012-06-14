@@ -19,14 +19,17 @@ java_import 'org.apollo.game.command.PrivilegedCommandListener'
 java_import 'org.apollo.game.model.Player'
 java_import 'org.apollo.game.model.World'
 java_import 'org.apollo.game.scheduling.ScheduledTask'
+java_import 'org.apollo.game.model.inter.store.Shop'
 
-# Alias the privilege levels.
+# Alias the privilege levels and shops.
 RIGHTS_STANDARD = Player::PrivilegeLevel::STANDARD
 RIGHTS_MEMBER   = Player::PrivilegeLevel::MEMBER
 RIGHTS_MOD      = Player::PrivilegeLevel::MODERATOR
 RIGHTS_ADMIN    = Player::PrivilegeLevel::ADMINISTRATOR
 RIGHTS_DEV      = Player::PrivilegeLevel::DEVELOPER
 RIGHTS_OWNER    = Player::PrivilegeLevel::OWNER
+SHOP_UBUYONLY   = Shop::ShopType::UNLIMITED_BUY_ONLY
+SHOP_BUYANDSELL = Shop::ShopType::BUY_AND_SELL
 
 # Extends the (Ruby) String class with a method to convert a lower case,
 # underscore delimited string to camel-case.

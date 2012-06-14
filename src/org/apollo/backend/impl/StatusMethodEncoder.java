@@ -21,26 +21,25 @@ import org.json.JSONArray;
  */
 public final class StatusMethodEncoder extends MethodEncoder<StatusMethod> {
 
-	/**
-	 * The date format.
-	 */
-	private DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+    /**
+     * The date format.
+     */
+    private final DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-	@Override
-	public FrontendPacket encode(StatusMethod method) {
-		FrontendPacketBuilder builder = new FrontendPacketBuilder("getStatus");
-		String status = SystemUpdateTask.isUpdating() ? "update" : Config.SERVER_WHITELIST ? "down" : "up";
-		builder.addParameter("status", status);
-		builder.addParameter("users", World.getWorld().getPlayerRepository().size());
-		builder.addParameter("ram", SystemUtil.getRamUsage());
-		builder.addParameter("cpuusage", SystemUtil.getCpuUsage());
-		builder.addParameter("pid", SystemUtil.getProcessId());
-		builder.addParameter("time", dateFormat.format(new Date()));
-		JSONArray users = new JSONArray();
-		for (Player player : World.getWorld().getPlayerRepository()) {
-			users.put(player.getName());
-		}
-		builder.addParameter("user", users);
-		return builder.toFrontendPacket();
-	}
+    @Override
+    public FrontendPacket encode(StatusMethod method) {
+	final FrontendPacketBuilder builder = new FrontendPacketBuilder("getStatus");
+	final String status = SystemUpdateTask.isUpdating() ? "update" : Config.SERVER_WHITELIST ? "down" : "up";
+	builder.addParameter("status", status);
+	builder.addParameter("users", World.getWorld().getPlayerRepository().size());
+	builder.addParameter("ram", SystemUtil.getRamUsage());
+	builder.addParameter("cpuusage", SystemUtil.getCpuUsage());
+	builder.addParameter("pid", SystemUtil.getProcessId());
+	builder.addParameter("time", dateFormat.format(new Date()));
+	final JSONArray users = new JSONArray();
+	for (final Player player : World.getWorld().getPlayerRepository())
+	    users.put(player.getName());
+	builder.addParameter("user", users);
+	return builder.toFrontendPacket();
+    }
 }

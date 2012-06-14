@@ -14,6 +14,7 @@
 /out
 /doc
 /lib
+/src/rebel.xml
 .classpath
 .project
 !.gitignore

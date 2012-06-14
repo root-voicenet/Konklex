@@ -6,5 +6,5 @@ import org.apollo.game.event.Event;
  * An {@link Event} which represents a region change requiring objects to load.
  * @author Steve
  */
-public class ObjectLoadEvent extends Event {
+public class RegionLoadEvent extends Event {
 }

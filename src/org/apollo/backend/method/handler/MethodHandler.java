@@ -10,11 +10,11 @@ import org.apollo.backend.method.Method;
  */
 public abstract class MethodHandler<E extends Method> {
 
-	/**
-	 * Handles an event.
-	 * @param ctx The context.
-	 * @param channel The frontend channel.
-	 * @param method The method.
-	 */
-	public abstract void handle(MethodHandlerContext ctx, FrontendChannel channel, E method);
+    /**
+     * Handles an event.
+     * @param ctx The context.
+     * @param channel The frontend channel.
+     * @param method The method.
+     */
+    public abstract void handle(MethodHandlerContext ctx, FrontendChannel channel, E method);
 }

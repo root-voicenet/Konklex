@@ -12,10 +12,10 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class ClientFocusChangeEventDecoder extends EventDecoder<ClientFocusChangeEvent> {
 
-	@Override
-	public ClientFocusChangeEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		boolean focus = reader.getSigned(DataType.BYTE) == 1;
-		return new ClientFocusChangeEvent(focus);
-	}
+    @Override
+    public ClientFocusChangeEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final boolean focus = reader.getSigned(DataType.BYTE) == 1;
+	return new ClientFocusChangeEvent(focus);
+    }
 }

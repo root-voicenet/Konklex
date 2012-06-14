@@ -10,8 +10,8 @@ import org.apollo.backend.method.impl.StatusMethod;
  */
 public final class StatusMethodDecoder extends MethodDecoder<StatusMethod> {
 
-	@Override
-	public StatusMethod decode(FrontendPacket packet) {
-		return new StatusMethod();
-	}
+    @Override
+    public StatusMethod decode(FrontendPacket packet) {
+	return new StatusMethod();
+    }
 }

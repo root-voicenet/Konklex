@@ -11,14 +11,14 @@ import org.apollo.backend.method.impl.GiveItemMethod;
  */
 public final class GiveItemMethodDecoder extends MethodDecoder<GiveItemMethod> {
 
-	@Override
-	public GiveItemMethod decode(FrontendPacket packet) {
-		FrontendPacketReader reader = new FrontendPacketReader(packet);
-		String player = reader.getString("player");
-		int item = reader.getInt("item");
-		int amount = reader.getInt("amount");
-		String key = reader.getString("key");
-		return new GiveItemMethod(player, item, amount, key);
-	}
+    @Override
+    public GiveItemMethod decode(FrontendPacket packet) {
+	final FrontendPacketReader reader = new FrontendPacketReader(packet);
+	final String player = reader.getString("player");
+	final int item = reader.getInt("item");
+	final int amount = reader.getInt("amount");
+	final String key = reader.getString("key");
+	return new GiveItemMethod(player, item, amount, key);
+    }
 
 }

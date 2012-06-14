@@ -8,32 +8,32 @@ import org.apollo.backend.method.Method;
  */
 public final class FrontendChannel {
 
-	/**
-	 * The frontend session.
-	 */
-	private FrontendSession session;
+    /**
+     * The frontend session.
+     */
+    private final FrontendSession session;
 
-	/**
-	 * Creates a safe frontend session.
-	 * @param session The original frontend session.
-	 */
-	public FrontendChannel(FrontendSession session) {
-		this.session = session;
-	}
+    /**
+     * Creates a safe frontend session.
+     * @param session The original frontend session.
+     */
+    public FrontendChannel(FrontendSession session) {
+	this.session = session;
+    }
 
-	/**
-	 * Closes the session.
-	 */
-	public void close() {
-		session.close();
-	}
+    /**
+     * Closes the session.
+     */
+    public void close() {
+	session.close();
+    }
 
-	/**
-	 * Sends the method.
-	 * @param method The method.
-	 */
-	public <E extends Method> void send(E method) {
-		session.send(method);
-	}
+    /**
+     * Sends the method.
+     * @param method The method.
+     */
+    public <E extends Method> void send(E method) {
+	session.send(method);
+    }
 
 }

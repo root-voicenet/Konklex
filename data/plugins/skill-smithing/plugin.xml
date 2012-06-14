@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-smithing</id>
+  <version>1</version>
+  <name>Smithing</name>
+  <description>Adds the smithing skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>bar.rb</script>
+    <script>smithing.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

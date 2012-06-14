@@ -6,11 +6,11 @@ package org.apollo.game.event.impl;
  */
 public class SecondPlayerOptionEvent extends PlayerOptionEvent {
 
-	/**
-	 * Create a new second player option event.
-	 * @param otherId The other player id.
-	 */
-	public SecondPlayerOptionEvent(int otherId) {
-		super(2, otherId);
-	}
+    /**
+     * Create a new second player option event.
+     * @param otherId The other player id.
+     */
+    public SecondPlayerOptionEvent(int otherId) {
+	super(2, otherId);
+    }
 }

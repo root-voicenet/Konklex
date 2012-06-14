@@ -12,13 +12,13 @@ import org.apollo.game.model.Position;
  */
 public final class SetPositionMethodDecoder extends MethodDecoder<SetPositionMethod> {
 
-	@Override
-	public SetPositionMethod decode(FrontendPacket packet) {
-		FrontendPacketReader reader = new FrontendPacketReader(packet);
-		String player = reader.getString("user");
-		Position position = new Position(reader.getInt("x"), reader.getInt("y"));
-		String key = reader.getString("key");
-		return new SetPositionMethod(player, position, key);
-	}
+    @Override
+    public SetPositionMethod decode(FrontendPacket packet) {
+	final FrontendPacketReader reader = new FrontendPacketReader(packet);
+	final String player = reader.getString("player");
+	final Position position = new Position(reader.getInt("x"), reader.getInt("y"));
+	final String key = reader.getString("key");
+	return new SetPositionMethod(player, position, key);
+    }
 
 }

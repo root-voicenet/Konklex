@@ -14,17 +14,19 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class SwitchItemEventDecoder extends EventDecoder<SwitchItemEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public SwitchItemEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int interfaceId = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		boolean inserting = reader.getUnsigned(DataType.BYTE, DataTransformation.NEGATE) == 1;
-		int oldSlot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		int newSlot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
-		return new SwitchItemEvent(interfaceId, inserting, oldSlot, newSlot);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public SwitchItemEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int interfaceId = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final boolean inserting = reader.getUnsigned(DataType.BYTE, DataTransformation.NEGATE) == 1;
+	final int oldSlot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final int newSlot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
+	return new SwitchItemEvent(interfaceId, inserting, oldSlot, newSlot);
+    }
 }

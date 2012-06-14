@@ -14,14 +14,16 @@ import org.apollo.net.release.EventEncoder;
  */
 public final class FriendsListEventDecoder extends EventDecoder<FriendsListEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public FriendsListEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		long friend = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE);
-		return new FriendsListEvent(packet.getOpcode(), friend);
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public FriendsListEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final long friend = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE);
+	return new FriendsListEvent(packet.getOpcode(), friend);
+    }
 }

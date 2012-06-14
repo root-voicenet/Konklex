@@ -9,12 +9,13 @@ import org.apollo.io.player.PlayerSaver;
  */
 public final class DiscardPlayerSaver implements PlayerSaver {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
-	 */
-	@Override
-	public void savePlayer(Player player) throws Exception {
-		/* discard player */
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
+     */
+    @Override
+    public void savePlayer(Player player) throws Exception {
+	/* discard player */
+    }
 }

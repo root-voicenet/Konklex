@@ -13,10 +13,10 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class PlayerFollowEventDecoder extends EventDecoder<PlayerFollowEvent> {
 
-	@Override
-	public PlayerFollowEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int playerIndex = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
-		return new PlayerFollowEvent(playerIndex);
-	}
+    @Override
+    public PlayerFollowEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int playerIndex = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	return new PlayerFollowEvent(playerIndex);
+    }
 }

@@ -10,11 +10,11 @@ import org.apollo.game.model.Player;
  */
 public abstract class EventHandler<E extends Event> {
 
-	/**
-	 * Handles an event.
-	 * @param ctx The context.
-	 * @param player The player.
-	 * @param event The event.
-	 */
-	public abstract void handle(EventHandlerContext ctx, Player player, E event);
+    /**
+     * Handles an event.
+     * @param ctx The context.
+     * @param player The player.
+     * @param event The event.
+     */
+    public abstract void handle(EventHandlerContext ctx, Player player, E event);
 }

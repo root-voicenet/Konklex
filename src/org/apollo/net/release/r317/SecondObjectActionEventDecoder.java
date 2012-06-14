@@ -15,16 +15,18 @@ import org.apollo.net.release.EventDecoder;
  */
 public final class SecondObjectActionEventDecoder extends EventDecoder<SecondObjectActionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.GamePacket)
-	 */
-	@Override
-	public SecondObjectActionEvent decode(GamePacket packet) {
-		GamePacketReader reader = new GamePacketReader(packet);
-		int id = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
-		int y = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
-		int x = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
-		return new SecondObjectActionEvent(id, new Position(x, y));
-	}
+    /*
+     * (non-Javadoc)
+     * @see
+     * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
+     * GamePacket)
+     */
+    @Override
+    public SecondObjectActionEvent decode(GamePacket packet) {
+	final GamePacketReader reader = new GamePacketReader(packet);
+	final int id = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+	final int y = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
+	final int x = (int) reader.getUnsigned(DataType.SHORT, DataTransformation.ADD);
+	return new SecondObjectActionEvent(id, new Position(x, y));
+    }
 }

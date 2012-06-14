@@ -10,12 +10,12 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link UpdateRunEnergyEvent}
  * @author Steve
  */
-public class UpdateRunEnergyEventEncoder extends EventEncoder<UpdateRunEnergyEvent> {
+public final class UpdateRunEnergyEventEncoder extends EventEncoder<UpdateRunEnergyEvent> {
 
-	@Override
-	public GamePacket encode(UpdateRunEnergyEvent event) {
-		GamePacketBuilder builder = new GamePacketBuilder(110);
-		builder.put(DataType.BYTE, event.getEnergy());
-		return builder.toGamePacket();
-	}
+    @Override
+    public GamePacket encode(UpdateRunEnergyEvent event) {
+	final GamePacketBuilder builder = new GamePacketBuilder(110);
+	builder.put(DataType.BYTE, event.getEnergy());
+	return builder.toGamePacket();
+    }
 }

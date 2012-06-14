@@ -16,94 +16,93 @@ import org.apollo.io.MethodHandlerChainParser;
 import org.apollo.util.NamedThreadFactory;
 
 /**
- * The {@link FrontendService} class schedules and manages the execution of the {@link FrontendPulseHandler} class.
+ * The {@link FrontendService} class schedules and manages the execution of the
+ * {@link FrontendPulseHandler} class.
  * @author Steve
  */
 public final class FrontendService extends Service {
 
-	/**
-	 * The scheduled executor service.
-	 */
-	private final ScheduledExecutorService scheduledExecutor = Executors
-			.newSingleThreadScheduledExecutor(new NamedThreadFactory("FrontendService"));
+    /**
+     * The scheduled executor service.
+     */
+    private final ScheduledExecutorService scheduledExecutor = Executors
+	    .newSingleThreadScheduledExecutor(new NamedThreadFactory("FrontendService"));
 
-	/**
-	 * A queue of current connected sessions.
-	 */
-	private final Queue<FrontendSession> sessions = new ConcurrentLinkedQueue<FrontendSession>();
+    /**
+     * A queue of current connected sessions.
+     */
+    private final Queue<FrontendSession> sessions = new ConcurrentLinkedQueue<FrontendSession>();
 
-	/**
-	 * The {@link MethodHandlerChainGroup}.
-	 */
-	private MethodHandlerChainGroup chainGroup;
+    /**
+     * The {@link MethodHandlerChainGroup}.
+     */
+    private MethodHandlerChainGroup chainGroup;
 
-	/**
-	 * Creates the frontend service.
-	 * @throws Exception Exception on initialization.
-	 */
-	public FrontendService() throws Exception {
-		init();
+    /**
+     * Creates the frontend service.
+     * @throws Exception Exception on initialization.
+     */
+    public FrontendService() throws Exception {
+	init();
+    }
+
+    /**
+     * Adds a frontend session.
+     * @param session The session.
+     */
+    public void addSession(FrontendSession session) {
+	sessions.add(session);
+    }
+
+    /**
+     * Gets the method handler chains.
+     * @return The method handler chains.
+     */
+    public MethodHandlerChainGroup getMethodHandlerChains() {
+	return chainGroup;
+    }
+
+    /**
+     * Initializes this service.
+     * @throws Exception Exception on methods.
+     */
+    private void init() throws Exception {
+	final InputStream is = new FileInputStream("data/methods.xml");
+	try {
+	    final MethodHandlerChainParser chainGroupParser = new MethodHandlerChainParser(is);
+	    chainGroup = chainGroupParser.parse();
+	} finally {
+	    is.close();
 	}
+    }
 
-	/**
-	 * Adds a frontend session.
-	 * @param session The session.
-	 */
-	public void addSession(FrontendSession session) {
-		sessions.add(session);
+    /**
+     * Called every pulse.
+     */
+    public void pulse() {
+	synchronized (this) {
+	    for (final FrontendSession session : sessions)
+		if (session != null)
+		    session.handlePendingEvents(chainGroup);
+		else
+		    removeSession(session);
 	}
+    }
 
-	/**
-	 * Gets the method handler chains.
-	 * @return The method handler chains.
-	 */
-	public MethodHandlerChainGroup getMethodHandlerChains() {
-		return chainGroup;
-	}
+    /**
+     * Removes a frontend session.
+     * @param session The session.
+     */
+    public void removeSession(FrontendSession session) {
+	sessions.remove(session);
+    }
 
-	/**
-	 * Initializes this service.
-	 * @throws Exception Exception on methods.
-	 */
-	private void init() throws Exception {
-		InputStream is = new FileInputStream("data/methods.xml");
-		try {
-			MethodHandlerChainParser chainGroupParser = new MethodHandlerChainParser(is);
-			chainGroup = chainGroupParser.parse();
-		} finally {
-			is.close();
-		}
-	}
-
-	/**
-	 * Called every pulse.
-	 */
-	public void pulse() {
-		synchronized (this) {
-			for (FrontendSession session : sessions) {
-				if (session != null) {
-					session.handlePendingEvents(chainGroup);
-				} else {
-					removeSession(session);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Removes a frontend session.
-	 * @param session The session.
-	 */
-	public void removeSession(FrontendSession session) {
-		sessions.remove(session);
-	}
-
-	/**
-	 * Starts the frontend service.
-	 */
-	@Override
-	public void start() {
-		scheduledExecutor.scheduleAtFixedRate(new FrontendPulseHandler(this), GameConstants.PULSE_DELAY,
-				GameConstants.PULSE_DELAY, TimeUnit.MILLISECONDS);
-	}
+    /**
+     * Starts the frontend service.
+     */
+    @Override
+    public void start() {
+	scheduledExecutor.scheduleAtFixedRate(new FrontendPulseHandler(this), GameConstants.PULSE_DELAY,
+		GameConstants.PULSE_DELAY, TimeUnit.MILLISECONDS);
+    }
 }

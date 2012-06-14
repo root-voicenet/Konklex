@@ -2,6 +2,10 @@
 # Specify the payment type by executing shop.set_payment(payment)
 # while; payment extends org.apollo.game.model.inter.store.ShopPaymentType
 
+# Default shop types.
+# SHOP_UBUYONLY -> Unlimited buy only.
+# SHOP_BUYANDSELL -> Like a regular store.
+
 require 'java'
 java_import 'org.apollo.game.model.inter.store.Shop'
 java_import 'org.apollo.game.model.Item'
@@ -24,12 +28,12 @@ class Shops
 end
 
 def appendShop(shop)
-  worldshop = Shop.new(shop.name, shop.type)
-  World.get_world.get_stores.addShop(shop.id, worldshop)
+  worldshop = Shop.new shop.name, shop.type
+  World.get_world.get_stores.addShop shop.id, worldshop
   shop.items.each do |item, amount|
     if item >= 0 and item < MAX_ITEM_ID
       worldshop.add_item Item.new(item, amount)
-	end
+    end
   end
   return worldshop
 end
