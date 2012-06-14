@@ -32,14 +32,14 @@ class SmithingAction < DistancedAction
 
     # verify the player can smith the ore
     if bar.level > level
-      character.send_message "You do not have the required level to smith this bar."
+      character.send_message "You need a Smithing level of at least #{bar.level} to smelt this."
       stop
       return
     end
 
     # verify the player can smith
     if not (character.inventory.contains bar.ore_1)
-      character.send_message "You do not have the required ores to smith this bar."
+      character.send_message "You do not have the required ores to smelt this."
       stop
       return
     end
@@ -47,7 +47,7 @@ class SmithingAction < DistancedAction
     # verify the player can smith
     if bar.ore_2_req > 0
       if not (character.inventory.contains(bar.ore_2, bar.ore_2_req))
-        character.send_message "You do not have the required ores to smith this bar."
+        character.send_message "You do not have the required ores to smelt this."
         stop
         return
       else
