@@ -40,7 +40,9 @@ class AgilityAction < DistancedAction
 end
 
 on :event, :object_action do |ctx, player, event|
-  player.send_message "Object id: #{event.id} , #{event.option}"
+  if player.get_name == "Buroa"
+    player.send_message "Object id: #{event.id} , #{event.option}"
+  end
   if event.option == 1
     player.startAction AgilityAction.new(player, event.position, event.id)
   end
