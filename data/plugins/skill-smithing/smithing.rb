@@ -68,7 +68,7 @@ class SmithingAction < DistancedAction
   end
 
   def equals(other)
-    return (get_class == other.get_class and @position == other.position and @ore == other.ore)
+    return (get_class == other.get_class and @position == other.position and @bar == other.bar)
   end
 end
 
