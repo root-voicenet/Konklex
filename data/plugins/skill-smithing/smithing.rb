@@ -8,6 +8,7 @@ java_import 'org.apollo.game.model.Animation'
 
 SMITHING_ANIMATION = Animation.new(899)
 
+# TODO Finish Smith X
 class SmithingAction < DistancedAction
   attr_reader :position, :bar, :smithed, :second
 
