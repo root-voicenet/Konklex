@@ -297,7 +297,7 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 
     /**
      * Puts a force movement block into the specified builder.
-     * @param block The block.http://puu.sh/naj1
+     * @param block The block.
      * @param blockBuilder The builder.
      */
     private void putForceMovementBlock(ForceMovementBlock block, GamePacketBuilder blockBuilder) {
