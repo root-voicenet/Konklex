@@ -49,6 +49,10 @@ class FletchingAction < Action
 
   end
 
+  def equals(other)
+    return (get_class == other.get_class and @item == other.item and @log == other.log)
+  end
+
 end
 
 class FletchingListener
@@ -110,13 +114,16 @@ class StringingAction < Action
     end
 
     # start fletcing fella's
-    if fletched % 2 == 0 then character.play_animation FLETCHING_ANIMATION end
     character.inventory.remove 1777, 1  
     character.inventory.remove item.bow, 1
     character.inventory.add item.item
     skills.add_experience Skill::FLETCHING, item.exp
-    @fletched += 1
+    stop
 
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @item == other.item)
   end
 
 end
