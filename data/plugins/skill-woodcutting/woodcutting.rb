@@ -8,44 +8,44 @@ java_import 'org.apollo.game.model.def.ItemDefinition'
 # Bugs need to be in a certain spot to cut
 # Jimmy pointed a fix to it but I haven't done it yet..
 
-LOG_SIZE = 3
+LOG_SIZE = 1
 
 class WoodcuttingAction < DistancedAction
 
-  attr_reader :position, :log, :counter, :started, :again
+attr_reader :position, :log, :counter, :started, :again
 
-  def initialize(character, position, log)
-    super 0, true, character, position, LOG_SIZE
-    @position = position
-    @log = log
-    @started = false
-    @again = false
-    @counter = 0
-   end
+def initialize(character, position, log)
+ super 0, true, character, position, ORE_SIZE
+ @position = position
+ @log = log
+ @started = false
+ @again = false
+ @counter = 0
+end
 
-  # Finds if you have the hatchet
-  def find_hatchet
-    HATCHET_ID.each do |id|
-    weapon = character.equipment.get EquipmentConstants::WEAPON
-    if weapon.id == id
-      return HATCHET[id]
-    end
-    if character.inventory.contains id
-      return HATCHET[id]
-    end
-   end
-   return nil
+# Finds if you have the hatchet
+def find_hatchet
+  HATCHET_ID.each do |id|
+  weapon = character.equipment.get EquipmentConstants::WEAPON
+  if weapon.id == id
+    return HATCHET[id]
   end
+  if character.inventory.contains id
+    return HATCHET[id]
+  end
+ end
+ return nil
+end
 
-  # The Chopping action/animation/message
-  def start_chopping(hatchet)
-    @started = true
-    if not @again
-      character.send_message "You swing your hatchet at the tree."
-    end
-    character.turn_to @position
-    character.play_animation hatchet.animation
-    @counter = hatchet.pulses
+# The Chopping action/animation/message
+def start_chopping(hatchet)
+  @started = true
+  if not @again
+  	character.send_message "You swing your hatchet at the tree."
+  end
+  character.turn_to @position
+  character.play_animation hatchet.animation
+  @counter = hatchet.pulses
 end
 
 def restart
@@ -58,7 +58,7 @@ def executeAction
   skills = character.skill_set
   level = skills.get_skill(Skill::WOODCUTTING).maximum_level # TODO: is using max level correct?
   hatchet = find_hatchet
-  free = character.inventory.free_slots
+  free = character.inventory.freeSlots
 
   # verify the player can chop with their axe
   if not (hatchet != nil and level >= hatchet.level)
@@ -80,10 +80,10 @@ def executeAction
     return
   end
   
-if not started
+if not @started
 	start_chopping(hatchet)
 else
-	if counter == 0
+	if @counter == 0
 		chance = rand(4)
 		if chance == 1
 			if character.inventory.add log.id
@@ -100,7 +100,7 @@ else
 		end
 		restart
 	else
-		if counter == 4
+		if @counter == 4
 			character.play_animation hatchet.animation
 		end
 	end
@@ -129,7 +129,7 @@ end
 on :event, :object_action do |ctx, player, event|
  if event.option == 1
   log = LOGS[event.id]
-  free = player.inventory.free_slots
+  free = player.inventory.freeSlots
   if log != nil
     if free > 0
       player.startAction WoodcuttingAction.new(player, event.position, log)

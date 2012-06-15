@@ -10,6 +10,7 @@
   <scripts>
     <script>pickpocket.rb</script>
     <script>stalls.rb</script>
+    <script>npc.rb</script>
   </scripts>
   <dependencies />
 </plugin>

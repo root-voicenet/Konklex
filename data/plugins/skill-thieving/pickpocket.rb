@@ -9,12 +9,13 @@ PICKPOCKET_GRAPHIC = Graphic.new(348)
 
 class Pickpocket < Action
 
- attr_reader :started, :npc
+ attr_reader :started, :npc, :npcz
 
-  def initialize(player, npc)
+  def initialize(player, npc, npcz)
     super 3, true, player
     @started = false
     @npc = npc
+    @npcz = npcz
   end
 
   def start_thieve
@@ -29,14 +30,24 @@ class Pickpocket < Action
       start_thieve
     else
       if rand(2) == 1
-        character.inventory.add 995, 1
+        gave = false
+        while not gave
+          npcz.loot.each do |item, amount|
+            if not gave
+              if rand(4) == 1
+                character.inventory.add item, amount
+                gave = true
+              end
+            end
+          end
+        end
         character.skill_set.add_experience Skill::THIEVING, 17
         character.send_message "You pick the man's pocket."
       else
         npc.turn_to character.get_position
         npc.send_message "What do you think you're doing?"
         character.play_graphic PICKPOCKET_GRAPHIC
-        character.damage_entity rand(2)
+        character.damage_entity rand(3)
         character.send_message "You fail to pick the man's pocket."
       end
       stop
@@ -51,7 +62,9 @@ end
 
 on :event, :npc_option do |ctx, player, event|
   if event.get_option == 3
-    player.startAction Pickpocket.new(event.get_npc, player)
-    ctx.break_handler_chain
+    npcz = NPCZ[event.slot]
+    if npcz != nil
+      player.startAction Pickpocket.new(player, event.get_npc, npcz)
+    end
   end
 end

@@ -23,13 +23,13 @@ LOG = {
   8896 => Bow.new(5, 52, 1, 1), # Shaft 5
   8895 => Bow.new(10, 52, 1, 1),# Shaft 10
 
-  8893 => Bow.new(1, 48, 10, 10), # Long 1
-  8892 => Bow.new(5, 48, 10, 10), # Long 2
-  8891 => Bow.new(10, 48, 10, 10),# Long 3
+  8889 => Bow.new(1, 48, 10, 10), # Long 1
+  8888 => Bow.new(5, 48, 10, 10), # Long 2
+  8887 => Bow.new(10, 48, 10, 10),# Long 3
 
-  8889 => Bow.new(1, 50, 5, 1), # Short 1
-  8889 => Bow.new(5, 50, 5, 1), # Short 5
-  8889 => Bow.new(10, 50, 5, 1) # Short 10
+  8893 => Bow.new(1, 50, 5, 1), # Short 1
+  8892 => Bow.new(5, 50, 5, 1), # Short 5
+  8891 => Bow.new(10, 50, 5, 1) # Short 10
 }
 
 OAK = {

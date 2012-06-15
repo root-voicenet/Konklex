@@ -1,4 +1,5 @@
 LOGS = {}
+
 EXPIRED_LOGS = {}
 
 # Only normal trees support atm

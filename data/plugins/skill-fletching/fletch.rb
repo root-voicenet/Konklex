@@ -10,7 +10,7 @@ class FletchingAction < Action
   attr_reader :item, :fletched, :log
 
   def initialize(player, item, log)
-    super 3, true, player
+    super 2, true, player
     @item = item
     @log = log
     @fletched = 0
@@ -128,6 +128,54 @@ class StringingAction < Action
 
 end
 
+class ArrowAction < Action
+  attr_reader :item
+
+  def initialize(player, item)
+    super 0, true, player
+    @item = item
+  end
+
+  def execute
+    skills = character.skill_set
+    level = skills.skill(Skill::FLETCHING).maximum_level # TODO: is using max level correct?
+
+    # verify level requirements
+    if item.level > level
+      character.send_message "You need a Fletching level of at least #{item.level} to make this."
+      stop
+      return
+    end
+
+    # verify item requirements
+    if not (character.inventory.contains item.item_1)
+      character.send_message "You do not have the required items to make this."
+      stop
+      return
+    end
+
+    # verify item requirements
+    if not (character.inventory.contains item.item_2)
+      character.send_message "You do not have the required items to make this."
+      stop
+      return
+    end
+
+    # start fletcing fella's
+    character.inventory.remove item.item_1, 1  
+    character.inventory.remove item.item_2, 1
+    character.inventory.add item.item
+    skills.add_experience Skill::FLETCHING, item.xp
+    stop
+
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @item == other.item)
+  end
+
+end
+
 def open_window(player, item)
   short_def = ItemDefinition.for_id item.bow # TODO: split off into some method
   long_def = ItemDefinition.for_id item.model # TODO: split off into some method
@@ -164,5 +212,15 @@ on :event, :item_on_item do |ctx, player, event|
     if item != nil
       player.start_action StringingAction.new(player, item)
     end
+  end
+end
+
+on :event, :item_on_item do |ctx, player, event|
+  primary = event.id
+  secondary = event.target_id
+
+  item = ARROWS[primary]
+  if item != nil
+    player.start_action ArrowAction.new(player, item)
   end
 end
