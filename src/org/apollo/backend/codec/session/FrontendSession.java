@@ -84,10 +84,11 @@ public final class FrontendSession {
      */
     public <E extends Method> void decode(String path) {
 	final E packet = decoder.decode(path);
-	if (packet != null)
+	if (packet != null) {
 	    methodQueue.add(packet);
-	else
+	} else {
 	    send(new ResponseMethod(method, "This method is not defined.", true));
+	}
     }
 
     /**
@@ -114,20 +115,30 @@ public final class FrontendSession {
 	    MethodHandlerChain<Method> chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
 	    while (chain == null && methodType != null) {
 		methodType = (Class<? extends Method>) methodType.getSuperclass();
-		if (methodType == Method.class)
+		if (methodType == Method.class) {
 		    methodType = null;
-		else
+		} else {
 		    chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
+		}
 	    }
-	    if (chain == null)
+	    if (chain == null) {
 		logger.warning("No chain for method: " + method.getClass().getName() + ".");
-	    else
+	    } else {
 		try {
 		    chain.handle(this, method);
 		} catch (final Exception ex) {
 		    logger.log(Level.SEVERE, "Error handling method.", ex);
 		}
+	    }
 	}
+    }
+
+    /**
+     * Gets the stream flag.
+     * @return True if streaming, false if otherwise.
+     */
+    public boolean isStreaming() {
+	return stream;
     }
 
     /**
@@ -140,8 +151,9 @@ public final class FrontendSession {
 	    encoder.setAttribute(3, true);
 	    encoder.setAttribute(2, stream);
 	    encoder.encode(method);
-	} else
+	} else {
 	    World.getWorld().getContext().getService(FrontendService.class).removeSession(this);
+	}
     }
 
     /**

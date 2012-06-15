@@ -59,11 +59,17 @@ public final class MethodHandlerChain<E extends Method> {
 	    public String getRequested() {
 		return session.getRequested();
 	    }
+
+	    @Override
+	    public boolean isStreaming() {
+		return session.isStreaming();
+	    }
 	};
 	for (final MethodHandler<E> handler : handlers) {
 	    handler.handle(ctx, new FrontendChannel(session), method);
-	    if (!running[0])
+	    if (!running[0]) {
 		break;
+	    }
 	}
     }
 }

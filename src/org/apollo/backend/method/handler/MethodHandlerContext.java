@@ -19,4 +19,10 @@ public abstract class MethodHandlerContext {
      * @return The requested method.
      */
     public abstract String getRequested();
+
+    /**
+     * Gets the streaming flag.
+     * @return True if streaming, false if otherwise.
+     */
+    public abstract boolean isStreaming();
 }

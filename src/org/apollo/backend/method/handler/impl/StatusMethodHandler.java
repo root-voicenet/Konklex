@@ -12,7 +12,7 @@ import org.apollo.backend.method.impl.StatusMethod;
 public final class StatusMethodHandler extends MethodHandler<StatusMethod> {
 
     @Override
-    public void handle(MethodHandlerContext ctx, FrontendChannel channel, StatusMethod method) {
+    public void handle(MethodHandlerContext ctx, final FrontendChannel channel, StatusMethod method) {
 	channel.send(new StatusMethod());
     }
 }
