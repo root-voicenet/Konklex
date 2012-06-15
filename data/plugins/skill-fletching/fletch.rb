@@ -99,20 +99,6 @@ class StringingAction < Action
       return
     end
 
-    # verify item requirements
-    if not (character.inventory.contains item.bow)
-      character.send_message "You do not have the required bow to string this."
-      stop
-      return
-    end
-
-    # verify item requirements
-    if not (character.inventory.contains 1777)
-      character.send_message "You do not have any bow string to string this."
-      stop
-      return
-    end
-
     # start fletcing fella's
     character.inventory.remove 1777, 1  
     character.inventory.remove item.bow, 1
@@ -154,18 +140,45 @@ class ArrowAction < Action
       return
     end
 
-    # verify item requirements
-    if not (character.inventory.contains item.item_2)
-      character.send_message "You do not have the required items to make this."
-      stop
-      return
-    end
-
     # start fletcing fella's
     character.inventory.remove item.item_1, 1  
     character.inventory.remove item.item_2, 1
     character.inventory.add item.item
     skills.add_experience Skill::FLETCHING, item.xp
+    stop
+
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @item == other.item)
+  end
+
+end
+
+class DartAction < Action
+  attr_reader :item
+
+  def initialize(player, item)
+    super 0, true, player
+    @item = item
+  end
+
+  def execute
+    skills = character.skill_set
+    level = skills.skill(Skill::FLETCHING).maximum_level # TODO: is using max level correct?
+
+    # verify level requirements
+    if item.level > level
+      character.send_message "You need a Fletching level of at least #{item.level} to make this."
+      stop
+      return
+    end
+
+    # start fletcing fella's
+    character.inventory.remove item.dart, 1
+    character.inventory.remove 314, 1
+    character.inventory.add item.item
+    skills.add_experience Skill::FLETCHING, item.exp
     stop
 
   end
@@ -222,5 +235,17 @@ on :event, :item_on_item do |ctx, player, event|
   item = ARROWS[primary]
   if item != nil
     player.start_action ArrowAction.new(player, item)
+  end
+end
+
+on :event, :item_on_item do |ctx, player, event|
+  primary = event.id
+  secondary = event.target_id
+
+  if primary == 314
+    item = DARTS[secondary]
+    if item != nil
+      player.start_action DartAction.new(player, item)
+    end
   end
 end
