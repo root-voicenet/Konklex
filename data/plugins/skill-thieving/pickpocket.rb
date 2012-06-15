@@ -2,26 +2,26 @@ require 'java'
 java_import 'org.apollo.game.action.Action'
 java_import 'org.apollo.game.model.Animation'
 java_import 'org.apollo.game.model.Graphic'
+java_import 'org.apollo.game.event.impl.ServerMessageEvent'
 
 PICKPOCKET_ANIMATION = Animation.new(881)
 PICKPOCKET_GRAPHIC = Graphic.new(348)
 
 class Pickpocket < Action
 
- attr_reader :started, :npc, :player
+ attr_reader :started, :npc
 
-  def initialize(npc, player)
+  def initialize(player, npc)
     super 3, true, player
     @started = false
     @npc = npc
-    @player = player
   end
 
   def start_thieve
+    character.turn_to npc.get_position
+    character.send_message "You attempt to pick the man's pocket."
+    character.play_animation PICKPOCKET_ANIMATION
     @started = true
-    player.start_facing npc.get_index
-    player.send_message "You attempt to pick the man's pocket."
-    player.play_animation PICKPOCKET_ANIMATION
   end
   
   def execute
@@ -29,28 +29,18 @@ class Pickpocket < Action
       start_thieve
     else
       if rand(2) == 1
-        if player.inventory.add 995, 1
-          player.skill_set.add_experience Skill::THIEVING, 17
-          player.send_message "You pick the man's pocket."
-          stop_thieve
-        else
-          player.send_message "Full inventory."
-          stop_thieve
-        end
+        character.inventory.add 995, 1
+        character.skill_set.add_experience Skill::THIEVING, 17
+        character.send_message "You pick the man's pocket."
       else
-        npc.start_facing player.get_index
-        player.play_graphic PICKPOCKET_GRAPHIC
-        player.damage_entity rand(2)
-        player.send_message "You fail to pick the man's pocket."
-        stop_thieve
+        npc.turn_to character.get_position
+        npc.send_message "What do you think you're doing?"
+        character.play_graphic PICKPOCKET_GRAPHIC
+        character.damage_entity rand(2)
+        character.send_message "You fail to pick the man's pocket."
       end
+      stop
     end
-  end
-
-  def stop_thieve
-    player.stop_facing
-    npc.stop_facing
-    stop
   end
 
   def equals(other)
