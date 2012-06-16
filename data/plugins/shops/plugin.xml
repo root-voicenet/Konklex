@@ -9,9 +9,11 @@
   </authors>
   <scripts>
     <script>shops.rb</script>
+    <script>stores.rb</script>
     <script>general.rb</script>
     <script>magic.rb</script>
     <script>range.rb</script>
+    <script>fish.rb</script>
   </scripts>
   <dependencies />
 </plugin>

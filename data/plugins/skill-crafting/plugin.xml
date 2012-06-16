@@ -11,6 +11,7 @@
     <script>battlestave.rb</script>
     <script>amuletstringing.rb</script>
     <script>gem-craft.rb</script>
+    <script>flax.rb</script>
   </scripts>
   <dependencies />
 </plugin>

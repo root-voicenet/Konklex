@@ -1,5 +1,5 @@
 require 'java'
-java_import 'org.apollo.game.action.Action'
+java_import 'org.apollo.game.action.DistancedAction'
 java_import 'org.apollo.game.model.Animation'
 
 STEAL_ANIMATION = Animation.new(0x340)
@@ -19,12 +19,12 @@ class Stall
 
 end
 
-class Steal < Action
+class Steal < DistancedAction
 
 attr_reader :started, :object, :player, :position, :counter
 
   def initialize(player, object, position)
-    super 0, true, player
+    super 0, true, player, position, 1
     @object = object
     @player = player
     @position = position
@@ -40,41 +40,32 @@ attr_reader :started, :object, :player, :position, :counter
     @counter = 1
   end
   
-  def execute
+  def executeAction
     skills = character.skill_set
     level = skills.get_skill(Skill::THIEVING).maximum_level
 
-    if @object.level > level
+    if object.level > level
       player.send_message "You do not have the required level to thieve this stall."
       stop_thieve
       return
     end
 
-    if not @started
+    if not started
       start_thieve
     else
-      if @counter == 0
-        if rand(2) == 1
-          if player.inventory.add @object.id, 1
-            item_def = ItemDefinition.for_id @object.id
-            name = item_def.name.sub(/ object$/, "").downcase
-            player.send_message "and recieve #{name}."
-            player.skill_set.add_experience Skill::THIEVING, @object.exp
-            stop_thieve
-          else
-            player.send_message "Full inventory."
-            stop_thieve
-          end
+      if rand(2) == 1
+        if character.inventory.add object.id, 1
+          item_def = ItemDefinition.for_id object.id
+          name = item_def.name.sub(/ object$/, "").downcase
+          character.send_message "and recieve #{name}."
+          character.skill_set.add_experience Skill::THIEVING, object.exp
         else
-          player.send_message "You fail to thieve the stall."
-          stop_thieve
+          character.send_message "Full inventory."
         end
-      end
-      @counter -= 1
+      else
+        character.send_message "You fail to thieve the stall."
+       end
     end
-  end
-
-  def stop_thieve
     stop
   end
 

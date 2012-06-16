@@ -12,8 +12,8 @@ SMITHING_ANIMATION = Animation.new(899)
 class SmithingAction < DistancedAction
   attr_reader :position, :bar, :smithed, :second
 
-  def initialize(player, bar)
-    super 3, true, player, player.get_position, 1
+  def initialize(player, position, bar)
+    super 3, true, player, position, 1
     @position = position
     @bar = bar
     @smithed = 0
@@ -75,10 +75,16 @@ end
 class SmithingListener
   java_implements 'org.apollo.game.model.inter.dialog.DialogueListener'
 
+  attr_reader :position
+
+  def initialize(position)
+    @position = position
+  end
+
   def buttonClicked(player, button)
     bar = BARS[button]
     if bar != nil
-      player.start_action SmithingAction.new(player, bar)
+      player.start_action SmithingAction.new(player, position, bar)
     end
     player.get_interface_set.close
   end
@@ -102,7 +108,7 @@ on :event, :object_action do |ctx, player, event|
     player.send SetInterfaceItemModelEvent.new(2411, 2359, 150)
     player.send SetInterfaceItemModelEvent.new(2412, 2361, 150)
     player.send SetInterfaceItemModelEvent.new(2413, 2363, 150)
-    player.get_interface_set.open_dialogue SmithingListener.new(), 2400
+    player.get_interface_set.open_dialogue SmithingListener.new(event.get_position), 2400
     ctx.break_handler_chain
   end
 end

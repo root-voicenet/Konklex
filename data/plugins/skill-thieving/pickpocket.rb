@@ -1,5 +1,5 @@
 require 'java'
-java_import 'org.apollo.game.action.Action'
+java_import 'org.apollo.game.action.DistancedAction'
 java_import 'org.apollo.game.model.Animation'
 java_import 'org.apollo.game.model.Graphic'
 java_import 'org.apollo.game.event.impl.ServerMessageEvent'
@@ -7,12 +7,12 @@ java_import 'org.apollo.game.event.impl.ServerMessageEvent'
 PICKPOCKET_ANIMATION = Animation.new(881)
 PICKPOCKET_GRAPHIC = Graphic.new(348)
 
-class Pickpocket < Action
+class Pickpocket < DistancedAction
 
  attr_reader :started, :npc, :npcz
 
   def initialize(player, npc, npcz)
-    super 3, true, player
+    super 3, true, player, npc.get_position, 1
     @started = false
     @npc = npc
     @npcz = npcz
@@ -25,7 +25,7 @@ class Pickpocket < Action
     @started = true
   end
   
-  def execute
+  def executeAction
     if not @started
       start_thieve
     else

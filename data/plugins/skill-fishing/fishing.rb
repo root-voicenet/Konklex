@@ -33,7 +33,7 @@ class FishingAction < DistancedAction
     end
 
     # verify item requirements
-    if not (fish.bait != -1) and (character.inventory.contains fish.bait)
+    if (fish.bait != -1) and not (character.inventory.contains fish.bait)
       character.send_message "You do not have the required bait to fish this."
       stop
       return
