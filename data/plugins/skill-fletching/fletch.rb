@@ -42,12 +42,17 @@ class FletchingAction < Action
     end
 
     # start fletcing fella's
-    if fletched % 2 == 0 then character.play_animation FLETCHING_ANIMATION end
+    character.play_animation FLETCHING_ANIMATION
     character.inventory.remove log, 1
     character.inventory.add item.item
     skills.add_experience Skill::FLETCHING, item.xp
     @fletched += 1
 
+  end
+
+  def stop
+    character.stop_animation
+    super
   end
 
   def equals(other)

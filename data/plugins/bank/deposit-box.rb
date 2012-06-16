@@ -14,7 +14,7 @@ class DepositBoxAction < DistancedAction
   end
 
   def executeAction
-    character.turn_to @position
+    character.turn_to position
     DepositBoxUtils.open_box character
     stop
   end
