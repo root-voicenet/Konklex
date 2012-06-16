@@ -16,11 +16,11 @@ class FishingAction < DistancedAction
   def execute
     skills = character.skill_set
     level = skills.skill(Skill::FISHING).maximum_level # TODO: is using max level correct?
-    button = fish.option
+    want = get_fish(fish, level)
 
     # verify level requirements
-    if button.level > level
-      character.send_message "You need a Fishing level of at least #{button.level} to fish this."
+    if want == -1 or fish.level[want] > level
+      character.send_message "You need a Fishing level of at least #{fish.level[want]} to fish this."
       stop
       return
     end
@@ -33,7 +33,7 @@ class FishingAction < DistancedAction
     end
 
     # verify item requirements
-    if not (character.inventory.contains fish.bait)
+    if not (fish.bait != -1) and (character.inventory.contains fish.bait)
       character.send_message "You do not have the required bait to fish this."
       stop
       return
@@ -49,9 +49,9 @@ class FishingAction < DistancedAction
     character.turn_to position
     if rand(10) == 1
       character.send_message "You catch a fish."
-      character.inventory.remove fish.bait
-      character.inventory.add button.fish
-      skills.add_experience Skill::FISHING, button.exp
+      if fish.bait != -1 then character.inventory.remove fish.bait end
+      character.inventory.add fish.fish[want]
+      skills.add_experience Skill::FISHING, fish.exp[want]
       if rand(15) == 1
         stop
         return
@@ -65,6 +65,16 @@ class FishingAction < DistancedAction
   def stop
     character.stop_animation
     super
+  end
+
+  def get_fish(fish, level)
+    tempInt = 0
+    fish.level.each do |id|
+      if level == id or level > id
+        tempInt += 1
+      end
+    end
+    return tempInt != -1 ? rand(tempInt) : -1
   end
 
   def equals(other)
