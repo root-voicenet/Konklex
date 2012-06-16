@@ -65,6 +65,7 @@ on :event, :npc_option do |ctx, player, event|
     npcz = NPCZ[event.slot]
     if npcz != nil
       player.startAction Pickpocket.new(player, event.get_npc, npcz)
+      ctx.break_handler_chain
     end
   end
 end

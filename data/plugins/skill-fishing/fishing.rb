@@ -78,7 +78,7 @@ class FishingAction < DistancedAction
   end
 
   def equals(other)
-    return (get_class == other.get_class and @item == other.item and @log == other.log)
+    return (get_class == other.get_class and @fish == other.fish and @position == other.position)
   end
 
 end
@@ -87,6 +87,6 @@ on :event, :npc_option do |ctx, player, event|
   fish = FISH[event.get_npc.get_id]
   if fish != nil and fish[event.get_option] != nil
     player.start_action FishingAction.new(player, fish[event.get_option], event.get_npc.get_position)
+    ctx.break_handler_chain
   end
-  player.send_message "Option: #{event.get_option}"
 end

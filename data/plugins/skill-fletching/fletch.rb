@@ -239,6 +239,7 @@ on :event, :item_on_item do |ctx, player, event|
     item = ITEMS[secondary]
     if item != nil
       open_window player, item
+      ctx.break_handler_chain
     end
   end
 end
@@ -251,6 +252,7 @@ on :event, :item_on_item do |ctx, player, event|
     item = UBOWS[secondary]
     if item != nil
       player.start_action StringingAction.new(player, item)
+      ctx.break_handler_chain
     end
   end
 end
@@ -262,6 +264,7 @@ on :event, :item_on_item do |ctx, player, event|
   item = ARROWS[primary]
   if item != nil
     player.start_action ArrowAction.new(player, item)
+    ctx.break_handler_chain
   end
 end
 
@@ -273,6 +276,7 @@ on :event, :item_on_item do |ctx, player, event|
     item = DARTS[secondary]
     if item != nil
       player.start_action DartAction.new(player, item)
+      ctx.break_handler_chain
     end
   end
 end

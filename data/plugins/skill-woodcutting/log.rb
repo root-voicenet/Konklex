@@ -5,24 +5,23 @@ EXPIRED_LOGS = {}
 # Only normal trees support atm
 
 class Log
- attr_reader :id, :objects, :level, :exp, :respawn
+  attr_reader :id, :objects, :level, :exp, :respawn
 
-def initialize(id, objects, level, exp, respawn)
-  @id = id
-  @objects = objects
-  @level = level
-  @exp = exp
-  @respawn = respawn
- end
+  def initialize(id, objects, level, exp, respawn)
+    @id = id
+    @objects = objects
+    @level = level
+    @exp = exp
+    @respawn = respawn
+  end
 end
 
 def append_log(log)
- log.objects.each do |obj, expired_obj|
- LOGS[obj] = log
- EXPIRED_LOGS[expired_obj] = true
- end
+  log.objects.each do |obj, expired_obj|
+    LOGS[obj] = log
+    EXPIRED_LOGS[expired_obj] = true
+  end
 end
-
 
 NORMAL_TREE = {
  1315 => 1342, 1316 => 1342, 1318 => 1342, 1319 => 1342,

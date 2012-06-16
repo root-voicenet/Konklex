@@ -103,5 +103,6 @@ on :event, :object_action do |ctx, player, event|
     player.send SetInterfaceItemModelEvent.new(2412, 2361, 150)
     player.send SetInterfaceItemModelEvent.new(2413, 2363, 150)
     player.get_interface_set.open_dialogue SmithingListener.new(), 2400
+    ctx.break_handler_chain
   end
 end
