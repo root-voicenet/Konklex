@@ -16,8 +16,9 @@ public final class TradeButtonEventHandler extends EventHandler<ButtonEvent> {
     public void handle(EventHandlerContext ctx, Player player, ButtonEvent event) {
 	final int id = event.getInterfaceId();
 	if (id == 3420 || id == 3546) {
-	    if (player.getTradeSession() != null)
+	    if (player.getTradeSession() != null) {
 		player.getTradeSession().accept();
+	    }
 	    ctx.breakHandlerChain();
 	}
     }

@@ -67,8 +67,9 @@ public final class PluginContext {
      */
     public <T extends Event> void addEventDecoder(int releaseNo, int opcode, EventDecoder<T> decoder) {
 	final Release release = context.getRelease();
-	if (release.getReleaseNumber() != releaseNo)
+	if (release.getReleaseNumber() != releaseNo) {
 	    return;
+	}
 	release.register(decoder, opcode);
     }
 
@@ -81,8 +82,9 @@ public final class PluginContext {
      */
     public <T extends Event> void addEventEncoder(int releaseNo, Class<T> event, EventEncoder<T> encoder) {
 	final Release release = context.getRelease();
-	if (release.getReleaseNumber() != releaseNo)
+	if (release.getReleaseNumber() != releaseNo) {
 	    return;
+	}
 	release.register(event, encoder);
     }
 
@@ -95,10 +97,11 @@ public final class PluginContext {
     public <T extends Event> void addLastEventHandler(Class<T> event, EventHandler<T> handler) {
 	final EventHandlerChainGroup chains = context.getService(GameService.class).getEventHandlerChains();
 	final EventHandlerChain<T> chain = chains.getChain(event);
-	if (chain == null)
+	if (chain == null) {
 	    logger.log(Level.WARNING, "Chain missing, add " + event.getCanonicalName() + " to events.xml");
-	else
+	} else {
 	    chain.addLast(handler);
+	}
     }
 
     /**
@@ -108,11 +111,14 @@ public final class PluginContext {
      * @param handler The handler.
      */
     public <T extends Method> void addLastMethodHandler(Class<T> event, MethodHandler<T> handler) {
-	final MethodHandlerChainGroup chains = context.getService(FrontendService.class).getMethodHandlerChains();
-	final MethodHandlerChain<T> chain = chains.getChain(event);
-	if (chain == null)
-	    logger.log(Level.WARNING, "Chain missing, add " + event.getCanonicalName() + " to methods.xml");
-	else
-	    chain.addLast(handler);
+	if (context.getService(FrontendService.class) != null) {
+	    final MethodHandlerChainGroup chains = context.getService(FrontendService.class).getMethodHandlerChains();
+	    final MethodHandlerChain<T> chain = chains.getChain(event);
+	    if (chain == null) {
+		logger.log(Level.WARNING, "Chain missing, add " + event.getCanonicalName() + " to methods.xml");
+	    } else {
+		chain.addLast(handler);
+	    }
+	}
     }
 }

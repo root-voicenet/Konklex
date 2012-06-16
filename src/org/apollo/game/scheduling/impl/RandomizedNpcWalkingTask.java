@@ -7,7 +7,7 @@ import org.apollo.game.scheduling.ScheduledTask;
 
 /**
  * An {@link ScheduledTask} which makes a npc walk randomly.
- * @author eMachines
+ * @author Steve
  */
 public final class RandomizedNpcWalkingTask extends ScheduledTask {
 
@@ -27,6 +27,9 @@ public final class RandomizedNpcWalkingTask extends ScheduledTask {
 
     @Override
     public void execute() {
+	if (!npc.isRandomWalking()) {
+	    return;
+	}
 	// TODO add certain npcs for random walking
 	// TODO add npc clipping
 	int moveX = random(1);

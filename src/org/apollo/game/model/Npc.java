@@ -11,6 +11,7 @@ import org.apollo.game.sync.block.SynchronizationBlock;
  * A {@link Npc} is a {@link Character} which is computer-controlled (Non-Player
  * Character).
  * @author Chris Fletcher
+ * @author Steve
  */
 public final class Npc extends Character {
 
@@ -23,6 +24,11 @@ public final class Npc extends Character {
      * The NPC id.
      */
     private final int id;
+
+    /**
+     * The random walking flag.
+     */
+    private boolean randomWalking;
 
     /**
      * Creates a new NPC.
@@ -78,6 +84,14 @@ public final class Npc extends Character {
 	World.getWorld().schedule(new RandomizedNpcWalkingTask(this));
     }
 
+    /**
+     * Gets the random walking flag.
+     * @return True if random walking, false if otherwise.
+     */
+    public boolean isRandomWalking() {
+	return randomWalking;
+    }
+
     @Override
     public void send(Event event) {
 	if (event instanceof ServerMessageEvent) {
@@ -100,6 +114,14 @@ public final class Npc extends Character {
 	    region.addNpc(this);
 	}
 	super.setPosition(position);
+    }
+
+    /**
+     * Sets the random walking flag.
+     * @param randomWalking The random walking flag.
+     */
+    public void setRandomWalking(boolean randomWalking) {
+	this.randomWalking = randomWalking;
     }
 
     @Override
