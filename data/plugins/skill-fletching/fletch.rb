@@ -7,12 +7,13 @@ java_import 'org.apollo.game.event.impl.SetInterfaceItemModelEvent'
 FLETCHING_ANIMATION = Animation.new(1248)
 
 class FletchingAction < Action
-  attr_reader :item, :fletched, :log
+  attr_reader :item, :fletched, :log, :count
 
-  def initialize(player, item, log)
+  def initialize(player, item, log, count)
     super 2, true, player
     @item = item
     @log = log
+    @count = count
     @fletched = 0
   end
 
@@ -21,7 +22,7 @@ class FletchingAction < Action
     level = skills.skill(Skill::FLETCHING).maximum_level # TODO: is using max level correct?
 
     # verify counted fletches
-    if fletched == item.count
+    if fletched == count
       stop
       return
     end
@@ -55,6 +56,23 @@ class FletchingAction < Action
 
 end
 
+class FletchingDialogListener
+  java_implements 'org.apollo.game.model.inter.EnterAmountListener'
+
+  attr_reader :player, :bow, :log
+
+  def initialize(player, bow, log)
+    @player = player
+    @bow = bow
+    @log = log
+  end
+
+  def amountEntered(amount)
+    player.get_interface_set.close
+    player.start_action FletchingAction.new(player, bow, log, amount)
+  end
+end
+
 class FletchingListener
   java_implements 'org.apollo.game.model.inter.dialog.DialogueListener'
 
@@ -67,9 +85,13 @@ class FletchingListener
   def buttonClicked(player, button)
     bow = BOWS[log][button]
     if bow != nil
-      player.start_action FletchingAction.new(player, bow, log)
+      if bow.count == -1
+        player.get_interface_set.open_enter_amount_dialog FletchingDialogListener.new(player, bow, log)
+      else
+        player.get_interface_set.close
+        player.start_action FletchingAction.new(player, bow, log, bow.count)
+      end
     end
-    player.get_interface_set.close
   end
 
   def interfaceClosed(player, manually)
