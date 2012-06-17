@@ -13,6 +13,7 @@
         <script>arrow.rb</script>
         <script>item.rb</script>
         <script>dart.rb</script>
+        <script>bolt.rb</script>
   </scripts>
   <dependencies />
 </plugin>

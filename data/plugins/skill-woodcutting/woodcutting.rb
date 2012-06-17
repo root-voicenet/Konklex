@@ -3,7 +3,7 @@ java_import 'org.apollo.game.action.DistancedAction'
 java_import 'org.apollo.game.model.EquipmentConstants'
 java_import 'org.apollo.game.model.def.ItemDefinition'
 
-LOG_SIZE = 4
+LOG_SIZE = 1
 
 class WoodcuttingAction < DistancedAction
 
@@ -19,8 +19,7 @@ class WoodcuttingAction < DistancedAction
   # Finds if you have the hatchet
   def find_hatchet
     HATCHET_ID.each do |id|
-      weapon = character.equipment.get EquipmentConstants::WEAPON
-      if weapon.object_id == id
+      if character.equipment.contains id
         return HATCHET[id]
       elsif character.inventory.contains id
         return HATCHET[id]
@@ -52,8 +51,15 @@ class WoodcuttingAction < DistancedAction
 
     hatchet = find_hatchet
 
+    # verify the player has a hatchet
+    if hatchet == nil
+      character.send_message "You do not have a hatchet to cut this tree with."
+      stop
+      return
+    end
+
     # verify the player can chop with their axe
-    if not (hatchet != nil and level >= hatchet.level)
+    if not (level >= hatchet.level)
       character.send_message "You do not have the correct hatchet with your woodcutting level."
       stop
       return

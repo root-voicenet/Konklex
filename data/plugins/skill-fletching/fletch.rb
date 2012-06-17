@@ -216,6 +216,39 @@ class DartAction < Action
 
 end
 
+class BoltAction < Action
+  attr_reader :item
+
+  def initialize(player, item)
+    super 0, true, player
+    @item = item
+  end
+
+  def execute
+    skills = character.skill_set
+    level = skills.skill(Skill::FLETCHING).maximum_level # TODO: is using max level correct?
+
+    # verify level requirements
+    if item.level > level
+      character.send_message "You need a Fletching level of at least #{item.level} to make this."
+      stop
+      return
+    end
+
+    # start fletcing fella's
+    character.inventory.remove item.bolt, 1
+    character.inventory.add item.item
+    skills.add_experience Skill::FLETCHING, item.exp
+    stop
+
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @item == other.item)
+  end
+
+end
+
 def open_window(player, item)
   short_def = ItemDefinition.for_id item.bow # TODO: split off into some method
   long_def = ItemDefinition.for_id item.model # TODO: split off into some method
@@ -276,6 +309,19 @@ on :event, :item_on_item do |ctx, player, event|
     item = DARTS[secondary]
     if item != nil
       player.start_action DartAction.new(player, item)
+      ctx.break_handler_chain
+    end
+  end
+end
+
+on :event, :item_on_item do |ctx, player, event|
+  primary = event.id
+  secondary = event.target_id
+
+  if primary == 1755
+    item = BOLTS[secondary]
+    if item != nil
+      player.start_action BoltAction.new(player, item)
       ctx.break_handler_chain
     end
   end

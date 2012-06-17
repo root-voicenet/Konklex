@@ -55,10 +55,6 @@ class CookingAction < DistancedAction
   end
 
   def start
-    if done == count
-      stop
-      return
-    end
     if item.level > character.skill_set.get_skill(Skill::COOKING).maximum_level
       character.send_message "You need a Cooking level of #{item.level} to cook this."
       stop
@@ -78,6 +74,10 @@ class CookingAction < DistancedAction
       @done += 1
     else
       stop
+    end
+    if done == count
+      stop
+      return
     end
   end
 

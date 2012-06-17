@@ -13,6 +13,7 @@ import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 import org.apollo.game.model.World.RegistrationStatus;
+import org.apollo.game.scheduling.impl.UpdateFriendsTask;
 import org.apollo.game.sync.ClientSynchronizer;
 import org.apollo.io.EventHandlerChainParser;
 import org.apollo.login.LoginService;
@@ -57,6 +58,11 @@ public final class GameService extends Service {
     private ClientSynchronizer synchronizer;
 
     /**
+     * The {@link UpdateFriendsTask}.
+     */
+    private UpdateFriendsTask messaging;
+
+    /**
      * Creates the game service.
      * @throws Exception if an error occurs during initialization.
      */
@@ -98,11 +104,13 @@ public final class GameService extends Service {
 	try {
 	    final XmlParser parser = new XmlParser();
 	    final XmlNode rootNode = parser.parse(is);
-	    if (!rootNode.getName().equals("synchronizer"))
+	    if (!rootNode.getName().equals("synchronizer")) {
 		throw new Exception("Invalid root node name.");
+	    }
 	    final XmlNode activeNode = rootNode.getChild("active");
-	    if (activeNode == null || !activeNode.hasValue())
+	    if (activeNode == null || !activeNode.hasValue()) {
 		throw new Exception("No active node/value.");
+	    }
 	    final Class<?> clazz = Class.forName(activeNode.getValue());
 	    synchronizer = (ClientSynchronizer) clazz.newInstance();
 	} finally {
@@ -126,11 +134,13 @@ public final class GameService extends Service {
 	    }
 	    for (final Player p : world.getPlayerRepository()) {
 		final GameSession session = p.getSession();
-		if (session != null)
+		if (session != null) {
 		    session.handlePendingEvents(chainGroup);
+		}
 	    }
 	    world.pulse();
 	    synchronizer.synchronize();
+	    messaging.execute();
 	}
     }
 

@@ -12,7 +12,6 @@ import org.apollo.backend.Frontend;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.impl.SystemCleanTask;
-import org.apollo.game.scheduling.impl.UpdateFriendsTask;
 import org.apollo.net.ApolloHandler;
 import org.apollo.net.HttpPipelineFactory;
 import org.apollo.net.JagGrabPipelineFactory;
@@ -205,7 +204,6 @@ public final class Server {
      * Starts the tasks required for this server.
      */
     private void startTasks() {
-	World.getWorld().schedule(new UpdateFriendsTask());
 	World.getWorld().schedule(new SystemCleanTask());
     }
 }
