@@ -6,14 +6,14 @@ class FishingAction < DistancedAction
   attr_reader :fish, :fished, :started, :position
 
   def initialize(player, fish, position)
-    super 10, true, player, position, 1
+    super 3, true, player, position, 1
     @fish = fish
     @fished = 0
     @started = false
     @position = position
   end
 
-  def execute
+  def executeAction
     skills = character.skill_set
     level = skills.skill(Skill::FISHING).maximum_level # TODO: is using max level correct?
     want = get_fish(fish, level)
@@ -47,16 +47,20 @@ class FishingAction < DistancedAction
     # start fishing fella's
     character.play_animation Animation.new(fish.animation)
     character.turn_to position
-    if rand(10) == 1
-      character.send_message "You catch a fish."
-      if fish.bait != -1 then character.inventory.remove fish.bait end
-      character.inventory.add fish.fish[want]
-      skills.add_experience Skill::FISHING, fish.exp[want]
-      if rand(15) == 1
+    if rand(4) == 1
+      if character.inventory.add fish.fish[want]
+        character.send_message "You catch a fish."
+        if fish.bait != -1 then character.inventory.remove fish.bait end
+        skills.add_experience Skill::FISHING, fish.exp[want]
+        if rand(8) == 1
+          stop
+          return
+        else
+          @fished += 1
+        end
+      else
         stop
         return
-      else
-        @fished += 1
       end
     end
 

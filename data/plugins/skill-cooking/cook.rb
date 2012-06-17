@@ -3,19 +3,23 @@ java_import 'org.apollo.game.action.Action'
 java_import 'org.apollo.game.model.Animation'
 java_import 'org.apollo.game.model.EquipmentConstants'
 java_import 'java.security.SecureRandom'
+java_import 'org.apollo.game.event.impl.SetInterfaceTextEvent'
+java_import 'org.apollo.game.event.impl.SetInterfaceItemModelEvent'
 
 COOK_ANIMATION = Animation.new(833)
 COOK_FIRE = Animation.new(897)
 COOK_GAUNTLETS = 775
 
-class Cook < DistancedAction
+class CookingAction < DistancedAction
 
- attr_reader :item, :event, :gauntlets, :cooked
+ attr_reader :item, :event, :gauntlets, :cooked, :count, :done
 
-  def initialize(player, item, event)
-    super 4, true, player, event.position, 1
+  def initialize(player, item, event, count)
+    super 2, true, player, event.position, 1
     @item = item
     @event = event
+    @count = count
+    @done = 0
   end
 
   def getSuccess(burnBonus, levelReq, stopBurn)
@@ -51,6 +55,10 @@ class Cook < DistancedAction
   end
 
   def start
+    if done == count
+      stop
+      return
+    end
     if item.level > character.skill_set.get_skill(Skill::COOKING).maximum_level
       character.send_message "You need a Cooking level of #{item.level} to cook this."
       stop
@@ -63,10 +71,11 @@ class Cook < DistancedAction
     character.inventory.remove item.uncook
   end
 
-  def execute
+  def executeAction
     if character.inventory.contains item.uncook
       start
       if cooked then cook else burn end
+      @done += 1
     else
       stop
     end
@@ -74,7 +83,7 @@ class Cook < DistancedAction
 
   def cook
     if character.inventory.add item.cook
-      item_def = ItemDefinition.for_id @item.cook
+      item_def = ItemDefinition.for_id item.cook
       name = item_def.name.sub(/ item$/, "").downcase
       character.send_message "You cook the #{name}."
       character.skill_set.add_experience Skill::COOKING, item.exp
@@ -97,11 +106,75 @@ class Cook < DistancedAction
 
 end
 
+class CookingDialogListener
+  java_implements 'org.apollo.game.model.inter.EnterAmountListener'
+
+  attr_reader :player, :item, :event
+
+  def initialize(player, item, event)
+    @player = player
+    @item = item
+    @event = event
+  end
+
+  def amountEntered(amount)
+    player.get_interface_set.close
+    player.start_action CookingAction.new(player, item, event, amount)
+  end
+end
+
+class CookingListener
+  java_implements 'org.apollo.game.model.inter.dialog.DialogueListener'
+
+  attr_reader :item, :event
+
+  def initialize(item, event)
+    @item = item
+    @event = event
+  end
+
+  def buttonClicked(player, button)
+    click = button_to_id button
+    if click == -1
+      player.get_interface_set.open_enter_amount_dialog CookingDialogListener.new(player, item, event)
+    elsif click != 0
+      player.start_action CookingAction.new(player, item, event, click)
+      player.get_interface_set.close
+    end
+  end
+
+  def interfaceClosed(player, manually)
+  end
+
+  def continued(player)
+  end
+
+  def button_to_id(button)
+    if button == 13720
+      return 1
+    elsif button == 13719
+      return 5
+    elsif button == 13718
+      return -1
+    elsif button == 13717
+      return 28
+    else
+      return 0
+    end
+  end
+end
+
+def copen_window(player, item, event)
+  item_def = ItemDefinition.for_id item.cook # TODO: split off into some method
+  player.send SetInterfaceItemModelEvent.new(13716, item.cook, 250)
+  player.get_interface_set.open_dialogue CookingListener.new(item, event), 1743
+end
+
 on :event, :item_used_on_object do |ctx, player, event|
   if event.get_object == 2728 or event.get_object == 114 or event.get_object == 2732
     item = FOODS_[event.get_id]
     if item != nil
-      player.start_action Cook.new(player, item, event)
+      copen_window player, item, event
       ctx.break_handler_chain
     end
   end
