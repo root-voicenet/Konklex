@@ -1,31 +1,19 @@
 package org.apollo.game.event.impl;
 
-import org.apollo.game.event.Event;
+import org.apollo.game.model.GameObject;
 
 /**
- * An {@link Event} which represents creating or destroying objects in game.
+ * An {@link ObjectEvent} which creates a object.
  * @author Steve
  */
-public abstract class CreateObjectEvent extends Event {
-
-    /**
-     * The object type.
-     */
-    private final int object;
+public final class CreateObjectEvent extends ObjectEvent {
 
     /**
      * Creates a new create object action event.
-     * @param object The object id.
+     * @param object The object to create.
      */
-    public CreateObjectEvent(int object) {
-	this.object = object;
+    public CreateObjectEvent(GameObject object) {
+	super(object.getLocation(), object);
     }
 
-    /**
-     * Returns the object id.
-     * @return {@link Integer} The object id.
-     */
-    public int getObject() {
-	return object;
-    }
 }

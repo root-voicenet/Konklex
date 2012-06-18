@@ -22,7 +22,7 @@ end
 def append_ore(ore)
   ore.objects.each do |obj, expired_obj|
     ORES[obj] = ore
-    EXPIRED_ORES[expired_obj] = true
+    EXPIRED_ORES[expired_obj] = false
   end
 end
 

@@ -27,8 +27,6 @@ public final class ObjectCommandListener implements CommandListener {
 	    case "del":
 		obj = new GameObject(ObjectDefinition.forId(object), player.getPosition(), 10, rotation);
 		World.getWorld().unregister(obj);
-		final GameObject newo = new GameObject(obj.getDefinition(), obj.getLocation(), 10, rotation, true);
-		World.getWorld().register(newo);
 		break;
 	    }
 	}

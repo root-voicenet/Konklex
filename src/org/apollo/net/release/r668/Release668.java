@@ -3,7 +3,6 @@ package org.apollo.net.release.r668;
 import org.apollo.game.event.impl.ConfigEvent;
 import org.apollo.game.event.impl.LogoutEvent;
 import org.apollo.game.event.impl.PositionEvent;
-import org.apollo.game.event.impl.RemoveGroundItemEvent;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.event.impl.UpdateRunEnergyEvent;
 import org.apollo.net.meta.PacketMetaDataGroup;
@@ -24,8 +23,9 @@ public final class Release668 extends Release {
      * one.
      */
     static {
-	for (int id = 0; id < PACKET_LENGTHS.length; id++)
+	for (int id = 0; id < PACKET_LENGTHS.length; id++) {
 	    PACKET_LENGTHS[id] = -4;
+	}
 	PACKET_LENGTHS[64] = 8;
 	PACKET_LENGTHS[18] = 8;
 	PACKET_LENGTHS[25] = 8;
@@ -147,6 +147,5 @@ public final class Release668 extends Release {
 	register(UpdateRunEnergyEvent.class, new UpdateRunEnergyEventEncoder());
 	register(PositionEvent.class, new PositionEventEncoder());
 	register(ConfigEvent.class, new ConfigEventEncoder());
-	register(RemoveGroundItemEvent.class, new RemoveGroundItemEncoder());
     }
 }

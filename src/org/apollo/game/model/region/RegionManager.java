@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apollo.game.event.Event;
 import org.apollo.game.model.Character;
 import org.apollo.game.model.GameObject;
 import org.apollo.game.model.GroundItem;
@@ -38,6 +39,16 @@ public final class RegionManager {
     private final Map<RegionCoordinates, Region> activeRegions = new HashMap<RegionCoordinates, Region>();
 
     /**
+     * Gets the local {@link Event}'s around an character.
+     * @param character The character.
+     * @return The collection of local {@link Event}'s.
+     */
+    public Collection<Event> getLocalEvents(Character character) {
+	final Region region = getRegionByLocation(character.getPosition());
+	return region.getEvents();
+    }
+
+    /**
      * Gets the local {@link GroundItem}'s around an character.
      * @param character The character.
      * @return The collection of local {@link GroundItem}'s.
@@ -47,10 +58,13 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions)
-	    for (final GroundItem item : region.getGroundItems())
-		if (item.getPosition().getDistance(character.getPosition()) <= distance)
+	for (final Region region : regions) {
+	    for (final GroundItem item : region.getGroundItems()) {
+		if (item.getPosition().getDistance(character.getPosition()) <= distance) {
 		    localItems.add(item);
+		}
+	    }
+	}
 	return Collections.unmodifiableCollection(localItems);
     }
 
@@ -64,10 +78,13 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions)
-	    for (final Npc npc : region.getNpcs())
-		if (npc.getPosition().getDistance(character.getPosition()) <= distance)
+	for (final Region region : regions) {
+	    for (final Npc npc : region.getNpcs()) {
+		if (npc.getPosition().getDistance(character.getPosition()) <= distance) {
 		    localPlayers.add(npc);
+		}
+	    }
+	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -81,10 +98,13 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions)
-	    for (final GameObject object : region.getGameObjects())
-		if (object.getLocation().getDistance(character.getPosition()) <= distance)
+	for (final Region region : regions) {
+	    for (final GameObject object : region.getGameObjects()) {
+		if (object.getLocation().getDistance(character.getPosition()) <= distance) {
 		    localObjects.add(object);
+		}
+	    }
+	}
 	return Collections.unmodifiableCollection(localObjects);
     }
 
@@ -98,10 +118,13 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions)
-	    for (final Player player : region.getPlayers())
-		if (player.getPosition().getDistance(character.getPosition()) <= distance)
+	for (final Region region : regions) {
+	    for (final Player player : region.getPlayers()) {
+		if (player.getPosition().getDistance(character.getPosition()) <= distance) {
 		    localPlayers.add(player);
+		}
+	    }
+	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -113,9 +136,9 @@ public final class RegionManager {
      */
     public Region getRegion(int x, int y) {
 	final RegionCoordinates key = new RegionCoordinates(x, y);
-	if (activeRegions.containsKey(key))
+	if (activeRegions.containsKey(key)) {
 	    return activeRegions.get(key);
-	else {
+	} else {
 	    final Region region = new Region(key);
 	    activeRegions.put(key, region);
 	    return region;

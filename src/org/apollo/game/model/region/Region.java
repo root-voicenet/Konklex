@@ -1,14 +1,24 @@
 package org.apollo.game.model.region;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apollo.game.event.Event;
+import org.apollo.game.event.impl.CreateGroundEvent;
+import org.apollo.game.event.impl.CreateObjectEvent;
+import org.apollo.game.event.impl.DestroyGroundEvent;
+import org.apollo.game.event.impl.DestroyObjectEvent;
+import org.apollo.game.event.impl.MapEvent;
+import org.apollo.game.event.impl.PositionEvent;
 import org.apollo.game.model.GameObject;
 import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.Position;
 
 /**
  * Represents a single region.
@@ -20,6 +30,11 @@ public class Region {
      * The region coordinates.
      */
     private final RegionCoordinates coordinate;
+
+    /**
+     * A map which links events to this region.
+     */
+    private final Deque<Event> events = new ArrayDeque<Event>();
 
     /**
      * A list of players in this region.
@@ -50,12 +65,23 @@ public class Region {
     }
 
     /**
+     * Adds a new event.
+     * @param event The event to add.
+     */
+    public void addEvent(Event event) {
+	synchronized (this) {
+	    events.add(event);
+	}
+    }
+
+    /**
      * Adds a new item.
      * @param item The item to add.
      */
     public void addItem(GroundItem item) {
 	synchronized (this) {
 	    items.add(item);
+	    events.add(new CreateGroundEvent(item));
 	}
     }
 
@@ -76,6 +102,7 @@ public class Region {
     public void addObject(GameObject object) {
 	synchronized (this) {
 	    objects.add(object);
+	    events.add(new CreateObjectEvent(object));
 	}
     }
 
@@ -90,11 +117,48 @@ public class Region {
     }
 
     /**
+     * Clears the events.
+     */
+    public void clearEvents() {
+	events.clear();
+    }
+
+    /**
      * Gets the region coordinates.
      * @return The region coordinates.
      */
     public RegionCoordinates getCoordinates() {
 	return coordinate;
+    }
+
+    /**
+     * Gets the event at the position.
+     * @param position The position.
+     * @return The event, if any, at the position.
+     */
+    private Event getEvent(Position position) {
+	Event event = null;
+	synchronized (this) {
+	    for (Event n_event : events) {
+		if (n_event instanceof MapEvent) {
+		    MapEvent map = (MapEvent) n_event;
+		    if (map.getPosition().equals(position)) {
+			event = n_event;
+		    }
+		}
+	    }
+	}
+	return event;
+    }
+
+    /**
+     * Gets the list of events.
+     * @return The list of events.
+     */
+    public Collection<Event> getEvents() {
+	synchronized (this) {
+	    return Collections.unmodifiableCollection(new LinkedList<Event>(events));
+	}
     }
 
     /**
@@ -128,6 +192,21 @@ public class Region {
     }
 
     /**
+     * Gets the object at the position.
+     * @param position The position.
+     * @return The game object, if any, at the position.
+     */
+    private GameObject getObject(Position position) {
+	GameObject returnz = null;
+	for (GameObject object : objects) {
+	    if (object.getLocation().equals(position)) {
+		returnz = object;
+	    }
+	}
+	return returnz;
+    }
+
+    /**
      * Gets the list of players.
      * @return The list of players.
      */
@@ -138,12 +217,26 @@ public class Region {
     }
 
     /**
+     * Removes an old event.
+     * @param event The event to remove.
+     */
+    public void removeEvent(Event event) {
+	synchronized (this) {
+	    events.remove(event);
+	}
+    }
+
+    /**
      * Removes an old ground item.
      * @param item The item to remove.
      */
     public void removeItem(GroundItem item) {
+	Event event = getEvent(item.getPosition());
 	synchronized (this) {
-	    items.remove(item);
+	    if (events.remove(event)) {
+		items.remove(item);
+		sendEvent(new DestroyGroundEvent(item));
+	    }
 	}
     }
 
@@ -162,8 +255,12 @@ public class Region {
      * @param object The object to remove.
      */
     public void removeObject(GameObject object) {
+	Event event = getEvent(object.getLocation());
 	synchronized (this) {
-	    objects.remove(object);
+	    if (events.remove(event)) {
+		objects.remove(object);
+		sendEvent(new DestroyObjectEvent(object));
+	    }
 	}
     }
 
@@ -174,6 +271,37 @@ public class Region {
     public void removePlayer(Player player) {
 	synchronized (this) {
 	    players.remove(player);
+	}
+    }
+
+    /**
+     * Replaces an object at the position.
+     * @param position The position of the old object.
+     * @param object The object to replace with.
+     */
+    public void replaceObject(Position position, GameObject object) {
+	GameObject replace = getObject(position);
+	if (replace != null) {
+	    synchronized (this) {
+		removeObject(replace);
+		addObject(object);
+	    }
+	} else {
+	    addObject(object);
+	}
+    }
+
+    /**
+     * Sends a event to the players.
+     * @param event The event to send.
+     */
+    private void sendEvent(Event event) {
+	for (Player player : players) {
+	    if (event instanceof MapEvent) {
+		MapEvent map = (MapEvent) event;
+		player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
+	    }
+	    player.send(event);
 	}
     }
 

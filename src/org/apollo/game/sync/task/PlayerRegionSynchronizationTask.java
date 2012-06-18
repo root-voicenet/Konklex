@@ -3,12 +3,11 @@ package org.apollo.game.sync.task;
 import java.util.Collection;
 import java.util.List;
 
-import org.apollo.game.event.impl.GroundItemEvent;
-import org.apollo.game.event.impl.ObjectEvent;
+import org.apollo.game.event.Event;
+import org.apollo.game.event.impl.CreateGroundEvent;
+import org.apollo.game.event.impl.MapEvent;
 import org.apollo.game.event.impl.PositionEvent;
-import org.apollo.game.model.GameObject;
 import org.apollo.game.model.GroundItem;
-import org.apollo.game.model.Item;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 
@@ -38,40 +37,36 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 	this.player = player;
     }
 
-    @SuppressWarnings("unused")
     @Override
     public void run() {
-	final List<GameObject> localObjects = player.getLocalGameObjectList();
-	final int oldLocalObjects = localObjects.size();
-	final List<GroundItem> localGroundItems = player.getLocalGroundItemList();
-	final int oldLocalGroundItems = localGroundItems.size();
 	int added = 0;
-	final Collection<GameObject> objects = World.getWorld().getRegionManager().getLocalObjects(player);
-	for (final GameObject object : objects) {
-	    if (added >= EVENTS_PER_CYCLE)
+	final List<Event> localEvents = player.getLocalEventList();
+	final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
+	for (final Event event : events) {
+	    if (added >= EVENTS_PER_CYCLE) {
 		break;
-	    if (!localObjects.contains(object)) {
-		player.send(new PositionEvent(player.getLastKnownRegion(), object.getLocation()));
-		player.send(new ObjectEvent(object));
-		if (!object.isRemoving())
-		    localObjects.add(object);
-		added++;
 	    }
-	}
-	added = 0;
-	final Collection<GroundItem> groundItems = World.getWorld().getRegionManager().getLocalGroundItems(player);
-	for (final GroundItem groundItem : groundItems) {
-	    if (added >= EVENTS_PER_CYCLE)
-		break;
-	    if (!localGroundItems.contains(groundItem))
-		if (groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0) {
-		    final Item item = groundItem.getItem();
-		    player.send(new PositionEvent(player.getLastKnownRegion(), groundItem.getPosition()));
-		    player.send(new GroundItemEvent(groundItem));
-		    if (!groundItem.isRemoving())
-			localGroundItems.add(groundItem);
-		    added++;
+	    if (!localEvents.contains(event)) {
+		if (event instanceof CreateGroundEvent) {
+		    CreateGroundEvent ground = (CreateGroundEvent) event;
+		    GroundItem item = ground.getGroundItem();
+		    if (item.getControllerName().equals(player.getName()) || item.getPulses() == 0) {
+			localEvents.add(event);
+			player.send(new PositionEvent(player.getLastKnownRegion(), ground.getPosition()));
+			player.send(event);
+			added++;
+		    }
+		} else {
+		    if (localEvents.add(event)) {
+			if (event instanceof MapEvent) {
+			    MapEvent map = (MapEvent) event;
+			    player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
+			}
+			player.send(event);
+			added++;
+		    }
 		}
+	    }
 	}
     }
 

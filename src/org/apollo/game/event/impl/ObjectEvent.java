@@ -2,12 +2,13 @@ package org.apollo.game.event.impl;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.model.GameObject;
+import org.apollo.game.model.Position;
 
 /**
  * An {@link Event} which represents creating or destroying objects in game.
  * @author Steve
  */
-public final class ObjectEvent extends Event {
+public abstract class ObjectEvent extends MapEvent {
 
     /**
      * The object.
@@ -16,9 +17,11 @@ public final class ObjectEvent extends Event {
 
     /**
      * Creates a new object event.
+     * @param position The position of the game object.
      * @param object The object list.
      */
-    public ObjectEvent(GameObject object) {
+    public ObjectEvent(Position position, GameObject object) {
+	super(position);
 	this.object = object;
     }
 

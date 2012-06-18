@@ -3,20 +3,39 @@ java_import 'org.apollo.game.action.DistancedAction'
 java_import 'org.apollo.game.model.Animation'
 
 class FishingAction < DistancedAction
+
   attr_reader :fish, :fished, :started, :position
 
   def initialize(player, fish, position)
-    super 3, true, player, position, 1
+    super 4, true, player, position, 1
     @fish = fish
     @fished = 0
     @started = false
     @position = position
   end
 
+  def get_fish_success(fish_level, level)
+    level = level * 2
+    required = fish_level
+    second = required / 2
+    randNum = rand(second)
+    first = ((randNum * level) / 3)
+    return first > second
+  end
+
   def executeAction
     skills = character.skill_set
     level = skills.skill(Skill::FISHING).maximum_level # TODO: is using max level correct?
-    want = get_fish(fish, level)
+    free = character.inventory.free_slots
+
+    # Looks for free slots
+    if free < 1
+      character.send_message "Not enough inventory space"
+      stop
+      return
+    end
+
+    want = get_fish fish, level
 
     # verify level requirements
     if want == -1 or fish.level[want] > level
@@ -40,30 +59,24 @@ class FishingAction < DistancedAction
     end
 
     if not started
+      character.turn_to position
       character.send_message "You attempt to catch a fish.."
       @started = true
     end
 
     # start fishing fella's
-    character.play_animation Animation.new(fish.animation)
-    character.turn_to position
-    if rand(4) == 1
-      if character.inventory.add fish.fish[want]
-        character.send_message "You catch a fish."
-        if fish.bait != -1 then character.inventory.remove fish.bait end
-        skills.add_experience Skill::FISHING, fish.exp[want]
-        if rand(8) == 1
-          stop
-          return
-        else
-          @fished += 1
-        end
-      else
+    if get_fish_success fish.level[want], level
+      character.inventory.add fish.fish[want]
+      character.send_message "You catch a fish."
+      if fish.bait != -1 then character.inventory.remove fish.bait end
+      skills.add_experience Skill::FISHING, fish.exp[want]
+      if rand(20) == 1
         stop
         return
       end
     end
 
+    character.play_animation Animation.new(fish.animation)
   end
 
   def stop

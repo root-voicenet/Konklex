@@ -37,8 +37,9 @@ public final class WorldMessaging {
      * Creates empty nodes to put players in.
      */
     public WorldMessaging() {
-	for (int i = 0; i < worlds; i++)
+	for (int i = 0; i < worlds; i++) {
 	    players.put(i, new ArrayList<String>());
+	}
     }
 
     /**
@@ -46,10 +47,11 @@ public final class WorldMessaging {
      * @param player the player
      */
     public void deregister(Object player) {
-	if (player instanceof Player)
+	if (player instanceof Player) {
 	    events.add(((Player) player).getName().toLowerCase());
-	else if (player instanceof String)
+	} else if (player instanceof String) {
 	    events.add(((String) player).toLowerCase());
+	}
     }
 
     /**
@@ -59,19 +61,20 @@ public final class WorldMessaging {
      */
     public void deregister(String player, int world) {
 	player = player.toLowerCase();
-	if (players.get(world).contains(player))
-	    if (players.get(world).remove(player))
+	if (players.get(world).contains(player)) {
+	    if (players.get(world).remove(player)) {
 		sendStatus(player);
+	    }
+	}
     }
 
     /**
      * Send the events to outstream.
      */
     public void dispatch() {
-	if (!events.isEmpty()) {
-	    for (final String login : events)
-		sendStatus(login);
-	    events.clear();
+	String login = events.poll();
+	if (login != null) {
+	    sendStatus(login);
 	}
     }
 
@@ -82,9 +85,11 @@ public final class WorldMessaging {
      */
     public boolean isPlayerOnline(String player) {
 	player = player.toLowerCase();
-	for (int i = 0; i < worlds; i++)
-	    if (players.get(i).contains(player))
+	for (int i = 0; i < worlds; i++) {
+	    if (players.get(i).contains(player)) {
 		return true;
+	    }
+	}
 	return false;
     }
 
@@ -95,15 +100,16 @@ public final class WorldMessaging {
     public void register(Object player) {
 	if (player instanceof Player) {
 	    final Player user = (Player) player;
+	    user.send(new PrivateChatLoadedEvent(2));
 	    try {
 		user.getMessaging().refresh();
 	    } catch (final Exception e) {
 		// do nothing
 	    }
-	    user.send(new PrivateChatLoadedEvent(2));
 	    events.add(user.getName().toLowerCase());
-	} else if (player instanceof String)
+	} else if (player instanceof String) {
 	    events.add(((String) player).toLowerCase());
+	}
     }
 
     /**
@@ -113,9 +119,11 @@ public final class WorldMessaging {
      */
     public void register(String player, int world) {
 	player = player.toLowerCase();
-	if (!players.get(world).contains(player))
-	    if (players.get(world).add(player))
+	if (!players.get(world).contains(player)) {
+	    if (players.get(world).add(player)) {
 		sendStatus(player);
+	    }
+	}
     }
 
     /**
@@ -126,9 +134,10 @@ public final class WorldMessaging {
      */
     public void sendPrivateMessage(Player sender, long reciever, byte[] message) {
 	final Player friend = World.getWorld().getPlayer(NameUtil.decodeBase37(reciever));
-	if (friend != null)
+	if (friend != null) {
 	    friend.send(new SendPrivateChatEvent(sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(),
 		    message, friend.getMessaging().getLastId()));
+	}
     }
 
     /**
@@ -137,11 +146,12 @@ public final class WorldMessaging {
      */
     private void sendStatus(String player) {
 	player = player.toLowerCase();
-	for (final Player all : World.getWorld().getPlayerRepository())
+	for (final Player all : World.getWorld().getPlayerRepository()) {
 	    try {
 		all.getMessaging().refresh(player);
 	    } catch (final Exception e) {
 		// do nothing
 	    }
+	}
     }
 }

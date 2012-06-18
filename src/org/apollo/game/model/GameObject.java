@@ -29,11 +29,6 @@ public final class GameObject {
     private final int rotation;
 
     /**
-     * The remove flag.
-     */
-    private boolean remove = false;
-
-    /**
      * Creates the game object.
      * @param definition The definition.
      * @param location The location.
@@ -45,33 +40,6 @@ public final class GameObject {
 	this.location = location;
 	this.type = type;
 	this.rotation = rotation;
-    }
-
-    /**
-     * Creates the game object.
-     * @param definition The definition.
-     * @param location The location.
-     * @param type The type.
-     * @param rotation The rotation.
-     * @param remove True if removing, false if otherwise.
-     */
-    public GameObject(ObjectDefinition definition, Position location, int type, int rotation, boolean remove) {
-	this(definition, location, type, rotation);
-	this.remove = remove;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-	if (object instanceof GameObject) {
-	    final GameObject go = (GameObject) object;
-	    if (go.getDefinition().getId() == definition.getId())
-		if (go.getLocation().equals(location))
-		    if (go.getRotation() == rotation)
-			if (go.getType() == type)
-			    if (go.isRemoving() == remove)
-				return true;
-	}
-	return false;
     }
 
     /**
@@ -104,14 +72,6 @@ public final class GameObject {
      */
     public int getType() {
 	return type;
-    }
-
-    /**
-     * Checks if this object is being removed.
-     * @return True if removing, false if otherwise.
-     */
-    public boolean isRemoving() {
-	return remove;
     }
 
 }

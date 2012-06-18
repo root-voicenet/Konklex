@@ -14,7 +14,6 @@ import org.apollo.game.sync.task.PhasedSynchronizationTask;
 import org.apollo.game.sync.task.PlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PlayerSynchronizationTask;
 import org.apollo.game.sync.task.PostNpcSynchronizationTask;
-import org.apollo.game.sync.task.PostPlayerRegionSynchronizationTask;
 import org.apollo.game.sync.task.PostPlayerSynchronizationTask;
 import org.apollo.game.sync.task.PreNpcSynchronizationTask;
 import org.apollo.game.sync.task.PrePlayerRegionSynchronizationTask;
@@ -93,11 +92,6 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 	    final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
 	    executor.submit(new PhasedSynchronizationTask(phaser, task));
 	}
-	phaser.arriveAndAwaitAdvance();
-
-	phaser.bulkRegister(1);
-	final SynchronizationTask regionUpdate = new PostPlayerRegionSynchronizationTask();
-	executor.submit(new PhasedSynchronizationTask(phaser, regionUpdate));
 	phaser.arriveAndAwaitAdvance();
 
 	final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();

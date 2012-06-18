@@ -195,6 +195,21 @@ public final class World {
     }
 
     /**
+     * Gets the object at the position.
+     * @param position The position.
+     * @return The game object, if any, at the position.
+     */
+    private GameObject getObject(Position position) {
+	GameObject returnz = null;
+	for (GameObject object : objects) {
+	    if (object.getLocation().equals(position)) {
+		returnz = object;
+	    }
+	}
+	return returnz;
+    }
+
+    /**
      * Gets the objects.
      * @return The objects.
      */
@@ -210,9 +225,11 @@ public final class World {
      * @return player The player.
      */
     public Player getPlayer(String name) {
-	for (final Player player : getPlayerRepository())
-	    if (player.getName().equalsIgnoreCase(name))
+	for (final Player player : getPlayerRepository()) {
+	    if (player.getName().equalsIgnoreCase(name)) {
 		return player;
+	    }
+	}
 	return null;
     }
 
@@ -278,9 +295,11 @@ public final class World {
 	try {
 	    final EquipmentDefinitionParser equipParser = new EquipmentDefinitionParser(is);
 	    final EquipmentDefinition[] equipDefs = equipParser.parse();
-	    for (final EquipmentDefinition def : equipDefs)
-		if (def != null)
+	    for (final EquipmentDefinition def : equipDefs) {
+		if (def != null) {
 		    nonNull++;
+		}
+	    }
 	    EquipmentDefinition.init(equipDefs);
 	} finally {
 	    is.close();
@@ -304,11 +323,12 @@ public final class World {
 	is = new FileInputStream("data/npc-spawns.xml");
 	final NpcSpawnParser npcParser = new NpcSpawnParser(is);
 	final Npc[] npcSpawns = npcParser.parse();
-	for (final Npc npc : npcSpawns)
+	for (final Npc npc : npcSpawns) {
 	    if (npc != null) { // Shouldn't have to, but just in case.
 		nonNull++;
 		register(npc);
 	    }
+	}
 	logger.info("Done (loaded " + nonNull + " NPC spawns).");
 
 	this.pluginManager = mgr;
@@ -321,9 +341,11 @@ public final class World {
      * @return {@code true} if so, {@code false} if not.
      */
     public boolean isPlayerOnline(String name) {
-	for (final Player player : playerRepository)
-	    if (player.getName().equalsIgnoreCase(name))
+	for (final Player player : playerRepository) {
+	    if (player.getName().equalsIgnoreCase(name)) {
 		return true;
+	    }
+	}
 	return false;
     }
 
@@ -340,8 +362,9 @@ public final class World {
      */
     public void register(final GameObject object) {
 	synchronized (this) {
-	    if (objects.add(object))
+	    if (objects.add(object)) {
 		World.getWorld().getRegionManager().getRegionByLocation(object.getLocation()).addObject(object);
+	    }
 	}
     }
 
@@ -351,8 +374,9 @@ public final class World {
      */
     public void register(final GroundItem item) {
 	synchronized (this) {
-	    if (items.add(item))
+	    if (items.add(item)) {
 		World.getWorld().getRegionManager().getRegionByLocation(item.getPosition()).addItem(item);
+	    }
 	}
     }
 
@@ -372,8 +396,9 @@ public final class World {
 	if (npcRepository.add(npc)) {
 	    regionManager.getRegionByLocation(npc.getPosition()).addNpc(npc);
 	    logger.info("Registered npc: " + npc + " [online=" + npcRepository.size() + "]");
-	} else
+	} else {
 	    logger.info("Failed to register npc (server full): " + npc + " [online=" + npcRepository.size() + "]");
+	}
     }
 
     /**
@@ -382,8 +407,9 @@ public final class World {
      * @return A {@link RegistrationStatus}.
      */
     public RegistrationStatus register(final Player player) {
-	if (isPlayerOnline(player.getName()))
+	if (isPlayerOnline(player.getName())) {
 	    return RegistrationStatus.ALREADY_ONLINE;
+	}
 	if (SystemUpdateTask.isUpdating()) {
 	    logger.warning("Failed to register player (server updating): " + player + " [online="
 		    + playerRepository.size() + "]");
@@ -406,6 +432,19 @@ public final class World {
     }
 
     /**
+     * Replaces an object at the position.
+     * @param position The position of the old object.
+     * @param object The object to replace with.
+     */
+    public void replaceObject(Position position, GameObject object) {
+	GameObject replace = getObject(position);
+	synchronized (this) {
+	    objects.remove(replace);
+	    regionManager.getRegionByLocation(object.getLocation()).replaceObject(position, object);
+	}
+    }
+
+    /**
      * Schedules a new task.
      * @param task The {@link ScheduledTask}.
      */
@@ -419,8 +458,9 @@ public final class World {
      */
     public void unregister(GameObject object) {
 	synchronized (this) {
-	    if (objects.remove(object))
+	    if (objects.remove(object)) {
 		regionManager.getRegionByLocation(object.getLocation()).removeObject(object);
+	    }
 	}
     }
 
@@ -430,8 +470,9 @@ public final class World {
      */
     public void unregister(GroundItem item) {
 	synchronized (this) {
-	    if (items.remove(item))
+	    if (items.remove(item)) {
 		regionManager.getRegionByLocation(item.getPosition()).removeItem(item);
+	    }
 	}
     }
 
@@ -443,8 +484,9 @@ public final class World {
 	if (npcRepository.remove(npc)) {
 	    regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
 	    logger.info("Unregistered npc: " + npc + " [online=" + npcRepository.size() + "]");
-	} else
+	} else {
 	    logger.warning("Could not find npc to unregister: " + npc + "!");
+	}
     }
 
     /**
@@ -455,7 +497,8 @@ public final class World {
 	if (playerRepository.remove(player)) {
 	    regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 	    logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
-	} else
+	} else {
 	    logger.warning("Could not find player to unregister: " + player + "!");
+	}
     }
 }

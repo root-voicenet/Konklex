@@ -13,7 +13,6 @@ import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 import org.apollo.game.model.World.RegistrationStatus;
-import org.apollo.game.scheduling.impl.UpdateFriendsTask;
 import org.apollo.game.sync.ClientSynchronizer;
 import org.apollo.io.EventHandlerChainParser;
 import org.apollo.login.LoginService;
@@ -56,11 +55,6 @@ public final class GameService extends Service {
      * The {@link ClientSynchronizer}.
      */
     private ClientSynchronizer synchronizer;
-
-    /**
-     * The {@link UpdateFriendsTask}.
-     */
-    private UpdateFriendsTask messaging;
 
     /**
      * Creates the game service.
@@ -140,7 +134,6 @@ public final class GameService extends Service {
 	    }
 	    world.pulse();
 	    synchronizer.synchronize();
-	    messaging.execute();
 	}
     }
 

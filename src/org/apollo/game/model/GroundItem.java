@@ -27,11 +27,6 @@ public final class GroundItem {
     private int pulses;
 
     /**
-     * Flag for removing the item.
-     */
-    private boolean remove = false;
-
-    /**
      * Creates a private ground item.
      * @param controllerName The controller of this item.
      * @param item The item.
@@ -42,18 +37,6 @@ public final class GroundItem {
 	this.controllerName = controllerName;
 	this.item = item;
 	this.position = position;
-    }
-
-    /**
-     * Creates a private ground item.
-     * @param controllerName The controller of this item.
-     * @param item The item.
-     * @param position The position.
-     * @param remove True if removing, false if otherwise.
-     */
-    public GroundItem(String controllerName, Item item, Position position, boolean remove) {
-	this(controllerName, item, position);
-	this.remove = remove;
     }
 
     /**
@@ -93,13 +76,5 @@ public final class GroundItem {
      */
     public int getPulses() {
 	return pulses;
-    }
-
-    /**
-     * Returns the remove flag.
-     * @return True if removing this ground item, false if otherwise.
-     */
-    public boolean isRemoving() {
-	return remove;
     }
 }

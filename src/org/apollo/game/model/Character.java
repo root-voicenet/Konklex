@@ -63,14 +63,9 @@ public abstract class Character {
     private final List<Npc> localNPCs = new ArrayList<Npc>();
 
     /**
-     * A list of local objects.
+     * A list of local events.
      */
-    private final List<GameObject> localObjects = new ArrayList<GameObject>();
-
-    /**
-     * A list of local ground items.
-     */
-    private final List<GroundItem> localGroundItems = new ArrayList<GroundItem>();
+    private final List<Event> localEvents = new ArrayList<Event>();
 
     /**
      * A set of {@link SynchronizationBlock}s.
@@ -192,12 +187,14 @@ public abstract class Character {
      */
     public Direction[] getDirections() {
 	if (firstDirection != Direction.NONE) {
-	    if (secondDirection != Direction.NONE)
+	    if (secondDirection != Direction.NONE) {
 		return new Direction[] { firstDirection, secondDirection };
-	    else
+	    } else {
 		return new Direction[] { firstDirection };
-	} else
+	    }
+	} else {
 	    return Direction.EMPTY_DIRECTION_ARRAY;
+	}
     }
 
     /**
@@ -251,19 +248,11 @@ public abstract class Character {
     }
 
     /**
-     * Gets the local game object list.
-     * @return The local game object list.
+     * Gets the local event list.
+     * @return The local event list.
      */
-    public List<GameObject> getLocalGameObjectList() {
-	return localObjects;
-    }
-
-    /**
-     * Gets the local ground item list.
-     * @return The local ground item list.
-     */
-    public List<GroundItem> getLocalGroundItemList() {
-	return localGroundItems;
+    public List<Event> getLocalEventList() {
+	return localEvents;
     }
 
     /**
@@ -479,8 +468,9 @@ public abstract class Character {
      */
     public boolean startAction(Action<?> action) {
 	if (this.action != null) {
-	    if (this.action.equals(action))
+	    if (this.action.equals(action)) {
 		return false;
+	    }
 	    stopAction();
 	}
 	this.action = action;
@@ -519,8 +509,9 @@ public abstract class Character {
      * Stops facing a entity.
      */
     public void stopFacing() {
-	if (facing)
+	if (facing) {
 	    startFacing(65535);
+	}
     }
 
     /**
