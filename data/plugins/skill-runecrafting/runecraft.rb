@@ -6,14 +6,14 @@ java_import 'org.apollo.game.action.Action'
 java_import 'org.apollo.game.model.Item'
 
 RUNECRAFTING_ANIMATION = Animation.new(791)
-RUNECRAFTING_GFX = Graphic.new(186)
+RUNECRAFTING_GFX = Graphic.new(186, 0, 100)
 
 class RunecraftingAction < DistancedAction
 
   attr_reader :rune, :position
 
-  def initialize(player, rune, position)
-    super 2, true, player, position, 4
+  def initialize(player, altar, position)
+    super 2, true, player, position, 3
     @rune = rune
     @position = position
   end
@@ -101,6 +101,40 @@ class TalismanAction < Action
 
 end
 
+class AltarAction < DistancedAction
+
+  attr_reader :altar
+
+  def initialize(player, position, altar)
+    super 1, true, player, position, 3
+    @altar = altar
+  end
+
+  def has_tiara
+    hat = character.equipment.get EquipmentConstants::HAT
+    if hat.object_id == altar.tiara
+      return true
+    end
+
+    if character.inventory.contains altar.talisman
+      return true
+    end
+
+    return false
+  end
+
+  def executeAction
+    if has_tiara then character.teleport altar.inside, false end
+    stop
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @altar == other.altar and @position == other.position)
+  end
+
+end
+
+
 on :event, :item_option do |ctx, player, event|
   if event.option == 4
     talisman = TALISMANS[event.id]
@@ -118,5 +152,13 @@ on :event, :object_action do |ctx, player, event|
       player.start_action RunecraftingAction.new(player, rune, event.position)
       ctx.break_handler_chain
     end
+  end
+end
+
+on :event, :item_used_on_object do |ctx, player, event|
+  altar = ALTARS[event.object]
+  if altar != nil
+    player.start_action AltarAction.new(player, event.position, altar)
+    ctx.break_handler_chain
   end
 end

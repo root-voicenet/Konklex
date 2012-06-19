@@ -39,7 +39,7 @@ on :event, :item_on_item do |ctx, player, event|
   if find_slot itemId != nil && usedId == WOOL
     stringamulet player, itemId, usedId, find_slot(itemId)
   end
-  if itemId == WOOL && find_slot usedId != nil
-    stringamulet(player, itemId, usedId, find_slot(usedId)
+  if itemId == WOOL && find_slot(usedId) != nil
+    stringamulet player, itemId, usedId, find_slot(usedId)
   end
 end

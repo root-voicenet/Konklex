@@ -26,7 +26,7 @@ class MiningAction < DistancedAction
   def find_pickaxe
     PICKAXE_IDS.each do |id|
       weapon = character.equipment.get EquipmentConstants::WEAPON
-      if weapon.id == id
+      if weapon.object_id == id
         return PICKAXES[id]
       end
 

@@ -1,15 +1,37 @@
 require 'java'
 java_import 'org.apollo.game.model.Position'
 
+ALTARS =    {}
 TALISMANS = {}
 
-def append_talisman(id, position)
-  TALISMANS[id] = position
+class Altar
+
+  attr_reader :talisman, :tiara, :outside, :inside
+
+  def initialize(talisman, tiara, outside, inside)
+    @talisman = talisman
+    @tiara = tiara
+    @outside = outside
+    @inside = inside
+  end
+
 end
 
-append_talisman 1438, Position.new(2985, 3292)
-append_talisman 1440, Position.new(3306, 3474)
-append_talisman 1442, Position.new(3313, 3255)
-append_talisman 1444, Position.new(3185, 3165)
-append_talisman 1446, Position.new(3053, 3445)
-append_talisman 1448, Position.new(2982, 3514)
+def append_talisman(object, altar)
+  ALTARS[object] = altar
+  TALISMANS[altar.talisman] = altar.outside
+end
+
+append_talisman 2452, Altar.new(1438, 5527, Position.new(2985, 3292), Position.new(2842, 4829)) # Air
+append_talisman 2455, Altar.new(1440, 5535, Position.new(3306, 3474), Position.new(2655, 4831)) # Earth
+append_talisman 2456, Altar.new(1442, 5537, Position.new(3313, 3255), Position.new(2577, 4845)) # Fire
+append_talisman 2454, Altar.new(1444, 5531, Position.new(3185, 3165), Position.new(2713, 4836)) # Water
+append_talisman 2457, Altar.new(1446, 5533, Position.new(3053, 3445), Position.new(2521, 4834)) # Body
+append_talisman 2453, Altar.new(1448, 5529, Position.new(2982, 3514), Position.new(2793, 4828)) # Mind
+append_talisman 2484, Altar.new(1454, 5539,                      nil, Position.new(2162, 4833)) # Cosmic
+append_talisman 2487, Altar.new(1452, 5543,                      nil, Position.new(2268, 4842)) # Chaos
+append_talisman 2485, Altar.new(1458, 5545,                      nil, Position.new(2400, 4835)) # Law
+append_talisman 2486, Altar.new(1462, 5541,                      nil, Position.new(2400, 4835)) # Nature
+append_talisman 2488, Altar.new(1456, 5547,                      nil, Position.new(2208, 4831)) # Death
+# append_talisman 2489, Altar.new() # Blood
+# append_talisman 2490, Altar.new() # Soul
