@@ -9,7 +9,7 @@
   </authors>  
   <scripts>
     <script>pickpocket.rb</script>
-    <script>stalls.rb</script>
+    <script>stall.rb</script>
     <script>npc.rb</script>
   </scripts>
   <dependencies />

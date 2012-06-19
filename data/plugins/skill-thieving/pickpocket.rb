@@ -5,9 +5,68 @@ java_import 'org.apollo.game.model.Graphic'
 java_import 'org.apollo.game.event.impl.ServerMessageEvent'
 
 PICKPOCKET_ANIMATION = Animation.new(881)
-PICKPOCKET_GRAPHIC = Graphic.new(348)
+PICKPOCKET_GRAPHIC = Graphic.new(348, 0, 100)
+STEAL_ANIMATION = Animation.new(0x340)
 
-class Pickpocket < DistancedAction
+def get_random(list)
+  return list[list.length * Math.random]
+end
+
+class StealAction < DistancedAction
+
+  attr_reader :started, :stall, :position
+
+  def initialize(player, stall, position)
+    super 2, true, player, position, 2
+    @stall = stall
+    @position = position
+    @started = false
+  end
+
+  def start_steal
+    @started = true
+    character.turn_to position
+    character.send_message "You take from the stall.."
+    character.play_animation STEAL_ANIMATION
+  end
+  
+  def executeAction
+    skills = character.skill_set
+    level = skills.get_skill(Skill::THIEVING).maximum_level
+
+    if stall.level > level
+      character.send_message "You do not have the required level to thieve this stall."
+      stop
+      return
+    end
+
+    if not started
+      start_steal
+    else
+      if rand(2) == 1
+        item = get_random stall.item
+        if character.inventory.add item, 1
+          item_def = ItemDefinition.for_id item
+          name = item_def.name.sub(/ object$/, "").downcase
+          character.send_message "and recieve #{name}."
+          character.skill_set.add_experience Skill::THIEVING, stall.exp
+        else
+          character.send_message "Full inventory."
+        end
+      else
+        character.send_message "You fail to thieve the stall."
+      end
+      stop
+    end
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @position == other.position)
+  end
+
+end
+
+class PickpocketAction < DistancedAction
 
  attr_reader :started, :npc, :npcz
 
@@ -26,7 +85,7 @@ class Pickpocket < DistancedAction
   end
   
   def executeAction
-    if not @started
+    if not started
       start_thieve
     else
       if rand(2) == 1
@@ -64,7 +123,17 @@ on :event, :npc_option do |ctx, player, event|
   if event.get_option == 3
     npcz = NPCZ[event.slot]
     if npcz != nil
-      player.startAction Pickpocket.new(player, event.get_npc, npcz)
+      player.startAction PickpocketAction.new(player, event.get_npc, npcz)
+      ctx.break_handler_chain
+    end
+  end
+end
+
+on :event, :object_action do |ctx, player, event|
+  if event.option == 2
+    stall = STALLS[event.id]
+    if stall != nil
+      player.start_action StealAction.new(player, stall, event.position)
       ctx.break_handler_chain
     end
   end
