@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-firemaking</id>
+  <version>1</version>
+  <name>Firemaking</name>
+  <description>Adds the Firemaking skill.</description>
+  <authors>
+    <author>Alex</author>
+  </authors>
+  <scripts>
+	<script>firemake.rb</script>
+        <script>log.rb</script>
+        <script>fires.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>
