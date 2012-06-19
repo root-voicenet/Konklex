@@ -12,7 +12,7 @@ class RunecraftingAction < DistancedAction
 
   attr_reader :rune, :position
 
-  def initialize(player, altar, position)
+  def initialize(player, rune, position)
     super 2, true, player, position, 3
     @rune = rune
     @position = position
@@ -124,7 +124,33 @@ class AltarAction < DistancedAction
   end
 
   def executeAction
-    if has_tiara then character.teleport altar.inside, false end
+    if has_tiara
+      character.teleport altar.inside, false
+      character.send_message "You enter the mysterious ruins."
+    else
+      character.send_message "Nothing interesting happens."
+    end
+    stop
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @altar == other.altar and @position == other.position)
+  end
+
+end
+
+class RiftAction < DistancedAction
+
+  attr_reader :altar
+
+  def initialize(player, position, altar)
+    super 1, true, player, position, 1
+    @altar = altar
+  end
+
+  def executeAction
+    character.teleport altar.inside, false
+    character.send_message "You enter the mysterious ruins."
     stop
   end
 
@@ -150,6 +176,16 @@ on :event, :object_action do |ctx, player, event|
     rune = RUNES[event.id]
     if rune != nil
       player.start_action RunecraftingAction.new(player, rune, event.position)
+      ctx.break_handler_chain
+    end
+  end
+end
+
+on :event, :object_action do |ctx, player, event|
+  if event.option == 1
+    altar = RIFTS[event.id]
+    if altar != nil
+      player.start_action RiftAction.new(player, event.position, altar)
       ctx.break_handler_chain
     end
   end
