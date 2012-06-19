@@ -458,9 +458,8 @@ public final class World {
      */
     public void unregister(GameObject object) {
 	synchronized (this) {
-	    if (objects.remove(object)) {
-		regionManager.getRegionByLocation(object.getLocation()).removeObject(object);
-	    }
+	    objects.remove(object);
+	    regionManager.getRegionByLocation(object.getLocation()).removeObject(object);
 	}
     }
 

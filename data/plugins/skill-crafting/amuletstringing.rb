@@ -25,25 +25,21 @@ def stringamulet(character, item, usedOn, slot)
     character.send_message "You need a crafting level of #{level_required[slot]} to string this amulet"
     return
   end
-  character.inventory.remove(item)
-  character.inventory.remove(usedOn)
+  character.inventory.remove item
+  character.inventory.remove usedOn
   if character.inventory.add finished_product[slot]
     character.send_message "You attach the wool to the amulet."
     skills.add_experience Skill::CRAFTING, experience_rate[slot]
   end
 end
 
-on :event, :ItemOnItem do |ctx, player, event|
-  itemId = event.get_id
-  usedId = event.get_target_id;
-  if find_slot(itemId) != nil && usedId == WOOL
-    stringamulet(player, itemId, usedId, find_slot(itemId))
+on :event, :item_on_item do |ctx, player, event|
+  itemId = event.id
+  usedId = event.target_id
+  if find_slot itemId != nil && usedId == WOOL
+    stringamulet player, itemId, usedId, find_slot(itemId)
   end
-  if itemId == WOOL && find_slot(usedId) != nil
-    stringamulet(player, itemId, usedId, find_slot(usedId))
+  if itemId == WOOL && find_slot usedId != nil
+    stringamulet(player, itemId, usedId, find_slot(usedId)
   end
 end
-    
-  
- 
-  

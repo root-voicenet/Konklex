@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>commands</id>
+  <version>1</version>
+  <name>Commands</name>
+  <description>Adds commands to the world.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>auth.rb</script>
+    <script>bank.rb</script>
+    <script>config.rb</script>
+    <script>home.rb</script>
+    <script>item.rb</script>
+    <script>npc.rb</script>
+    <script>skill.rb</script>
+    <script>sound.rb</script>
+    <script>teleport.rb</script>
+    <script>token.rb</script>
+    <script>yell.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

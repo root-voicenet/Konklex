@@ -36,18 +36,19 @@ public final class TeleportAction extends Action<Player> {
     @Override
     public void execute() {
 	if (!attributes.get(0)) {
-	    if (getCharacter() instanceof Player)
+	    if (getCharacter() instanceof Player) {
 		getCharacter().getInterfaceSet().close();
-	    getCharacter().playAnimation(new Animation(8939));
-	    getCharacter().playGraphic(new Graphic(1576));
+	    }
+	    getCharacter().playAnimation(new Animation(714));
 	    attributes.set(0, true);
 	} else if (!attributes.get(1)) {
-	    teleport();
+	    getCharacter().playGraphic(new Graphic(308, 15, 100));
 	    attributes.set(1, true);
 	    setDelay(1);
 	} else if (!attributes.get(2)) {
-	    getCharacter().playAnimation(new Animation(8941));
-	    getCharacter().playGraphic(new Graphic(1577));
+	    getCharacter().stopGraphic();
+	    getCharacter().playAnimation(new Animation(1979));
+	    teleport();
 	    stop();
 	}
     }

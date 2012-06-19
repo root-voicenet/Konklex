@@ -24,7 +24,7 @@ import org.apollo.game.model.Position;
  * Represents a single region.
  * @author Graham Edgecombe
  */
-public class Region {
+public final class Region {
 
     /**
      * The region coordinates.
@@ -233,10 +233,9 @@ public class Region {
     public void removeItem(GroundItem item) {
 	Event event = getEvent(item.getPosition());
 	synchronized (this) {
-	    if (events.remove(event)) {
-		items.remove(item);
-		sendEvent(new DestroyGroundEvent(item));
-	    }
+	    events.remove(event);
+	    items.remove(item);
+	    sendEvent(new DestroyGroundEvent(item));
 	}
     }
 
@@ -257,10 +256,9 @@ public class Region {
     public void removeObject(GameObject object) {
 	Event event = getEvent(object.getLocation());
 	synchronized (this) {
-	    if (events.remove(event)) {
-		objects.remove(object);
-		sendEvent(new DestroyObjectEvent(object));
-	    }
+	    events.remove(event);
+	    objects.remove(object);
+	    sendEvent(new DestroyObjectEvent(object));
 	}
     }
 

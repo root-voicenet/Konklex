@@ -128,6 +128,7 @@ class MiningAction < DistancedAction
   def equals(other)
     return (get_class == other.get_class and @position == other.position and @ore == other.ore)
   end
+
 end
 
 class ExpireOre < ScheduledTask

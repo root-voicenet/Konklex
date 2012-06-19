@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-runecrafting</id>
+  <version>1</version>
+  <name>Runecrafting</name>
+  <description>Adds the Runecrafting skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+	<script>runecraft.rb</script>
+        <script>rune.rb</script>
+        <script>talisman.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

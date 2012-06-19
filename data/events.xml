@@ -147,10 +147,6 @@
     <chain/>
   </event>
   <event>
-    <type>org.apollo.game.event.impl.FirstItemOptionEvent</type>
-    <chain/>
-  </event>
-  <event>
     <type>org.apollo.game.event.impl.CameraMovementEvent</type>
     <chain/>
   </event>

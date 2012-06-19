@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>buttons</id>
+  <version>1</version>
+  <name>Buttons</name>
+  <description>Map buttons to their functions</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>buttons.rb</script>
+    <script>emote-tab.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

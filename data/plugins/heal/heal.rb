@@ -34,12 +34,12 @@ class Eat < Action
 
 end
 
-on :event, :first_item_option do |ctx, player, event|
-  food = FOODS[event.get_id]
-  if food != nil
-    if player.get_inventory.contains food.item, 1
+on :event, :item_option do |ctx, player, event|
+  if event.option == 1
+    food = FOODS[event.get_id]
+    if food != nil
       player.start_action Eat.new(player, food)
+      ctx.break_handler_chain
     end
-    ctx.break_handler_chain
   end
 end

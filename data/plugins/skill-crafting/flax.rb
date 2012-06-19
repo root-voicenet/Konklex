@@ -12,7 +12,7 @@ class FlaxAction < DistancedAction
   attr_reader :position, :started, :id
 
   def initialize(character, position, id)
-    super 2, true, character, position, 1
+    super 1, true, character, position, 1
     @position = position
     @started = false
     @id = id
@@ -24,8 +24,8 @@ class FlaxAction < DistancedAction
       if character.inventory.add 1779
         character.play_animation FLAX_ANIMATION
         character.send_message "You pick some flax."
-        if rand 4 == 1
-          World.world.replace_object position, GameObject.new(ObjectDefinition.for_id(id), position, 10, 1)
+        if rand(4) == 1
+          World.world.replace_object position, GameObject.new(ObjectDefinition.for_id(3), position, 10, 1)
           World.world.schedule ExpireFlax.new(id, position)
         end
       end
@@ -46,7 +46,7 @@ class ExpireFlax < ScheduledTask
   attr_reader :id, :position
 
   def initialize(id, position)
-    super 15+rand(5), false
+    super 6+rand(4), false
     @id = id
     @position = position
   end
