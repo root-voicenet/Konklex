@@ -140,7 +140,7 @@ class ExpireLog < ScheduledTask
   attr_reader :log, :position
 
   def initialize(log, position, tick)
-    super tick, true
+    super tick, false
     @log = log
     @position = position
   end

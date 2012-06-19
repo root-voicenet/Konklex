@@ -44,8 +44,8 @@ class FletchingAction < Action
     # start fletcing fella's
     character.play_animation FLETCHING_ANIMATION
     character.inventory.remove log, 1
-    character.inventory.add item.item
-    skills.add_experience Skill::FLETCHING, item.xp
+    character.inventory.add item.item, item.item == 52 ? 5 : 1
+    skills.add_experience Skill::FLETCHING, item.item == 52 ? 5 : item.xp
     @fletched += 1
 
   end

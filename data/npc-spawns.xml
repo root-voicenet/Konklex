@@ -5,4 +5,10 @@
       <y>3495</y>
     </position>
   </npc>
+  <npc id="522">
+    <position>
+      <x>3080</x>
+      <y>3512</y>
+    </position>
+  </npc>
 </spawn>

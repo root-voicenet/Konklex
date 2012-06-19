@@ -135,7 +135,7 @@ class ExpireOre < ScheduledTask
   attr_reader :ore, :position
 
   def initialize(ore, position, tick)
-    super tick, true
+    super tick, false
     @ore = ore
     @position = position
   end

@@ -22,9 +22,14 @@ public final class GroundItem {
     private final Position position;
 
     /**
-     * The amount of remaining pulses until this item disappears.
+     * The amount of remaining pulses until this item appears.
      */
     private int pulses;
+
+    /**
+     * The amount of remaining pulses until this item is deleted.
+     */
+    private int delete;
 
     /**
      * Creates a private ground item.
@@ -33,10 +38,18 @@ public final class GroundItem {
      * @param position The position.
      */
     public GroundItem(String controllerName, Item item, Position position) {
-	pulses = 20; // 350
+	pulses = 350;
+	delete = pulses * 2;
 	this.controllerName = controllerName;
 	this.item = item;
 	this.position = position;
+    }
+
+    /**
+     * Decreases the deletes.
+     */
+    public void decreaseDeletes() {
+	delete--;
     }
 
     /**
@@ -52,6 +65,14 @@ public final class GroundItem {
      */
     public String getControllerName() {
 	return controllerName;
+    }
+
+    /**
+     * Gets the deletes.
+     * @return The deletes.
+     */
+    public int getDeletes() {
+	return delete;
     }
 
     /**

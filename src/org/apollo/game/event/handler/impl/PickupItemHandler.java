@@ -29,8 +29,9 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 	final GroundItem item = pickup(player.getName(), event.getItemId(), position);
 	if (item != null) {
 	    if (item.getPosition().isWithinDistance(player.getPosition(), 1)) {
-		World.getWorld().unregister(item);
-		player.getInventory().add(item.getItem());
+		if (player.getInventory().add(item.getItem()) == null) {
+		    World.getWorld().unregister(item);
+		}
 	    } else {
 		ctx.breakHandlerChain();
 	    }
