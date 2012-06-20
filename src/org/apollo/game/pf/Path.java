@@ -12,7 +12,7 @@ public class Path {
     /**
      * The queue of points.
      */
-    private Deque<Point> tiles = new LinkedList<Point>();
+    private final Deque<Point> tiles = new LinkedList<Point>();
 
     /**
      * Creates an empty path.

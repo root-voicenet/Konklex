@@ -20,14 +20,12 @@ public final class ProcessGroundItemsTask extends ScheduledTask {
     @Override
     public void execute() {
 	for (final GroundItem item : World.getWorld().getItems()) {
-	    if (item.getPulses() != 0) {
+	    if (item.getPulses() != 0)
 		item.decreasePulses();
-	    }
-	    if (item.getDeletes() != 0) {
+	    if (item.getDeletes() != 0)
 		item.decreaseDeletes();
-	    } else {
+	    else
 		World.getWorld().unregister(item);
-	    }
 	}
     }
 

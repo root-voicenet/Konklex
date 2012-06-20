@@ -22,7 +22,7 @@ public final class FirstPlayerOptionEventDecoder extends EventDecoder<FirstPlaye
     @Override
     public FirstPlayerOptionEvent decode(GamePacket packet) {
 	final GamePacketReader reader = new GamePacketReader(packet);
-	final int otherId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
+	final int otherId = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
 	return new FirstPlayerOptionEvent(otherId);
     }
 }

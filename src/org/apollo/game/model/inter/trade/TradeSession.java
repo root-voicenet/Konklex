@@ -66,9 +66,9 @@ public final class TradeSession {
 	if (as.state == State.AWAITING_ACCEPTANCE) {
 	    constructComformationWindow();
 	    as.constructComformationWindow();
-	} else if (as.state == State.AWAITING_COMFORMATION)
+	} else if (as.state == State.AWAITING_COMFORMATION) {
 	    finalizeTrade();
-	else if (state == State.TRADING) {
+	} else if (state == State.TRADING) {
 	    state = State.AWAITING_ACCEPTANCE;
 	    player.send(new SetInterfaceTextEvent(3431, "Waiting for other player."));
 	    acquaintance.send(new SetInterfaceTextEvent(3431, "Other player has accepted."));
@@ -89,7 +89,7 @@ public final class TradeSession {
 	if (offeredItems.freeSlots() < 28) {
 	    final StringBuilder sb = new StringBuilder();
 	    int amountAdded = 0;
-	    for (final Item item : offeredItems.getItems())
+	    for (final Item item : offeredItems.getItems()) {
 		if (item != null) {
 		    if (amountAdded >= 16) {
 			sb.append("and more...");
@@ -99,23 +99,25 @@ public final class TradeSession {
 		    final int amount = item.getAmount();
 		    if (amount > 1) {
 			sb.append(" x ");
-			if (item.getAmount() > 9_999_999)
+			if (item.getAmount() > 9_999_999) {
 			    sb.append("@gre@" + TextUtil.formatValue(amount) + "@whi@");
-			else if (item.getAmount() > 99_999)
+			} else if (item.getAmount() > 99_999) {
 			    sb.append("@cya@" + TextUtil.formatValue(amount) + "@whi@");
-			else
+			} else {
 			    sb.append(TextUtil.commify(amount));
+			}
 			sb.append(" (" + TextUtil.commify(amount) + ")");
 		    }
 		    sb.append("\\n");
 		    amountAdded++;
 		}
+	    }
 	    player.send(new SetInterfaceTextEvent(3557, sb.toString()));
 	}
 	if (as.offeredItems.freeSlots() < 28) {
 	    final StringBuilder sb = new StringBuilder();
 	    int amountAdded = 0;
-	    for (final Item item : as.offeredItems.getItems())
+	    for (final Item item : as.offeredItems.getItems()) {
 		if (item != null) {
 		    if (amountAdded >= 16) {
 			sb.append("and more...");
@@ -125,17 +127,19 @@ public final class TradeSession {
 		    final int amount = item.getAmount();
 		    if (amount > 1) {
 			sb.append(" x ");
-			if (item.getAmount() > 9_999_999)
+			if (item.getAmount() > 9_999_999) {
 			    sb.append("@gre@" + TextUtil.formatValue(amount) + "@whi@");
-			else if (item.getAmount() > 99_999)
+			} else if (item.getAmount() > 99_999) {
 			    sb.append("@cya@" + TextUtil.formatValue(amount) + "@whi@");
-			else
+			} else {
 			    sb.append(TextUtil.commify(amount));
+			}
 			sb.append(" (" + TextUtil.commify(amount) + ")");
 		    }
 		    sb.append("\\n");
 		    amountAdded++;
 		}
+	    }
 	    player.send(new SetInterfaceTextEvent(3558, sb.toString()));
 	}
     }
@@ -144,12 +148,16 @@ public final class TradeSession {
 	final TradeSession as = verifyAcquaintanceSession();
 	final Inventory pi = player.getInventory();
 	final Inventory ai = acquaintance.getInventory();
-	for (final Item item : offeredItems.getItems())
-	    if (item != null)
+	for (final Item item : offeredItems.getItems()) {
+	    if (item != null) {
 		pi.add(item);
-	for (final Item item : as.offeredItems.getItems())
-	    if (item != null)
+	    }
+	}
+	for (final Item item : as.offeredItems.getItems()) {
+	    if (item != null) {
 		ai.add(item);
+	    }
+	}
 	acquaintance.sendMessage("The other player has declined.");
 	state = State.DECLINING;
 	player.getInterfaceSet().close();
@@ -157,36 +165,49 @@ public final class TradeSession {
 
     private void finalizeTrade() {
 	final TradeSession as = verifyAcquaintanceSession();
-	if (state == State.FINALIZING || as.getState() == State.FINALIZING)
+	if (state == State.FINALIZING || as.getState() == State.FINALIZING) {
 	    return;
+	}
 	state = State.FINALIZING;
 	final Inventory pi = player.getInventory();
 	final Inventory ai = acquaintance.getInventory();
 	if (!pi.hasRoomFor(as.offeredItems.getItems())) {
 	    player.sendMessage("You do not have enough for room.");
 	    acquaintance.sendMessage("The other player does not have enough room.");
-	    for (final Item item : offeredItems.getItems())
-		if (item != null)
+	    for (final Item item : offeredItems.getItems()) {
+		if (item != null) {
 		    pi.add(item);
-	    for (final Item item : as.offeredItems.getItems())
-		if (item != null)
+		}
+	    }
+	    for (final Item item : as.offeredItems.getItems()) {
+		if (item != null) {
 		    ai.add(item);
+		}
+	    }
 	} else if (!ai.hasRoomFor(offeredItems.getItems())) {
 	    acquaintance.sendMessage("You do not have enough for room.");
 	    player.sendMessage("The other player does not have enough room.");
-	    for (final Item item : offeredItems.getItems())
-		if (item != null)
+	    for (final Item item : offeredItems.getItems()) {
+		if (item != null) {
 		    pi.add(item);
-	    for (final Item item : as.offeredItems.getItems())
-		if (item != null)
+		}
+	    }
+	    for (final Item item : as.offeredItems.getItems()) {
+		if (item != null) {
 		    ai.add(item);
+		}
+	    }
 	} else {
-	    for (final Item item : offeredItems.getItems())
-		if (item != null)
+	    for (final Item item : offeredItems.getItems()) {
+		if (item != null) {
 		    ai.add(item);
-	    for (final Item item : as.offeredItems.getItems())
-		if (item != null)
+		}
+	    }
+	    for (final Item item : as.offeredItems.getItems()) {
+		if (item != null) {
 		    pi.add(item);
+		}
+	    }
 	}
 	player.getInterfaceSet().removeListener();
 	acquaintance.getInterfaceSet().removeListener();
@@ -196,6 +217,14 @@ public final class TradeSession {
 
     Player getAcquaintance() {
 	return acquaintance;
+    }
+
+    /**
+     * Gets the inventory items.
+     * @return The items.
+     */
+    public Inventory getItems() {
+	return offeredItems;
     }
 
     Player getPlayer() {
@@ -211,11 +240,13 @@ public final class TradeSession {
      */
     public void offerItem(Item item) {
 	final TradeSession as = verifyAcquaintanceSession();
-	if (as.state.ordinal() > 1 || state.ordinal() > 1)
+	if (as.state.ordinal() > 1 || state.ordinal() > 1) {
 	    return;
+	}
 	final int amountRemoved = player.getInventory().remove(item);
-	if (amountRemoved < 1)
+	if (amountRemoved < 1) {
 	    return;
+	}
 	offeredItems.add(item.getId(), amountRemoved);
 	if (as.state == State.AWAITING_ACCEPTANCE || state == State.AWAITING_ACCEPTANCE) {
 	    state = State.TRADING;
@@ -230,11 +261,13 @@ public final class TradeSession {
      */
     public void removeOffer(Item item) {
 	final TradeSession as = verifyAcquaintanceSession();
-	if (as.state.ordinal() > 1 || state.ordinal() > 1)
+	if (as.state.ordinal() > 1 || state.ordinal() > 1) {
 	    return;
+	}
 	final int amountRemoved = offeredItems.remove(item);
-	if (amountRemoved < 1)
+	if (amountRemoved < 1) {
 	    return;
+	}
 	player.getInventory().add(item.getId(), amountRemoved);
 	if (as.state == State.AWAITING_ACCEPTANCE || state == State.AWAITING_ACCEPTANCE) {
 	    state = State.TRADING;

@@ -3,10 +3,7 @@ package org.apollo.game.action.impl;
 import org.apollo.game.action.DistancedAction;
 import org.apollo.game.model.Character;
 import org.apollo.game.model.Position;
-import org.apollo.game.pf.AStarPathFinder;
-import org.apollo.game.pf.Path;
-import org.apollo.game.pf.PathFinder;
-import org.apollo.game.pf.TileMapBuilder;
+import org.apollo.game.model.WalkingQueue;
 
 /**
  * An {@link DistancedAction} for when a player follows another player.
@@ -25,7 +22,7 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
      * @param acquaintance The acquaintance.
      */
     public PlayerFollowAction(Character character, Character acquaintance) {
-	super(1, true, character, acquaintance.getPosition(), Position.MAX_DISTANCE);
+	super(0, true, character, acquaintance.getPosition(), Position.MAX_DISTANCE);
 	this.acquaintance = acquaintance;
     }
 
@@ -36,29 +33,68 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 	if (player.isDead() || !player.isActive() || other.isDead() || !other.isActive()) {
 	    stop();
 	} else {
-	    final int distanceX = player.getPosition().getX() - other.getPosition().getX();
-	    final int distanceY = player.getPosition().getY() - other.getPosition().getY();
-	    if (player.getPosition().getHeight() != other.getPosition().getHeight()) {
-		stop();
-	    } else if (distanceX > Position.MAX_DISTANCE || distanceX < -1 - Position.MAX_DISTANCE
-		    || distanceY > Position.MAX_DISTANCE || distanceY < -1 - Position.MAX_DISTANCE) {
-		stop();
-	    } else {
-		player.startFacing(other.getIndex());
-		PathFinder finder = new AStarPathFinder();
-		TileMapBuilder builder = new TileMapBuilder(player.getPosition(), 32);
-		Path path = finder.findPath(player.getPosition(), 32, builder.build(),
-			player.getPosition().getLocalX(), player.getPosition().getLocalY(), other.getPosition()
-				.getLocalX(player.getPosition()), other.getPosition().getLocalY(player.getPosition()));
-		if (path == null) {
-		    System.out.println("Path is null");
-		    return;
-		}
-		Position position = new Position(path.getPoints().poll().getX(), path.getPoints().poll().getY());
-		player.getWalkingQueue().addStep(position);
-		System.out.println(position);
-		player.stopFacing();
+	    int playerX = player.getPosition().getX();
+	    int playerY = player.getPosition().getY();
+	    int acquaintanceX = acquaintance.getPosition().getX();
+	    int acquaintanceY = acquaintance.getPosition().getY();
+
+	    if (!player.getPosition().isWithinDistance(acquaintance.getPosition(), Position.MAX_DISTANCE)) {
+		player.sendMessage("You are too far away!");
+		return;
+	    }
+
+	    if (acquaintanceY == playerY && acquaintanceX == playerX) {
+		walkTo(0, getMove(playerY, acquaintanceY - 1));
+	    } else if (acquaintanceY > playerY && acquaintanceX == playerX) {
+		walkTo(0, getMove(playerY, acquaintanceY - 1));
+	    } else if (acquaintanceY < playerY && acquaintanceX == playerX) {
+		walkTo(0, getMove(playerY, acquaintanceY + 1));
+	    } else if (acquaintanceX > playerX && acquaintanceY == playerY) {
+		walkTo(getMove(playerX, acquaintanceX - 1), 0);
+	    } else if (acquaintanceX < playerX && acquaintanceY == playerX) {
+		walkTo(getMove(playerX, acquaintanceX + 1), 0);
+	    } else if (acquaintanceX < playerX && acquaintanceY < playerY) {
+		walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY + 1));
+	    } else if (acquaintanceX > playerX && acquaintanceY > playerY) {
+		walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY - 1));
+	    } else if (acquaintanceX < playerX && acquaintanceY > playerY) {
+		walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY - 1));
+	    } else if (acquaintanceX > playerX && acquaintanceY < playerY) {
+		walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY + 1));
 	    }
 	}
+    }
+
+    /**
+     * Gets the distance between the specified distances.
+     * @param i The first distance.
+     * @param j The second distance.
+     * @return The distance between the specified distances.
+     */
+    private int getMove(int i, int j) {
+	if (i - j == 0) {
+	    return 0;
+	}
+	if (i - j < 0) {
+	    return 1;
+	}
+	return i - j <= 0 ? 0 : -1;
+    }
+
+    /**
+     * Adds a step to the characters walking queue.
+     * @param x The amount of x coordinates.
+     * @param y The amount of y coordinates.
+     */
+    private void walkTo(int x, int y) {
+	WalkingQueue queue = getCharacter().getWalkingQueue();
+	Position position = acquaintance.getPosition();
+	int absX = getCharacter().getPosition().getX();
+	int absY = getCharacter().getPosition().getY();
+	queue.addFirstStep(new Position(absX + x, absY + y));
+	if (!queue.getRunning()) {
+	    queue.setRunning(queue.getRunningQueue());
+	}
+	getCharacter().turnTo(position);
     }
 }

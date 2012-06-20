@@ -4,6 +4,7 @@ import java.util.BitSet;
 
 import org.apollo.game.action.Action;
 import org.apollo.game.model.Animation;
+import org.apollo.game.model.Character;
 import org.apollo.game.model.Graphic;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
@@ -12,7 +13,7 @@ import org.apollo.game.model.Position;
  * An {@link Action} that teleports the player.
  * @author Steve
  */
-public final class TeleportAction extends Action<Player> {
+public final class TeleportAction extends Action<Character> {
 
     private final BitSet attributes = new BitSet(3);
 
@@ -23,8 +24,8 @@ public final class TeleportAction extends Action<Player> {
      * @param player The player that will execute this action.
      * @param position The new position the player will be teleported too.
      */
-    public TeleportAction(Player player, Position position) {
-	super(4, true, player);
+    public TeleportAction(Character player, Position position) {
+	super(2, true, player);
 	this.position = position;
     }
 
@@ -37,7 +38,7 @@ public final class TeleportAction extends Action<Player> {
     public void execute() {
 	if (!attributes.get(0)) {
 	    if (getCharacter() instanceof Player) {
-		getCharacter().getInterfaceSet().close();
+		((Player) getCharacter()).getInterfaceSet().close();
 	    }
 	    getCharacter().playAnimation(new Animation(714));
 	    attributes.set(0, true);

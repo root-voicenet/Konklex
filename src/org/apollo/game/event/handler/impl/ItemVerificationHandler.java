@@ -31,6 +31,8 @@ public final class ItemVerificationHandler extends EventHandler<InventoryItemEve
 	case 3322:
 	case 3823:
 	    return player.getInventory();
+	case 3415:
+	    return player.getTradeSession().getItems();
 	case SynchronizationInventoryListener.EQUIPMENT_ID:
 	    return player.getEquipment();
 	case BankConstants.BANK_INVENTORY_ID:
@@ -38,10 +40,7 @@ public final class ItemVerificationHandler extends EventHandler<InventoryItemEve
 	case DepositBoxConstants.DEPBOX_INVENTORY_ID:
 	    return player.getDepositBox();
 	case 3900:
-	    if (player.getShop() != null)
-		return player.getShop().getItems();
-	    else
-		throw new IllegalArgumentException("Player shop is null: " + interfaceId);
+	    return player.getShop().getItems();
 	default:
 	    throw new IllegalArgumentException("unknown interface id: " + interfaceId);
 	}
@@ -50,6 +49,10 @@ public final class ItemVerificationHandler extends EventHandler<InventoryItemEve
     @Override
     public void handle(EventHandlerContext ctx, Player player, InventoryItemEvent event) {
 	final Inventory inventory = interfaceToInventory(player, event.getInterfaceId());
+	if (inventory == null) {
+	    ctx.breakHandlerChain();
+	    return;
+	}
 	final int slot = event.getSlot();
 	if (slot < 0 || slot >= inventory.capacity()) {
 	    ctx.breakHandlerChain();

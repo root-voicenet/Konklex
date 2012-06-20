@@ -3,15 +3,16 @@
   <id>skill-crafting</id>
   <version>1</version>
   <name>Crafting</name>
-  <description>Crafting</description>
+  <description>Adds the Crafting skill.</description>
   <authors>
     <author>Steve</author>
   </authors>
   <scripts>
-    <script>battlestave.rb</script>
-    <script>amuletstringing.rb</script>
-    <script>gem-craft.rb</script>
+    <script>amulet.rb</script>
+    <script>gem.rb</script>
+    <script>stave.rb</script>
     <script>flax.rb</script>
+    <script>crafting.rb</script>
   </scripts>
   <dependencies />
 </plugin>

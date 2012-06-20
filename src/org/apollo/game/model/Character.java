@@ -187,14 +187,12 @@ public abstract class Character {
      */
     public Direction[] getDirections() {
 	if (firstDirection != Direction.NONE) {
-	    if (secondDirection != Direction.NONE) {
+	    if (secondDirection != Direction.NONE)
 		return new Direction[] { firstDirection, secondDirection };
-	    } else {
+	    else
 		return new Direction[] { firstDirection };
-	    }
-	} else {
+	} else
 	    return Direction.EMPTY_DIRECTION_ARRAY;
-	}
     }
 
     /**
@@ -468,9 +466,8 @@ public abstract class Character {
      */
     public boolean startAction(Action<?> action) {
 	if (this.action != null) {
-	    if (this.action.equals(action)) {
+	    if (this.action.equals(action))
 		return false;
-	    }
 	    stopAction();
 	}
 	this.action = action;
@@ -509,9 +506,8 @@ public abstract class Character {
      * Stops facing a entity.
      */
     public void stopFacing() {
-	if (facing) {
+	if (facing)
 	    startFacing(65535);
-	}
     }
 
     /**

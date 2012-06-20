@@ -49,104 +49,91 @@ public class TileMapBuilder {
      */
     public TileMap build() {
 	// the region manager
-	RegionManager mgr = World.getWorld().getRegionManager();
+	final RegionManager mgr = World.getWorld().getRegionManager();
 	// a set of regions covered by our center position + radius
-	Set<Region> coveredRegions = new HashSet<Region>();
+	final Set<Region> coveredRegions = new HashSet<Region>();
 
 	// populates the set of covered regions
-	for (int x = (-radius - 1); x <= (radius + 1); x++) {
-	    for (int y = (-radius - 1); y <= (radius + 1); y++) {
-		Position loc = centerPosition.transform(x, y, 0);
+	for (int x = -radius - 1; x <= radius + 1; x++)
+	    for (int y = -radius - 1; y <= radius + 1; y++) {
+		final Position loc = centerPosition.transform(x, y, 0);
 		coveredRegions.add(mgr.getRegionByLocation(loc));
 	    }
-	}
 
 	// calculate top left positions
-	int topX = centerPosition.getLocalX() - radius;
-	int topY = centerPosition.getY() - radius;
+	final int topX = centerPosition.getLocalX() - radius;
+	final int topY = centerPosition.getY() - radius;
 
 	// now fills in the tile map
-	for (Region region : coveredRegions) {
-	    for (GameObject obj : region.getGameObjects()) {
+	for (final Region region : coveredRegions)
+	    for (final GameObject obj : region.getGameObjects()) {
 
-		if (!obj.getDefinition().isSolid()) {
+		if (!obj.getDefinition().isSolid())
 		    continue;
-		}
-		Position loc = obj.getLocation();
-		if (loc.getHeight() != centerPosition.getHeight()) {
+		final Position loc = obj.getLocation();
+		if (loc.getHeight() != centerPosition.getHeight())
 		    continue;
-		}
 
 		int sizeX = obj.getDefinition().getSizeX();
 		int sizeY = obj.getDefinition().getSizeY();
 		// position in the tile map
-		int posX = loc.getLocalX(centerPosition) - topX;
-		int posY = loc.getLocalY(centerPosition) - topY;
+		final int posX = loc.getLocalX(centerPosition) - topX;
+		final int posY = loc.getLocalY(centerPosition) - topY;
 		if (obj.getRotation() == 1 || obj.getRotation() == 3) {
 		    // switch sizes if rotated
-		    int temp = sizeX;
+		    final int temp = sizeX;
 		    sizeX = sizeY;
 		    sizeY = temp;
 		}
 
-		if ((posX + sizeX) < 0 || (posY + sizeY) < 0 || (posX) >= tileMap.getWidth()
-			|| (posY) >= tileMap.getHeight()) {
+		if (posX + sizeX < 0 || posY + sizeY < 0 || posX >= tileMap.getWidth() || posY >= tileMap.getHeight())
 		    continue;
-		}
 
 		if (obj.getType() >= 0 && obj.getType() <= 3) {
 		    // walls
 		    if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 			// int finalRotation = (obj.getType() +
 			// obj.getRotation()) % 4;
-			int finalRotation = obj.getRotation();
+			final int finalRotation = obj.getRotation();
 			// finalRotation - 0 = west, 1 = north, 2 = east, 3 =
 			// south
-			Tile t = tileMap.getTile(posX, posY);
+			final Tile t = tileMap.getTile(posX, posY);
 			int flags = t.getTraversalMask();
 			// clear flags
-			if (finalRotation == 0) {
+			if (finalRotation == 0)
 			    flags &= ~Tile.WEST_TRAVERSAL_PERMITTED;
-			} else if (finalRotation == 1) {
+			else if (finalRotation == 1)
 			    flags &= ~Tile.NORTH_TRAVERSAL_PERMITTED;
-			} else if (finalRotation == 2) {
+			else if (finalRotation == 2)
 			    flags &= ~Tile.EAST_TRAVERSAL_PERMITTED;
-			} else {
+			else
 			    flags &= ~Tile.SOUTH_TRAVERSAL_PERMITTED;
-			}
-			if (flags != t.getTraversalMask()) {
+			if (flags != t.getTraversalMask())
 			    tileMap.setTile(posX, posY, new Tile(flags));
-			}
 		    }
 		} else if (obj.getType() == 9) {
 		    // diagonal walls
-		    if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+		    if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight())
 			tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-		    }
-		} else if (obj.getType() == 10 || obj.getType() == 11) {
+		} else if (obj.getType() == 10 || obj.getType() == 11)
 		    // world objects
-		    for (int offX = 0; offX <= sizeX; offX++) {
+		    for (int offX = 0; offX <= sizeX; offX++)
 			for (int offY = 0; offY <= sizeY; offY++) {
-			    int x = offX + posX;
-			    int y = offY + posY;
-			    if (x >= 0 && y >= 0 && x < tileMap.getWidth() && y < tileMap.getHeight()) {
+			    final int x = offX + posX;
+			    final int y = offY + posY;
+			    if (x >= 0 && y >= 0 && x < tileMap.getWidth() && y < tileMap.getHeight())
 				tileMap.setTile(x, y, TileMap.SOLID_TILE);
-			    }
 			}
-		    }
-		} else if (obj.getType() == 22) {
+		else if (obj.getType() == 22) {
 		    // floor decoration
-		    if (obj.getDefinition().getActions() != null) {
-			if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+		    if (obj.getDefinition().getActions() != null)
+			if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight())
 			    tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-			}
-		    }
 		} else {
 		    // 4-8 are wall decorations and 12-21 are roofs
 		    // we can ignore those
 		}
 	    }
-	}
 
 	return tileMap;
     }

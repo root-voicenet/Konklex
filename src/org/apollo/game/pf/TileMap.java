@@ -54,11 +54,9 @@ public class TileMap {
 	this.width = width;
 	this.height = height;
 	this.tiles = new Tile[width][height];
-	for (int x = 0; x < width; x++) {
-	    for (int y = 0; y < width; y++) {
+	for (int x = 0; x < width; x++)
+	    for (int y = 0; y < width; y++)
 		tiles[x][y] = defaultTile;
-	    }
-	}
     }
 
     /**
@@ -70,18 +68,14 @@ public class TileMap {
     public TileMap(Tile[][] tiles) {
 	this.tiles = tiles;
 	width = tiles.length;
-	if (width == 0) {
+	if (width == 0)
 	    throw new IllegalArgumentException("Width is zero.");
-	}
-	int possibleHeight = tiles[0].length;
-	if (possibleHeight == 0) {
+	final int possibleHeight = tiles[0].length;
+	if (possibleHeight == 0)
 	    throw new IllegalArgumentException("Height is zero.");
-	}
-	for (int x = 0; x < width; x++) {
-	    if (tiles[x].length != possibleHeight) {
+	for (int x = 0; x < width; x++)
+	    if (tiles[x].length != possibleHeight)
 		throw new IllegalArgumentException("The heights differ.");
-	    }
-	}
 	height = possibleHeight;
     }
 
@@ -92,12 +86,10 @@ public class TileMap {
      * @throw IllegalArgumentException if either coordinate is out of bounds.
      */
     private void checkBounds(int x, int y) {
-	if (x < 0 || x >= width) {
+	if (x < 0 || x >= width)
 	    throw new IllegalArgumentException("X coordinate out of permitted range.");
-	}
-	if (y < 0 || y >= height) {
+	if (y < 0 || y >= height)
 	    throw new IllegalArgumentException("Y coordinate out of permitted range.");
-	}
     }
 
     /**

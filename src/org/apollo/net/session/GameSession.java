@@ -72,8 +72,9 @@ public final class GameSession extends Session {
 	final Channel channel = getChannel();
 	if (channel.isBound() && channel.isConnected() && channel.isOpen()) {
 	    final ChannelFuture future = channel.write(event);
-	    if (event.getClass() == LogoutEvent.class)
+	    if (event.getClass() == LogoutEvent.class) {
 		future.addListener(ChannelFutureListener.CLOSE);
+	    }
 	}
     }
 
@@ -91,19 +92,21 @@ public final class GameSession extends Session {
 	    EventHandlerChain<Event> chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
 	    while (chain == null && eventType != null) {
 		eventType = (Class<? extends Event>) eventType.getSuperclass();
-		if (eventType == Event.class)
+		if (eventType == Event.class) {
 		    eventType = null;
-		else
+		} else {
 		    chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
+		}
 	    }
-	    if (chain == null)
+	    if (chain == null) {
 		logger.warning("No chain for event: " + event.getClass().getName() + ".");
-	    else
+	    } else {
 		try {
 		    chain.handle(player, event);
 		} catch (final Exception ex) {
 		    logger.log(Level.SEVERE, "Error handling event.", ex);
 		}
+	    }
 	}
     }
 
@@ -122,9 +125,10 @@ public final class GameSession extends Session {
     @Override
     public void messageReceived(Object message) throws Exception {
 	final Event event = (Event) message;
-	if (eventQueue.size() >= GameConstants.EVENTS_PER_PULSE)
+	if (eventQueue.size() >= GameConstants.EVENTS_PER_PULSE) {
 	    logger.warning("Too many events in queue for game session, dropping...");
-	else
+	} else {
 	    eventQueue.add(event);
+	}
     }
 }

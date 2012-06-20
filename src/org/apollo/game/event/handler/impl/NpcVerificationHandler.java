@@ -13,8 +13,7 @@ public class NpcVerificationHandler extends EventHandler<NpcOptionEvent> {
 
     @Override
     public void handle(EventHandlerContext ctx, Player player, NpcOptionEvent event) {
-	if (event.getSlot() < 0 || event.getNpc() == null) {
+	if (event.getSlot() < 0 || event.getNpc() == null)
 	    ctx.breakHandlerChain();
-	}
     }
 }

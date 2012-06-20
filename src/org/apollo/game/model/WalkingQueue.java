@@ -116,9 +116,8 @@ public final class WalkingQueue {
 	    if (Direction.isConnectable(deltaX, deltaY)) {
 		points.clear();
 		oldPoints.clear();
-		for (final Position travelBackPosition : travelBackQueue) {
+		for (final Position travelBackPosition : travelBackQueue)
 		    addStep(travelBackPosition);
-		}
 		addStep(clientConnectionPosition);
 		return true;
 	    }
@@ -133,9 +132,8 @@ public final class WalkingQueue {
      * @param y The y coordinate of this step.
      */
     private void addStep(int x, int y) {
-	if (points.size() >= MAXIMUM_SIZE) {
+	if (points.size() >= MAXIMUM_SIZE)
 	    return;
-	}
 	final Point last = getLast();
 	final int deltaX = x - last.position.getX();
 	final int deltaY = y - last.position.getY();
@@ -159,16 +157,14 @@ public final class WalkingQueue {
 	int deltaY = y - last.position.getY();
 	final int max = Math.max(Math.abs(deltaX), Math.abs(deltaY));
 	for (int i = 0; i < max; i++) {
-	    if (deltaX < 0) {
+	    if (deltaX < 0)
 		deltaX++;
-	    } else if (deltaX > 0) {
+	    else if (deltaX > 0)
 		deltaX--;
-	    }
-	    if (deltaY < 0) {
+	    if (deltaY < 0)
 		deltaY++;
-	    } else if (deltaY > 0) {
+	    else if (deltaY > 0)
 		deltaY--;
-	    }
 	    addStep(x - deltaX, y - deltaY);
 	}
     }
@@ -187,9 +183,8 @@ public final class WalkingQueue {
      */
     private Point getLast() {
 	final Point last = points.peekLast();
-	if (last == null) {
+	if (last == null)
 	    return new Point(character.getPosition(), Direction.NONE);
-	}
 	return last;
     }
 
@@ -220,13 +215,11 @@ public final class WalkingQueue {
 	if (next != null) {
 	    first = next.direction;
 	    position = next.position;
-	    RegionManager manager = World.getWorld().getRegionManager();
-	    Collection<GameObject> objects = manager.getRegionByLocation(position).getGameObjects();
-	    for (GameObject object : objects) {
-		if (object.getLocation().equals(position)) {
+	    final RegionManager manager = World.getWorld().getRegionManager();
+	    final Collection<GameObject> objects = manager.getRegionByLocation(position).getGameObjects();
+	    for (final GameObject object : objects)
+		if (object.getLocation().equals(position))
 		    points.clear();
-		}
-	    }
 	    if (character.getRunEnergy() >= 1) {
 		if (running) {
 		    if (character instanceof Player) {
@@ -240,9 +233,8 @@ public final class WalkingQueue {
 			position = next.position;
 		    }
 		    setRunningQueue(true);
-		} else {
+		} else
 		    setRunningQueue(false);
-		}
 	    } else {
 		setRunningQueue(false);
 		setRunning(false);

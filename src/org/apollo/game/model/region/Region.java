@@ -139,14 +139,12 @@ public final class Region {
     private Event getEvent(Position position) {
 	Event event = null;
 	synchronized (this) {
-	    for (Event n_event : events) {
+	    for (final Event n_event : events)
 		if (n_event instanceof MapEvent) {
-		    MapEvent map = (MapEvent) n_event;
-		    if (map.getPosition().equals(position)) {
+		    final MapEvent map = (MapEvent) n_event;
+		    if (map.getPosition().equals(position))
 			event = n_event;
-		    }
 		}
-	    }
 	}
 	return event;
     }
@@ -198,11 +196,9 @@ public final class Region {
      */
     private GameObject getObject(Position position) {
 	GameObject returnz = null;
-	for (GameObject object : objects) {
-	    if (object.getLocation().equals(position)) {
+	for (final GameObject object : objects)
+	    if (object.getLocation().equals(position))
 		returnz = object;
-	    }
-	}
 	return returnz;
     }
 
@@ -231,7 +227,7 @@ public final class Region {
      * @param item The item to remove.
      */
     public void removeItem(GroundItem item) {
-	Event event = getEvent(item.getPosition());
+	final Event event = getEvent(item.getPosition());
 	synchronized (this) {
 	    events.remove(event);
 	    items.remove(item);
@@ -254,7 +250,7 @@ public final class Region {
      * @param object The object to remove.
      */
     public void removeObject(GameObject object) {
-	Event event = getEvent(object.getLocation());
+	final Event event = getEvent(object.getLocation());
 	synchronized (this) {
 	    events.remove(event);
 	    objects.remove(object);
@@ -278,15 +274,14 @@ public final class Region {
      * @param object The object to replace with.
      */
     public void replaceObject(Position position, GameObject object) {
-	GameObject replace = getObject(position);
-	if (replace != null) {
+	final GameObject replace = getObject(position);
+	if (replace != null)
 	    synchronized (this) {
 		removeObject(replace);
 		addObject(object);
 	    }
-	} else {
+	else
 	    addObject(object);
-	}
     }
 
     /**
@@ -294,9 +289,9 @@ public final class Region {
      * @param event The event to send.
      */
     private void sendEvent(Event event) {
-	for (Player player : players) {
+	for (final Player player : players) {
 	    if (event instanceof MapEvent) {
-		MapEvent map = (MapEvent) event;
+		final MapEvent map = (MapEvent) event;
 		player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
 	    }
 	    player.send(event);

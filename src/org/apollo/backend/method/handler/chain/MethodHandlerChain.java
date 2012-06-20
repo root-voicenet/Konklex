@@ -67,9 +67,8 @@ public final class MethodHandlerChain<E extends Method> {
 	};
 	for (final MethodHandler<E> handler : handlers) {
 	    handler.handle(ctx, new FrontendChannel(session), method);
-	    if (!running[0]) {
+	    if (!running[0])
 		break;
-	    }
 	}
     }
 }

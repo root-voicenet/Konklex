@@ -66,38 +66,28 @@ public class AStarPathFinder implements PathFinder {
 
 	@Override
 	public boolean equals(Object obj) {
-	    if (this == obj) {
+	    if (this == obj)
 		return true;
-	    }
-	    if (obj == null) {
+	    if (obj == null)
 		return false;
-	    }
-	    if (getClass() != obj.getClass()) {
+	    if (getClass() != obj.getClass())
 		return false;
-	    }
-	    Node other = (Node) obj;
-	    if (cost != other.cost) {
+	    final Node other = (Node) obj;
+	    if (cost != other.cost)
 		return false;
-	    }
-	    if (depth != other.depth) {
+	    if (depth != other.depth)
 		return false;
-	    }
-	    if (heuristic != other.heuristic) {
+	    if (heuristic != other.heuristic)
 		return false;
-	    }
 	    if (parent == null) {
-		if (other.parent != null) {
+		if (other.parent != null)
 		    return false;
-		}
-	    } else if (!parent.equals(other.parent)) {
+	    } else if (!parent.equals(other.parent))
 		return false;
-	    }
-	    if (x != other.x) {
+	    if (x != other.x)
 		return false;
-	    }
-	    if (y != other.y) {
+	    if (y != other.y)
 		return false;
-	    }
 	    return true;
 	}
 
@@ -136,7 +126,7 @@ public class AStarPathFinder implements PathFinder {
 	    result = prime * result + cost;
 	    result = prime * result + depth;
 	    result = prime * result + heuristic;
-	    result = prime * result + ((parent == null) ? 0 : parent.hashCode());
+	    result = prime * result + (parent == null ? 0 : parent.hashCode());
 	    result = prime * result + x;
 	    result = prime * result + y;
 	    return result;
@@ -163,8 +153,8 @@ public class AStarPathFinder implements PathFinder {
 
     private Node current;
     private Node[][] nodes;
-    private Set<Node> closed = new HashSet<Node>();
-    private Set<Node> open = new HashSet<Node>();
+    private final Set<Node> closed = new HashSet<Node>();
+    private final Set<Node> open = new HashSet<Node>();
 
     /**
      * Estimates a distance between the two points.
@@ -173,14 +163,14 @@ public class AStarPathFinder implements PathFinder {
      * @return The distance.
      */
     public int estimateDistance(Node src, Node dst) {
-	int deltaX = src.getX() - dst.getX();
-	int deltaY = src.getY() - dst.getY();
+	final int deltaX = src.getX() - dst.getX();
+	final int deltaY = src.getY() - dst.getY();
 	return (Math.abs(deltaX) + Math.abs(deltaY)) * COST_STRAIGHT;
     }
 
     private void examineNode(Node n) {
-	int heuristic = estimateDistance(current, n);
-	int nextStepCost = current.getCost() + heuristic;
+	final int heuristic = estimateDistance(current, n);
+	final int nextStepCost = current.getCost() + heuristic;
 	if (nextStepCost < n.getCost()) {
 	    open.remove(n);
 	    closed.remove(n);
@@ -194,96 +184,87 @@ public class AStarPathFinder implements PathFinder {
 
     @Override
     public Path findPath(Position location, int radius, TileMap map, int srcX, int srcY, int dstX, int dstY) {
-	if (dstX < 0 || dstY < 0 || dstX >= map.getWidth() || dstY >= map.getHeight()) {
+	if (dstX < 0 || dstY < 0 || dstX >= map.getWidth() || dstY >= map.getHeight())
 	    return null; // out of range
-	}
 
 	nodes = new Node[map.getWidth()][map.getHeight()];
-	for (int x = 0; x < map.getWidth(); x++) {
-	    for (int y = 0; y < map.getHeight(); y++) {
+	for (int x = 0; x < map.getWidth(); x++)
+	    for (int y = 0; y < map.getHeight(); y++)
 		nodes[x][y] = new Node(x, y);
-	    }
-	}
 
 	open.add(nodes[srcX][srcY]);
 
 	while (open.size() > 0) {
 	    current = getLowestCost();
-	    if (current == nodes[dstX][dstY]) {
+	    if (current == nodes[dstX][dstY])
 		break;
-	    }
 	    open.remove(current);
 	    closed.add(current);
 
-	    int x = current.getX(), y = current.getY();
+	    final int x = current.getX(), y = current.getY();
 
 	    // north west
 	    if (x > 0 && map.getTile(x - 1, y).isEasternTraversalPermitted()
-		    && map.getTile(x, y).isWesternTraversalPermitted()) {
-		if (y < (map.getHeight() - 1) && map.getTile(x, y + 1).isSouthernTraversalPermitted()
+		    && map.getTile(x, y).isWesternTraversalPermitted())
+		if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 			&& map.getTile(x, y).isNorthernTraversalPermitted()) {
-		    Node n = nodes[x - 1][y + 1];
+		    final Node n = nodes[x - 1][y + 1];
 		    examineNode(n);
 		}
-	    }
 	    // north east
-	    if (x < (map.getWidth() - 1) && map.getTile(x + 1, y).isWesternTraversalPermitted()
-		    && map.getTile(x, y).isEasternTraversalPermitted()) {
-		if (y < (map.getHeight() - 1) && map.getTile(x, y + 1).isSouthernTraversalPermitted()
+	    if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
+		    && map.getTile(x, y).isEasternTraversalPermitted())
+		if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 			&& map.getTile(x, y).isNorthernTraversalPermitted()) {
-		    Node n = nodes[x + 1][y + 1];
+		    final Node n = nodes[x + 1][y + 1];
 		    examineNode(n);
 		}
-	    }
 	    // south west
 	    if (y > 0 && map.getTile(x, y - 1).isNorthernTraversalPermitted()
-		    && map.getTile(x, y).isSouthernTraversalPermitted()) {
+		    && map.getTile(x, y).isSouthernTraversalPermitted())
 		if (x > 0 && map.getTile(x - 1, y).isEasternTraversalPermitted()
 			&& map.getTile(x, y).isWesternTraversalPermitted()) {
-		    Node n = nodes[x - 1][y - 1];
+		    final Node n = nodes[x - 1][y - 1];
 		    examineNode(n);
 		}
-	    }
 	    // south east
 	    if (y > 0 && map.getTile(x, y - 1).isNorthernTraversalPermitted()
-		    && map.getTile(x, y).isSouthernTraversalPermitted()) {
-		if (x < (map.getWidth() - 1) && map.getTile(x + 1, y).isWesternTraversalPermitted()
+		    && map.getTile(x, y).isSouthernTraversalPermitted())
+		if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
 			&& map.getTile(x, y).isEasternTraversalPermitted()) {
-		    Node n = nodes[x + 1][y - 1];
+		    final Node n = nodes[x + 1][y - 1];
 		    examineNode(n);
 		}
-	    }
 	    // west
 	    if (x > 0 && map.getTile(x - 1, y).isEasternTraversalPermitted()
 		    && map.getTile(x, y).isWesternTraversalPermitted()) {
-		Node n = nodes[x - 1][y];
+		final Node n = nodes[x - 1][y];
 		examineNode(n);
 	    }
 	    // east
-	    if (x < (map.getWidth() - 1) && map.getTile(x + 1, y).isWesternTraversalPermitted()
+	    if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
 		    && map.getTile(x, y).isEasternTraversalPermitted()) {
-		Node n = nodes[x + 1][y];
+		final Node n = nodes[x + 1][y];
 		examineNode(n);
 	    }
 	    // south
 	    if (y > 0 && map.getTile(x, y - 1).isNorthernTraversalPermitted()
 		    && map.getTile(x, y).isSouthernTraversalPermitted()) {
-		Node n = nodes[x][y - 1];
+		final Node n = nodes[x][y - 1];
 		examineNode(n);
 	    }
 	    // north
-	    if (y < (map.getHeight() - 1) && map.getTile(x, y + 1).isSouthernTraversalPermitted()
+	    if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 		    && map.getTile(x, y).isNorthernTraversalPermitted()) {
-		Node n = nodes[x][y + 1];
+		final Node n = nodes[x][y + 1];
 		examineNode(n);
 	    }
 	}
 
-	if (nodes[dstX][dstY].getParent() == null) {
+	if (nodes[dstX][dstY].getParent() == null)
 	    return null;
-	}
 
-	Path p = new Path();
+	final Path p = new Path();
 	Node n = nodes[dstX][dstY];
 	while (n != nodes[srcX][srcY]) {
 	    p.addPoint(new Point(n.getX() + location.getLocalX(location) - radius, n.getY()
@@ -297,15 +278,11 @@ public class AStarPathFinder implements PathFinder {
 
     private Node getLowestCost() {
 	Node curLowest = null;
-	for (Node n : open) {
-	    if (curLowest == null) {
+	for (final Node n : open)
+	    if (curLowest == null)
 		curLowest = n;
-	    } else {
-		if (n.getCost() < curLowest.getCost()) {
-		    curLowest = n;
-		}
-	    }
-	}
+	    else if (n.getCost() < curLowest.getCost())
+		curLowest = n;
 	return curLowest;
     }
 

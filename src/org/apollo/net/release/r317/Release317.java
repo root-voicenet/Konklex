@@ -112,20 +112,20 @@ public final class Release317 extends Release {
 	register(new FirstItemOptionEventDecoder(), 122);
 	register(new FirstItemActionEventDecoder(), 145);
 	register(new FirstPlayerOptionEventDecoder(), 73);
+	register(new SecondPlayerOptionEventDecoder(), 139);
+	register(new ThirdPlayerOptionEventDecoder(), 39);
+	register(new FourthPlayerOptionEventDecoder(), 153);
 	register(new FirstNpcOptionEventDecoder(), 72);
 	register(new SecondObjectActionEventDecoder(), 252);
 	register(new SecondItemOptionEventDecoder(), 41);
 	register(new SecondItemActionEventDecoder(), 117);
-	register(new SecondPlayerOptionEventDecoder(), 153);
 	register(new SecondNpcOptionEventDecoder(), 155);
 	register(new ThirdObjectActionEventDecoder(), 70);
 	register(new ThirdItemOptionEventDecoder(), 16);
 	register(new ThirdItemActionEventDecoder(), 43);
-	register(new ThirdPlayerOptionEventDecoder(), 128);
 	register(new ThirdNpcOptionEventDecoder(), 17);
 	register(new FourthItemActionEventDecoder(), 129);
 	register(new FourthItemOptionEventDecoder(), 75);
-	register(new FourthPlayerOptionEventDecoder(), 139);
 	register(new FifthItemOptionEventDecoder(), 87);
 	register(new FifthItemActionEventDecoder(), 135);
 	register(new ClosedInterfaceEventDecoder(), 130);
@@ -144,7 +144,6 @@ public final class Release317 extends Release {
 	register(new MagicOnPlayerEventDecoder(), 249);
 	register(new PlayerReportEventDecoder(), 218);
 	register(new PlayerIdleEventDecoder(), 202);
-	register(new PlayerFollowEventDecoder(), 139);
 	register(new ItemOnPlayerEventDecoder(), 14);
 	register(new ItemOnFloorEventDecoder(), 25);
 	// register encoders

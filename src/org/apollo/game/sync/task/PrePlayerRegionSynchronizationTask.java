@@ -31,11 +31,9 @@ public final class PrePlayerRegionSynchronizationTask extends SynchronizationTas
     public void run() {
 	final List<Event> localEvents = player.getLocalEventList();
 	final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
-	for (final Event event : localEvents) {
-	    if (!events.contains(event)) {
+	for (final Event event : localEvents)
+	    if (!events.contains(event))
 		localEvents.remove(event);
-	    }
-	}
     }
 
 }

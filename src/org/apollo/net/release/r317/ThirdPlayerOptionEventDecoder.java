@@ -1,6 +1,7 @@
 package org.apollo.net.release.r317;
 
 import org.apollo.game.event.impl.ThirdPlayerOptionEvent;
+import org.apollo.net.codec.game.DataOrder;
 import org.apollo.net.codec.game.DataType;
 import org.apollo.net.codec.game.GamePacket;
 import org.apollo.net.codec.game.GamePacketReader;
@@ -21,7 +22,7 @@ public final class ThirdPlayerOptionEventDecoder extends EventDecoder<ThirdPlaye
     @Override
     public ThirdPlayerOptionEvent decode(GamePacket packet) {
 	final GamePacketReader reader = new GamePacketReader(packet);
-	final int otherId = (int) reader.getUnsigned(DataType.SHORT);
+	final int otherId = (int) reader.getSigned(DataType.SHORT, DataOrder.LITTLE);
 	return new ThirdPlayerOptionEvent(otherId);
     }
 }

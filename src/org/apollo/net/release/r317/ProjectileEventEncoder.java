@@ -15,8 +15,8 @@ public final class ProjectileEventEncoder extends EventEncoder<ProjectileEvent> 
 
     @Override
     public GamePacket encode(ProjectileEvent event) {
-	GamePacketBuilder builder = new GamePacketBuilder(117);
-	Position position = event.getPosition();
+	final GamePacketBuilder builder = new GamePacketBuilder(117);
+	final Position position = event.getPosition();
 	builder.put(DataType.BYTE, event.getAngle());
 	builder.put(DataType.BYTE, position.getY());
 	builder.put(DataType.BYTE, position.getX());

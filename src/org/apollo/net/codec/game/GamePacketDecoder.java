@@ -84,10 +84,11 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
     private Object decodeLength(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
 	if (buffer.readable()) {
 	    length = buffer.readUnsignedByte();
-	    if (length == 0)
+	    if (length == 0) {
 		return decodeZeroLengthPacket(ctx, channel, buffer);
-	    else
+	    } else {
 		setState(GameDecoderState.GAME_PAYLOAD);
+	    }
 	}
 	return null;
     }
@@ -105,16 +106,18 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
 	    final int encryptedOpcode = buffer.readUnsignedByte();
 	    opcode = encryptedOpcode - random.nextInt() & 0xFF;
 	    final PacketMetaData metaData = release.getIncomingPacketMetaData(opcode);
-	    if (metaData == null)
+	    if (metaData == null) {
 		throw new Exception("Illegal opcode: " + opcode);
+	    }
 	    type = metaData.getType();
 	    switch (type) {
 	    case FIXED:
 		length = metaData.getLength();
-		if (length == 0)
+		if (length == 0) {
 		    return decodeZeroLengthPacket(ctx, channel, buffer);
-		else
+		} else {
 		    setState(GameDecoderState.GAME_PAYLOAD);
+		}
 		break;
 	    case VARIABLE_BYTE:
 		setState(GameDecoderState.GAME_LENGTH);

@@ -43,30 +43,26 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 	final List<Event> localEvents = player.getLocalEventList();
 	final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
 	for (final Event event : events) {
-	    if (added >= EVENTS_PER_CYCLE) {
+	    if (added >= EVENTS_PER_CYCLE)
 		break;
-	    }
-	    if (!localEvents.contains(event)) {
+	    if (!localEvents.contains(event))
 		if (event instanceof CreateGroundEvent) {
-		    CreateGroundEvent ground = (CreateGroundEvent) event;
-		    GroundItem item = ground.getGroundItem();
+		    final CreateGroundEvent ground = (CreateGroundEvent) event;
+		    final GroundItem item = ground.getGroundItem();
 		    if (item.getControllerName().equals(player.getName()) || item.getPulses() == 0) {
 			localEvents.add(event);
 			player.send(new PositionEvent(player.getLastKnownRegion(), ground.getPosition()));
 			player.send(event);
 			added++;
 		    }
-		} else {
-		    if (localEvents.add(event)) {
-			if (event instanceof MapEvent) {
-			    MapEvent map = (MapEvent) event;
-			    player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
-			}
-			player.send(event);
-			added++;
+		} else if (localEvents.add(event)) {
+		    if (event instanceof MapEvent) {
+			final MapEvent map = (MapEvent) event;
+			player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
 		    }
+		    player.send(event);
+		    added++;
 		}
-	    }
 	}
     }
 

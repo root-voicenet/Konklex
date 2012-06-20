@@ -27,9 +27,8 @@ public final class RandomizedNpcWalkingTask extends ScheduledTask {
 
     @Override
     public void execute() {
-	if (!npc.isRandomWalking()) {
+	if (!npc.isRandomWalking())
 	    return;
-	}
 	// TODO add certain npcs for random walking
 	// TODO add npc clipping
 	int moveX = random(1);
@@ -47,7 +46,7 @@ public final class RandomizedNpcWalkingTask extends ScheduledTask {
 	    moveY = -moveY;
 	    break;
 	}
-	Position position = new Position(npc.getPosition().getX() + moveX, npc.getPosition().getY() + moveY);
+	final Position position = new Position(npc.getPosition().getX() + moveX, npc.getPosition().getY() + moveY);
 	final WalkingQueue queue = npc.getWalkingQueue();
 	queue.addStep(position);
     }

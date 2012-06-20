@@ -82,21 +82,20 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
      * @return The MIME type.
      */
     private String getMimeType(String name) {
-	if (name.endsWith(".htm") || name.endsWith(".html")) {
+	if (name.endsWith(".htm") || name.endsWith(".html"))
 	    return "text/html";
-	} else if (name.endsWith(".css")) {
+	else if (name.endsWith(".css"))
 	    return "text/css";
-	} else if (name.endsWith(".js")) {
+	else if (name.endsWith(".js"))
 	    return "text/javascript";
-	} else if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+	else if (name.endsWith(".jpg") || name.endsWith(".jpeg"))
 	    return "image/jpeg";
-	} else if (name.endsWith(".gif")) {
+	else if (name.endsWith(".gif"))
 	    return "image/gif";
-	} else if (name.endsWith(".png")) {
+	else if (name.endsWith(".png"))
 	    return "image/png";
-	} else if (name.endsWith(".txt")) {
+	else if (name.endsWith(".txt"))
 	    return "text/plain";
-	}
 	return "application/octect-stream";
     }
 
@@ -141,9 +140,8 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	    status = HttpResponseStatus.NOT_FOUND;
 	    wrappedBuf = createErrorPage(status, "File not found.");
 	    mimeType = "text/html";
-	} else {
+	} else
 	    wrappedBuf = ChannelBuffers.wrappedBuffer(buf);
-	}
 	final HttpResponse resp = new DefaultHttpResponse(request.getProtocolVersion(), status);
 	resp.setHeader("Date", new Date());
 	resp.setHeader("Server", SERVER_IDENTIFIER);

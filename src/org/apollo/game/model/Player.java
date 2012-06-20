@@ -622,7 +622,7 @@ public final class Player extends Character {
 	// force skills to update
 	getSkillSet().forceRefresh();
 	// send the context menu
-	// send(new BuildPlayerMenuEvent(3, true, "Attack"));
+	send(new BuildPlayerMenuEvent(3, true, "Attack"));
 	send(new BuildPlayerMenuEvent(4, false, "Follow"));
 	send(new BuildPlayerMenuEvent(5, false, "Trade with"));
 	// send privacy settings

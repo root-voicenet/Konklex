@@ -43,9 +43,10 @@ public final class SwitchItemEventHandler extends EventHandler<SwitchItemEvent> 
 	    return; // not a known inventory, ignore
 	}
 	if (event.getOldSlot() >= 0 && event.getNewSlot() >= 0 && event.getOldSlot() < inventory.capacity()
-		&& event.getNewSlot() < inventory.capacity())
+		&& event.getNewSlot() < inventory.capacity()) {
 	    // events must be fired for it to work if a sidebar inv overlay is
 	    // used
 	    inventory.swap(insertPermitted ? event.isInserting() : false, event.getOldSlot(), event.getNewSlot());
+	}
     }
 }

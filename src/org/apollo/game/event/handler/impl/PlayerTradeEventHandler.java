@@ -3,17 +3,15 @@ package org.apollo.game.event.handler.impl;
 import org.apollo.game.action.DistancedAction;
 import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
-import org.apollo.game.event.impl.FirstPlayerOptionEvent;
 import org.apollo.game.event.impl.PlayerOptionEvent;
 import org.apollo.game.model.Player;
-import org.apollo.game.model.World;
 import org.apollo.game.model.inter.trade.TradeUtilities;
 
 /**
- * An {@link EventHandler} for the {@link FirstPlayerOptionEvent}
+ * An {@link EventHandler} for the {@link PlayerOptionEvent}
  * @author Steve
  */
-public final class FirstPlayerOptionEventHandler extends EventHandler<PlayerOptionEvent> {
+public final class PlayerTradeEventHandler extends EventHandler<PlayerOptionEvent> {
 
     /**
      * An {@link DistancedAction} that represents a player trade request.
@@ -52,13 +50,10 @@ public final class FirstPlayerOptionEventHandler extends EventHandler<PlayerOpti
      */
     @Override
     public void handle(EventHandlerContext ctx, Player player, PlayerOptionEvent event) {
-	if (event.getOption() == 1) {
-	    final Player acquaintance = World.getWorld().getPlayerRepository().forIndex(event.getPlayerId());
-	    if (player != null) {
-		player.turnTo(acquaintance.getPosition());
-		player.startAction(new PlayerTradeRequestAction(player, acquaintance));
-		ctx.breakHandlerChain();
-	    }
+	player.sendMessage("Option: " + event.getOption() + " , index: " + event.getPlayerId());
+	if (event.getOption() == 3) {
+	    player.turnTo(event.getPlayer().getPosition());
+	    player.startAction(new PlayerTradeRequestAction(player, event.getPlayer()));
 	}
     }
 }

@@ -58,13 +58,10 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions) {
-	    for (final GroundItem item : region.getGroundItems()) {
-		if (item.getPosition().getDistance(character.getPosition()) <= distance) {
+	for (final Region region : regions)
+	    for (final GroundItem item : region.getGroundItems())
+		if (item.getPosition().getDistance(character.getPosition()) <= distance)
 		    localItems.add(item);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localItems);
     }
 
@@ -78,13 +75,10 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions) {
-	    for (final Npc npc : region.getNpcs()) {
-		if (npc.getPosition().getDistance(character.getPosition()) <= distance) {
+	for (final Region region : regions)
+	    for (final Npc npc : region.getNpcs())
+		if (npc.getPosition().getDistance(character.getPosition()) <= distance)
 		    localPlayers.add(npc);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -98,13 +92,10 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions) {
-	    for (final GameObject object : region.getGameObjects()) {
-		if (object.getLocation().getDistance(character.getPosition()) <= distance) {
+	for (final Region region : regions)
+	    for (final GameObject object : region.getGameObjects())
+		if (object.getLocation().getDistance(character.getPosition()) <= distance)
 		    localObjects.add(object);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localObjects);
     }
 
@@ -118,13 +109,10 @@ public final class RegionManager {
 	final Region[] regions = getSurroundingRegions(character.getPosition());
 	final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
 		: Position.MAX_DISTANCE;
-	for (final Region region : regions) {
-	    for (final Player player : region.getPlayers()) {
-		if (player.getPosition().getDistance(character.getPosition()) <= distance) {
+	for (final Region region : regions)
+	    for (final Player player : region.getPlayers())
+		if (player.getPosition().getDistance(character.getPosition()) <= distance)
 		    localPlayers.add(player);
-		}
-	    }
-	}
 	return Collections.unmodifiableCollection(localPlayers);
     }
 
@@ -136,9 +124,9 @@ public final class RegionManager {
      */
     public Region getRegion(int x, int y) {
 	final RegionCoordinates key = new RegionCoordinates(x, y);
-	if (activeRegions.containsKey(key)) {
+	if (activeRegions.containsKey(key))
 	    return activeRegions.get(key);
-	} else {
+	else {
 	    final Region region = new Region(key);
 	    activeRegions.put(key, region);
 	    return region;
