@@ -16,7 +16,7 @@ class MiningAction < DistancedAction
   attr_reader :position, :ore, :started, :counter, :id
 
   def initialize(character, position, ore, id)
-    super 0, true, character, position, ORE_SIZE
+    super 0, true, character, position, (id == 2491) ? 5 : ORE_SIZE
     @position = position
     @ore = ore
     @started = false
@@ -98,8 +98,10 @@ class MiningAction < DistancedAction
           name = ore_def.name.sub(/ ore$/, "").downcase
           character.send_message "You manage to mine some #{name}."
           skills.add_experience Skill::MINING, ore.exp
-          expire position
-          stop
+          if ore.respawn != -1 then 
+            expire position
+            stop
+          end
         else
           @counter = counter / 2
         end
@@ -170,7 +172,7 @@ class ProspectingAction < DistancedAction
   attr_reader :position, :ore
 
   def initialize(character, position, ore)
-    super PROSPECT_PULSES, true, character, position, ORE_SIZE
+    super PROSPECT_PULSES, true, character, position, (ore.id == 1436) ? 5 : ORE_SIZE
     @position = position
     @ore = ore
     @started = false
@@ -202,6 +204,7 @@ on :event, :object_action do |ctx, player, event|
     ore = ORES[event.id]
     if ore != nil
       player.startAction MiningAction.new(player, event.position, ore, event.id)
+      ctx.break_handler_chain
     end
   end
 end
@@ -214,7 +217,17 @@ on :event, :object_action do |ctx, player, event|
     else
       if EXPIRED_ORES[event.id] != nil
         player.startAction ExpiredProspectingAction.new(player, event.position)
+        ctx.break_handler_chain
       end
+    end
+  end
+end
+
+on :event, :npc_option do |ctx, player, event|
+  if event.option == 4
+    if event.npc.id == 553
+      player.teleport Position.new(2910, 4832), false
+      ctx.break_handler_chain
     end
   end
 end

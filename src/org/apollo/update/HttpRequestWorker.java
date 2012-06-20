@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apollo.backend.FrontendService;
 import org.apollo.backend.codec.session.FrontendSession;
+import org.apollo.backend.method.impl.ResponseMethod;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.Config;
 import org.apollo.game.model.World;
@@ -20,9 +22,12 @@ import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFutureListener;
 import org.jboss.netty.handler.codec.http.DefaultHttpResponse;
+import org.jboss.netty.handler.codec.http.HttpMethod;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.jboss.netty.handler.codec.http.HttpResponse;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus;
+import org.jboss.netty.handler.codec.http.QueryStringDecoder;
+import org.jboss.netty.util.CharsetUtil;
 
 /**
  * A worker which services HTTP requests.
@@ -77,25 +82,41 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
     }
 
     /**
+     * Gets the ipn function.
+     * @param path The path of the url.
+     * @return The ipn function call.
+     */
+    private String getCall(String path) {
+	if (path.contains("onebip")) {
+	    return "onebipIpn";
+	} else if (path.contains("paypal")) {
+	    return "paypalIpn";
+	} else {
+	    return "ipn";
+	}
+    }
+
+    /**
      * Gets the MIME type of a file by its name.
      * @param name The file name.
      * @return The MIME type.
      */
     private String getMimeType(String name) {
-	if (name.endsWith(".htm") || name.endsWith(".html"))
+	if (name.endsWith(".htm") || name.endsWith(".html")) {
 	    return "text/html";
-	else if (name.endsWith(".css"))
+	} else if (name.endsWith(".css")) {
 	    return "text/css";
-	else if (name.endsWith(".js"))
+	} else if (name.endsWith(".js")) {
 	    return "text/javascript";
-	else if (name.endsWith(".jpg") || name.endsWith(".jpeg"))
+	} else if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
 	    return "image/jpeg";
-	else if (name.endsWith(".gif"))
+	} else if (name.endsWith(".gif")) {
 	    return "image/gif";
-	else if (name.endsWith(".png"))
+	} else if (name.endsWith(".png")) {
 	    return "image/png";
-	else if (name.endsWith(".txt"))
+	} else if (name.endsWith(".txt")) {
 	    return "text/plain";
+	}
 	return "application/octect-stream";
     }
 
@@ -117,6 +138,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
     @Override
     protected void service(ResourceProvider provider, Channel channel, HttpRequest request) throws IOException {
 	String path = request.getUri();
+	ChannelBuffer content = request.getContent();
 	final ByteBuffer buf = provider.get(path);
 	ChannelBuffer wrappedBuf;
 	HttpResponseStatus status = HttpResponseStatus.OK;
@@ -125,11 +147,27 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	    request.setUri(path);
 	}
 	String mimeType = getMimeType(request.getUri());
-	if (path.startsWith("/api/call") || path.startsWith("/api/stream")) {
-	    if (World.getWorld().getContext().getService(FrontendService.class) != null) {
+	if (path.startsWith("/api/call") || path.startsWith("/api/stream") || path.startsWith("/ipn")) {
+	    final FrontendService service = World.getWorld().getContext().getService(FrontendService.class);
+	    if (service != null) {
 		final FrontendSession session = new FrontendSession(channel, path.startsWith("/api/stream"));
-		World.getWorld().getContext().getService(FrontendService.class).addSession(session);
-		session.decode(path);
+		try {
+		    QueryStringDecoder decoder = null;
+		    if (request.getMethod().equals(HttpMethod.GET)) {
+			decoder = new QueryStringDecoder(path);
+		    } else if (request.getMethod().equals(HttpMethod.POST)) {
+			decoder = new QueryStringDecoder("?" + content.toString(CharsetUtil.UTF_8));
+		    }
+		    if (path.startsWith("/ipn")) {
+			ArrayList<String> inject = new ArrayList<String>();
+			inject.add(getCall(decoder.getPath()));
+			decoder.getParameters().put("method", inject);
+		    }
+		    session.decode(decoder.getParameters());
+		} catch (Exception e) {
+		    session.send(new ResponseMethod(null, e.toString(), true));
+		}
+		service.addSession(session);
 		return;
 	    } else {
 		status = HttpResponseStatus.FORBIDDEN;
@@ -140,8 +178,9 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	    status = HttpResponseStatus.NOT_FOUND;
 	    wrappedBuf = createErrorPage(status, "File not found.");
 	    mimeType = "text/html";
-	} else
+	} else {
 	    wrappedBuf = ChannelBuffers.wrappedBuffer(buf);
+	}
 	final HttpResponse resp = new DefaultHttpResponse(request.getProtocolVersion(), status);
 	resp.setHeader("Date", new Date());
 	resp.setHeader("Server", SERVER_IDENTIFIER);

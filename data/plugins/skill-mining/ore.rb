@@ -81,16 +81,14 @@ RUNITE_OBJECTS = {
   14861 => 14834
 }
 
-append_ore Ore.new(434,  CLAY_OBJECTS,    1,  5,    3   ) # clay
-append_ore Ore.new(436,  COPPER_OBJECTS,  1,  17.5, 6   ) # copper ore
-append_ore Ore.new(438,  TIN_OBJECTS,     1,  17.5, 6   ) # tin ore
-append_ore Ore.new(440,  IRON_OBJECTS,    15, 35,   16  ) # iron ore
-append_ore Ore.new(453,  COAL_OBJECTS,    30, 50,   100 ) # coal
-append_ore Ore.new(444,  GOLD_OBJECTS,    40, 65,   200 ) # gold ore
-append_ore Ore.new(442,  SILVER_OBJECTS,  20, 40,   200 ) # silver ore
-append_ore Ore.new(447,  MITHRIL_OBJECTS, 55, 80,   400 ) # mithril ore
-append_ore Ore.new(449,  ADAMANT_OBJECTS, 70, 95,   800 ) # adamant ore
-append_ore Ore.new(451,  RUNITE_OBJECTS,  85, 125,  2500) # runite ore
-
-# TODO: rune essence object id = 2491
-#   level 1, exp 5, rune ess = 1436, pure ess = 7936
+append_ore Ore.new(1436,  {2491 => 2491},  1,  5,   -1   ) # Pure essence
+append_ore Ore.new(434 ,  CLAY_OBJECTS,    1,  5,    3   ) # clay
+append_ore Ore.new(436 ,  COPPER_OBJECTS,  1,  17.5, 6   ) # copper ore
+append_ore Ore.new(438 ,  TIN_OBJECTS,     1,  17.5, 6   ) # tin ore
+append_ore Ore.new(440 ,  IRON_OBJECTS,    15, 35,   16  ) # iron ore
+append_ore Ore.new(453 ,  COAL_OBJECTS,    30, 50,   100 ) # coal
+append_ore Ore.new(444 ,  GOLD_OBJECTS,    40, 65,   200 ) # gold ore
+append_ore Ore.new(442 ,  SILVER_OBJECTS,  20, 40,   200 ) # silver ore
+append_ore Ore.new(447 ,  MITHRIL_OBJECTS, 55, 80,   400 ) # mithril ore
+append_ore Ore.new(449 ,  ADAMANT_OBJECTS, 70, 95,   800 ) # adamant ore
+append_ore Ore.new(451 ,  RUNITE_OBJECTS,  85, 125,  2500) # runite ore

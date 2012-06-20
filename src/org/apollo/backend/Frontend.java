@@ -5,6 +5,9 @@ import java.util.Map;
 
 import org.apollo.backend.impl.GiveItemMethodDecoder;
 import org.apollo.backend.impl.KickMethodDecoder;
+import org.apollo.backend.impl.LoginMethodDecoder;
+import org.apollo.backend.impl.OnebipIpnMethodDecoder;
+import org.apollo.backend.impl.PaypalIpnMethodDecoder;
 import org.apollo.backend.impl.ResponseMethodEncoder;
 import org.apollo.backend.impl.SendMessageMethodDecoder;
 import org.apollo.backend.impl.SetPositionMethodDecoder;
@@ -59,6 +62,9 @@ public final class Frontend {
 	register("setPosition", new SetPositionMethodDecoder());
 	register("setPrivilege", new SetPrivilegeLevelMethodDecoder());
 	register("sendMessage", new SendMessageMethodDecoder());
+	register("login", new LoginMethodDecoder());
+	register("paypalIpn", new PaypalIpnMethodDecoder());
+	register("onebipIpn", new OnebipIpnMethodDecoder());
 	// encoders
 	register(StatusMethod.class, new StatusMethodEncoder());
 	register(ResponseMethod.class, new ResponseMethodEncoder());

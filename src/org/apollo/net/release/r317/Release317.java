@@ -124,6 +124,7 @@ public final class Release317 extends Release {
 	register(new ThirdItemOptionEventDecoder(), 16);
 	register(new ThirdItemActionEventDecoder(), 43);
 	register(new ThirdNpcOptionEventDecoder(), 17);
+	register(new FourthNpcOptionEventDecoder(), 21);
 	register(new FourthItemActionEventDecoder(), 129);
 	register(new FourthItemOptionEventDecoder(), 75);
 	register(new FifthItemOptionEventDecoder(), 87);

@@ -1,5 +1,7 @@
 package org.apollo.backend.codec.session;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
@@ -14,6 +16,7 @@ import org.apollo.backend.method.handler.chain.MethodHandlerChainGroup;
 import org.apollo.backend.method.impl.ResponseMethod;
 import org.apollo.game.GameConstants;
 import org.apollo.game.model.World;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFutureListener;
 
@@ -74,8 +77,21 @@ public final class FrontendSession {
      * Destroys this session.
      */
     public void close() {
-	channel.getCloseFuture().addListener(ChannelFutureListener.CLOSE);
+	channel.write(ChannelBuffers.EMPTY_BUFFER).addListener(ChannelFutureListener.CLOSE);
 	World.getWorld().getContext().getService(FrontendService.class).removeSession(this);
+    }
+
+    /**
+     * Decodes a url.
+     * @param path The url.
+     */
+    public <E extends Method> void decode(Map<String, List<String>> path) {
+	final E packet = decoder.decode(path);
+	if (packet != null) {
+	    methodQueue.add(packet);
+	} else {
+	    send(new ResponseMethod(method, "This method is not defined.", true));
+	}
     }
 
     /**
@@ -84,10 +100,11 @@ public final class FrontendSession {
      */
     public <E extends Method> void decode(String path) {
 	final E packet = decoder.decode(path);
-	if (packet != null)
+	if (packet != null) {
 	    methodQueue.add(packet);
-	else
+	} else {
 	    send(new ResponseMethod(method, "This method is not defined.", true));
+	}
     }
 
     /**
@@ -114,19 +131,21 @@ public final class FrontendSession {
 	    MethodHandlerChain<Method> chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
 	    while (chain == null && methodType != null) {
 		methodType = (Class<? extends Method>) methodType.getSuperclass();
-		if (methodType == Method.class)
+		if (methodType == Method.class) {
 		    methodType = null;
-		else
+		} else {
 		    chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
+		}
 	    }
-	    if (chain == null)
+	    if (chain == null) {
 		logger.warning("No chain for method: " + method.getClass().getName() + ".");
-	    else
+	    } else {
 		try {
 		    chain.handle(this, method);
 		} catch (final Exception ex) {
 		    logger.log(Level.SEVERE, "Error handling method.", ex);
 		}
+	    }
 	}
     }
 
@@ -148,8 +167,16 @@ public final class FrontendSession {
 	    encoder.setAttribute(3, true);
 	    encoder.setAttribute(2, stream);
 	    encoder.encode(method);
-	} else
+	} else {
 	    World.getWorld().getContext().getService(FrontendService.class).removeSession(this);
+	}
+    }
+
+    /**
+     * Sets the ipn flag.
+     * @param ipn The ipn flag.
+     */
+    public void setIpn(boolean ipn) {
     }
 
     /**

@@ -41,13 +41,33 @@ public final class FrontendPacketDecoder {
 	final FrontendPacketReader reader = new FrontendPacketReader(packet);
 	session.setMethod(reader.getMethod());
 	final MethodDecoder<E> decoder = (MethodDecoder<E>) Frontend.getInstance().getMethodDecoder(reader.getMethod());
-	if (decoder != null)
+	if (decoder != null) {
 	    try {
 		return decoder.decode(packet);
 	    } catch (final Exception e) {
 		e.printStackTrace();
 	    }
+	}
 	return null;
+    }
+
+    /**
+     * Decods the uri into a packet structure.
+     * @param parameters The uri to decode.
+     * @return The packet structure.
+     */
+    public <E extends Method> E decode(Map<String, List<String>> parameters) {
+	boolean error = false;
+	final JSONObject object = new JSONObject();
+	for (final Entry<String, List<String>> kv : parameters.entrySet()) {
+	    try {
+		object.put(kv.getKey(), kv.getValue().toString().replaceFirst("\\[", "").replaceFirst("\\]", ""));
+	    } catch (final JSONException e) {
+		error = true;
+		e.printStackTrace();
+	    }
+	}
+	return decode(new FrontendPacket(object, error));
     }
 
     /**
@@ -59,13 +79,14 @@ public final class FrontendPacketDecoder {
 	boolean error = false;
 	final JSONObject object = new JSONObject();
 	final Map<String, List<Object>> parameters = TextUtil.getUrlParameters(uri);
-	for (final Entry<String, List<Object>> kv : parameters.entrySet())
+	for (final Entry<String, List<Object>> kv : parameters.entrySet()) {
 	    try {
 		object.put(kv.getKey(), kv.getValue().toString().replaceFirst("\\[", "").replaceFirst("\\]", ""));
 	    } catch (final JSONException e) {
 		error = true;
 		e.printStackTrace();
 	    }
+	}
 	return decode(new FrontendPacket(object, error));
     }
 }

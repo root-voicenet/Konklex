@@ -29,4 +29,16 @@
     <type>org.apollo.backend.method.impl.SendMessageMethod</type>
     <chain />
   </method>
+  <method>
+    <type>org.apollo.backend.method.impl.LoginMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.OnebipIpnMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.PaypalIpnMethod</type>
+    <chain />
+  </method>
 </methods>

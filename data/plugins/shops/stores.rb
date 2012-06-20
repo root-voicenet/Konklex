@@ -38,3 +38,4 @@ on :event, :npc_option do |ctx, player, event|
 end
 
 append_store 522, 1
+append_store 553, 2

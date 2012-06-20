@@ -13,6 +13,8 @@
     <script>position.rb</script>
     <script>privilege.rb</script>
     <script>message.rb</script>
+    <script>login.rb</script>
+    <script>ipns.rb</script>
   </scripts>
   <dependencies />
 </plugin>

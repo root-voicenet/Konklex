@@ -61,14 +61,17 @@ public final class LoginService extends Service {
 	} finally {
 	    is.close();
 	}
-	if (!rootNode.getName().equals("login"))
+	if (!rootNode.getName().equals("login")) {
 	    throw new Exception("unexpected root node name");
+	}
 	final XmlNode loaderNode = rootNode.getChild("loader");
-	if (loaderNode == null || !loaderNode.hasValue())
+	if (loaderNode == null || !loaderNode.hasValue()) {
 	    throw new Exception("no loader child node or value");
+	}
 	final XmlNode saverNode = rootNode.getChild("saver");
-	if (saverNode == null || !saverNode.hasValue())
+	if (saverNode == null || !saverNode.hasValue()) {
 	    throw new Exception("no saver child node or value");
+	}
 	final Class<?> loaderClazz = Class.forName(loaderNode.getValue());
 	final Class<?> saverClazz = Class.forName(saverNode.getValue());
 	loader = (PlayerLoader) loaderClazz.newInstance();
@@ -90,11 +93,12 @@ public final class LoginService extends Service {
      */
     public void submitLoadRequest(LoginSession session, LoginRequest request) {
 	final Release release = session.getRelease();
-	if (release.getReleaseNumber() != request.getReleaseNumber())
+	if (release.getReleaseNumber() != request.getReleaseNumber()) {
 	    // TODO check archive 0 CRCs
 	    session.handlePlayerLoaderResponse(request, new PlayerLoaderResponse(LoginConstants.STATUS_GAME_UPDATED));
-	else
+	} else {
 	    executor.submit(new PlayerLoaderWorker(loader, session, request));
+	}
     }
 
     /**

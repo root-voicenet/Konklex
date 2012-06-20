@@ -14,6 +14,9 @@
     <script>magic.rb</script>
     <script>range.rb</script>
     <script>fish.rb</script>
+    <script>herblore.rb</script>
+    <script>mining.rb</script>
+    <script>wc-fm.rb</script>
   </scripts>
   <dependencies />
 </plugin>
