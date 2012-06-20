@@ -122,7 +122,7 @@ on :event, :item_on_item do |ctx, player, event|
   secondary = event.target_id
 
   if primary == 1755
-    gem = GEMS[secondary]
+    gem = C_GEMS[secondary]
     if gem != nil
       player.start_action GemAction.new(player, gem)
     end

@@ -6,9 +6,11 @@ Konklex
 Introduction
 ------------
 
-[Apollo](http://www.rune-server.org/runescape-development/rs2-server/projects/257742-apollo.html) is a RuneScape emulator which aims to encourage a fundamentally-different alternative to the way in which 
-private server development is done today. It consists of a high-performance, modular server written in Java as 
-well as a collection of utilities for managing the data files and plugins.
+[Apollo](http://www.rune-server.org/runescape-development/rs2-server/projects/257742-apollo.html) is a RuneScape
+emulator which aims to encourage afundamentally-different alternative to the way in which  private server development
+is done today. It consists of a high-performance, modular server written in Java as well as a collection of utilities
+for managing the data files and plugins. Konklex will always be following the KISS (Keep It Simple, Stupid) and 
+DRY (Don't Repeat Yourself) formats. We encourage you to do the same if you edit our source code.
 
 Credits
 -------
@@ -16,9 +18,12 @@ Credits
 ### Contributors
 
  * [Graham Edgecombe](https://github.com/grahamedgecombe)
- * [Buroa](https://github.com/buroa)
+ * [Steve Kreitzer](https://github.com/buroa)
  * [Chris Fletcher](https://github.com/chrisfletcher)
+ * [Jim Frix](https://github.com/jimmyfrix)
+ * [Solid Snake](http://rune-server.org/members/Solid%20Snake)
  * [Major](https://github.com/Major-)
+ * [Amar Sut](https://github.com/amarsut)
 
 ### Miscellaneous Credits
 
