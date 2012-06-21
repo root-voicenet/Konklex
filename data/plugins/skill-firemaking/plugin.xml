@@ -5,7 +5,7 @@
   <name>Firemaking</name>
   <description>Adds the Firemaking skill.</description>
   <authors>
-    <author>Alex</author>
+    <author>Steve</author>
   </authors>
   <scripts>
 	<script>firemake.rb</script>

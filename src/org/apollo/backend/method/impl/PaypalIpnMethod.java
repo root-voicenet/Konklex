@@ -1,6 +1,6 @@
 package org.apollo.backend.method.impl;
 
-import org.apollo.backend.codec.FrontendPacketReader;
+import org.apollo.backend.codec.FrontendPacket;
 
 /**
  * An {@link IpnMethod} for the paypal payment notifications.
@@ -12,7 +12,7 @@ public final class PaypalIpnMethod extends IpnMethod {
      * Creates a new paypal ipn method.
      * @param packet The packet.
      */
-    public PaypalIpnMethod(FrontendPacketReader packet) {
+    public PaypalIpnMethod(final FrontendPacket packet) {
 	super(packet);
     }
 

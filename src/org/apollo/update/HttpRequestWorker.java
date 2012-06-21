@@ -160,7 +160,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 		    }
 		    if (path.startsWith("/ipn")) {
 			ArrayList<String> inject = new ArrayList<String>();
-			inject.add(getCall(decoder.getPath()));
+			inject.add(getCall(path));
 			decoder.getParameters().put("method", inject);
 		    }
 		    session.decode(decoder.getParameters());

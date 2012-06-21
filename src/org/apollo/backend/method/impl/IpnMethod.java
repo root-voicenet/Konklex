@@ -1,6 +1,6 @@
 package org.apollo.backend.method.impl;
 
-import org.apollo.backend.codec.FrontendPacketReader;
+import org.apollo.backend.codec.FrontendPacket;
 import org.apollo.backend.method.Method;
 
 /**
@@ -12,13 +12,13 @@ public abstract class IpnMethod extends Method {
     /**
      * The packet.
      */
-    private final FrontendPacketReader packet;
+    private final FrontendPacket packet;
 
     /**
      * Creates a new ipn method.
      * @param packet The packet containing the variables.
      */
-    public IpnMethod(FrontendPacketReader packet) {
+    public IpnMethod(final FrontendPacket packet) {
 	this.packet = packet;
     }
 
@@ -26,7 +26,7 @@ public abstract class IpnMethod extends Method {
      * Gets the packet.
      * @return The packet.
      */
-    public FrontendPacketReader getPacket() {
+    public FrontendPacket getPacket() {
 	return packet;
     }
 

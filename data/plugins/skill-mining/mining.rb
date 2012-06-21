@@ -16,7 +16,7 @@ class MiningAction < DistancedAction
   attr_reader :position, :ore, :started, :counter, :id
 
   def initialize(character, position, ore, id)
-    super 0, true, character, position, (id == 2491) ? 5 : ORE_SIZE
+    super 0, true, character, position, (id == 2491) ? 6 : ORE_SIZE
     @position = position
     @ore = ore
     @started = false
@@ -61,6 +61,15 @@ class MiningAction < DistancedAction
     skills = character.skill_set
     level = skills.get_skill(Skill::MINING).maximum_level # TODO: is using max level correct?
     free = character.inventory.free_slots
+    expired = EXPIRED[position]
+
+    # checks if the ore is expired
+    if expired != nil
+      if expired
+        stop
+        return
+      end
+    end
 
     # Looks for free slots
     if free < 1
@@ -120,6 +129,7 @@ class MiningAction < DistancedAction
   def expire(position)
     ore.objects.each do |obj, expired_obj|
       if obj == id
+        append_expired position
         ex_game_object = GameObject.new ObjectDefinition.for_id(expired_obj), position, 10, 1
         World.world.replace_object position, ex_game_object
         World.world.schedule ExpireOre.new(obj, position, ore.respawn)
@@ -145,6 +155,7 @@ class ExpireOre < ScheduledTask
 
   def execute
     World.world.replace_object position, GameObject.new(ObjectDefinition.for_id(ore), position, 10, 1)
+    EXPIRED[position] = false
     stop
   end
 
@@ -172,7 +183,7 @@ class ProspectingAction < DistancedAction
   attr_reader :position, :ore
 
   def initialize(character, position, ore)
-    super PROSPECT_PULSES, true, character, position, (ore.id == 1436) ? 5 : ORE_SIZE
+    super PROSPECT_PULSES, true, character, position, (ore.id == 1436) ? 6 : ORE_SIZE
     @position = position
     @ore = ore
     @started = false

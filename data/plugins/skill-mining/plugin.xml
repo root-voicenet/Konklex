@@ -17,6 +17,7 @@
     <script>gems.rb</script>
     <script>respawn.rb</script>
     <script>mining.rb</script>
+    <script>expired.rb</script>
   </scripts>
   <dependencies />
 </plugin>

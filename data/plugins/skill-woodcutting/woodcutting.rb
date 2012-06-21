@@ -58,6 +58,15 @@ class WoodcuttingAction < DistancedAction
     skills = character.skill_set
     level = skills.get_skill(Skill::WOODCUTTING).maximum_level # TODO: is using max level correct?
     free = character.inventory.free_slots
+    expired = EXPIREDD[position]
+
+    # checks if the tree is expired
+    if expired != nil
+      if expired
+        stop
+        return
+      end
+    end
 
     # Looks for free slots
     if free < 1
@@ -122,6 +131,7 @@ class WoodcuttingAction < DistancedAction
   def expirew(position)
     log.objects.each do |obj, expired_obj|
       if obj == id
+        append_expiredd position
         ex_game_object = GameObject.new ObjectDefinition.for_id(expired_obj), position, 10, 1
         World.world.replace_object position, ex_game_object
         World.world.schedule ExpireLog.new(obj, position, log.respawn)
@@ -147,6 +157,7 @@ class ExpireLog < ScheduledTask
 
   def execute
     World.world.replace_object position, GameObject.new(ObjectDefinition.for_id(log), position, 10, 1)
+    EXPIREDD[position] = false
     stop
   end
 

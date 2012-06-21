@@ -1,7 +1,6 @@
 package org.apollo.backend.impl;
 
 import org.apollo.backend.codec.FrontendPacket;
-import org.apollo.backend.codec.FrontendPacketReader;
 import org.apollo.backend.method.MethodDecoder;
 import org.apollo.backend.method.impl.OnebipIpnMethod;
 
@@ -12,9 +11,8 @@ import org.apollo.backend.method.impl.OnebipIpnMethod;
 public final class OnebipIpnMethodDecoder extends MethodDecoder<OnebipIpnMethod> {
 
     @Override
-    public OnebipIpnMethod decode(FrontendPacket packet) {
-	FrontendPacketReader reader = new FrontendPacketReader(packet);
-	return new OnebipIpnMethod(reader);
+    public OnebipIpnMethod decode(final FrontendPacket packet) {
+	return new OnebipIpnMethod(packet);
     }
 
 }

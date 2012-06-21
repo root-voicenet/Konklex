@@ -2,6 +2,7 @@ require 'java'
 java_import 'org.apollo.game.action.Action'
 java_import 'org.apollo.game.model.Animation'
 java_import 'org.apollo.game.model.GameObject'
+java_import 'org.apollo.game.model.GroundItem'
 java_import 'org.apollo.game.model.World'
 java_import 'org.apollo.game.model.def.ObjectDefinition'
 java_import 'org.apollo.game.scheduling.ScheduledTask'
@@ -10,13 +11,14 @@ java_import 'org.apollo.game.model.Item'
 FIREMAKING_ANIMATION = Animation.new(733)
 
 class FiremakingAction < Action
-  attr_reader :item, :started
+  attr_reader :item, :started, :ground_log
 
   def initialize(player, item)
     super 3, true, player
     @player = player
     @item = item
     @started = false
+    @ground_log = GroundItem.new(player.name, Item.new(item.log), player.position)
   end
 
   def execute
@@ -48,11 +50,13 @@ class FiremakingAction < Action
       character.play_animation FIREMAKING_ANIMATION
       character.send_message "You attempt to light a fire..."
       character.inventory.remove item.log
+      World.world.register ground_log
       @started = true
     else
       if rand(2) == 1
         # game object
         object = GameObject.new ObjectDefinition.for_id(2732), character.position, 10, 1
+        World.world.unregister ground_log
         World.world.register object
         World.world.schedule ExpireFire.new(object, character.name)
         append_fire character.position
@@ -107,6 +111,7 @@ on :event, :item_on_item do |ctx, player, event|
     item = F_LOGS[secondary]
     if item != nil
       player.start_action FiremakingAction.new(player, item)
+      ctx.break_handler_chain
     end
   end
 end
