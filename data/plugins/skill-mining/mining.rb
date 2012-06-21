@@ -25,16 +25,12 @@ class MiningAction < DistancedAction
 
   def find_pickaxe
     PICKAXE_IDS.each do |id|
-      weapon = character.equipment.get EquipmentConstants::WEAPON
-      if weapon.object_id == id
+      if character.equipment.contains id
         return PICKAXES[id]
-      end
-
-      if character.inventory.contains id
+      elsif character.inventory.contains id
         return PICKAXES[id]
       end
     end
-
     return nil
   end
 

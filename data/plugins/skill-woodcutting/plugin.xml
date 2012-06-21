@@ -3,15 +3,17 @@
   <id>skill-woodcutting</id>
   <version>1</version>
   <name>Woodcutting</name>
-  <description>WOOODDDDDDD cutting</description>
+  <description>Adds the Woodcutting skill.</description>
   <authors>
     <author>Ares_</author>
+    <author>Steve</author>
   </authors>  
   <scripts>
     <script>hatchet.rb</script>
     <script>log.rb</script>
     <script>respawn.rb</script>
     <script>woodcutting.rb</script>
+    <script>expired.rb</script>
   </scripts>
   <dependencies />
 </plugin>
