@@ -11,6 +11,7 @@ HERB_ANIMATION = Animation.new(2274)
 PICKING_ANIMATION = Animation.new(2282)
 COMPOST_ANIMATION = Animation.new(2283)
 WATER_ANIMATION = Animation.new(2293)
+CURE_ANIMATION = Animation.new(2288)
 
 class FarmingAction < DistancedAction
 
@@ -97,6 +98,7 @@ class PickingAction < DistancedAction
         others = find_other character, id
         character.send ConfigEvent.new(state.patch.config, others)
         STATES[character.name][id] = State.new(-1, 3, 3, 3, 3)
+        stop
       end
     end
   end
@@ -169,6 +171,55 @@ class CompostAction < DistancedAction
       end
     end
     stop
+  end
+
+  def equals(other)
+    return (get_class == other.get_class and @patch == other.patch and @position == other.position)
+  end
+
+end
+
+class CureAction < DistancedAction
+
+  attr_reader :patch, :position, :id, :started
+
+  def initialize(player, patch, position, id)
+    super 1, true, player, position, (patch.id == 4) ? 1 : 3
+    @patch = patch
+    @position = position
+    @id = id
+    @started = false
+  end
+
+  def executeAction
+    if patch.id == 3
+      stop
+      return
+    end
+    if not started
+      character.play_animation CURE_ANIMATION
+      @started = true
+    else
+      state = STATES[character.name]
+      if state != nil
+        state = state[id]
+        if state != nil and state.stage > 3 and state.seed != nil and state.disease_finish != -1 and not state.completed and state.diseased and not state.dead
+          stage_slot = get_id state
+          if stage_slot == nil # Check
+            stop
+            return
+          end
+          normalstage = state.seed.start.to_a[stage_slot]
+          state.set_stage normalstage
+          others = find_other character, id
+          character.send ConfigEvent.new(patch.config, (patch.value * normalstage) + others)
+          character.inventory.remove 6036, 1
+        else
+          stop
+        end
+      end
+      stop
+    end
   end
 
   def equals(other)
@@ -326,6 +377,12 @@ class GrowCrop < ScheduledTask
 
   def allot_flower(state, stage_slot, others)
     if not state.dead
+      if (state.completed or state.stage == state.finish-1) and not state.diseased
+        state.set_stage(state.finish)
+        player.send ConfigEvent.new(patch.config, (patch.value * state.stage) + others)
+        stop
+        return
+      end
       if state.diseased
         deadstage = state.seed.dead_start.to_a[stage_slot]
         state.set_stage deadstage
@@ -342,11 +399,6 @@ class GrowCrop < ScheduledTask
           state.set_stage normalstage
           state.set_compost(state.compost-1)
         end
-      elsif state.completed and not state.diseased
-        state.set_stage(state.finish)
-        player.send ConfigEvent.new(patch.config, (patch.value * state.stage) + others)
-        stop
-        return
       elsif state.watered
         normalstage = state.seed.start.to_a[stage_slot]
         state.set_stage normalstage
@@ -377,6 +429,12 @@ class GrowCrop < ScheduledTask
   end
 
   def tree(state, stage_slot, others)
+    if (state.completed or state.stage == state.finish-1) and not state.diseased
+      state.set_stage(state.finish)
+      player.send ConfigEvent.new(patch.config, (patch.value * state.stage) + others)
+      stop
+      return
+    end
     if state.fertile
       state.set_stage(state.stage+1)
       state.set_compost(state.compost-1)
@@ -386,11 +444,6 @@ class GrowCrop < ScheduledTask
     elsif !state.fertile
       diseasestage = state.seed.disease_start.to_a[stage_slot]
       state.set_stage diseasestage
-    elsif state.completed and not state.diseased
-      state.set_stage(state.finish)
-      player.send ConfigEvent.new(patch.config, (patch.value * state.stage) + others)
-      stop
-      return
     end
     if (state.stage == nil)
       stage_slot = state.seed.start.to_a.length
@@ -464,6 +517,9 @@ on :event, :item_used_on_object do |ctx, player, event|
       newstate.set_patch patch
       append_state player, event.object, newstate # Ensures there is a patch
       player.start_action RakeAction.new(player, patch, event.position, event.object)
+      ctx.break_handler_chain
+    elsif event.id == 6036
+      player.start_action CureAction.new(player, patch, event.position, event.object)
       ctx.break_handler_chain
     elsif (event.id == 6032 or event.id == 6034)
       player.start_action CompostAction.new(player, patch, event.position, event.object, event.id)
