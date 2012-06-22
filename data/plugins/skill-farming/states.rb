@@ -4,22 +4,20 @@
 STATES = {}
 
 class State
-  attr_reader :start, :finish, :stage, :seed, :patch
+  attr_reader :start, :finish, :water_finish, :disease_finish, :dead_finish, :stage, :seed, :patch, :compost
 
-  def initialize(start, finish)
+  def initialize(start, finish, water_finish, disease_finish, dead_finish)
     @start = start
     @finish = finish
+    @water_finish = water_finish
+    @disease_finish = disease_finish
+    @dead_finish = dead_finish
     @stage = start
+    @compost = 0
   end
 
   def set_stage(stage)
-    if stage > finish
-      @stage = finish
-    elsif stage < start
-      @stage = start
-    else
-      @stage = stage
-    end
+    @stage = stage
   end
 
   def set_seed(seed)
@@ -30,9 +28,30 @@ class State
     @patch = patch
   end
 
-  def completed
-    return stage == finish
+  def set_compost(compost)
+    @compost = compost
   end
+
+  def completed
+    return (stage == finish or stage == water_finish or stage == disease_finish or stage == dead_finish)
+  end
+
+  def watered
+    return seed.water_start.include?(stage)
+  end
+
+  def diseased
+    return seed.disease_start.include?(stage)
+  end
+
+  def dead
+    return seed.dead_start.include?(stage)
+  end
+
+  def fertile
+    return (compost == 1 or compost == 2)
+  end
+
 end
 
 def set_stage(player, object, stage)
