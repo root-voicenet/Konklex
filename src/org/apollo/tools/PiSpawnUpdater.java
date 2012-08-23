@@ -59,10 +59,13 @@ public final class PiSpawnUpdater {
 		int id = Integer.parseInt(arguments[0].replace("spawn = ", ""));
 		int x = Integer.parseInt(arguments[1]);
 		int y = Integer.parseInt(arguments[2]);
+		int height = Integer.parseInt(arguments[3]);
 		bw.newLine();
 		bw.write("\t<npc id=\""+id+"\">");
 		bw.newLine();
 		bw.write("\t\t<position>");
+		bw.newLine();
+		bw.write("\t\t\t<height>"+height+"</height>");
 		bw.newLine();
 		bw.write("\t\t\t<x>"+x+"</x>");
 		bw.newLine();

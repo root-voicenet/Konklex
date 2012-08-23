@@ -28,6 +28,11 @@ public final class Npc extends Character {
 	 * The random walking flag.
 	 */
 	private boolean randomWalking;
+	
+	/**
+	 * The facing id.
+	 */
+	private int face;
 
 	/**
 	 * Creates a new NPC.
@@ -55,17 +60,21 @@ public final class Npc extends Character {
 	public NpcDefinition getDefinition() {
 		return NpcDefinition.forId(id);
 	}
-
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 1;
+	
+	/**
+	 * Sets the face.
+	 * @param face The face.
+	 */
+	public void setFace(int face) {
+		this.face = face;
 	}
-
-	@Override
-	public int getHealthMax() {
-		// TODO Auto-generated method stub
-		return 1;
+	
+	/**
+	 * Gets the face.
+	 * @return The face.
+	 */
+	public int getFace() {
+		return face;
 	}
 
 	/**
