@@ -11,7 +11,7 @@ class StoreAction < DistancedAction
     @store = store
   end
 
-  def executeAction
+  def executeActio3
     World.get_world.get_stores.open_shop character, store
     stop
   end
@@ -37,5 +37,5 @@ on :event, :npc_option do |ctx, player, event|
   end
 end
 
-append_store 522, 1
-append_store 553, 2
+append_store 523, 1
+append_store 522, 2

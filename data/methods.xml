@@ -6,6 +6,18 @@
     </chain>
   </method>
   <method>
+    <type>org.apollo.backend.method.impl.HiscoreMethod</type>
+    <chain>
+      <handler>org.apollo.backend.method.handler.impl.HiscoreMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.RegisterMethod</type>
+    <chain>
+      <handler>org.apollo.backend.method.handler.impl.RegisterMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
     <type>org.apollo.backend.method.impl.KickMethod</type>
     <chain />
   </method>
@@ -23,6 +35,14 @@
   </method>
   <method>
     <type>org.apollo.backend.method.impl.SetPrivilegeLevelMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.ConfigMethod</type>
+    <chain />
+  </method>
+  <method>
+    <type>org.apollo.backend.method.impl.SendYellMethod</type>
     <chain />
   </method>
   <method>
