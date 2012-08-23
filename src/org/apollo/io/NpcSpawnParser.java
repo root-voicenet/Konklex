@@ -77,23 +77,24 @@ public final class NpcSpawnParser {
 			final XmlNode posNode = npcNode.getChild("position");
 			final XmlNode nodeX = posNode.getChild("x");
 			final XmlNode nodeY = posNode.getChild("y");
+			
+			final String nodeF = npcNode.getAttribute("face");
+			int face = 0;
+			
+			if (nodeF != null)
+				face = Integer.parseInt(nodeF);
 
 			final int x = Integer.parseInt(nodeX.getValue());
 			final int y = Integer.parseInt(nodeY.getValue());
 
 			Position pos;
-			int face = 0;
 
 			final XmlNode nodeZ = posNode.getChild("height");
-			final XmlNode nodeF = posNode.getChild("face");
 			if (nodeZ != null) {
 				final int height = Integer.parseInt(nodeZ.getValue());
 				pos = new Position(x, y, height);
 			} else
 				pos = new Position(x, y);
-			if (nodeF != null) {
-				face = Integer.parseInt(nodeF.getValue());
-			}
 
 			final Npc npc = new Npc(id, pos);
 			npc.setFace(face);

@@ -60,17 +60,24 @@ public final class PiSpawnUpdater {
 		int x = Integer.parseInt(arguments[1]);
 		int y = Integer.parseInt(arguments[2]);
 		int height = Integer.parseInt(arguments[3]);
+		int face = Integer.parseInt(arguments[4]);
 		bw.newLine();
-		bw.write("\t<npc id=\""+id+"\">");
+		if (face > 1) {
+			bw.write("\t<npc id=\""+id+"\" face=\""+face+"\">");
+		} else {
+			bw.write("\t<npc id=\""+id+"\">");
+		}
 		bw.newLine();
 		bw.write("\t\t<position>");
-		bw.newLine();
-		bw.write("\t\t\t<height>"+height+"</height>");
 		bw.newLine();
 		bw.write("\t\t\t<x>"+x+"</x>");
 		bw.newLine();
 		bw.write("\t\t\t<y>"+y+"</y>");
 		bw.newLine();
+		if (height > 0) {
+			bw.write("\t\t\t<height>"+height+"</height>");
+			bw.newLine();
+		}
 		bw.write("\t\t</position>");
 		bw.newLine();
 		bw.write("\t</npc>");
