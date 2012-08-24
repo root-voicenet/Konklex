@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.fs.parser.ItemDefinitionParser;
 import org.apollo.game.model.def.ItemDefinition;
+import org.apollo.util.RuneWiki;
 
 /**
  * A tool for updating the equipment data.
@@ -848,6 +849,11 @@ public final class EquipmentUpdater {
 						os.writeByte(getDefenceRequirement(def));
 						os.writeByte(getRangedRequirement(def));
 						os.writeByte(getMagicRequirement(def));
+						double[] bonuses = RuneWiki.getBonuses(id, false);
+						os.writeByte(bonuses.length);
+						for (double bonus : bonuses) {
+							os.writeDouble(bonus);
+						}
 					}
 				}
 			} finally {

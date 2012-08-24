@@ -264,8 +264,8 @@ public final class Player extends Character {
 	 * Gets the hide boolean flag.
 	 * @return True if hidden, false if otherwise.
 	 */
-	public boolean getHide() {
-		return hide;
+	public boolean isHidden() {
+		return hide && privilegeLevel.equals(PrivilegeLevel.DEVELOPER);
 	}
 
 	/**

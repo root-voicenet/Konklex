@@ -57,6 +57,11 @@ public final class EquipmentDefinition {
 	 * The required levels.
 	 */
 	private int attack = 1, strength = 1, defence = 1, ranged = 1, magic = 1;
+	
+	/**
+	 * The bonuses.
+	 */
+	private double[] bonuses;
 
 	/**
 	 * Various flags.
@@ -158,6 +163,14 @@ public final class EquipmentDefinition {
 	public boolean isTwoHanded() {
 		return twoHanded;
 	}
+	
+	/**
+	 * Gets the item bonuses.
+	 * @return The item bonuses.
+	 */
+	public double[] getBonuses() {
+		return bonuses;
+	}
 
 	/**
 	 * Sets the flags.
@@ -195,5 +208,13 @@ public final class EquipmentDefinition {
 	 */
 	public void setSlot(int slot) {
 		this.slot = slot;
+	}
+	
+	/**
+	 * Sets the bonuses.
+	 * @param bonuses The bonuses.
+	 */
+	public void setBonuses(double[] bonuses) {
+		this.bonuses = bonuses;
 	}
 }

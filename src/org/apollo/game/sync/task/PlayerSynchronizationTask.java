@@ -8,7 +8,6 @@ import org.apollo.game.event.impl.PlayerSynchronizationEvent;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
-import org.apollo.game.model.Player.PrivilegeLevel;
 import org.apollo.game.sync.block.AppearanceBlock;
 import org.apollo.game.sync.block.ChatBlock;
 import org.apollo.game.sync.block.SynchronizationBlock;
@@ -76,7 +75,7 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		final Collection<Player> repository = World.getWorld().getRegionManager().getLocalPlayers(player);
 		
 		for (final Player player : localPlayers)
-			if (!repository.contains(player) || !player.isActive() || player.isTeleporting()) {
+			if (!repository.contains(player) || !player.isActive() || player.isTeleporting() || player.isHidden()) {
 				localPlayers.remove(player);
 				segments.add(new RemoveCharacterSegment());
 			} else {
@@ -90,7 +89,7 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 			} else if (added >= NEW_PLAYERS_PER_CYCLE)
 				break;
 			if (p != player && !localPlayers.contains(p)) {
-				if (p.getHide() && p.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER)) {
+				if (p.isHidden()) {
 					// do nothing, they want to be hidden.
 				} else {
 					localPlayers.add(p);

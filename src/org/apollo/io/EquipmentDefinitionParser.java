@@ -47,9 +47,16 @@ public final class EquipmentDefinitionParser {
 				final int defence = dis.readByte() & 0xFF;
 				final int ranged = dis.readByte() & 0xFF;
 				final int magic = dis.readByte() & 0xFF;
+				final int bonusLength = dis.readByte() & 0xFF;
+				double[] bonuses = new double[bonusLength];
+				for (int i = 0; i < bonusLength; i++) {
+					final double bonus = dis.readDouble();
+					bonuses[i] = bonus;
+				}
 				final EquipmentDefinition def = new EquipmentDefinition(id);
 				def.setLevels(attack, strength, defence, ranged, magic);
 				def.setSlot(slot);
+				def.setBonuses(bonuses);
 				def.setFlags(twoHanded, fullBody, fullHat, fullMask);
 				defs[id] = def;
 			}
