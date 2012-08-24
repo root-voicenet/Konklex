@@ -226,6 +226,11 @@ public final class Player extends Character {
 	 * The dialogue id that is currently open.
 	 */
 	private int dialogueId;
+	
+	/**
+	 * The hidden flag.
+	 */
+	private boolean hide;
 
 	/**
 	 * Creates the {@link Player}.
@@ -245,6 +250,22 @@ public final class Player extends Character {
 		if (viewingDistance > 1) {
 			viewingDistance--;
 		}
+	}
+	
+	/**
+	 * Sets the hide boolean flag.
+	 * @param hide The hide flag.
+	 */
+	public void setHide(boolean hide) {
+		this.hide = hide;
+	}
+	
+	/**
+	 * Gets the hide boolean flag.
+	 * @return True if hidden, false if otherwise.
+	 */
+	public boolean getHide() {
+		return hide;
 	}
 
 	/**

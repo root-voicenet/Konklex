@@ -1,7 +1,7 @@
 require 'java'
 java_import 'org.apollo.game.event.impl.ConfigEvent'
 
-on :command, :config, RIGHTS_MOD do |player, command|
+on :command, :config, RIGHTS_DEV do |player, command|
   args = command.arguments
   if args.length == 2
     id = args[0].to_i

@@ -106,6 +106,25 @@ public final class SkillSet {
 			// here so it gets updated skill
 			notifyLevelledUp(id);
 	}
+	
+	/**
+	 * Removes experience from the specified skill.
+	 * 
+	 * @param id
+	 *            The skill id.
+	 * @param experience
+	 *            The amount of experience.
+	 */
+	public void removeExperience(int id, double experience) {
+		checkBounds(id);
+		final Skill old = skills[id];
+		double newExperience = old.getExperience() - experience;
+		if (newExperience > MAXIMUM_EXP)
+			newExperience = MAXIMUM_EXP;
+		int level = getLevelForExperience(newExperience);
+		setSkill(id, new Skill(newExperience, level, level));
+		notifySkillUpdated(id);
+	}
 
 	/**
 	 * Adds a listener.

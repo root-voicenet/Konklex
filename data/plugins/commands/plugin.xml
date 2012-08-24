@@ -10,9 +10,11 @@
   <scripts>
     <script>bank.rb</script>
     <script>config.rb</script>
+    <script>hide.rb</script>
     <script>home.rb</script>
     <script>item.rb</script>
     <script>npc.rb</script>
+    <script>pnpc.rb</script>
     <script>skill.rb</script>
     <script>sound.rb</script>
     <script>teleport.rb</script>

@@ -6,7 +6,7 @@ on :command, :pos, RIGHTS_MOD do |player, command|
   player.send_message "You are at: " + player.position.to_s
 end
 
-on :command, :tele, RIGHTS_ADMIN do |player, command|
+on :command, :tele, RIGHTS_DEV do |player, command|
   args = command.arguments
   if (2..3).include? args.length
     x = args[0].to_i
@@ -33,7 +33,7 @@ on :command, :teleto, RIGHTS_MOD do |player, command|
   end
 end
 
-on :command, :teletome, RIGHTS_ADMIN do |player, command|
+on :command, :teletome, RIGHTS_DEV do |player, command|
   args = command.arguments
   if args.length == 1
     other = World.get_world.get_player(args[0].sub("_", " "))

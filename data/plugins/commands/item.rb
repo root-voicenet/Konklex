@@ -1,4 +1,4 @@
-on :command, :item, RIGHTS_ADMIN do |player, command|
+on :command, :item, RIGHTS_DEV do |player, command|
   args = command.arguments
   if (1..2).include? args.length
     id = args[0].to_i
@@ -10,7 +10,7 @@ on :command, :item, RIGHTS_ADMIN do |player, command|
   end
 end
 
-on :command, :destroy, RIGHTS_ADMIN do |player, command|
+on :command, :destroy, RIGHTS_DEV do |player, command|
   args = command.arguments
   if (1..2).include? args.length
     id = args[0].to_i

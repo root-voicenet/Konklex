@@ -2,13 +2,13 @@ package org.apollo.game.sync.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apollo.game.event.impl.PlayerSynchronizationEvent;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
+import org.apollo.game.model.Player.PrivilegeLevel;
 import org.apollo.game.sync.block.AppearanceBlock;
 import org.apollo.game.sync.block.ChatBlock;
 import org.apollo.game.sync.block.SynchronizationBlock;
@@ -71,21 +71,18 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		final List<Player> localPlayers = player.getLocalPlayerList();
 		final int oldLocalPlayers = localPlayers.size();
 		final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
-		for (final Iterator<Player> it = localPlayers.iterator(); it.hasNext();) {
-			final Player p = it.next();
-			if (!p.isActive()
-					|| p.isTeleporting()
-					|| p.getPosition().getLongestDelta(player.getPosition()) > player
-					.getViewingDistance()) {
-				it.remove();
-				segments.add(new RemoveCharacterSegment());
-			} else
-				segments.add(new MovementSegment(p.getBlockSet(), p
-						.getDirections()));
-		}
+		
 		int added = 0;
-		final Collection<Player> repository = World.getWorld()
-				.getRegionManager().getLocalPlayers(player);
+		final Collection<Player> repository = World.getWorld().getRegionManager().getLocalPlayers(player);
+		
+		for (final Player player : localPlayers)
+			if (!repository.contains(player) || !player.isActive() || player.isTeleporting()) {
+				localPlayers.remove(player);
+				segments.add(new RemoveCharacterSegment());
+			} else {
+				segments.add(new MovementSegment(player.getBlockSet(), player.getDirections()));
+			}
+		
 		for (final Player p : repository) {
 			if (localPlayers.size() >= 255) {
 				player.flagExcessivePlayers();
@@ -93,16 +90,20 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 			} else if (added >= NEW_PLAYERS_PER_CYCLE)
 				break;
 			if (p != player && !localPlayers.contains(p)) {
-				localPlayers.add(p);
-				added++;
-				blockSet = p.getBlockSet();
-				if (!blockSet.contains(AppearanceBlock.class)) {
-					// TODO check if client has cached appearance
-					blockSet = blockSet.clone();
-					blockSet.add(SynchronizationBlock.createAppearanceBlock(p));
+				if (p.getHide() && p.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER)) {
+					// do nothing, they want to be hidden.
+				} else {
+					localPlayers.add(p);
+					added++;
+					blockSet = p.getBlockSet();
+					if (!blockSet.contains(AppearanceBlock.class)) {
+						// TODO check if client has cached appearance
+						blockSet = blockSet.clone();
+						blockSet.add(SynchronizationBlock.createAppearanceBlock(p));
+					}
+					segments.add(new AddCharacterSegment(blockSet, p.getIndex(), p
+							.getPosition()));
 				}
-				segments.add(new AddCharacterSegment(blockSet, p.getIndex(), p
-						.getPosition()));
 			}
 		}
 		final PlayerSynchronizationEvent event = new PlayerSynchronizationEvent(

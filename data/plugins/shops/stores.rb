@@ -40,6 +40,8 @@ end
 append_store 526, 1
 append_store 527, 1
 append_store 521, 1
+append_store 522, 1
+append_store 523, 1
 append_store 530, 1
 append_store 548, 2
 append_store 546, 3

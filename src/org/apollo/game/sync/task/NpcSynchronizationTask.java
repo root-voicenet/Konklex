@@ -2,7 +2,6 @@ package org.apollo.game.sync.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apollo.game.event.impl.NpcSynchronizationEvent;
@@ -53,17 +52,18 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 		final List<Npc> localNPCs = player.getLocalNpcList();
 		final int oldLocalPlayers = localNPCs.size();
 		final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
-		for (final Iterator<Npc> it = localNPCs.iterator(); it.hasNext();) {
-			final Npc n = it.next();
-			if (!n.isActive() || !Config.SERVER_NPCS || n.isTeleporting()
-					|| n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
-				it.remove();
-				segments.add(new RemoveCharacterSegment());
-			} else
-				segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
-		}
+		
 		int added = 0;
 		final Collection<Npc> repository = World.getWorld().getRegionManager().getLocalNpcs(player);
+		
+		for (final Npc npc : localNPCs)
+			if (!repository.contains(npc) || !npc.isActive() || npc.isTeleporting()) {
+				localNPCs.remove(npc);
+				segments.add(new RemoveCharacterSegment());
+			} else {
+				segments.add(new MovementSegment(npc.getBlockSet(), npc.getDirections()));
+			}
+		
 		for (final Npc n : repository)
 			if (localNPCs.size() >= 255 || !Config.SERVER_NPCS)
 				break;
