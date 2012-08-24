@@ -110,60 +110,63 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 		final GamePacketBuilder playerProperties = new GamePacketBuilder();
 		playerProperties.put(DataType.BYTE, appearance.getGender().toInteger()); // gender
 		playerProperties.put(DataType.BYTE, 0); // skull icon
-		// playerProperties.put(DataType.BYTE, -1); // skull icon
 		final Inventory equipment = block.getEquipment();
 		final int[] style = appearance.getStyle();
 		Item item, chest, helm, weapon;
-		weapon = equipment.get(EquipmentConstants.WEAPON) != null ? equipment.get(EquipmentConstants.WEAPON)
-				: new Item(0);
-		for (int slot = 0; slot < 4; slot++)
-			if ((item = equipment.get(slot)) != null)
+		weapon = equipment.get(EquipmentConstants.WEAPON) != null ? equipment.get(EquipmentConstants.WEAPON) : new Item(0);
+		if (appearance.getNpcId() != -1) {
+			playerProperties.put(DataType.SHORT, -1);
+            playerProperties.put(DataType.SHORT, appearance.getNpcId());
+		} else {
+			for (int slot = 0; slot < 4; slot++)
+				if ((item = equipment.get(slot)) != null)
+					playerProperties.put(DataType.SHORT, 0x200 + item.getId());
+				else
+					playerProperties.put(DataType.BYTE, 0);
+			if ((chest = equipment.get(EquipmentConstants.CHEST)) != null)
+				playerProperties.put(DataType.SHORT, 0x200 + chest.getId());
+			else
+				playerProperties.put(DataType.SHORT, 0x100 + style[2]);
+			if ((item = equipment.get(EquipmentConstants.SHIELD)) != null)
 				playerProperties.put(DataType.SHORT, 0x200 + item.getId());
 			else
 				playerProperties.put(DataType.BYTE, 0);
-		if ((chest = equipment.get(EquipmentConstants.CHEST)) != null)
-			playerProperties.put(DataType.SHORT, 0x200 + chest.getId());
-		else
-			playerProperties.put(DataType.SHORT, 0x100 + style[2]);
-		if ((item = equipment.get(EquipmentConstants.SHIELD)) != null)
-			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-		else
-			playerProperties.put(DataType.BYTE, 0);
-		if (chest != null) {
-			final EquipmentDefinition def = EquipmentDefinition.forId(chest.getId());
-			if (def != null && !def.isFullBody())
+			if (chest != null) {
+				final EquipmentDefinition def = EquipmentDefinition.forId(chest.getId());
+				if (def != null && !def.isFullBody())
+					playerProperties.put(DataType.SHORT, 0x100 + style[3]);
+				else
+					playerProperties.put(DataType.BYTE, 0);
+			} else
 				playerProperties.put(DataType.SHORT, 0x100 + style[3]);
+			if ((item = equipment.get(EquipmentConstants.LEGS)) != null)
+				playerProperties.put(DataType.SHORT, 0x200 + item.getId());
 			else
-				playerProperties.put(DataType.BYTE, 0);
-		} else
-			playerProperties.put(DataType.SHORT, 0x100 + style[3]);
-		if ((item = equipment.get(EquipmentConstants.LEGS)) != null)
-			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-		else
-			playerProperties.put(DataType.SHORT, 0x100 + style[5]);
-		if ((helm = equipment.get(EquipmentConstants.HAT)) != null) {
-			final EquipmentDefinition def = EquipmentDefinition.forId(helm.getId());
-			if (def != null && !def.isFullHat() && !def.isFullMask())
+				playerProperties.put(DataType.SHORT, 0x100 + style[5]);
+			if ((helm = equipment.get(EquipmentConstants.HAT)) != null) {
+				final EquipmentDefinition def = EquipmentDefinition.forId(helm.getId());
+				if (def != null && !def.isFullHat() && !def.isFullMask())
+					playerProperties.put(DataType.SHORT, 0x100 + style[0]);
+				else
+					playerProperties.put(DataType.BYTE, 0);
+			} else
 				playerProperties.put(DataType.SHORT, 0x100 + style[0]);
+			if ((item = equipment.get(EquipmentConstants.HANDS)) != null)
+				playerProperties.put(DataType.SHORT, 0x200 + item.getId());
 			else
+				playerProperties.put(DataType.SHORT, 0x100 + style[4]);
+			if ((item = equipment.get(EquipmentConstants.FEET)) != null)
+				playerProperties.put(DataType.SHORT, 0x200 + item.getId());
+			else
+				playerProperties.put(DataType.SHORT, 0x100 + style[6]);
+			EquipmentDefinition def = null;
+			if (helm != null)
+				def = EquipmentDefinition.forId(helm.getId());
+			if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.getGender() == Gender.FEMALE)
 				playerProperties.put(DataType.BYTE, 0);
-		} else
-			playerProperties.put(DataType.SHORT, 0x100 + style[0]);
-		if ((item = equipment.get(EquipmentConstants.HANDS)) != null)
-			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-		else
-			playerProperties.put(DataType.SHORT, 0x100 + style[4]);
-		if ((item = equipment.get(EquipmentConstants.FEET)) != null)
-			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
-		else
-			playerProperties.put(DataType.SHORT, 0x100 + style[6]);
-		EquipmentDefinition def = null;
-		if (helm != null)
-			def = EquipmentDefinition.forId(helm.getId());
-		if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.getGender() == Gender.FEMALE)
-			playerProperties.put(DataType.BYTE, 0);
-		else
-			playerProperties.put(DataType.SHORT, 0x100 + style[1]);
+			else
+				playerProperties.put(DataType.SHORT, 0x100 + style[1]);
+		}
 		final int[] colors = appearance.getColors();
 		for (final int color : colors)
 			playerProperties.put(DataType.BYTE, color);

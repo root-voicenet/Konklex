@@ -25,24 +25,18 @@ class Death < ScheduledTask
   end
   
   def execute
-    if not @started
+    if not started
       stopall
       character.play_animation npc ? Combat.getNpcDeathAnimation(character.get_definition.get_id) : DEFAULT_DEATH_ANIMATION
       @started = true
     else
       if npc
         World.get_world.unregister character
-        GroundItem.get_instance.create killer, 526, 1, character.get_position
-        GroundItem.get_instance.create killer, 995, 5000, character.get_position
+        puts "#{character} => npc"
       else
         character.set_health character.get_health_max
         position = character.get_position
-        character.teleport DEATH_POSITION, false
-        if killer.instance_of? Player
-          GroundItem.get_instance.create killer, 526, 1, position
-        else
-          GroundItem.get_instance.create character, 526, 1, position
-        end
+        character.teleport DEATH_POSITION
       end
       character.stop_animation
       stop

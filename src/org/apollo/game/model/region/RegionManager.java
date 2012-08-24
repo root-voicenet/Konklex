@@ -60,8 +60,9 @@ public final class RegionManager {
 				: Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final GroundItem item : region.getGroundItems())
-				if (item.getPosition().getDistance(character.getPosition()) <= distance)
-					localItems.add(item);
+				if (item.getPosition().getHeight() == character.getPosition().getHeight())
+					if (item.getPosition().getDistance(character.getPosition()) <= distance)
+						localItems.add(item);
 		return Collections.unmodifiableCollection(localItems);
 	}
 
@@ -77,8 +78,9 @@ public final class RegionManager {
 				: Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final Npc npc : region.getNpcs())
-				if (npc.getPosition().getDistance(character.getPosition()) <= distance)
-					localPlayers.add(npc);
+				if (npc.getPosition().getHeight() == character.getPosition().getHeight())
+					if (npc.getPosition().getDistance(character.getPosition()) <= distance)
+						localPlayers.add(npc);
 		return Collections.unmodifiableCollection(localPlayers);
 	}
 
@@ -94,8 +96,9 @@ public final class RegionManager {
 				: Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final GameObject object : region.getGameObjects())
-				if (object.getLocation().getDistance(character.getPosition()) <= distance)
-					localObjects.add(object);
+				if (object.getLocation().getHeight() == character.getPosition().getHeight())
+					if (object.getLocation().getDistance(character.getPosition()) <= distance)
+						localObjects.add(object);
 		return Collections.unmodifiableCollection(localObjects);
 	}
 
@@ -111,8 +114,9 @@ public final class RegionManager {
 				: Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final Player player : region.getPlayers())
-				if (player.getPosition().getDistance(character.getPosition()) <= distance)
-					localPlayers.add(player);
+				if (player.getPosition().getHeight() == character.getPosition().getHeight())
+					if (player.getPosition().getDistance(character.getPosition()) <= distance)
+						localPlayers.add(player);
 		return Collections.unmodifiableCollection(localPlayers);
 	}
 

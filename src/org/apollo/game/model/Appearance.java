@@ -5,6 +5,11 @@ package org.apollo.game.model;
  * @author Graham
  */
 public final class Appearance {
+	
+    /**
+     * The npc id.
+     */
+	private int npcId = -1;
 
 	/**
 	 * The default appearance.
@@ -43,6 +48,22 @@ public final class Appearance {
 		this.gender = gender;
 		this.style = style;
 		this.colors = colors;
+	}
+	
+	/**
+	 * Sets the npc id.
+	 * @param npcId The npc id.
+	 */
+	public void setNpcId(int npcId) {
+		this.npcId = npcId;
+	}
+	
+	/**
+	 * Gets the npc id.
+	 * @return The npc id.
+	 */
+	public int getNpcId() {
+		return npcId;
 	}
 
 	/**

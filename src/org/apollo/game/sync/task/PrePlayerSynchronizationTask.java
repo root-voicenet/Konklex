@@ -54,7 +54,6 @@ public final class PrePlayerSynchronizationTask extends SynchronizationTask {
 			// or is this correct anyway?!
 			player.resetViewingDistance();
 		if (!player.hasLastKnownRegion() || isRegionUpdateRequired()) {
-			player.setTeleporting(true);
 			player.setRegionChanged(true);
 			final Position position = player.getPosition();
 			player.setLastKnownRegion(position);

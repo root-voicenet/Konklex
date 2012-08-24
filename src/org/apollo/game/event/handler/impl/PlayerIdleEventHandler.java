@@ -4,6 +4,7 @@ import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.PlayerIdleEvent;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.Player.PrivilegeLevel;
 
 /**
  * An {@link EventHandler} for the {@link PlayerIdleEvent}
@@ -13,8 +14,10 @@ public final class PlayerIdleEventHandler extends EventHandler<PlayerIdleEvent> 
 
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PlayerIdleEvent event) {
-		if (!player.isMembers()
-				|| player.getPrivilegeLevel().toInteger() >= Player.PrivilegeLevel.MODERATOR.toInteger())
+		if (player.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER)) {
+			ctx.breakHandlerChain();
+		} else {
 			player.logout();
+		}
 	}
 }

@@ -530,6 +530,15 @@ public abstract class Character {
 		this.stopAction(); // TODO do it on any movement is a must.. walking
 		// queue perhaps?
 	}
+	
+	/**
+	 * Teleports this character to the specified position, setting the
+	 * appropriate flags and clearing the walking queue.
+	 * @param position The position.
+	 */
+	public void teleport(Position position) {
+		teleport(position, false);
+	}
 
 	/**
 	 * Turns the character to face the specified position.

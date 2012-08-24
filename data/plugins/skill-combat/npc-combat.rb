@@ -1,5 +1,6 @@
 require 'java'
 java_import 'org.apollo.game.action.Action'
+java_import 'org.apollo.game.model.Player'
 
 class NpcCombat < Action
   
@@ -13,7 +14,7 @@ class NpcCombat < Action
   end
   
   def execute
-    if not @started
+    if not started
       other.get_melee_set.set_attacker get_character
       @started = true
     end
@@ -26,7 +27,9 @@ class NpcCombat < Action
   
   def damageCharacter(character)
     if character.is_dead
-      character.send_message "Oh dear, you are dead."
+      if character.instance_of? Player
+        character.send_message "Oh dear, you are dead."
+      end
       Combat.stopAction(character, get_character)
     else
       if character.is_active

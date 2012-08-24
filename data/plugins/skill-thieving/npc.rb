@@ -16,6 +16,7 @@ def append_npc(npc)
 end
 
 append_npc Npcz.new(1 ,  1,  8 , { 995 => 3 })
+append_npc Npcz.new(4 ,  1,  8 , { 995 => 3 })
 append_npc Npcz.new(18, 25, 26 , { 995 => 18})
 append_npc Npcz.new(9 , 40, 47 , { 995 => 30})
 append_npc Npcz.new(26, 55, 84 , { 995 => 50})

@@ -26,7 +26,7 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
 		final Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
-		final GroundItem item = pickup(player.getName(), event.getItemId(), position);
+		final GroundItem item = pickup(player.getName(), event.getItemId(), position, player);
 		if (item != null) {
 			if (item.getPosition().isWithinDistance(player.getPosition(), 1)) {
 				if (player.getInventory().add(item.getItem()) == null)
@@ -42,11 +42,11 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 	 * @param controller The name of the controller.
 	 * @param item The item to pickup.
 	 * @param position The position of the item.
+	 * @param player The player.
 	 * @return The ground item to pickup, or null if not able to.
 	 */
-	private GroundItem pickup(String controller, int item, Position position) {
-		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getRegionByLocation(position)
-				.getGroundItems();
+	private GroundItem pickup(String controller, int item, Position position, Player player) {
+		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
 		for (final GroundItem groundItem : collection)
 			if (groundItem.getPosition().equals(position))
 				if (groundItem.getItem().getId() == item)

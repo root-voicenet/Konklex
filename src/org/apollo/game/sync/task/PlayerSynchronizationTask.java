@@ -64,7 +64,7 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 			blockSet = blockSet.clone();
 			blockSet.remove(ChatBlock.class);
 		}
-		if (player.isTeleporting())
+		if (player.isTeleporting() || player.hasRegionChanged())
 			segment = new TeleportSegment(blockSet, player.getPosition());
 		else
 			segment = new MovementSegment(blockSet, player.getDirections());

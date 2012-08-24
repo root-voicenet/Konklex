@@ -19,12 +19,15 @@ import org.apollo.game.sync.seg.RemoveCharacterSegment;
 import org.apollo.game.sync.seg.SynchronizationSegment;
 
 /**
- * NPCSynchronizzationTask.java
- * @author The Wanderer & Zuppers
+ * An {@link SynchronizationTask} that sends the npcs.
+ * @author Steve
  */
-public class NpcSynchronizationTask extends SynchronizationTask {
+public final class NpcSynchronizationTask extends SynchronizationTask {
 
-	/** The Constant NEW_NPCS_PER_CYCLE. */
+	/** The maximum number of npcs to load per cycle. This prevents the update
+	 * packet from becoming too large (the client uses a 5000 byte buffer) and
+	 * also stops old spec PCs from crashing when they login or teleport.
+	 */
 	private static final int NEW_NPCS_PER_CYCLE = 20;
 
 	/**
@@ -72,6 +75,7 @@ public class NpcSynchronizationTask extends SynchronizationTask {
 					added++;
 					blockSet = n.getBlockSet();
 					if (n.getFace() > 1) {
+						blockSet = blockSet.clone();
 						blockSet.add(SynchronizationBlock.createTurnToPositionBlock(getPositon(n)));
 					}
 					segments.add(new AddNpcSegment(blockSet, n.getIndex(), n.getPosition(), n.getDefinition().getId()));

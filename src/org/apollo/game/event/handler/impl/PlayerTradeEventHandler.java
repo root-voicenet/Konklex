@@ -50,7 +50,6 @@ public final class PlayerTradeEventHandler extends EventHandler<PlayerOptionEven
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PlayerOptionEvent event) {
-		player.sendMessage("Option: " + event.getOption() + " , index: " + event.getPlayerId());
 		if (event.getOption() == 3) {
 			player.turnTo(event.getPlayer().getPosition());
 			player.startAction(new PlayerTradeRequestAction(player, event.getPlayer()));

@@ -9,7 +9,7 @@ PICKPOCKET_GRAPHIC = Graphic.new(348, 0, 100)
 STEAL_ANIMATION = Animation.new(0x340)
 
 def get_random(list)
-  return list[list.length * Math.random]
+  return list[list.length * rand]
 end
 
 class StealAction < DistancedAction
@@ -121,7 +121,7 @@ end
 
 on :event, :npc_option do |ctx, player, event|
   if event.get_option == 3
-    npcz = NPCZ[event.slot]
+    npcz = NPCZ[event.get_npc.get_id]
     if npcz != nil
       player.startAction PickpocketAction.new(player, event.get_npc, npcz)
       ctx.break_handler_chain

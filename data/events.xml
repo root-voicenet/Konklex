@@ -5,7 +5,9 @@
   </event>
   <event>
     <type>org.apollo.game.event.impl.PlayerIdleEvent</type>
-    <chain/>
+    <chain>
+      <handler>org.apollo.game.event.handler.impl.PlayerIdleEventHandler</handler>
+    </chain>
   </event>
   <event>
     <type>org.apollo.game.event.impl.CharacterDesignEvent</type>
@@ -54,7 +56,9 @@
   </event>
   <event>
     <type>org.apollo.game.event.impl.ObjectActionEvent</type>
-    <chain />
+    <chain>
+      <handler>org.apollo.game.event.handler.impl.LadderObjectActionEventHandler</handler>
+    </chain>
   </event>
   <event>
     <type>org.apollo.game.event.impl.ItemOptionEvent</type>

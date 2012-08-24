@@ -10,11 +10,9 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link ThirdNpcOptionEvent}.
- * 
  * @author Steve
  */
-public final class ThirdNpcOptionEventDecoder extends
-EventDecoder<ThirdNpcOptionEvent> {
+public final class ThirdNpcOptionEventDecoder extends EventDecoder<ThirdNpcOptionEvent> {
 
 	/*
 	 * (non-Javadoc)
@@ -26,8 +24,7 @@ EventDecoder<ThirdNpcOptionEvent> {
 	@Override
 	public ThirdNpcOptionEvent decode(GamePacket packet) {
 		final GamePacketReader reader = new GamePacketReader(packet);
-		final int slot = (int) reader.getUnsigned(DataType.SHORT,
-				DataOrder.LITTLE, DataTransformation.ADD);
+		final int slot = (int) reader.getUnsigned(DataType.SHORT,DataOrder.LITTLE, DataTransformation.ADD);
 		return new ThirdNpcOptionEvent(slot);
 	}
 }

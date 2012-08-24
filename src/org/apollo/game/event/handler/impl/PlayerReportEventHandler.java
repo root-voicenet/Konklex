@@ -14,6 +14,7 @@ public final class PlayerReportEventHandler extends EventHandler<PlayerReportEve
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PlayerReportEvent event) {
 		player.sendMessage("Thank you, your report has been recieved.");
+		System.out.println(event.toString() + " [user=" + event.getPlayer() + ", rule=" + event.getRule()+"]");
 	}
 
 }
