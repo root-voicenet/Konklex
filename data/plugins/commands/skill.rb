@@ -13,7 +13,7 @@ on :command, :skill, RIGHTS_DEV do |player, command|
   if args.length == 2
     skill = args[0].to_i
     exp = args[0].to_i
-    skills.remove_experience(skill, exp)
+    skills.set_skill(skill, exp)
   else
     player.send_message "Syntax: ::skill [id] [exp]"
   end

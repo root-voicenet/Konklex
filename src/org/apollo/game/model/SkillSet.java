@@ -125,6 +125,21 @@ public final class SkillSet {
 		setSkill(id, new Skill(newExperience, level, level));
 		notifySkillUpdated(id);
 	}
+	
+	/**
+	 * Sets a skill.
+	 * 
+	 * @param id
+	 *            The skill id.
+	 * @param experience
+	 *            The amount of experience.
+	 */
+	public void setSkill(int id, double experience) {
+		checkBounds(id);
+		int level = getLevelForExperience(experience);
+		setSkill(id, new Skill(experience, level, level));
+		notifySkillUpdated(id);
+	}
 
 	/**
 	 * Adds a listener.
