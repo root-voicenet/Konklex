@@ -849,7 +849,7 @@ public final class EquipmentUpdater {
 						os.writeByte(getDefenceRequirement(def));
 						os.writeByte(getRangedRequirement(def));
 						os.writeByte(getMagicRequirement(def));
-						double[] bonuses = RuneWiki.getBonuses(id, false);
+						double[] bonuses = RuneWiki.getBonuses(id);
 						os.writeByte(bonuses.length);
 						for (double bonus : bonuses) {
 							os.writeDouble(bonus);

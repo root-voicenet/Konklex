@@ -83,13 +83,19 @@ public final class EquipmentConstants {
 	 * Full hats.
 	 */
 	public static final String[] FULL_HATS = { "med helm", "coif", "Dharoks helm", "hood", "Initiate helm", "Coif",
-	"Helm of neitiznot" };
+		"Helm of neitiznot" };
 
 	/**
 	 * Full masks.
 	 */
 	public static final String[] FULL_MASKS = { "full helm", "mask", "Veracs helm", "Guthans helm", "Torags helm",
 		"Karils coif", "full helm (t)", "full helm (g)", "mask" };
+
+	/**
+	 * Item bonus names.
+	 */
+	public static final String[] BONUS_NAMES =  {"Stab","Slash","Crush","Magic","Range","Stab","Slash","Crush",
+		"Magic","Range","Summoning","Absorb Melee","Absorb Magic","Absorb Ranged","Strength","Range Strength","Prayer","Magic Damage"};
 
 	/**
 	 * Default private construcotr to prevent instantiation.
