@@ -3,7 +3,6 @@ package org.apollo.game.model;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import org.apollo.game.action.impl.TeleportAction;
 import org.apollo.game.event.impl.BuildPlayerMenuEvent;
 import org.apollo.game.event.impl.ChatPrivacySettingsEvent;
 import org.apollo.game.event.impl.IdAssignmentEvent;
@@ -22,7 +21,6 @@ import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
 import org.apollo.game.model.messaging.PlayerMessaging;
-import org.apollo.game.model.region.Region;
 import org.apollo.game.model.skill.HitpointSkillListener;
 import org.apollo.game.model.skill.LevelUpSkillListener;
 import org.apollo.game.model.skill.PrayerSkillListener;
@@ -702,22 +700,6 @@ public final class Player extends Character {
 		}
 	}
 
-	@Override
-	public void setPosition(Position position) {
-		final Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
-		if (getRegion() != null) {
-			if (getRegion() != region) {
-				getRegion().removePlayer(this);
-				setRegion(region);
-				region.addPlayer(this);
-			}
-		} else {
-			setRegion(region);
-			region.addPlayer(this);
-		}
-		super.setPosition(position);
-	}
-
 	/**
 	 * Sets the private chat value.
 	 * @param privateChat The private chat value.
@@ -811,20 +793,6 @@ public final class Player extends Character {
 	 */
 	public void setWithdrawingNotes(boolean withdrawingNotes) {
 		this.withdrawingNotes = withdrawingNotes;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.Character#teleport(org.apollo.game.model.Position)
-	 */
-	@Override
-	public void teleport(Position position, boolean action) {
-		if (action) {
-			startAction(new TeleportAction(this, position));
-		} else {
-			super.teleport(position, action);
-		}
 	}
 
 	/*

@@ -431,6 +431,17 @@ public abstract class Character {
 	 * @param position The position of this character.
 	 */
 	public void setPosition(Position position) {
+		final Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
+		if (getRegion() != null) {
+			if (getRegion() != region) {
+				getRegion().removeCharacter(this);
+				setRegion(region);
+				region.addCharacter(this);
+			}
+		} else {
+			setRegion(region);
+			region.addCharacter(this);
+		}
 		this.position = position;
 	}
 
@@ -525,7 +536,7 @@ public abstract class Character {
 	 */
 	public void teleport(Position position, boolean action) {
 		this.teleporting = true;
-		this.position = position;
+		setPosition(position);
 		this.walkingQueue.clear();
 		this.stopAction(); // TODO do it on any movement is a must.. walking
 		// queue perhaps?

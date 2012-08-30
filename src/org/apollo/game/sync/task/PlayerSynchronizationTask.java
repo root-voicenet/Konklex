@@ -2,6 +2,7 @@ package org.apollo.game.sync.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apollo.game.event.impl.PlayerSynchronizationEvent;
@@ -63,10 +64,11 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 			blockSet = blockSet.clone();
 			blockSet.remove(ChatBlock.class);
 		}
-		if (player.isTeleporting() || player.hasRegionChanged())
+		if (player.isTeleporting() || player.hasRegionChanged()) {
 			segment = new TeleportSegment(blockSet, player.getPosition());
-		else
+		} else {
 			segment = new MovementSegment(blockSet, player.getDirections());
+		}
 		final List<Player> localPlayers = player.getLocalPlayerList();
 		final int oldLocalPlayers = localPlayers.size();
 		final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
@@ -74,13 +76,15 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		int added = 0;
 		final Collection<Player> repository = World.getWorld().getRegionManager().getLocalPlayers(player);
 		
-		for (final Player player : localPlayers)
-			if (!repository.contains(player) || !player.isActive() || player.isTeleporting() || player.isHidden()) {
-				localPlayers.remove(player);
+		for (final Iterator<Player> it = localPlayers.iterator(); it.hasNext();) {
+		    final Player p = it.next();
+		    final boolean check = p.getPosition().getHeight() == player.getPosition().getHeight();
+		    if (!p.isActive() || p.isTeleporting() || !check || p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
+				it.remove();
 				segments.add(new RemoveCharacterSegment());
-			} else {
-				segments.add(new MovementSegment(player.getBlockSet(), player.getDirections()));
-			}
+		    } else
+		    	segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+		}
 		
 		for (final Player p : repository) {
 			if (localPlayers.size() >= 255) {

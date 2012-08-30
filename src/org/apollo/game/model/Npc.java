@@ -3,7 +3,6 @@ package org.apollo.game.model;
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.def.NpcDefinition;
-import org.apollo.game.model.region.Region;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
@@ -106,22 +105,6 @@ public final class Npc extends Character {
 			final String message = ((ServerMessageEvent) event).getMessage();
 			getBlockSet().add(SynchronizationBlock.createForceChatBlock(message));
 		}
-	}
-
-	@Override
-	public void setPosition(Position position) {
-		final Region region = World.getWorld().getRegionManager().getRegionByLocation(position);
-		if (getRegion() != null) {
-			if (getRegion() != region) {
-				getRegion().removeNpc(this);
-				setRegion(region);
-				region.addNpc(this);
-			}
-		} else {
-			setRegion(region);
-			region.addNpc(this);
-		}
-		super.setPosition(position);
 	}
 
 	/**

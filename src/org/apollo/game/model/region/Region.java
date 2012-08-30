@@ -19,6 +19,7 @@ import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
+import org.apollo.game.model.Character;
 
 /**
  * Represents a single region.
@@ -113,6 +114,18 @@ public final class Region {
 	public void addPlayer(Player player) {
 		synchronized (this) {
 			players.add(player);
+		}
+	}
+	
+	/**
+	 * Adds a new character.
+	 * @param character The new character.
+	 */
+	public void addCharacter(Character character) {
+		if (character instanceof Player) {
+			addPlayer((Player) character);
+		} else if (character instanceof Npc) {
+			addNpc((Npc) character);
 		}
 	}
 
@@ -242,6 +255,18 @@ public final class Region {
 	public void removeNpc(Npc npc) {
 		synchronized (this) {
 			npcs.remove(npc);
+		}
+	}
+	
+	/**
+	 * Removes a old character.
+	 * @param character The character to remove.
+	 */
+	public void removeCharacter(Character character) {
+		if (character instanceof Player) {
+			removePlayer((Player) character);
+		} else if (character instanceof Npc) {
+			removeNpc((Npc) character);
 		}
 	}
 

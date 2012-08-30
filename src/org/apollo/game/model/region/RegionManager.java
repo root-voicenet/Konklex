@@ -56,8 +56,7 @@ public final class RegionManager {
 	public Collection<GroundItem> getLocalGroundItems(Character character) {
 		final List<GroundItem> localItems = new ArrayList<GroundItem>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
-		final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
-				: Position.MAX_DISTANCE;
+		final int distance = Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final GroundItem item : region.getGroundItems())
 				if (item.getPosition().getHeight() == character.getPosition().getHeight())
@@ -74,8 +73,7 @@ public final class RegionManager {
 	public Collection<Npc> getLocalNpcs(Character character) {
 		final List<Npc> localPlayers = new LinkedList<Npc>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
-		final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
-				: Position.MAX_DISTANCE;
+		final int distance = Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final Npc npc : region.getNpcs())
 				if (npc.getPosition().getHeight() == character.getPosition().getHeight())
@@ -92,8 +90,7 @@ public final class RegionManager {
 	public Collection<GameObject> getLocalObjects(Character character) {
 		final List<GameObject> localObjects = new ArrayList<GameObject>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
-		final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
-				: Position.MAX_DISTANCE;
+		final int distance = Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final GameObject object : region.getGameObjects())
 				if (object.getLocation().getHeight() == character.getPosition().getHeight())
@@ -110,8 +107,7 @@ public final class RegionManager {
 	public Collection<Player> getLocalPlayers(Character character) {
 		final List<Player> localPlayers = new LinkedList<Player>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
-		final int distance = character instanceof Player ? ((Player) character).getViewingDistance()
-				: Position.MAX_DISTANCE;
+		final int distance = Position.MAX_DISTANCE;
 		for (final Region region : regions)
 			for (final Player player : region.getPlayers())
 				if (player.getPosition().getHeight() == character.getPosition().getHeight())
