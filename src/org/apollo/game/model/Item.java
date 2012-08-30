@@ -1,5 +1,6 @@
 package org.apollo.game.model;
 
+import org.apollo.game.model.def.EquipmentDefinition;
 import org.apollo.game.model.def.ItemDefinition;
 
 /**
@@ -52,6 +53,14 @@ public final class Item {
 	 */
 	public ItemDefinition getDefinition() {
 		return ItemDefinition.forId(id);
+	}
+	
+	/**
+	 * Gets the {@link EquipmentBonuses} which gives bonuses to this item.
+	 * @return The bonuses.
+	 */
+	public EquipmentBonuses getBonuses() {
+		return EquipmentDefinition.forId(id).getBonuses();
 	}
 
 	/**

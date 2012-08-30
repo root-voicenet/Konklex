@@ -17,6 +17,7 @@ import org.apollo.game.model.inter.bank.BankConstants;
 import org.apollo.game.model.inter.store.Shop;
 import org.apollo.game.model.inter.trade.TradeSession;
 import org.apollo.game.model.inv.AppearanceInventoryListener;
+import org.apollo.game.model.inv.BonusesEquipmentListener;
 import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
@@ -168,6 +169,11 @@ public final class Player extends Character {
 	 * This player's interface set.
 	 */
 	private final InterfaceSet interfaceSet = new InterfaceSet(this);
+	
+	/**
+	 * The player's equipment bonuses.
+	 */
+	private final PlayerBonuses bonuses = new PlayerBonuses(this);
 
 	/**
 	 * The player's deposit box.
@@ -503,6 +509,7 @@ public final class Player extends Character {
 				BankConstants.BANK_INVENTORY_ID);
 		final InventoryListener syncEquipmentListener = new SynchronizationInventoryListener(this,
 				SynchronizationInventoryListener.EQUIPMENT_ID);
+		final InventoryListener equipmentBonusesListener = new BonusesEquipmentListener(this);
 		// add the listeners
 		inventory.addListener(syncInventoryListener);
 		inventory.addListener(fullInventoryListener);
@@ -511,6 +518,7 @@ public final class Player extends Character {
 		equipment.addListener(syncEquipmentListener);
 		equipment.addListener(appearanceListener);
 		equipment.addListener(fullEquipmentListener);
+		equipment.addListener(equipmentBonusesListener);
 	}
 
 	/**
@@ -640,6 +648,8 @@ public final class Player extends Character {
 		getBank().forceRefresh();
 		// force skills to update
 		getSkillSet().forceRefresh();
+		// updates the bonuses
+		getBonuses().forceRefresh();
 		// send the context menu
 		send(new BuildPlayerMenuEvent(3, true, "Attack"));
 		send(new BuildPlayerMenuEvent(4, false, "Follow"));
@@ -651,6 +661,14 @@ public final class Player extends Character {
 		//send private chat
 		World.getWorld().getMessaging().register(this);
 		send(new ResetClientEvent());
+	}
+
+	/**
+	 * Gets the players equipment bonuses.
+	 * @return The players equipment bonuses.
+	 */
+	public PlayerBonuses getBonuses() {
+		return bonuses;
 	}
 
 	/**

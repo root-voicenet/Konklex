@@ -3,6 +3,7 @@ package org.apollo.game.model.def;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apollo.game.model.EquipmentBonuses;
 import org.apollo.game.model.Item;
 
 /**
@@ -61,7 +62,7 @@ public final class EquipmentDefinition {
 	/**
 	 * The bonuses.
 	 */
-	private double[] bonuses;
+	private EquipmentBonuses bonuses;
 
 	/**
 	 * Various flags.
@@ -168,7 +169,7 @@ public final class EquipmentDefinition {
 	 * Gets the item bonuses.
 	 * @return The item bonuses.
 	 */
-	public double[] getBonuses() {
+	public EquipmentBonuses getBonuses() {
 		return bonuses;
 	}
 
@@ -214,7 +215,7 @@ public final class EquipmentDefinition {
 	 * Sets the bonuses.
 	 * @param bonuses The bonuses.
 	 */
-	public void setBonuses(double[] bonuses) {
+	public void setBonuses(EquipmentBonuses bonuses) {
 		this.bonuses = bonuses;
 	}
 }

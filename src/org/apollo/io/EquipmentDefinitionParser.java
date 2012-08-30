@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apollo.game.model.EquipmentBonuses;
 import org.apollo.game.model.def.EquipmentDefinition;
 
 /**
@@ -54,9 +55,10 @@ public final class EquipmentDefinitionParser {
 					bonuses[i] = bonus;
 				}
 				final EquipmentDefinition def = new EquipmentDefinition(id);
+				final EquipmentBonuses equipmentBonuses = new EquipmentBonuses(bonuses);
 				def.setLevels(attack, strength, defence, ranged, magic);
 				def.setSlot(slot);
-				def.setBonuses(bonuses);
+				def.setBonuses(equipmentBonuses);
 				def.setFlags(twoHanded, fullBody, fullHat, fullMask);
 				defs[id] = def;
 			}
