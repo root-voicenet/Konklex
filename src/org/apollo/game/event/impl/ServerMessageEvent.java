@@ -6,7 +6,7 @@ import org.apollo.game.event.Event;
  * An event which is sent to the client with a server-side message.
  * @author Graham
  */
-public final class ServerMessageEvent extends Event {
+public class ServerMessageEvent extends Event {
 
 	/**
 	 * The message.
