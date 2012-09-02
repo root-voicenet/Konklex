@@ -152,6 +152,24 @@ on :event, :magic_on_item do |ctx, player, event|
   end
 end
 
+on :event, :magic_on_ground do |ctx, player, event|
+  player.send_message "Spell: " + event.magic_id.to_s
+end
+
+# MagicOnGroundEvent handling
+on :event, :magic_on_ground do |ctx, player, event|
+  spell = event.magic_id
+  
+  ground = GROUND_SPELLS[spell]
+  if ground != nil
+    item = event.get_item_id
+    position = event.get_position
+	player.start_action TelekeneticAction.new(player, ground, position, item)
+	ctx.break_handler_chain
+	return
+  end
+end
+
 # ButtonEvent handling
 on :event, :button do |ctx, player, event|
   button = event.interface_id

@@ -15,6 +15,7 @@ import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
+import org.apollo.game.model.World;
 
 /**
  * Manages the world regions.
@@ -140,6 +141,37 @@ public final class RegionManager {
 	 */
 	public Region getRegionByLocation(Position location) {
 		return getRegion(location.getX() / REGION_SIZE, location.getY() / REGION_SIZE);
+	}
+	
+	/**
+	 * Gets the ground item.
+	 * @param player The player.
+	 * @param position The position.
+	 * @param item The item.
+	 * @return The ground item.
+	 */
+	public GroundItem getGroundItem(Player player, Position position, int item) {
+		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
+			for (final GroundItem groundItem : collection)
+				if (groundItem.getPosition().equals(position))
+					if (groundItem.getItem().getId() == item)
+						if (groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0)
+							return groundItem;
+		return null;
+	}
+	
+	/**
+	 * Gets the game object.
+	 * @param player The player.
+	 * @param position The position.
+	 * @return The game object.
+	 */
+	public GameObject getGameObject(Player player, Position position) {
+		final Collection<GameObject> collection = World.getWorld().getRegionManager().getLocalObjects(player);
+		for (final GameObject gameObject : collection)
+			if (gameObject.getLocation().equals(position))
+				return gameObject;
+		return null;
 	}
 
 	/**

@@ -6,7 +6,7 @@ import org.apollo.game.model.Graphic;
  * The graphic {@link SynchronizationBlock}.
  * @author Graham
  */
-public final class GraphicBlock extends SynchronizationBlock {
+public class GraphicBlock extends SynchronizationBlock {
 
 	/**
 	 * The graphic.
@@ -17,7 +17,7 @@ public final class GraphicBlock extends SynchronizationBlock {
 	 * Creates the graphic block.
 	 * @param graphic The graphic.
 	 */
-	GraphicBlock(Graphic graphic) {
+	public GraphicBlock(Graphic graphic) {
 		this.graphic = graphic;
 	}
 

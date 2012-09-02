@@ -1,7 +1,5 @@
 package org.apollo.game.event.handler.impl;
 
-import java.util.Collection;
-
 import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.PickupItemEvent;
@@ -26,7 +24,7 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
 		final Position position = new Position(event.getX(), event.getY(), player.getPosition().getHeight());
-		final GroundItem item = pickup(player.getName(), event.getItemId(), position, player);
+		final GroundItem item = World.getWorld().getRegionManager().getGroundItem(player, position, event.getItemId());
 		if (item != null) {
 			if (item.getPosition().isWithinDistance(player.getPosition(), 1)) {
 				if (player.getInventory().add(item.getItem()) == null)
@@ -35,23 +33,5 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 				ctx.breakHandlerChain();
 		} else
 			ctx.breakHandlerChain();
-	}
-
-	/**
-	 * Picks up a ground item.
-	 * @param controller The name of the controller.
-	 * @param item The item to pickup.
-	 * @param position The position of the item.
-	 * @param player The player.
-	 * @return The ground item to pickup, or null if not able to.
-	 */
-	private GroundItem pickup(String controller, int item, Position position, Player player) {
-		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
-		for (final GroundItem groundItem : collection)
-			if (groundItem.getPosition().equals(position))
-				if (groundItem.getItem().getId() == item)
-					if (groundItem.getControllerName().equalsIgnoreCase(controller) || groundItem.getPulses() == 0)
-						return groundItem;
-		return null;
 	}
 }

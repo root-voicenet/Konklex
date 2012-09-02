@@ -9,12 +9,14 @@ import org.apollo.game.event.impl.ConfigEvent;
 import org.apollo.game.event.impl.ConstructMapRegionEvent;
 import org.apollo.game.event.impl.CreateGroundEvent;
 import org.apollo.game.event.impl.CreateObjectEvent;
+import org.apollo.game.event.impl.DebugMessageEvent;
 import org.apollo.game.event.impl.DestroyGroundEvent;
 import org.apollo.game.event.impl.DestroyObjectEvent;
 import org.apollo.game.event.impl.DisplayTabInterfaceEvent;
 import org.apollo.game.event.impl.DisplayWeightEvent;
 import org.apollo.game.event.impl.EnterAmountEvent;
 import org.apollo.game.event.impl.FlashSideBarEvent;
+import org.apollo.game.event.impl.GraphicEvent;
 import org.apollo.game.event.impl.HintIconEvent;
 import org.apollo.game.event.impl.IdAssignmentEvent;
 import org.apollo.game.event.impl.LogoutEvent;
@@ -42,7 +44,7 @@ import org.apollo.game.event.impl.SetInterfaceModelMoodEvent;
 import org.apollo.game.event.impl.SetInterfaceNpcModelEvent;
 import org.apollo.game.event.impl.SetInterfacePlayerModelEvent;
 import org.apollo.game.event.impl.SetInterfaceTextEvent;
-import org.apollo.game.event.impl.SoundEvent;
+import org.apollo.game.event.impl.SongEvent;
 import org.apollo.game.event.impl.SwitchTabInterfaceEvent;
 import org.apollo.game.event.impl.SystemUpdateEvent;
 import org.apollo.game.event.impl.UpdateItemsEvent;
@@ -61,7 +63,8 @@ public final class Release317 extends Release {
 	/**
 	 * The incoming packet lengths array.
 	 */
-	public static final int[] PACKET_LENGTHS = { 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0
+	public static final int[] PACKET_LENGTHS = { 
+		0, 0, 0, 1, -1, 0, 0, 0, 0, 0, // 0-10
 		0, 0, 0, 0, 8, 0, 6, 2, 2, 0, // 10
 		0, 2, 0, 6, 0, 12, 0, 0, 0, 0, // 20
 		0, 0, 0, 0, 0, 8, 4, 0, 0, 2, // 30
@@ -80,7 +83,7 @@ public final class Release317 extends Release {
 		0, 0, 0, 0, -1, -1, 0, 0, 0, 0,// 160
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 170
 		0, 8, 0, 3, 0, 2, 0, 0, 8, 1, // 180
-		0, 0, 12, 0, 0, 0, 0, 0, 0, 0, // 190
+		0, 0, 12, 0, 6, 0, 0, 0, 0, 0, // 190
 		2, 0, 0, 0, 0, 0, 0, 0, 4, 0, // 200
 		4, 0, 0, 0, 7, 8, 0, 0, 10, 0, // 210
 		0, 0, 0, 0, 0, 0, -1, 0, 6, 0, // 220
@@ -98,7 +101,7 @@ public final class Release317 extends Release {
 	}
 
 	/**
-	 * Initialises this release by registering encoders and decoders.
+	 * Initializes this release by registering encoders and decoders.
 	 */
 	private void init() {
 		// register decoders
@@ -148,10 +151,13 @@ public final class Release317 extends Release {
 		register(new PlayerIdleEventDecoder(), 202);
 		register(new ItemOnPlayerEventDecoder(), 14);
 		register(new ItemOnFloorEventDecoder(), 25);
+		register(new MagicOnObjectEventDecoder(), 35);
+		register(new MagicOnGroundEventDecoder(), 181);
 		// register encoders
 		register(IdAssignmentEvent.class, new IdAssignmentEventEncoder());
 		register(RegionChangeEvent.class, new RegionChangeEventEncoder());
 		register(ServerMessageEvent.class, new ServerMessageEventEncoder());
+		register(DebugMessageEvent.class, new DebugMessageEventEncoder());
 		register(PlayerSynchronizationEvent.class, new PlayerSynchronizationEventEncoder());
 		register(NpcSynchronizationEvent.class, new NpcSynchronizationEventEncoder());
 		register(OpenInterfaceEvent.class, new OpenInterfaceEventEncoder());
@@ -170,7 +176,7 @@ public final class Release317 extends Release {
 		register(CreateObjectEvent.class, new CreateObjectEventEncoder());
 		register(DestroyObjectEvent.class, new DestroyObjectEventEncoder());
 		register(PositionEvent.class, new PositionEventEncoder());
-		register(SoundEvent.class, new SoundEventEncoder());
+		register(SongEvent.class, new SongEventEncoder());
 		register(SendFriendEvent.class, new SendFriendEventEncoder());
 		register(SendIgnoreEvent.class, new SendIgnoreEventEncoder());
 		register(SendPrivateChatEvent.class, new SendPrivateChatEventEncoder());
@@ -198,5 +204,6 @@ public final class Release317 extends Release {
 		register(CameraShakeEvent.class, new CameraShakeEventEncoder());
 		register(ProjectileEvent.class, new ProjectileEventEncoder());
 		register(ResetClientEvent.class, new ResetClientEventEncoder());
+		register(GraphicEvent.class, new GraphicEventEncoder());
 	}
 }

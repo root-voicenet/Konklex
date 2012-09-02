@@ -10,10 +10,20 @@
     </chain>
   </event>
   <event>
+    <type>org.apollo.game.event.impl.MagicOnGroundEvent</type>
+    <chain/>
+  </event>
+  <event>
     <type>org.apollo.game.event.impl.CharacterDesignEvent</type>
     <chain>
       <handler>org.apollo.game.event.handler.impl.CharacterDesignVerificationHandler</handler>
       <handler>org.apollo.game.event.handler.impl.CharacterDesignEventHandler</handler>
+    </chain>
+  </event>
+  <event>
+    <type>org.apollo.game.event.impl.RegionLoadEvent</type>
+    <chain>
+      <handler>org.apollo.game.event.handler.impl.RegionMusicEventHandler</handler>
     </chain>
   </event>
   <event>
@@ -33,6 +43,7 @@
     <type>org.apollo.game.event.impl.ButtonEvent</type>
     <chain>
       <handler>org.apollo.game.event.handler.impl.InterfaceButtonEventHandler</handler>
+      <handler>org.apollo.game.event.handler.impl.SkillInterfaceButtonEventHandler</handler>
       <handler>org.apollo.game.event.handler.impl.TradeButtonEventHandler</handler>
     </chain>
   </event>

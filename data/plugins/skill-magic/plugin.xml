@@ -6,14 +6,16 @@
   <description>Adds the Magic skill.</description>
   <authors>
     <author>Chris Fletcher</author>
+    <author>Steve</author>
   </authors>
   <scripts>
-	<script>magic.rb</script>
+    <script>magic.rb</script>
     <script>element.rb</script>
     <script>teleport.rb</script>
     <script>alchemy.rb</script>
     <script>enchant.rb</script>
     <script>convert.rb</script>
+    <script>telekenetic.rb</script>
   </scripts>
   <dependencies />
 </plugin>
