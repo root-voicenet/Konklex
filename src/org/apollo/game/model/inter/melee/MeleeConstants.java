@@ -1,35 +1,37 @@
 package org.apollo.game.model.inter.melee;
 
+import org.apollo.game.model.Appearance;
+
 /**
  * Contains some of the melee constants.
  * @author Steve
  */
-public class MeleeConstants {
+public final class MeleeConstants {
 
-	// TODO: Make the melee into a java class for now, not a stupid plugin
-	// :hurr:
 	/**
 	 * Returns the run animation for the player's weapon id.
+	 * @param appearance The players appearance.
 	 * @param weaponId The weapon id.
 	 * @return The run animation.
 	 */
-	public static int getRunAnimation(int weaponId) {
+	public static int getRunAnimation(Appearance appearance, int weaponId) {
 		switch (weaponId) {
 		case 4151:
 			return 1661;
 		case 1419:
 			return 9739;
 		default:
-			return 0x338;
+			return appearance.getRunAnimation();
 		}
 	}
 
 	/**
 	 * Returns the stand animation for the player's weapon id.
+	 * @param appearance The players appearance.
 	 * @param weaponId The weapon id.
 	 * @return The stand animation.
 	 */
-	public static int getStandAnimation(int weaponId) {
+	public static int getStandAnimation(Appearance appearance, int weaponId) {
 		switch (weaponId) {
 		case 837:
 			return 2237;
@@ -74,16 +76,17 @@ public class MeleeConstants {
 		case 1419:
 			return 847;
 		default:
-			return 0x328;
+			return appearance.getStandAnimation();
 		}
 	}
 
 	/**
 	 * Returns the walk animation for the player's weapon id.
+	 * @param appearance The players appearance.
 	 * @param weaponId The weapon id.
 	 * @return The walk animation.
 	 */
-	public static int getWalkAnimation(int weaponId) {
+	public static int getWalkAnimation(Appearance appearance, int weaponId) {
 		switch (weaponId) {
 		case 3565:
 			return 1836;
@@ -96,7 +99,7 @@ public class MeleeConstants {
 		case 1419:
 			return 9738;
 		default:
-			return 0x333;
+			return appearance.getWalkAnimation();
 		}
 	}
 }

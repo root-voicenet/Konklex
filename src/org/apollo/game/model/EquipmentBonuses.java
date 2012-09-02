@@ -266,7 +266,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 		double[] temp = this.bonuses;
 		int i = 0;
 		for (double bonus : bonuses) {
-			temp[i++] = bonus;
+			temp[i++] += bonus;
 		}
 		return new EquipmentBonuses(temp);
 	}

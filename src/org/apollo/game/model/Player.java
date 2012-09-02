@@ -8,7 +8,7 @@ import org.apollo.game.event.impl.ChatPrivacySettingsEvent;
 import org.apollo.game.event.impl.IdAssignmentEvent;
 import org.apollo.game.event.impl.LogoutEvent;
 import org.apollo.game.event.impl.ResetClientEvent;
-import org.apollo.game.event.impl.SoundEvent;
+import org.apollo.game.event.impl.SongEvent;
 import org.apollo.game.event.impl.SwitchTabInterfaceEvent;
 import org.apollo.game.event.impl.UpdateRunEnergyEvent;
 import org.apollo.game.minigame.MinigameService;
@@ -129,6 +129,16 @@ public final class Player extends Character {
 	 * The membership flag.
 	 */
 	private boolean members = false;
+	
+	/**
+	 * The skill guide selected id.
+	 */
+	private int selected = 0;
+	
+	/**
+	 * The skill guide selected items.
+	 */
+	private int[] item;
 
 	/**
 	 * A flag indicating if the player has designed their character.
@@ -202,11 +212,6 @@ public final class Player extends Character {
 	private boolean retaliate = false;
 
 	/**
-	 * The current playing sound.
-	 */
-	private int currentSound = -1;
-
-	/**
 	 * The public chat setting.
 	 */
 	private int publicChat = 0;
@@ -237,6 +242,11 @@ public final class Player extends Character {
 	private boolean hide;
 
 	/**
+	 * The current song.
+	 */
+	private int currentSong;
+
+	/**
 	 * Creates the {@link Player}.
 	 * @param credentials The player's credentials.
 	 * @param position The initial position.
@@ -262,6 +272,38 @@ public final class Player extends Character {
 	 */
 	public void setHide(boolean hide) {
 		this.hide = hide;
+	}
+	
+	/**
+	 * Sets the skill guide selected id.
+	 * @param selected The skill guide selected id.
+	 */
+	public void setSelected(int selected) {
+		this.selected = selected;
+	}
+	
+	/**
+	 * Sets the skill guide selected items.
+	 * @param item The skill guide selected items.
+	 */
+	public void setItem(int[] item) {
+		this.item = item;
+	}
+	
+	/**
+	 * Gets the skill guide selected items.
+	 * @return The skill guide selected items.
+	 */
+	public int[] getItem() {
+		return item;
+	}
+	
+	/**
+	 * Gets the selected skill guide id.
+	 * @return The selected skill guide id.
+	 */
+	public int getSelected() {
+		return selected;
 	}
 	
 	/**
@@ -581,20 +623,6 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Play a new sound.
-	 * @param id The sound id.
-	 * @param temp Is the sound temporary.
-	 */
-	public void playSound(int id, boolean temp) {
-		if (temp && currentSound != -1) {
-			send(new SoundEvent(id, currentSound));
-		} else {
-			send(new SoundEvent(id));
-		}
-		currentSound = id;
-	}
-
-	/**
 	 * Resets the excessive players flag.
 	 */
 	public void resetExcessivePlayers() {
@@ -821,5 +849,16 @@ public final class Player extends Character {
 	public String toString() {
 		return Player.class.getName() + " [username=" + credentials.getUsername() + ", privilegeLevel="
 				+ privilegeLevel + "]";
+	}
+
+	/**
+	 * Plays a song.
+	 * @param song The song.
+	 */
+	public void playSong(int song) {
+		if (song != currentSong) {
+			currentSong = song;
+			send(new SongEvent(song));
+		}
 	}
 }

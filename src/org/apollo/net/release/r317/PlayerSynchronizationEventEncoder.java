@@ -6,7 +6,6 @@ import org.apollo.game.model.Animation;
 import org.apollo.game.model.Appearance;
 import org.apollo.game.model.Direction;
 import org.apollo.game.model.EquipmentConstants;
-import org.apollo.game.model.Gender;
 import org.apollo.game.model.Graphic;
 import org.apollo.game.model.Inventory;
 import org.apollo.game.model.Item;
@@ -108,8 +107,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	private void putAppearanceBlock(AppearanceBlock block, GamePacketBuilder blockBuilder) {
 		final Appearance appearance = block.getAppearance();
 		final GamePacketBuilder playerProperties = new GamePacketBuilder();
-		playerProperties.put(DataType.BYTE, appearance.getGender().toInteger()); // gender
-		playerProperties.put(DataType.BYTE, 0); // skull icon
+		playerProperties.put(DataType.BYTE, appearance.getGender().toInteger());
+		playerProperties.put(DataType.BYTE, appearance.getSkull());
 		final Inventory equipment = block.getEquipment();
 		final int[] style = appearance.getStyle();
 		Item item, chest, helm, weapon;
@@ -162,7 +161,7 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 			EquipmentDefinition def = null;
 			if (helm != null)
 				def = EquipmentDefinition.forId(helm.getId());
-			if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.getGender() == Gender.FEMALE)
+			if (def != null && (def.isFullHat() || def.isFullMask()) || appearance.isFemale())
 				playerProperties.put(DataType.BYTE, 0);
 			else
 				playerProperties.put(DataType.SHORT, 0x100 + style[1]);
@@ -170,13 +169,14 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 		final int[] colors = appearance.getColors();
 		for (final int color : colors)
 			playerProperties.put(DataType.BYTE, color);
-		playerProperties.put(DataType.SHORT, MeleeConstants.getStandAnimation(weapon.getId())); // stand
+		final int weaponId = weapon.getId();
+		playerProperties.put(DataType.SHORT, MeleeConstants.getStandAnimation(appearance, weaponId)); // stand
 		playerProperties.put(DataType.SHORT, 0x337); // stand turn
-		playerProperties.put(DataType.SHORT, MeleeConstants.getWalkAnimation(weapon.getId())); // walk
+		playerProperties.put(DataType.SHORT, MeleeConstants.getWalkAnimation(appearance, weaponId)); // walk
 		playerProperties.put(DataType.SHORT, 0x334); // turn 180
 		playerProperties.put(DataType.SHORT, 0x335); // turn 90 cw
 		playerProperties.put(DataType.SHORT, 0x336); // turn 90 ccw
-		playerProperties.put(DataType.SHORT, MeleeConstants.getRunAnimation(weapon.getId())); // run
+		playerProperties.put(DataType.SHORT, MeleeConstants.getRunAnimation(appearance, weaponId)); // run
 		playerProperties.put(DataType.LONG, DataTransformation.QUADRUPLE, block.getName());
 		playerProperties.put(DataType.BYTE, block.getCombatLevel());
 		playerProperties.put(DataType.SHORT, block.getSkillLevel());

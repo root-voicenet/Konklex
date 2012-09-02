@@ -33,6 +33,26 @@ public final class Appearance {
 	private final int[] colors;
 
 	/**
+	 * The skull icon.
+	 */
+	private byte skullIcon = 0;
+
+	/**
+	 * The run animation.
+	 */
+	private int runAnimation = -1;
+	
+	/**
+	 * The walk animation.
+	 */
+	private int walkAnimation = -1;
+	
+	/**
+	 * The stand animation.
+	 */
+	private int standAnimation = -1;
+
+	/**
 	 * Creates the appearance with the specified gender, style and colors.
 	 * @param gender The gender.
 	 * @param style The style.
@@ -51,11 +71,19 @@ public final class Appearance {
 	}
 	
 	/**
-	 * Sets the npc id.
-	 * @param npcId The npc id.
+	 * Gets the player's colors.
+	 * @return The player's colors.
 	 */
-	public void setNpcId(int npcId) {
-		this.npcId = npcId;
+	public int[] getColors() {
+		return colors;
+	}
+	
+	/**
+	 * Gets the gender of the player.
+	 * @return The gender of the player.
+	 */
+	public Gender getGender() {
+		return gender;
 	}
 	
 	/**
@@ -67,19 +95,27 @@ public final class Appearance {
 	}
 
 	/**
-	 * Gets the player's colors.
-	 * @return The player's colors.
+	 * Gets the run animation.
+	 * @return The run animation.
 	 */
-	public int[] getColors() {
-		return colors;
+	public int getRunAnimation() {
+		return runAnimation == -1 ? 0x338 : runAnimation;
 	}
 
 	/**
-	 * Gets the gender of the player.
-	 * @return The gender of the player.
+	 * Gets the skull icon.
+	 * @return The skull icon.
 	 */
-	public Gender getGender() {
-		return gender;
+	public byte getSkull() {
+		return skullIcon;
+	}
+
+	/**
+	 * Gets the stand animation.
+	 * @return The stand animation.
+	 */
+	public int getStandAnimation() {
+		return standAnimation == -1 ? 0x328 : standAnimation;
 	}
 
 	/**
@@ -95,18 +131,66 @@ public final class Appearance {
 	}
 
 	/**
+	 * Gets the walk animation.
+	 * @return The walk animation.
+	 */
+	public int getWalkAnimation() {
+		return walkAnimation == -1 ? 0x333 : walkAnimation;
+	}
+
+	/**
 	 * Checks if the player is female.
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isFemale() {
 		return gender == Gender.FEMALE;
 	}
-
+	
 	/**
 	 * Checks if the player is male.
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isMale() {
 		return gender == Gender.MALE;
+	}
+	
+	/**
+	 * Sets the npc id.
+	 * @param npcId The npc id.
+	 */
+	public void setNpcId(int npcId) {
+		this.npcId = npcId;
+	}
+	
+	/**
+	 * Sets the run animation.
+	 * @param runAnimation The run animation.
+	 */
+	public void setRunAnimation(int runAnimation) {
+		this.runAnimation = runAnimation;
+	}
+
+	/**
+	 * Sets the skull icon.
+	 * @param skullIcon The skull icon.
+	 */
+	public void setSkullIcon(byte skullIcon) {
+		this.skullIcon = skullIcon;
+	}
+
+	/**
+	 * Sets the stand animation.
+	 * @param standAnimation The stand animation.
+	 */
+	public void setStandAnimation(int standAnimation) {
+		this.standAnimation = standAnimation;
+	}
+	
+	/**
+	 * Sets the walk animation.
+	 * @param walkAnimation The walk animation.
+	 */
+	public void setWalkAnimation(int walkAnimation) {
+		this.walkAnimation = walkAnimation;
 	}
 }
