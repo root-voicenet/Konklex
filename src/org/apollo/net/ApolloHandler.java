@@ -4,12 +4,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
+import org.apollo.game.model.World;
+import org.apollo.game.model.WorldConstants;
 import org.apollo.net.codec.handshake.HandshakeConstants;
 import org.apollo.net.codec.handshake.HandshakeMessage;
 import org.apollo.net.codec.jaggrab.JagGrabRequest;
 import org.apollo.net.session.LoginSession;
 import org.apollo.net.session.Session;
 import org.apollo.net.session.UpdateSession;
+import org.jboss.netty.buffer.ChannelBuffer;
+import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
@@ -123,6 +127,14 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 					break;
 				case HandshakeConstants.SERVICE_UPDATE:
 					ctx.setAttachment(new UpdateSession(ctx.getChannel(), serverContext));
+					break;
+				case HandshakeConstants.SERVICE_WORLD:
+					final ChannelBuffer buffer = ChannelBuffers.buffer(6);
+					buffer.writeByte(1);
+					buffer.writeByte(1);
+					buffer.writeShort(World.getWorld().getPlayerRepository().size());
+					buffer.writeShort(WorldConstants.MAXIMUM_PLAYERS);
+					ctx.getChannel().write(buffer);
 					break;
 				default:
 					throw new Exception("Invalid service id");

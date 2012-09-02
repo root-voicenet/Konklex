@@ -21,6 +21,11 @@ public final class HandshakeConstants {
 	 * The id of the player count.
 	 */
 	public static final int SERVICE_COUNT = 16;
+	
+	/**
+	 * The id of the world service.
+	 */
+	public static final int SERVICE_WORLD = 17;
 
 	/**
 	 * Default private constructor to prevent instantiation by other classes.

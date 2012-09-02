@@ -1,6 +1,7 @@
 package org.apollo.net.codec.handshake;
 
 import org.apollo.game.model.World;
+import org.apollo.game.model.WorldConstants;
 import org.apollo.net.codec.login.LoginDecoder;
 import org.apollo.net.codec.login.LoginEncoder;
 import org.apollo.net.codec.update.UpdateDecoder;
@@ -40,6 +41,12 @@ public final class HandshakeDecoder extends FrameDecoder {
 		case HandshakeConstants.SERVICE_UPDATE:
 			buffer.writeLong(0);
 			break;
+		case HandshakeConstants.SERVICE_GAME:
+			buffer.writeByte(1);
+			buffer.writeByte(1);
+			buffer.writeShort(World.getWorld().getPlayerRepository().size());
+			buffer.writeShort(WorldConstants.MAXIMUM_PLAYERS);
+			break;
 		}
 		return buffer;
 	}
@@ -66,7 +73,10 @@ public final class HandshakeDecoder extends FrameDecoder {
 				channel.write(createBuffer(8, id)); // TODO should it be here?
 				break;
 			case HandshakeConstants.SERVICE_COUNT:
-				channel.write(createBuffer(8, id)); // TODO should it be here?
+				channel.write(createBuffer(2, id)); // TODO should it be here?
+				break;
+			case HandshakeConstants.SERVICE_WORLD:
+				channel.write(createBuffer(6, id));
 				break;
 			default:
 				throw new Exception("Invalid service id");
