@@ -82,7 +82,7 @@ class SmithingListener
   end
 
   def buttonClicked(player, button)
-    bar = BARS[button]
+    bar = BAR[button]
     if bar != nil
       player.start_action SmithingAction.new(player, position, bar)
     end

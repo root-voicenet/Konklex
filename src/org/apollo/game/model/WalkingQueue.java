@@ -243,6 +243,17 @@ public final class WalkingQueue {
 		character.setDirections(first, second);
 		character.setPosition(position);
 	}
+	
+	/**
+	 * Walks to the position.
+	 * @param position The position to walk too.
+	 */
+	public void walkTo(Position position) {
+		if (!getRunning()) {
+			setRunning(getRunningQueue());
+		}
+		addFirstStep(position);
+	}
 
 	/**
 	 * Sets the running queue flag.

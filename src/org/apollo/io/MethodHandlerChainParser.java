@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apollo.backend.method.Method;
-import org.apollo.backend.method.handler.MethodHandler;
-import org.apollo.backend.method.handler.chain.MethodHandlerChain;
-import org.apollo.backend.method.handler.chain.MethodHandlerChainGroup;
+import org.apollo.api.method.Method;
+import org.apollo.api.method.handler.MethodHandler;
+import org.apollo.api.method.handler.chain.MethodHandlerChain;
+import org.apollo.api.method.handler.chain.MethodHandlerChainGroup;
 import org.apollo.game.event.handler.chain.EventHandlerChain;
 import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.util.xml.XmlNode;

@@ -9,11 +9,6 @@
   </authors>
   <scripts>
     <script>combat.rb</script>
-    <script>npc-combat.rb</script>
-    <script>player-combat.rb</script>
-    <script>combat-utils.rb</script>
-    <script>xml-loader.rb</script>
-    <script>death.rb</script>
   </scripts>
   <dependencies />
 </plugin>

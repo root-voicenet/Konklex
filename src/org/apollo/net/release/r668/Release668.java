@@ -2,6 +2,8 @@ package org.apollo.net.release.r668;
 
 import org.apollo.game.event.impl.ConfigEvent;
 import org.apollo.game.event.impl.LogoutEvent;
+import org.apollo.game.event.impl.NpcSynchronizationEvent;
+import org.apollo.game.event.impl.PlayerSynchronizationEvent;
 import org.apollo.game.event.impl.PositionEvent;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.event.impl.UpdateRunEnergyEvent;
@@ -141,6 +143,8 @@ public final class Release668 extends Release {
 		register(new ClientFocusChangeEventDecoder(), 75);
 		register(new ObjectLoadEventDecoder(), 33);
 		register(new PlayerIdleEventDecoder(), -1);
+		register(PlayerSynchronizationEvent.class, new PlayerSynchronizationEventEncoder());
+		register(NpcSynchronizationEvent.class, new NpcSynchronizationEventEncoder());
 		register(LogoutEvent.class, new LogoutEventEncoder());
 		register(ServerMessageEvent.class, new ServerMessageEventEncoder());
 		register(UpdateRunEnergyEvent.class, new UpdateRunEnergyEventEncoder());

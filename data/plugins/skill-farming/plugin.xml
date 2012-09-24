@@ -9,10 +9,6 @@
   </authors>  
   <scripts>
     <script>farming.rb</script>
-    <script>patches.rb</script>
-    <script>states.rb</script>
-    <script>seeds.rb</script>
-    <script>woodcutting.rb</script>
   </scripts>
   <dependencies />
 </plugin>

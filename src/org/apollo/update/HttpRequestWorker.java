@@ -9,7 +9,6 @@ import java.util.Date;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.Config;
 import org.apollo.update.resource.CombinedResourceProvider;
-import org.apollo.update.resource.FrontendResourceProvider;
 import org.apollo.update.resource.HypertextResourceProvider;
 import org.apollo.update.resource.ResourceProvider;
 import org.apollo.update.resource.VirtualResourceProvider;
@@ -50,7 +49,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	 */
 	public HttpRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
 		super(dispatcher, new CombinedResourceProvider(new VirtualResourceProvider(fs), new HypertextResourceProvider(
-				WWW_DIRECTORY), new FrontendResourceProvider()));
+				WWW_DIRECTORY)));
 	}
 
 	/**
@@ -122,16 +121,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 
 		String mimeType = getMimeType(request.getUri());
 
-		if (buf != null && buf instanceof Integer) {
-			int response = (Integer) buf;
-			if (response == 1) {
-				status = HttpResponseStatus.FORBIDDEN;
-				wrappedBuf = createErrorPage(status, "The frontend service is offline.");
-				mimeType = "text/html";
-			} else if (response == 2) {
-				return;
-			}
-		} else if (buf == null) {
+		if (buf == null) {
 			status = HttpResponseStatus.NOT_FOUND;
 			wrappedBuf = createErrorPage(status, "The page you requested could not be found.");
 			mimeType = "text/html";

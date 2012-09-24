@@ -219,6 +219,16 @@ public final class TextUtil {
 		}
 		return new String(out, 0, outPos);
 	}
+	
+	/**
+	 * Gets a random number.
+	 * @param range The range.
+	 * @return The number.
+	 */
+	public static int random(int range) {
+		int number = (int) (Math.random() * (range + 1));
+		return number < 0 ? 0 : number;
+	}
 
 	/**
 	 * Default private constructor to prevent instantiation.

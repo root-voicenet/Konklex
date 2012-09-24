@@ -14,7 +14,7 @@
 
 require 'java'
 java_import 'org.apollo.game.event.handler.EventHandler'
-java_import 'org.apollo.backend.method.handler.MethodHandler'
+java_import 'org.apollo.api.method.handler.MethodHandler'
 java_import 'org.apollo.game.command.PrivilegedCommandListener'
 java_import 'org.apollo.game.model.Player'
 java_import 'org.apollo.game.model.World'

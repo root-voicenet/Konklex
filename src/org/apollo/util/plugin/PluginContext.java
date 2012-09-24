@@ -4,12 +4,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
-import org.apollo.backend.FrontendService;
-import org.apollo.backend.codec.session.FrontendSession;
-import org.apollo.backend.method.Method;
-import org.apollo.backend.method.handler.MethodHandler;
-import org.apollo.backend.method.handler.chain.MethodHandlerChain;
-import org.apollo.backend.method.handler.chain.MethodHandlerChainGroup;
+import org.apollo.api.FrontendService;
+import org.apollo.api.method.Method;
+import org.apollo.api.method.handler.MethodHandler;
+import org.apollo.api.method.handler.chain.MethodHandlerChain;
+import org.apollo.api.method.handler.chain.MethodHandlerChainGroup;
 import org.apollo.game.GameService;
 import org.apollo.game.command.CommandListener;
 import org.apollo.game.event.Event;
@@ -37,7 +36,7 @@ public final class PluginContext {
 	/**
 	 * The logger for this class.
 	 */
-	private static final Logger logger = Logger.getLogger(FrontendSession.class.getName());
+	private static final Logger logger = Logger.getLogger(FrontendService.class.getName());
 
 	/**
 	 * Creates the plugin context.

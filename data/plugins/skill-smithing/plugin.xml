@@ -6,10 +6,13 @@
   <description>Adds the smithing skill.</description>
   <authors>
     <author>Steve</author>
+    <author>Shamon King</author>
   </authors>
   <scripts>
     <script>bar.rb</script>
     <script>smithing.rb</script>
+    <script>anvil.rb</script>
+    <script>bars.rb</script>
   </scripts>
   <dependencies />
 </plugin>

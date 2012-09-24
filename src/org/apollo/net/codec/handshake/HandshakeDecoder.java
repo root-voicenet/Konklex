@@ -75,11 +75,8 @@ public final class HandshakeDecoder extends FrameDecoder {
 			case HandshakeConstants.SERVICE_COUNT:
 				channel.write(createBuffer(2, id)); // TODO should it be here?
 				break;
-			case HandshakeConstants.SERVICE_WORLD:
-				channel.write(createBuffer(6, id));
-				break;
 			default:
-				throw new Exception("Invalid service id");
+				throw new Exception("Invalid service id " + id);
 			}
 			ctx.getPipeline().remove(this);
 			final HandshakeMessage message = new HandshakeMessage(id);

@@ -111,14 +111,21 @@ public final class LoginSession extends Session {
 					.registerPlayer(player);
 			if (registrationStatus != RegistrationStatus.OK) {
 				player = null;
-				if (registrationStatus == RegistrationStatus.ALREADY_ONLINE)
+				switch (registrationStatus) {
+				case ALREADY_ONLINE:
 					status = LoginConstants.STATUS_ACCOUNT_ONLINE;
-				else if (registrationStatus == RegistrationStatus.WORLD_OFFLINE)
+					break;
+				case WORLD_OFFLINE:
 					status = LoginConstants.STATUS_LOGIN_SERVER_OFFLINE;
-				else if (registrationStatus == RegistrationStatus.WORLD_UPDATING)
+					break;
+				case WORLD_UPDATING:
 					status = LoginConstants.STATUS_UPDATING;
-				else
+					break;
+				default:
 					status = LoginConstants.STATUS_SERVER_FULL;
+					break;
+
+				}
 				rights = 0;
 			}
 		}
@@ -128,17 +135,10 @@ public final class LoginSession extends Session {
 		if (player != null) {
 			final IsaacRandomPair randomPair = request.getRandomPair();
 			final Release release = serverContext.getRelease();
-			channel.getPipeline().addFirst("eventEncoder",
-					new GameEventEncoder(release));
-			channel.getPipeline().addBefore("eventEncoder", "gameEncoder",
-					new GamePacketEncoder(randomPair.getEncodingRandom()));
-			channel.getPipeline().addBefore(
-					"handler",
-					"gameDecoder",
-					new GamePacketDecoder(randomPair.getDecodingRandom(),
-							serverContext.getRelease()));
-			channel.getPipeline().addAfter("gameDecoder", "eventDecoder",
-					new GameEventDecoder(release));
+			channel.getPipeline().addFirst("eventEncoder", new GameEventEncoder(release));
+			channel.getPipeline().addBefore("eventEncoder", "gameEncoder", new GamePacketEncoder(randomPair.getEncodingRandom()));
+			channel.getPipeline().addBefore("handler", "gameDecoder", new GamePacketDecoder(randomPair.getDecodingRandom(), serverContext.getRelease()));
+			channel.getPipeline().addAfter("gameDecoder", "eventDecoder", new GameEventDecoder(release));
 			channel.getPipeline().remove("loginDecoder");
 			channel.getPipeline().remove("loginEncoder");
 			channelContext.setAttachment(player.getSession());

@@ -1,64 +1,8 @@
 <methods>
   <method>
-    <type>org.apollo.backend.method.impl.StatusMethod</type>
+    <type>org.apollo.api.method.impl.PrivateChatMethod</type>
     <chain>
-      <handler>org.apollo.backend.method.handler.impl.StatusMethodHandler</handler>
+      <handler>org.apollo.api.method.handler.impl.PrivateChatMethodHandler</handler>
     </chain>
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.HiscoreMethod</type>
-    <chain>
-      <handler>org.apollo.backend.method.handler.impl.HiscoreMethodHandler</handler>
-    </chain>
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.RegisterMethod</type>
-    <chain>
-      <handler>org.apollo.backend.method.handler.impl.RegisterMethodHandler</handler>
-    </chain>
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.KickMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.GiveItemMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.TakeItemMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.SetPositionMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.SetPrivilegeLevelMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.ConfigMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.SendYellMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.SendMessageMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.LoginMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.OnebipIpnMethod</type>
-    <chain />
-  </method>
-  <method>
-    <type>org.apollo.backend.method.impl.PaypalIpnMethod</type>
-    <chain />
   </method>
 </methods>

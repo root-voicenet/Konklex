@@ -1,4 +1,4 @@
-BARS = {}
+BAR = {}
 
 class Bar
   attr_reader :buttons, :id, :frame, :level, :ore_1, :ore_2, :exp, :ore_2_req, :count
@@ -23,7 +23,7 @@ def append_bar(bar)
   bar.buttons.each do |button, count|
     nb = Bar.new(bar.buttons, bar.id, bar.frame, bar.level, bar.ore_1, bar.ore_2, bar.exp, bar.ore_2_req)
     nb.set_count(count)
-    BARS[button] = nb
+    BAR[button] = nb
   end
 end
 

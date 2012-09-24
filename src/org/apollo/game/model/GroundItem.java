@@ -46,6 +46,15 @@ public final class GroundItem {
 	}
 
 	/**
+	 * Creates a open ground item.
+	 * @param item The item.
+	 * @param position The position.
+	 */
+	public GroundItem(Item item, Position position) {
+		this(null, item, position);
+	}
+
+	/**
 	 * Decreases the deletes.
 	 */
 	public void decreaseDeletes() {
@@ -64,7 +73,7 @@ public final class GroundItem {
 	 * @return The controller's name.
 	 */
 	public String getControllerName() {
-		return controllerName;
+		return controllerName != null ? controllerName : "null";
 	}
 
 	/**

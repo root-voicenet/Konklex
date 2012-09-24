@@ -199,6 +199,95 @@ public final class InterfaceSet {
 	}
 
 	/**
+	 * Sends a statement.
+	 * @param lines The lines.
+	 */
+	public void sendStatement(String... lines) {
+		switch (lines.length) {
+		case 1 :
+			sendStatement(lines[0]);
+			break;
+		case 2 :
+			sendStatement(lines[0], lines[1]);
+			break;
+		case 3 :
+			sendStatement(lines[0], lines[1], lines[2]);
+			break;
+		case 4 :
+			sendStatement(lines[0], lines[1], lines[2], lines[3]);
+			break;
+		case 5 :
+			sendStatement(lines[0], lines[1], lines[2], lines[3], lines[4]);
+			break;
+		}
+	}
+
+	/**
+	 * Sends a statement.
+	 * @param line1 The line 1.
+	 */
+	private void sendStatement(String line1) {
+		setInterfaceText(357, line1);
+		openDialogue(356);
+	}
+
+	/**
+	 * Sends a statement.
+	 * @param line1 The line 1.
+	 * @param line2 The line 2.
+	 */
+	private void sendStatement(String line1, String line2) {
+		setInterfaceText(360, line1);
+		setInterfaceText(361, line2);
+		openDialogue(359);
+	}
+
+	/**
+	 * Sends a statement.
+	 * @param line1 The line 1.
+	 * @param line2 The line 2.
+	 * @param line3 The line 3.
+	 */
+	private void sendStatement(String line1, String line2, String line3) {
+		setInterfaceText(364, line1);
+		setInterfaceText(365, line2);
+		setInterfaceText(366, line3);
+		openDialogue(363);
+	}
+
+	/**
+	 * Sends a statement.
+	 * @param line1 The line 1.
+	 * @param line2 The line 2.
+	 * @param line3 The line 3.
+	 * @param line4 The line 4.
+	 */
+	private void sendStatement(String line1, String line2, String line3, String line4) {
+		setInterfaceText(369, line1);
+		setInterfaceText(370, line2);
+		setInterfaceText(371, line3);
+		setInterfaceText(372, line4);
+		openDialogue(368);
+	}
+
+	/**
+	 * Sends a statement.
+	 * @param line1 The line 1.
+	 * @param line2 The line 2.
+	 * @param line3 The line 3.
+	 * @param line4 The line 4.
+	 * @param line5 The line 5.
+	 */
+	private void sendStatement(String line1, String line2, String line3, String line4, String line5) {
+		setInterfaceText(375, line1);
+		setInterfaceText(376, line2);
+		setInterfaceText(377, line3);
+		setInterfaceText(378, line4);
+		setInterfaceText(379, line5);
+		openDialogue(374);
+	}
+
+	/**
 	 * Opens a overlay window.
 	 * @param windowId The window's id.
 	 */

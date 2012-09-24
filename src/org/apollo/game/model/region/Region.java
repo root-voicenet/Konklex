@@ -313,7 +313,7 @@ public final class Region {
 	 * Sends a event to the players.
 	 * @param event The event to send.
 	 */
-	private void sendEvent(Event event) {
+	public void sendEvent(Event event) {
 		for (final Player player : players) {
 			if (event instanceof MapEvent) {
 				final MapEvent map = (MapEvent) event;

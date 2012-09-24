@@ -1,5 +1,6 @@
 package org.apollo;
 
+import org.apollo.net.codec.api.ApiRequest;
 import org.apollo.net.release.Release;
 import org.jboss.netty.channel.group.ChannelGroup;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
@@ -29,6 +30,11 @@ public final class ServerContext {
 	 * The channel group.
 	 */
 	private final ChannelGroup group = new DefaultChannelGroup();
+	
+	/**
+	 * The other worlds.
+	 */
+	private ApiRequest apiRequest = new ApiRequest(0, new int[0][0]);
 
 	/**
 	 * Creates a new server context.
@@ -74,5 +80,21 @@ public final class ServerContext {
 	 */
 	public ServiceManager getServiceManager() {
 		return serviceManager;
+	}
+	
+	/**
+	 * Gets the api request.
+	 * @return The api request.
+	 */
+	public ApiRequest get() {
+		return apiRequest;
+	}
+
+	/**
+	 * Sets the api request.
+	 * @param message The api request.
+	 */
+	public void set(ApiRequest message) {
+		apiRequest = message;
 	}
 }

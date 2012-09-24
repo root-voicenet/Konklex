@@ -8,7 +8,9 @@ import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.Inventory.StackMode;
+import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.model.region.Region;
+import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.game.sync.block.SynchronizationBlockSet;
@@ -141,6 +143,18 @@ public abstract class Character {
 	 */
 	public void damageEntity(int hit) {
 		final DamageEvent damage = new DamageEvent(hit, getHealth(), getHealthMax());
+		final int health = getHealth() - damage.getDamageDone();
+		setHealth(health);
+		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
+	}
+	
+	/**
+	 * Damages the character.
+	 * @param hit The damage to deal.
+	 * @param type The damage type.
+	 */
+	public void damage(int hit) {
+		final DamageEvent damage = new DamageEvent(hit > getHealth() ? getHealth() : hit, getHealth(), getHealthMax());
 		final int health = getHealth() - damage.getDamageDone();
 		setHealth(health);
 		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
@@ -330,6 +344,17 @@ public abstract class Character {
 	 */
 	private void init() {
 		World.getWorld().schedule(new SkillNormalizationTask(this));
+		
+		final Character me = this;
+		World.getWorld().schedule(new ScheduledTask(1, false) {
+			@Override
+			public void execute() {
+				if (isActive())
+					Combat.process(me);
+				else
+					stop();
+			}
+		});
 	}
 
 	/**

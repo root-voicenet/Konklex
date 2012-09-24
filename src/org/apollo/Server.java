@@ -8,11 +8,11 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apollo.backend.Frontend;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.impl.ProcessGroundItemsTask;
 import org.apollo.game.scheduling.impl.SystemCleanTask;
+import org.apollo.net.ApiPipelineFactory;
 import org.apollo.net.ApolloHandler;
 import org.apollo.net.HttpPipelineFactory;
 import org.apollo.net.JagGrabPipelineFactory;
@@ -59,8 +59,10 @@ public final class Server {
 					NetworkConstants.HTTP_PORT);
 			final SocketAddress jaggrab = new InetSocketAddress(
 					NetworkConstants.JAGGRAB_PORT);
+			final SocketAddress api = new InetSocketAddress(
+					NetworkConstants.API_PORT);
 			server.start();
-			server.bind(service, http, jaggrab);
+			server.bind(service, http, jaggrab, api);
 		} catch (final Throwable t) {
 			logger.log(Level.SEVERE, "Error whilst starting server.", t);
 		}
@@ -80,6 +82,11 @@ public final class Server {
 	 * The {@link ServerBootstrap} for the JAGGRAB listener.
 	 */
 	private final ServerBootstrap jagGrabBootstrap = new ServerBootstrap();
+	
+	/**
+	 * The {@link ServerBootstrap} for the API listener.
+	 */
+	private final ServerBootstrap apiBootstrap = new ServerBootstrap();
 
 	/**
 	 * The {@link ExecutorService} used for network events. The named thread
@@ -124,9 +131,10 @@ public final class Server {
 	 *            The HTTP address to bind to.
 	 * @param jagGrabAddress
 	 *            The JAGGRAB address to bind to.
+	 * @param api 
 	 */
 	public void bind(SocketAddress serviceAddress, SocketAddress httpAddress,
-			SocketAddress jagGrabAddress) {
+			SocketAddress jagGrabAddress, SocketAddress apiAddress) {
 		logger.info("Binding service listener to address: " + serviceAddress
 				+ "...");
 		serviceBootstrap.bind(serviceAddress);
@@ -142,6 +150,15 @@ public final class Server {
 		logger.info("Binding JAGGRAB listener to address: " + jagGrabAddress
 				+ "...");
 		jagGrabBootstrap.bind(jagGrabAddress);
+		logger.info("Binding API listener to address: " + apiAddress + "...");
+		try {
+			apiBootstrap.bind(apiAddress);
+		} catch (final Throwable t) {
+			logger.log(
+					Level.WARNING,
+					"Binding to API failed: no api calls will be made!",
+					t);
+		}
 		logger.info("Ready for connections.");
 	}
 
@@ -167,6 +184,7 @@ public final class Server {
 		serviceBootstrap.setFactory(factory);
 		httpBootstrap.setFactory(factory);
 		jagGrabBootstrap.setFactory(factory);
+		apiBootstrap.setFactory(factory);
 		context = new ServerContext(release, serviceManager);
 		final ApolloHandler handler = new ApolloHandler(context);
 		final ChannelPipelineFactory servicePipelineFactory = new ServicePipelineFactory(
@@ -178,6 +196,9 @@ public final class Server {
 		final ChannelPipelineFactory jagGrabPipelineFactory = new JagGrabPipelineFactory(
 				handler, timer);
 		jagGrabBootstrap.setPipelineFactory(jagGrabPipelineFactory);
+		final ChannelPipelineFactory apiPipelineFactory = new ApiPipelineFactory(
+				handler, timer);
+		apiBootstrap.setPipelineFactory(apiPipelineFactory);
 	}
 
 	/**

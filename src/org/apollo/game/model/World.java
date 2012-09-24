@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
 import org.apollo.Service;
-import org.apollo.backend.method.handler.impl.RegisterMethodHandler;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.fs.parser.ItemDefinitionParser;
 import org.apollo.fs.parser.NpcDefinitionParser;
@@ -31,6 +30,7 @@ import org.apollo.game.model.region.RegionManager;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.Scheduler;
 import org.apollo.game.scheduling.impl.SystemUpdateTask;
+import org.apollo.game.scheduling.impl.UptimeTask;
 import org.apollo.io.EquipmentDefinitionParser;
 import org.apollo.io.NpcSpawnParser;
 import org.apollo.util.CharacterRepository;
@@ -148,9 +148,15 @@ public final class World {
 	private ServerContext context;
 
 	/**
+	 * The uptime.
+	 */
+	private int uptime;
+
+	/**
 	 * Creates the world.
 	 */
 	private World() {
+		schedule(new UptimeTask());
 	}
 
 	/**
@@ -252,15 +258,6 @@ public final class World {
 	 */
 	public PluginManager getPluginManager() {
 		return pluginManager;
-	}
-
-	/**
-	 * Pushes a notification.
-	 * @param key The key.
-	 * @param value The value.
-	 */
-	public static void pushNotification(String key, String value) {
-		RegisterMethodHandler.pushNotification(key, value);
 	}
 
 	/**
@@ -419,7 +416,6 @@ public final class World {
 			final boolean success = playerRepository.add(player);
 			if (success) {
 				logger.info("Registered player: " + player + " [online=" + playerRepository.size() + "]");
-				pushNotification("login", player.getName());
 				return RegistrationStatus.OK;
 			} else {
 				logger.warning("Failed to register player (server full): " + player + " [online="
@@ -492,8 +488,23 @@ public final class World {
 		if (playerRepository.remove(player)) {
 			regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
-			pushNotification("logout", player.getName());
 		} else
 			logger.warning("Could not find player to unregister: " + player + "!");
+	}
+
+	/**
+	 * Sets the uptime.
+	 * @param uptime The uptime to set.
+	 */
+	public void setUptime(int uptime) {
+		this.uptime = uptime;
+	}
+
+	/**
+	 * Gets the uptime.
+	 * @return The uptime.
+	 */
+	public long getUptime() {
+		return (long) uptime;
 	}
 }

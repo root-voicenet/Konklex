@@ -11,7 +11,7 @@ public final class MagicOnPlayerEvent extends Event {
 	/**
 	 * The player that was clicked.
 	 */
-	private final int playerIndex;
+	private final int playerId;
 
 	/**
 	 * The spell id that was used.
@@ -20,20 +20,20 @@ public final class MagicOnPlayerEvent extends Event {
 
 	/**
 	 * Creates the magic on player event.
-	 * @param playerIndex The player index that was clicked.
+	 * @param playerId The player index that was clicked.
 	 * @param spellId The spell id that was used.
 	 */
-	public MagicOnPlayerEvent(int playerIndex, int spellId) {
-		this.playerIndex = playerIndex;
+	public MagicOnPlayerEvent(int playerId, int spellId) {
+		this.playerId = playerId;
 		this.spellId = spellId;
 	}
 
 	/**
-	 * Gets the player index.
-	 * @return The player index.
+	 * Gets the player id.
+	 * @return The player id.
 	 */
-	public int getPlayerIndex() {
-		return playerIndex;
+	public int getPlayerId() {
+		return playerId;
 	}
 
 	/**

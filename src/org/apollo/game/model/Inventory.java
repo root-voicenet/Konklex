@@ -178,6 +178,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	 */
 	public Item add(Item item) {
 		final int id = item.getId();
+		if (id > ItemDefinition.count())
+			return null;
 		final boolean stackable = isStackable(item.getDefinition());
 		if (stackable) {
 			for (int slot = 0; slot < capacity; slot++) {
@@ -256,6 +258,30 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		}
 		return true;
 	}
+	
+	/**
+	 * Attempts to remove all items in the specified inventory to this one, without
+	 * removing any from the specifed. This method has a slight performance
+	 * benefit over the {@link #addInventory(Inventory)} method, at the cost of
+	 * not knowing what items weren't added.
+	 * @param inventory The inventory of items to remove.
+	 * @return {@code true} if succesfully removed, {@code false} if in any case
+	 * an item cannot be removed.
+	 */
+	public boolean removeAll(Inventory inventory) {
+		if (inventory.size == 0)
+			return true;
+		final boolean oldFiringEvents = firingEvents;
+		firingEvents = inventory.size == 1;
+		try {
+			for (final Item item : inventory.items)
+				if (item != null && remove(item) != item.getAmount())
+					return false;
+		} finally {
+			firingEvents = oldFiringEvents;
+		}
+		return true;
+	}
 
 	/**
 	 * Attempts to add all items in the specified inventory to this one, without
@@ -270,6 +296,24 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 			final Item remaining = add(item);
 			if (remaining != null)
 				remainder.add(remaining);
+		}
+		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
+	}
+	
+	/**
+	 * Attempts to remove all items in the specified inventory to this one, without
+	 * removing any from the specified.
+	 * @param inventory The inventory of items to remove.
+	 * @return An array of items which have not been removed ({@code null} if
+	 * everything was removed).
+	 */
+	public Item[] removeInventory(Inventory inventory) {
+		final List<Item> remainder = new ArrayList<Item>(capacity - size);
+		for (final Item item : inventory.items) {
+			final int remaining = remove(item);
+			if (remaining != item.getAmount()) {
+				remainder.add(new Item(item.getId(), remaining));
+			}
 		}
 		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
 	}
@@ -340,6 +384,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	 */
 	public boolean contains(int id, int amount) {
 		int ctr = 0;
+		if (id > ItemDefinition.count())
+			return false;
 		if (isStackable(ItemDefinition.forId(id)))
 			for (int i = 0; i < capacity && ctr <= size; i++) {
 				final Item item = items[i];
@@ -656,6 +702,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	 * @return The amount that was removed.
 	 */
 	public int remove(int id, int amount) {
+		if (id > ItemDefinition.count())
+			return 0;
 		final ItemDefinition def = ItemDefinition.forId(id);
 		final boolean stackable = isStackable(def);
 		if (stackable) {
@@ -760,6 +808,20 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 			return removed;
 		}
 		return 0;
+	}
+	
+	/**
+	 * Removes {@code amount} of the item at the specified {@code slot}, under
+	 * the condition that this item matches the specified {@code id}. If the
+	 * item is not stacked, it will only remove the single item at the slot
+	 * (meaning it will ignore any amount higher than 1). This means that this
+	 * method will under no circumstances make any changes to other slots.
+	 * @param slot The slot.
+	 * @param item The item.
+	 * @return The amount that was removed (0 if nothing was removed).
+	 */
+	public int removeSlot(int slot, Item item) {
+		return removeSlot(slot, item.getId(), item.getAmount() == 0 ? 1 : item.getAmount());
 	}
 
 	/**

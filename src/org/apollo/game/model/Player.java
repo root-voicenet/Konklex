@@ -27,8 +27,17 @@ import org.apollo.game.model.skill.LevelUpSkillListener;
 import org.apollo.game.model.skill.PrayerSkillListener;
 import org.apollo.game.model.skill.SkillListener;
 import org.apollo.game.model.skill.SynchronizationSkillListener;
+import org.apollo.game.model.skill.farming.Allotments;
+import org.apollo.game.model.skill.farming.Bushes;
+import org.apollo.game.model.skill.farming.Compost;
+import org.apollo.game.model.skill.farming.Flowers;
+import org.apollo.game.model.skill.farming.FruitTree;
+import org.apollo.game.model.skill.farming.Herbs;
+import org.apollo.game.model.skill.farming.Hops;
+import org.apollo.game.model.skill.farming.Seedling;
+import org.apollo.game.model.skill.farming.SpecialPlantOne;
+import org.apollo.game.model.skill.farming.SpecialPlantTwo;
 import org.apollo.game.scheduling.impl.NormalizeEnergyTask;
-import org.apollo.game.scheduling.impl.UpdateSpecialTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.net.session.GameSession;
 import org.apollo.security.PlayerCredentials;
@@ -245,6 +254,56 @@ public final class Player extends Character {
 	 * The current song.
 	 */
 	private int currentSong;
+
+	/**
+	 * The allotment.
+	 */
+	private Allotments allotment = new Allotments(this);
+
+	/**
+	 * The flowers.
+	 */
+	private Flowers flowers = new Flowers(this);
+
+	/**
+	 * The compost.
+	 */
+	private Compost compost = new Compost(this);
+
+	/**
+	 * The herbs.
+	 */
+	private Herbs herbs = new Herbs(this);
+
+	/**
+	 * The hops.
+	 */
+	private Hops hops = new Hops(this);
+
+	/**
+	 * The bushes.
+	 */
+	private Bushes bushes = new Bushes(this);
+
+	/**
+	 * The special plant one.
+	 */
+	private SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
+
+	/**
+	 * The special plant two.
+	 */
+	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
+	
+	/**
+	 * The seedling.
+	 */
+	private Seedling seedling = new Seedling(this);
+
+	/**
+	 * The fruit tree.
+	 */
+	private FruitTree fruitTree = new FruitTree(this);
 
 	/**
 	 * Creates the {@link Player}.
@@ -587,7 +646,8 @@ public final class Player extends Character {
 	 * Starts player tasks.
 	 */
 	private void initTasks() {
-		World.getWorld().schedule(new UpdateSpecialTask(this));
+		// Fix this later
+		// World.getWorld().schedule(new UpdateSpecialTask(this));
 		World.getWorld().schedule(new NormalizeEnergyTask(this));
 	}
 
@@ -860,5 +920,85 @@ public final class Player extends Character {
 			currentSong = song;
 			send(new SongEvent(song));
 		}
+	}
+
+	/**
+	 * Gets the allotment.
+	 * @return The allotment.
+	 */
+	public Allotments getAllotment() {
+		return allotment;
+	}
+
+	/**
+	 * Gets the flowers.
+	 * @return The flowers.
+	 */
+	public Flowers getFlowers() {
+		return flowers;
+	}
+
+	/**
+	 * Gets the compost.
+	 * @return The compost.
+	 */
+	public Compost getCompost() {
+		return compost;
+	}
+
+	/**
+	 * Gets the herbs.
+	 * @return The herbs.
+	 */
+	public Herbs getHerbs() {
+		return herbs;
+	}
+
+	/**
+	 * Gets the hops.
+	 * @return The hops.
+	 */
+	public Hops getHops() {
+		return hops;
+	}
+
+	/**
+	 * Gets the bushes.
+	 * @return The bushes.
+	 */
+	public Bushes getBushes() {
+		return bushes;
+	}
+
+	/**
+	 * Gets the special plant one.
+	 * @return The special plant one.
+	 */
+	public SpecialPlantOne getSpecialPlantOne() {
+		return specialPlantOne;
+	}
+
+	/**
+	 * Gets the special plant two.
+	 * @return The special plant two.
+	 */
+	public SpecialPlantTwo getSpecialPlantTwo() {
+		return specialPlantTwo;
+	}
+
+	/**
+	 * Gets the fruit tree.
+	 * @return The fruit tree.
+	 */
+	public FruitTree getFruitTrees() {
+		return fruitTree;
+	}
+	
+	/**
+	 * Gets the seedling.
+	 * @return The seedling.
+	 */
+	public Seedling getSeedling() {
+		return seedling;
 	}
 }

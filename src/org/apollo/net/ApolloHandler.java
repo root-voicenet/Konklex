@@ -4,18 +4,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
-import org.apollo.game.model.World;
-import org.apollo.game.model.WorldConstants;
+import org.apollo.api.FrontendService;
+import org.apollo.net.codec.api.ApiMethodDecoder;
+import org.apollo.net.codec.api.ApiMethodEncoder;
+import org.apollo.net.codec.api.ApiPacketDecoder;
+import org.apollo.net.codec.api.ApiPacketEncoder;
+import org.apollo.net.codec.api.ApiRequest;
 import org.apollo.net.codec.handshake.HandshakeConstants;
 import org.apollo.net.codec.handshake.HandshakeMessage;
 import org.apollo.net.codec.jaggrab.JagGrabRequest;
+import org.apollo.net.session.ApiSession;
 import org.apollo.net.session.LoginSession;
 import org.apollo.net.session.Session;
 import org.apollo.net.session.UpdateSession;
-import org.jboss.netty.buffer.ChannelBuffer;
-import org.jboss.netty.buffer.ChannelBuffers;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
@@ -119,6 +123,18 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 			if (msg instanceof HttpRequest || msg instanceof JagGrabRequest) {
 				final Session s = new UpdateSession(ctx.getChannel(), serverContext);
 				s.messageReceived(msg);
+			} else if (msg instanceof ApiRequest) {
+				final ChannelPipeline pipeline = ctx.getChannel().getPipeline();
+				pipeline.addFirst("eventEncoder", new ApiMethodEncoder(serverContext.getRelease()));
+				pipeline.addBefore("eventEncoder", "gameEncoder", new ApiPacketEncoder());
+				pipeline.addBefore("handler", "gameDecoder", new ApiPacketDecoder(serverContext.getRelease()));
+				pipeline.addAfter("gameDecoder", "eventDecoder", new ApiMethodDecoder(serverContext.getRelease()));
+				pipeline.remove("apiDecoder");
+				pipeline.remove("timeout");
+				final ApiSession s = new ApiSession(ctx.getChannel(), serverContext);
+				serverContext.set((ApiRequest) msg);
+				serverContext.getService(FrontendService.class).addSession(s);
+				ctx.setAttachment(s);
 			} else {
 				final HandshakeMessage handshakeMessage = (HandshakeMessage) msg;
 				switch (handshakeMessage.getServiceId()) {
@@ -127,14 +143,6 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 					break;
 				case HandshakeConstants.SERVICE_UPDATE:
 					ctx.setAttachment(new UpdateSession(ctx.getChannel(), serverContext));
-					break;
-				case HandshakeConstants.SERVICE_WORLD:
-					final ChannelBuffer buffer = ChannelBuffers.buffer(6);
-					buffer.writeByte(1);
-					buffer.writeByte(1);
-					buffer.writeShort(World.getWorld().getPlayerRepository().size());
-					buffer.writeShort(WorldConstants.MAXIMUM_PLAYERS);
-					ctx.getChannel().write(buffer);
 					break;
 				default:
 					throw new Exception("Invalid service id");

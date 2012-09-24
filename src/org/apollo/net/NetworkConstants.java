@@ -20,6 +20,11 @@ public final class NetworkConstants {
 	 * The HTTP port.
 	 */
 	public static final int HTTP_PORT = 80;
+	
+	/**
+	 * The API port.
+	 */
+	public static final int API_PORT = 4473;
 
 	/**
 	 * The terminator of a string.

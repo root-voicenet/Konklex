@@ -23,9 +23,9 @@ public final class HandshakeConstants {
 	public static final int SERVICE_COUNT = 16;
 	
 	/**
-	 * The id of the world service.
+	 * The id of the api.
 	 */
-	public static final int SERVICE_WORLD = 17;
+	public static final int API = 17;
 
 	/**
 	 * Default private constructor to prevent instantiation by other classes.

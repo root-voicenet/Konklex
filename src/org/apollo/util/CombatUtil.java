@@ -5,7 +5,6 @@ import java.util.PriorityQueue;
 
 import org.apollo.game.model.Inventory;
 import org.apollo.game.model.Item;
-import org.apollo.game.model.def.ItemDefinition;
 
 /**
  * A utility for combat.
@@ -23,11 +22,11 @@ public final class CombatUtil {
 		PriorityQueue<Item> allItems = new PriorityQueue<Item>(1, new Comparator<Item>() {
 			@Override
 			public int compare(Item a, Item b) {
-				return ItemDefinition.forId(b.getId()).getValue() - ItemDefinition.forId(a.getId()).getValue();
+				return b.getDefinition().getValue() - a.getDefinition().getValue();
 			}
 		});
 		for (Item item : items) {
-			allItems.add(new Item(item.getId()));
+			allItems.add(item);
 		}
 		Inventory keptItems = new Inventory(keep);
 		while (keptItems.size() < keep && allItems.size() > 0) {

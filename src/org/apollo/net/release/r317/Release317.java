@@ -91,12 +91,44 @@ public final class Release317 extends Release {
 		0, 4, 0, 0, 0, 0, -1, 0, -1, 4,// 240
 		0, 0, 6, 6, 0, 0, // 250
 	};
+	
+	/**
+	 * The incoming packet lengths array.
+	 */
+	public static final int[] API_PACKET_LENGTHS = { 
+		0, -1, 0, 0, 0, 0, 0, 0, 0, 0, // 0-10
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 10
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 20
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 30
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 40
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 50
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 60
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 70
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 80
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 90
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,// 100
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 110
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 120
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 130
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 140
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 150
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,// 160
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 170
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 180
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 190
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 200
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 210
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 220
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 230
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0,// 240
+		0, 0, 0, 0, 0, 0, // 250
+	};
 
 	/**
 	 * Creates and initializes this release.
 	 */
 	public Release317() {
-		super(317, PacketMetaDataGroup.createFromArray(PACKET_LENGTHS));
+		super(317, PacketMetaDataGroup.createFromArray(PACKET_LENGTHS), PacketMetaDataGroup.createFromArray(API_PACKET_LENGTHS));
 		init();
 	}
 
@@ -205,5 +237,7 @@ public final class Release317 extends Release {
 		register(ProjectileEvent.class, new ProjectileEventEncoder());
 		register(ResetClientEvent.class, new ResetClientEventEncoder());
 		register(GraphicEvent.class, new GraphicEventEncoder());
+		// register api decoders
+		register(new PrivateChatMethodDecoder(), 1);
 	}
 }

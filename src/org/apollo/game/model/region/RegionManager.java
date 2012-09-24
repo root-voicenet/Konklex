@@ -155,7 +155,7 @@ public final class RegionManager {
 			for (final GroundItem groundItem : collection)
 				if (groundItem.getPosition().equals(position))
 					if (groundItem.getItem().getId() == item)
-						if (groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0)
+						if (groundItem.getControllerName().equals("null") || groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0)
 							return groundItem;
 		return null;
 	}
