@@ -1,11 +1,13 @@
 package org.apollo.game.scheduling.impl;
 
+import org.apollo.api.FrontendService;
+import org.apollo.api.method.impl.TimeMethod;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
- * An {@link ScheduledEvent} for updating the special.
+ * An {@link ScheduledEvent} for updating the server time.
  * @author Steve
  */
 public final class UptimeTask extends ScheduledTask {
@@ -34,6 +36,12 @@ public final class UptimeTask extends ScheduledTask {
 			player.getSpecialPlantOne().doCalculations();
 			player.getSpecialPlantTwo().doCalculations();
 			player.getFruitTrees().doCalculations();
+		}
+		if (World.getWorld().getContext() != null) {
+			FrontendService service = World.getWorld().getContext().getService(FrontendService.class);
+			if (service != null) {
+				service.sendAll(new TimeMethod(World.getWorld().getUptime()));
+			}
 		}
 	}
 }

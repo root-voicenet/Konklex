@@ -68,7 +68,7 @@ public final class PlayerMessaging {
 	/**
 	 * Hold the chat id.
 	 */
-	private int lastchat = 0;
+	private int lastchat = 1;
 
 	/**
 	 * The friend size.
@@ -255,9 +255,9 @@ public final class PlayerMessaging {
 		for (final Entry<String, Event> entry : friends.entrySet())
 			if (entry.getValue().toInteger() == 1) {
 				final String friend = entry.getKey();
-				final boolean online = World.getWorld().isPlayerOnline(friend);
-				final SendFriendEvent sendFriend = new SendFriendEvent(
-						NameUtil.encodeBase37(friend), online ? 1 : 0);
+				final boolean online = World.getWorld().getMessaging().isPlayerOnline(friend);
+				final int world = World.getWorld().getMessaging().getWorld(friend);
+				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(friend), online ? world+8 : 0);
 				player.send(sendFriend);
 			} else
 				ignores[i++] = NameUtil.encodeBase37(entry.getKey());
@@ -278,9 +278,9 @@ public final class PlayerMessaging {
 		if (friends.containsKey(user)) {
 			final int value = friends.get(user).toInteger();
 			if (value == 1) {
-				final boolean online = World.getWorld().isPlayerOnline(user);
-				final SendFriendEvent sendFriend = new SendFriendEvent(
-						NameUtil.encodeBase37(user), online ? 1 : 0);
+				final boolean online = World.getWorld().getMessaging().isPlayerOnline(user);
+				final int world = World.getWorld().getMessaging().getWorld(user);
+				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(user), online ? world+8 : 0);
 				player.send(sendFriend);
 			}
 		}

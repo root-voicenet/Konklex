@@ -4,8 +4,11 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Queue;
 
+import org.apollo.api.FrontendService;
+import org.apollo.api.method.impl.PrivateChatMethod;
 import org.apollo.game.event.impl.PrivateChatLoadedEvent;
 import org.apollo.game.event.impl.SendPrivateChatEvent;
 import org.apollo.game.model.Player;
@@ -81,10 +84,11 @@ public final class WorldMessaging {
 	 */
 	public boolean isPlayerOnline(String player) {
 		player = player.toLowerCase();
+		boolean online = World.getWorld().isPlayerOnline(player);
 		for (int i = 0; i < worlds; i++)
 			if (players.get(i).contains(player))
-				return true;
-		return false;
+				online = true;
+		return online;
 	}
 
 	/**
@@ -128,6 +132,9 @@ public final class WorldMessaging {
 		if (friend != null)
 			friend.send(new SendPrivateChatEvent(sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(),
 					message, friend.getMessaging().getLastId()));
+		else
+			World.getWorld().getContext().getService(FrontendService.class).sendAll(
+					new PrivateChatMethod(reciever, sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(), message));
 	}
 
 	/**
@@ -138,19 +145,30 @@ public final class WorldMessaging {
 	 */
 	public void sendPrivateMessage(String sender, String reciever, String message) {
 		final Player friend = World.getWorld().getPlayer(reciever);
+		String uncompressed = message;
+		uncompressed = TextUtil.filterInvalidCharacters(message);
+		uncompressed = TextUtil.capitalize(message);
+		final byte[] recompressed = new byte[uncompressed.length()];
+		TextUtil.compress(uncompressed, recompressed);
 		if (friend != null) {
-			final int length = (byte) (message.length());
-			final byte[] originalCompressed = message.getBytes();
-			String uncompressed = TextUtil.uncompress(originalCompressed, length);
-			uncompressed = TextUtil.filterInvalidCharacters(uncompressed);
-			uncompressed = TextUtil.capitalize(uncompressed);
-			final byte[] recompressed = new byte[length];
-			TextUtil.compress(uncompressed, recompressed);
-
-			friend.send(new SendPrivateChatEvent(NameUtil.encodeBase37(sender), 0,
-					recompressed, friend.getMessaging().getLastId()));
+			friend.send(new SendPrivateChatEvent(NameUtil.encodeBase37(sender), 0, recompressed, friend.getMessaging().getLastId()));
+		} else {
+			World.getWorld().getContext().getService(FrontendService.class).sendAll(
+					new PrivateChatMethod(reciever, sender, 0, message));
 		}
-	} 
+	}
+	
+	/**
+	 * Gets the world.
+	 * @param player The player.
+	 * @return The world.
+	 */
+	public int getWorld(String player) {
+		for (final Entry<Integer, ArrayList<String>> entry : players.entrySet())
+			if (entry.getValue().contains(player))
+				return entry.getKey();
+		return -1;
+	}
 
 	/**
 	 * Send the other players that a user is online.

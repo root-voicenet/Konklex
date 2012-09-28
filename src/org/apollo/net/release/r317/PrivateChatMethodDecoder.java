@@ -28,8 +28,6 @@ public final class PrivateChatMethodDecoder extends MethodDecoder<PrivateChatMet
 		uncompressed = TextUtil.capitalize(uncompressed);
 		final byte[] recompressed = new byte[length];
 		TextUtil.compress(uncompressed, recompressed);
-		
-		System.out.println("Message: " + uncompressed);
 		return new PrivateChatMethod(friend, sender, rights, recompressed);
 	}
 

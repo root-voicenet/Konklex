@@ -79,11 +79,13 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		for (final Iterator<Player> it = localPlayers.iterator(); it.hasNext();) {
 		    final Player p = it.next();
 		    final boolean check = p.getPosition().getHeight() == player.getPosition().getHeight();
-		    if (!p.isActive() || p.isTeleporting() || !check || p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
-				it.remove();
-				segments.add(new RemoveCharacterSegment());
-		    } else
-		    	segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+		    if (!p.isHidden()) {
+			    if (!p.isActive() || p.isTeleporting() || !check || p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
+					it.remove();
+					segments.add(new RemoveCharacterSegment());
+			    } else
+			    	segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+		    }
 		}
 		
 		for (final Player p : repository) {

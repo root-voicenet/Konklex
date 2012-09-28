@@ -9,6 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apollo.Service;
+import org.apollo.api.method.Method;
 import org.apollo.api.method.handler.chain.MethodHandlerChainGroup;
 import org.apollo.io.MethodHandlerChainParser;
 import org.apollo.net.session.ApiSession;
@@ -94,6 +95,18 @@ public final class FrontendService extends Service {
 	 */
 	public void removeSession(ApiSession session) {
 		sessions.remove(session);
+	}
+	
+	/**
+	 * Sends all of the sessions the method.
+	 * @param method The method to send.
+	 */
+	public <E extends Method> void sendAll(E method) {
+		for (ApiSession session : sessions) {
+			if (session != null) {
+				session.dispatchMethod(method);
+			}
+		}
 	}
 
 	/**

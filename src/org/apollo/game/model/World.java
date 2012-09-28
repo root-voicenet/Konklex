@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 
 import org.apollo.ServerContext;
 import org.apollo.Service;
+import org.apollo.api.FrontendService;
+import org.apollo.api.method.impl.SendPlayerMethod;
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.fs.parser.ItemDefinitionParser;
 import org.apollo.fs.parser.NpcDefinitionParser;
@@ -151,12 +153,33 @@ public final class World {
 	 * The uptime.
 	 */
 	private int uptime;
+	
+	/**
+	 * The world id.
+	 */
+	private int id;
 
 	/**
 	 * Creates the world.
 	 */
 	private World() {
 		schedule(new UptimeTask());
+	}
+	
+	/**
+	 * Gets the id.
+	 * @return The id.
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	/**
+	 * Sets the id.
+	 * @param id The id.
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	/**
@@ -415,6 +438,7 @@ public final class World {
 		} else {
 			final boolean success = playerRepository.add(player);
 			if (success) {
+				context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), true));
 				logger.info("Registered player: " + player + " [online=" + playerRepository.size() + "]");
 				return RegistrationStatus.OK;
 			} else {
@@ -486,6 +510,7 @@ public final class World {
 	 */
 	public void unregister(Player player) {
 		if (playerRepository.remove(player)) {
+			context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), false));
 			regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
 		} else

@@ -56,7 +56,7 @@ end
 # context, the player and the event.
 class ProcEventHandler < EventHandler
   def initialize(block)
-    super() # required (with brackets!), see http://jira.codehaus.org/browse/JRUBY-679
+    super() # required (with brackets!), see http://jira.codehaus.org/browse/JRUBY-67
     @block = block
   end
 
@@ -204,3 +204,5 @@ def on_http(args, proc)
 
   $ctx.add_last_method_handler evt, ProcMethodHandler.new(proc)
 end
+
+ProcEventHandler.__persistent__ = true

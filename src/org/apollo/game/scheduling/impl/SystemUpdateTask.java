@@ -29,9 +29,9 @@ public class SystemUpdateTask extends ScheduledTask {
 	 * Starts the system update task.
 	 * @return True if started, false if already started.
 	 */
-	public static boolean start() {
+	public static boolean start(int time) {
 		if (!SERVER_UPDATING) {
-			new SystemUpdateTask(6);
+			new SystemUpdateTask(time);
 			return true;
 		} else
 			return false;
@@ -52,7 +52,7 @@ public class SystemUpdateTask extends ScheduledTask {
 	 * @param time The time (in minutes) to cycle threw the update event.
 	 */
 	public SystemUpdateTask(int time) {
-		super(time * 60, true);
+		super(time * (time*10), true);
 		this.time = time;
 		SERVER_UPDATING = true;
 		World.getWorld().schedule(this);
