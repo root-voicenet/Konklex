@@ -48,7 +48,6 @@ public final class BinaryPlayerLoader implements PlayerLoader {
 		final File f = BinaryPlayerUtil.getFile(credentials.getUsername());
 		if (!f.exists()) {
 			final Player player = new Player(credentials, SPAWN_POSITION);
-			// HiscoreSaver.create(player);
 			return new PlayerLoaderResponse(LoginConstants.STATUS_OK, player);
 		}
 		final DataInputStream in = new DataInputStream(new FileInputStream(f));

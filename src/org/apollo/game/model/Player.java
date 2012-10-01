@@ -311,7 +311,7 @@ public final class Player extends Character {
 	 * @param position The initial position.
 	 */
 	public Player(PlayerCredentials credentials, Position position) {
-		super(position);
+		super(position, true);
 		init();
 		this.credentials = credentials;
 	}

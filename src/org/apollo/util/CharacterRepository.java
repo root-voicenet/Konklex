@@ -146,6 +146,19 @@ Iterable<T> {
 		size++;
 		return true;
 	}
+	
+	/**
+	 * Checks if the character is in the list.
+	 * @return True if listed, false if otherwise.
+	 */
+	public boolean contains(Character character) {
+		if (character == null)
+			return false;
+		for (Character entity : characters)
+			if (character.equals(entity))
+				return true;
+		return false;
+	}
 
 	/**
 	 * Gets the capacity of this repository.

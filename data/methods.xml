@@ -29,4 +29,10 @@
       <handler>org.apollo.api.method.handler.impl.UpdateMethodHandler</handler>
     </chain>
   </method>
+  <method>
+    <type>org.apollo.api.method.impl.PlayerCommandMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.PlayerCommandMethodHandler</handler>
+    </chain>
+  </method>
 </methods>

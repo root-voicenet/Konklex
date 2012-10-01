@@ -120,11 +120,18 @@ public abstract class Character {
 	private boolean facing = false;
 
 	/**
+	 * True if player, false if npc.
+	 */
+	private final boolean type;
+
+	/**
 	 * Creates a new character with the specified initial position.
 	 * @param position The initial position of this character.
+	 * @param type True if player, false if npc.
 	 */
-	public Character(Position position) {
+	public Character(Position position, boolean type) {
 		this.position = position;
+		this.type = type;
 		init();
 	}
 
@@ -402,6 +409,22 @@ public abstract class Character {
 	 */
 	public void resetBlockSet() {
 		blockSet = new SynchronizationBlockSet();
+	}
+	
+	/**
+	 * Checks if this character is a player.
+	 * @return True if player, false if npc.
+	 */
+	public boolean isPlayer() {
+		return type;
+	}
+	
+	/**
+	 * Checks if this character is a npc.
+	 * @return True if npc, false if player.
+	 */
+	public boolean isNpc() {
+		return !type;
 	}
 
 	/**

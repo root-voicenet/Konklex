@@ -317,7 +317,7 @@ public final class Region {
 		for (final Player player : players) {
 			if (event instanceof MapEvent) {
 				final MapEvent map = (MapEvent) event;
-				player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition()));
+				player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(), map.getOffsetY()));
 			}
 			player.send(event);
 		}

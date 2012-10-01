@@ -89,6 +89,11 @@ public final class MeleeSet {
 	private boolean dying;
 
 	/**
+	 * The special.
+	 */
+	private int special;
+
+	/**
 	 * Start a new melee class for the specified character.
 	 * @param character The character.
 	 */
@@ -102,6 +107,14 @@ public final class MeleeSet {
 	 */
 	public Character getInteractingCharacter() {
 		return interacter;
+	}
+	
+	/**
+	 * Sets the special.
+	 * @param special The special.
+	 */
+	public void setSpecial(int special) {
+		this.special = special;
 	}
 	
 	/**
@@ -246,5 +259,13 @@ public final class MeleeSet {
 	 */
 	public void setDying(boolean dying) {
 		this.dying = dying;
+	}
+
+	/**
+	 * Gets the special.
+	 * @return The special.
+	 */
+	public int getSpecial() {
+		return special;
 	}
 }

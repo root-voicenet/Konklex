@@ -47,7 +47,7 @@ public final class Npc extends Character {
 	 * @param position The position to place the NPC at.
 	 */
 	public Npc(int id, Position position) {
-		super(position);
+		super(position, false);
 		this.id = id;
 		this.init();
 	}

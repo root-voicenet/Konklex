@@ -25,10 +25,8 @@ public final class PositionEventEncoder extends EventEncoder<PositionEvent> {
 	public GamePacket encode(PositionEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(85);
 		final Position base = event.getBase(), pos = event.getPosition();
-		builder.put(DataType.BYTE, DataTransformation.NEGATE,
-				pos.getLocalY(base));
-		builder.put(DataType.BYTE, DataTransformation.NEGATE,
-				pos.getLocalX(base));
+		builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalY(base) - event.getOffsetY());
+		builder.put(DataType.BYTE, DataTransformation.NEGATE, pos.getLocalX(base) - event.getOffsetX());
 		return builder.toGamePacket();
 	}
 }

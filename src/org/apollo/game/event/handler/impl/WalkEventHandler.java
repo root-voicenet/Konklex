@@ -40,6 +40,7 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 				queue.setRunning(event.isRunning());
 		}
 		if (queue.size() > 0) {
+			player.getMeleeSet().setInteractingCharacter(null);
 			player.stopAction();
 			player.stopFacing();
 			player.getInterfaceSet().close();

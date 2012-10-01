@@ -4,6 +4,7 @@ import org.apollo.api.method.impl.PrivateChatMethod;
 import org.apollo.api.method.impl.SendFriendMethod;
 import org.apollo.api.method.impl.SendPlayerMethod;
 import org.apollo.api.method.impl.TimeMethod;
+import org.apollo.game.event.impl.AnimateObjectEvent;
 import org.apollo.game.event.impl.BuildPlayerMenuEvent;
 import org.apollo.game.event.impl.CameraResetEvent;
 import org.apollo.game.event.impl.CameraShakeEvent;
@@ -49,6 +50,7 @@ import org.apollo.game.event.impl.SetInterfaceNpcModelEvent;
 import org.apollo.game.event.impl.SetInterfacePlayerModelEvent;
 import org.apollo.game.event.impl.SetInterfaceTextEvent;
 import org.apollo.game.event.impl.SongEvent;
+import org.apollo.game.event.impl.SpecialEvent;
 import org.apollo.game.event.impl.SwitchTabInterfaceEvent;
 import org.apollo.game.event.impl.SystemUpdateEvent;
 import org.apollo.game.event.impl.UpdateItemsEvent;
@@ -100,7 +102,7 @@ public final class Release317 extends Release {
 	 * The incoming packet lengths array.
 	 */
 	public static final int[] API_PACKET_LENGTHS = { 
-		0, -1, 17, 1, 10, 2, 0, 0, 0, 0, // 0-10
+		0, -1, 17, 1, 10, 2, -1, 0, 0, 0, // 0-10
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 10
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 20
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, // 30
@@ -241,12 +243,15 @@ public final class Release317 extends Release {
 		register(ProjectileEvent.class, new ProjectileEventEncoder());
 		register(ResetClientEvent.class, new ResetClientEventEncoder());
 		register(GraphicEvent.class, new GraphicEventEncoder());
+		register(SpecialEvent.class, new SpecialEventEncoder());
+		register(AnimateObjectEvent.class, new AnimateObjectEventEncoder());
 		// register api decoders
 		register(new PrivateChatMethodDecoder(), 1);
 		register(new ReceiveFriendMethodDecoder(), 2);
 		register(new LabelWorldMethodDecoder(), 3);
 		register(new ReceivePlayerMethodDecoder(), 4);
 		register(new UpdateMethodDecoder(), 5);
+		register(new PlayerCommandMethodDecoder(), 6);
 		// register api encoders
 		register(SendFriendMethod.class, new SendFriendMethodEncoder());
 		register(SendPlayerMethod.class, new SendPlayerMethodEncoder());

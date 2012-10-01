@@ -76,7 +76,7 @@ public final class ProjectileEvent extends MapEvent {
 	public ProjectileEvent(Position start, int size, int lockOn,
 			byte offsetX, byte offsetY, int projectileId, int delay,
 			int duration, int startHeight, int endHeight, int curve) {
-		super(start);
+		super(start, 3, 2);
 		this.size = size;
 		this.lockOn = lockOn;
 		this.offsetX = offsetX;
@@ -103,7 +103,7 @@ public final class ProjectileEvent extends MapEvent {
 	 */
 	public ProjectileEvent(Position start, byte offsetX,
 			byte offsetY, int projectileId, int startHeight, 
-			int endHeight, int speed,int lockOn, boolean mage) {
+			int endHeight, int speed, int lockOn, boolean mage) {
 		this(start, 0, lockOn, offsetX, offsetY, projectileId, mage ? 50 : 41, speed, startHeight, endHeight, 16);
 	}
 
@@ -127,7 +127,7 @@ public final class ProjectileEvent extends MapEvent {
 	 * Gets the offset x.
 	 * @return The offset x.
 	 */
-	public byte getOffsetX() {
+	public byte getOffsetX_() {
 		return offsetX;
 	}
 
@@ -135,7 +135,7 @@ public final class ProjectileEvent extends MapEvent {
 	 * Gets the offset y.
 	 * @return The offset y.
 	 */
-	public byte getOffsetY() {
+	public byte getOffsetY_() {
 		return offsetY;
 	}
 

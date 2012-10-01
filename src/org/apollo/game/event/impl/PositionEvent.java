@@ -20,6 +20,16 @@ public final class PositionEvent extends Event {
 	private final Position position;
 
 	/**
+	 * The offsetY.
+	 */
+	private int offsetY = 0;
+
+	/**
+	 * The offsetX.
+	 */
+	private int offsetX = 0;
+
+	/**
 	 * Creates the event with the specified base and position.
 	 * @param base The position base.
 	 * @param position The position of the event.
@@ -27,6 +37,19 @@ public final class PositionEvent extends Event {
 	public PositionEvent(Position base, Position position) {
 		this.base = base;
 		this.position = position;
+	}
+	
+	/**
+	 * Creates the event with the specified base and position.
+	 * @param base The position base.
+	 * @param position The position of the event.
+	 * @param offsetX The offset x.
+	 * @param offsetY The offset y.
+	 */
+	public PositionEvent(Position base, Position position, int offsetX, int offsetY) {
+		this(base, position);
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 
 	/**
@@ -43,5 +66,21 @@ public final class PositionEvent extends Event {
 	 */
 	public Position getPosition() {
 		return position;
+	}
+	
+	/**
+	 * Gets the offset x.
+	 * @return The offset x.
+	 */
+	public int getOffsetX() {
+		return offsetX;
+	}
+	
+	/**
+	 * Gets the offset y.
+	 * @return The offset y.
+	 */
+	public int getOffsetY() {
+		return offsetY;
 	}
 }

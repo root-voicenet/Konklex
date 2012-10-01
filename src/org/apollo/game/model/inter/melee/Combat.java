@@ -13,7 +13,6 @@ import org.apollo.game.model.Position;
 import org.apollo.game.model.Skill;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
-import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.util.CombatUtil;
 import org.apollo.util.TextUtil;
 
@@ -40,20 +39,21 @@ public final class Combat {
 			return;
 		}
 		if (source.getMeleeSet().isUnderAttack()) {
-			if (source instanceof Player) {
+			if (source.isPlayer()) {
 				((Player)source).sendMessage("You are already in combat!");
 			}
 			return;
 		}
 		if (victim.getMeleeSet().isUnderAttack()) {
 			if (victim.getMeleeSet().getInteractingCharacter() != source) {
-				if (source instanceof Player) {
-					((Player)source).sendMessage("This " + (victim instanceof Npc ? "npc" : "player") + " is already in combat!");
+				if (source.isPlayer()) {
+					((Player)source).sendMessage("This " + (victim.isNpc() ? "npc" : "player") + " is already in combat!");
 				}
 			}
 			return;
 		}
-		if (source.getPosition().isWithinDistance(victim.getPosition(), 2)) {
+		int type = grabHitType(source);
+		if (type != MELEE || source.getPosition().isWithinDistance(victim.getPosition(), 2)) {
 			initiateInteraction(source, victim);
 		} else {
 			walkToVictim(source, victim, true);
@@ -73,19 +73,11 @@ public final class Combat {
 		}
 		if (source.getMeleeSet().getInteractingCharacter() != null) {
 			Character victim = source.getMeleeSet().getInteractingCharacter();
-			if (victim.getHealth() <= 0 && !victim.getMeleeSet().isDying()) {
-				victim.getMeleeSet().setAttacking(false);
-				victim.getMeleeSet().setUnderAttack(false);
-				victim.getMeleeSet().setInteractingCharacter(null);
-				victim.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-				source.getMeleeSet().setAttacking(false);
-				source.getMeleeSet().setUnderAttack(false);
-				source.getMeleeSet().setInteractingCharacter(null);
-				source.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-				appendDeath(source, victim);
+			if (victim.getHealth() <= 0) {
 				return;
 			}
-			if (!source.getPosition().isWithinDistance(victim.getPosition(), 2)) {
+			final int type = grabHitType(source);
+			if (!source.getPosition().isWithinDistance(victim.getPosition(), 2) && type == MELEE) {
 				walkToVictim(source, victim, false);
 				return;
 			}
@@ -96,27 +88,31 @@ public final class Combat {
 				if (source.getMeleeSet().isUsingSpecial()) {
 					//appendSpecial(Character, victim);
 				}
-				int type = grabHitType(source);
 				int damage = TextUtil.random(grabMaxHit(type, source, victim));
-				boolean success = false;
-				
-				switch(type) {
-					default:
-						success = appendMelee(source, victim, damage);
-						break;
-					case RANGED:
-						success = appendRange(source, victim, damage);
-						break;
-					case MAGIC:
-						success = false;
-						break;
-				}
-
-				if (success)
+				if (appendHit(type, source, victim, damage))
 					victim.damage(damage);
 				source.getMeleeSet().setAttackTimer(1);
 				victim.getMeleeSet().setLastAttack(System.currentTimeMillis());
 			}
+		}
+	}
+
+	/**
+	 * Appends a hit to the victim. 
+	 * @param type The type.
+	 * @param source The source.
+	 * @param victim The victim. 
+	 * @param damage The damage.
+	 * @return True if hit was successful, false if not.
+	 */
+	private static boolean appendHit(int type, Character source, Character victim, int damage) {
+		switch(type) {
+		case RANGED:
+			return appendRange(source, victim, damage);
+		case MAGIC:
+			return false;
+		default:
+			return appendMelee(source, victim, damage);
 		}
 	}
 
@@ -130,22 +126,45 @@ public final class Combat {
 	private static boolean appendRange(Character source, Character victim, int damage) {
 		int offsetX = (source.getPosition().getX() - victim.getPosition().getX()) * -1;
 		int offsetY = (source.getPosition().getY() - victim.getPosition().getY()) * -1;
-		// Some kind of range projectile, sniffed from a session.
-		ProjectileEvent rangeProjectile = new ProjectileEvent(
-			source.getPosition(),
-			0,
-			-victim.getIndex()-1,
-			(byte) offsetX,
-			(byte) offsetY,
-			70,
-			44,
-			3,
-			43,
-			31,
-			15
-		);
-		source.getRegion().sendEvent(rangeProjectile);
-		source.playAnimation(new Animation(24));
+		Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
+		if (item != null) {
+			if (item.getAmount() > 0) {
+				int projectile = RangeConstants.Range.forArrow(item.getId());
+				if (projectile != -1) {
+					ProjectileEvent rangeProjectile = new ProjectileEvent(
+							source.getPosition(),
+							0,
+							victim.isPlayer() ? -victim.getIndex()-1 : victim.getIndex() + 1,
+							(byte) offsetX,
+							(byte) offsetY,
+							projectile,
+							51, // Delay, Default: 51
+							70, // Duration, Default: 70
+							43,
+							31,
+							16
+					);
+					source.getRegion().sendEvent(rangeProjectile);
+					source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
+					if (TextUtil.random(2) == 1) {
+						if (source.isPlayer()) {
+							String name = ((Player) source).getName();
+							World.getWorld().register(new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
+						} else {
+							World.getWorld().register(new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
+						}
+					}
+				} else
+					return false;
+			} else {
+				if (source.isPlayer())
+					source.sendMessage("There is no more ammo left in your quiver!");
+				return false;
+			}
+		} else {
+			return false;
+		}
+		source.playAnimation(new Animation(426));
 		victim.playAnimation(new Animation(404));
 		return true;
 	}
@@ -168,17 +187,17 @@ public final class Combat {
 	 * @param source
 	 * @param victim
 	 */
-	private static void appendDeath(final Character source, final Character victim) {
-		if (victim instanceof Player)
+	public static void appendDeath(final Character source, final Character victim) {
+		if (victim.isPlayer())
 			victim.sendMessage("Oh dear, you are dead!");
-		
+
 		victim.getMeleeSet().setDying(true);
 		victim.playAnimation(new Animation(2304));
 
 		final Inventory inventory = new Inventory(victim.getEquipment().size() + victim.getInventory().size());
 		inventory.addAll(victim.getEquipment());
 		inventory.addAll(victim.getInventory());
-		
+
 		final Inventory keep = CombatUtil.getItemsKeptOnDeath(3, inventory);
 
 		victim.getInventory().stopFiringEvents();
@@ -188,16 +207,16 @@ public final class Combat {
 
 		inventory.removeAll(keep);
 		inventory.shift();
-		
+
 		final Position position = victim.getPosition();
 
 		World.getWorld().schedule(new ScheduledTask(4, false) {
 
 			@Override
 			public void execute() {
-				if (victim instanceof Player)
+				if (victim.isPlayer())
 					victim.teleport(SPAWN_POSITION);
-				
+
 				victim.addHealth(victim.getHealthMax());
 				victim.stopAnimation();
 
@@ -207,18 +226,28 @@ public final class Combat {
 
 				victim.getEquipment().startFiringEvents();
 				victim.getEquipment().forceRefresh();
+				
+				if (source != null) {
+					if (victim.isPlayer() && source.isNpc())
+						for (Item item : inventory)
+							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
+					else if (source.isPlayer())
+						for (Item item : inventory)
+							World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
+					else
+						for (Item item : inventory)
+							World.getWorld().register(new GroundItem(item, position));
+				} else {
+					if (victim.isPlayer()) {
+						for (Item item : inventory) {
+							World.getWorld().register(new GroundItem(((Player)victim).getName(), item, position));
+						}
+					} else
+						for (Item item : inventory)
+							World.getWorld().register(new GroundItem(item, position));
+				}
 
-				if (victim instanceof Player && source instanceof Npc)
-					for (Item item : inventory)
-						World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
-				else if (source instanceof Player)
-					for (Item item : inventory)
-						World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
-				else
-					for (Item item : inventory)
-						World.getWorld().register(new GroundItem(item, position));
-
-				if (victim instanceof Npc) {
+				if (victim.isNpc()) {
 					World.getWorld().unregister((Npc) victim);
 					World.getWorld().schedule(new ScheduledTask(300, false) {
 
@@ -249,55 +278,55 @@ public final class Combat {
 	private static int grabMaxHit(int type, Character source, Character victim) {
 		double MaxHit = 0;
 		switch(type) {
-			default:
-				int StrBonus = 1; // Strength Bonus
-				int Strength = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel(); // Strength
-				int RngBonus = 1; // Ranged Bonus
-				int Range = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel(); // Ranged
-				if (source instanceof Player) {
-					StrBonus = (int) ((Player) source).getBonuses().getBonuses().getStrengthMelee();
-					RngBonus = (int) ((Player) source).getBonuses().getBonuses().getAttackRange();
+		default:
+			int StrBonus = 1; // Strength Bonus
+			int Strength = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel(); // Strength
+			int RngBonus = 1; // Ranged Bonus
+			int Range = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel(); // Ranged
+			if (source.isPlayer()) {
+				StrBonus = (int) ((Player) source).getBonuses().getBonuses().getStrengthMelee();
+				RngBonus = (int) ((Player) source).getBonuses().getBonuses().getAttackRange();
+			}
+			MaxHit += 1.05 + StrBonus * Strength * 0.00175;
+			MaxHit += Strength * 0.1;
+			break;
+		case RANGED:
+			double d1 = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
+			MaxHit += 1.399D + d1 * 0.00125D;
+			MaxHit += d1 * 0.11D;
+			Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
+			if (item != null) {
+				switch(item.getId()) {
+				case 882:
+				case 883:
+					MaxHit *= 1.042D;
+					break;
+				case 884:
+				case 885:
+					MaxHit *= 1.044D;
+					break;
+				case 886:
+				case 887:
+					MaxHit *= 1.1339999999999999D;
+					break;
+				case 888:
+				case 889:
+					MaxHit *= 1.2D;
+					break;
+				case 890:
+				case 891:
+					MaxHit *= 1.3500000000000001D;
+					break;
+				case 892:
+				case 893:
+					MaxHit *= 1.6000000000000001D;
+					break;
+				case 4740:
+					MaxHit *= 1.95D;
+					break;
 				}
-				MaxHit += 1.05 + StrBonus * Strength * 0.00175;
-				MaxHit += Strength * 0.1;
-				break;
-			case RANGED:
-				double d1 = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
-				MaxHit += 1.399D + d1 * 0.00125D;
-				MaxHit += d1 * 0.11D;
-				Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
-				if (item != null) {
-					switch(item.getId()) {
-					case 882:
-					case 883:
-						MaxHit *= 1.042D;
-						break;
-					case 884:
-					case 885:
-						MaxHit *= 1.044D;
-						break;
-					case 886:
-					case 887:
-						MaxHit *= 1.1339999999999999D;
-						break;
-					case 888:
-					case 889:
-						MaxHit *= 1.2D;
-						break;
-					case 890:
-					case 891:
-						MaxHit *= 1.3500000000000001D;
-						break;
-					case 892:
-					case 893:
-						MaxHit *= 1.6000000000000001D;
-						break;
-					case 4740:
-						MaxHit *= 1.95D;
-						break;
-					}
-				}
-				break;
+			}
+			break;
 		}
 		return (int) Math.floor(MaxHit);
 	}
@@ -308,20 +337,22 @@ public final class Combat {
 	 * @return			Character's attack type.
 	 */
 	private static int grabHitType(Character character) {
-		if (character instanceof Player) {
+		if (character.isPlayer()) {
 			Item str = ((Player) character).getEquipment().get(EquipmentConstants.WEAPON);
 			if (str == null) {
 				return MELEE;
 			}
 			String strn = str.getDefinition().getName();
-			if (strn.contains("bow") || strn.contains("knive") || strn.contains("dart")) {
+			// TODO knife & darts
+			if (strn.contains("bow")) {
 				return RANGED;
 			}
+			// TODO magic
 			if (character.getMeleeSet().getMagicSpellId() > 0) {
 				character.getMeleeSet().setUsingMagic(true);
 				return MAGIC;
 			}
-		} else if (character instanceof Npc) {
+		} else if (character.isNpc()) {
 			// return ((NPC)Character).getAttacktype().getId();
 			return MELEE;
 		}

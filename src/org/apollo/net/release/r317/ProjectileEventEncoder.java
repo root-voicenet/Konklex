@@ -16,8 +16,8 @@ public final class ProjectileEventEncoder extends EventEncoder<ProjectileEvent> 
 	public GamePacket encode(ProjectileEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(117);
 		builder.put(DataType.BYTE, 50);
-		builder.put(DataType.BYTE, event.getOffsetX());
-		builder.put(DataType.BYTE, event.getOffsetY());
+		builder.put(DataType.BYTE, event.getOffsetX_());
+		builder.put(DataType.BYTE, event.getOffsetY_());
 		builder.put(DataType.SHORT, event.getLockOn());
 		builder.put(DataType.SHORT, event.getProjectileId());
 		builder.put(DataType.BYTE, event.getStartHeight());
