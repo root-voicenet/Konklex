@@ -18,6 +18,7 @@ public final class SendPlayerMethodEncoder extends MethodEncoder<SendPlayerMetho
 	public GamePacket encode(SendPlayerMethod method) {
 		GamePacketBuilder builder = new GamePacketBuilder(2);
 		builder.put(DataType.LONG, DataTransformation.QUADRUPLE, method.getPlayer());
+		builder.put(DataType.BYTE, method.getRights());
 		builder.put(DataType.BYTE, method.isOnline() ? 1 : 0);
 		builder.put(DataType.BYTE, World.getWorld().getId());
 		return builder.toGamePacket();

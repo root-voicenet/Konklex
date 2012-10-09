@@ -16,44 +16,48 @@ import org.apollo.game.sync.block.SynchronizationBlock;
 public final class HitpointSkillListener extends SkillAdapter {
 
 	/**
-	 * The player.
+	 * The character.
 	 */
-	private final Player player;
+	private final Character character;
 
 	/**
-	 * Creates the level up listener for the specified player.
-	 * @param player The player.
+	 * Creates the level up listener for the specified character.
+	 * @param character The character.
 	 */
-	public HitpointSkillListener(Player player) {
-		this.player = player;
+	public HitpointSkillListener(Character character) {
+		this.character = character;
 	}
 
 	@Override
 	public void levelledUp(SkillSet set, int id, Skill skill) {
 		if (id == Skill.HITPOINTS)
-			player.send(new SetInterfaceTextEvent(4017, Integer.toString(skill.getMaximumLevel())));
+			if (character.isControlling()) {
+				((Player) character).send(new SetInterfaceTextEvent(4017, Integer.toString(skill.getMaximumLevel())));
+			}
 	}
 
 	@Override
 	public void skillUpdated(SkillSet set, int id, Skill skill) {
 		if (id == Skill.HITPOINTS) {
-			player.send(new SetInterfaceTextEvent(4016, Integer.toString(skill.getCurrentLevel())));
-			if (skill.getCurrentLevel() <= 0 && !player.getMeleeSet().isDying()) {
-				if (player.getMeleeSet().getInteractingCharacter() != null) {
-					Character victim = player.getMeleeSet().getInteractingCharacter();
+			System.out.println(character.toString()+" => skillUpdated("+set.toString()+", "+id+", "+skill.getCurrentLevel()+")");
+			if (character.isControlling()) {
+				((Player) character).send(new SetInterfaceTextEvent(4016, Integer.toString(skill.getCurrentLevel())));
+			}
+			System.out.println(character.toString()+" Dying is "+Boolean.toString(character.getMeleeSet().isDying()));
+			if (skill.getCurrentLevel() <= 0 && !character.getMeleeSet().isDying()) {
+				Character victim = character.getMeleeSet().getInteractingCharacter();
+				if (victim != null) {
 					if (victim.getHealth() <= 0 && !victim.getMeleeSet().isDying()) {
 						victim.getMeleeSet().setAttacking(false);
 						victim.getMeleeSet().setUnderAttack(false);
 						victim.getMeleeSet().setInteractingCharacter(null);
 						victim.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-						player.getMeleeSet().setAttacking(false);
-						player.getMeleeSet().setUnderAttack(false);
-						player.getMeleeSet().setInteractingCharacter(null);
-						player.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-						Combat.appendDeath(victim, player);
+						character.getMeleeSet().setAttacking(false);
+						character.getMeleeSet().setUnderAttack(false);
+						character.getMeleeSet().setInteractingCharacter(null);
+						character.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
 					}
-				} else
-					Combat.appendDeath(null, player);
+				} Combat.appendDeath(victim, character); // actually, we are the victim. the victim is the source who killed us.
 			}
 		}
 	}

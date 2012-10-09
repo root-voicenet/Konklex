@@ -135,6 +135,7 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 				serverContext.set((ApiRequest) msg);
 				serverContext.getService(FrontendService.class).addSession(s);
 				ctx.setAttachment(s);
+				s.sendPlayers();
 			} else {
 				final HandshakeMessage handshakeMessage = (HandshakeMessage) msg;
 				switch (handshakeMessage.getServiceId()) {

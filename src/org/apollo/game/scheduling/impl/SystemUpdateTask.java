@@ -1,5 +1,6 @@
 package org.apollo.game.scheduling.impl;
 
+import org.apollo.game.command.impl.RestartCommandListener;
 import org.apollo.game.event.impl.SystemUpdateEvent;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
@@ -52,7 +53,7 @@ public class SystemUpdateTask extends ScheduledTask {
 	 * @param time The time (in minutes) to cycle threw the update event.
 	 */
 	public SystemUpdateTask(int time) {
-		super(time * (time*10), true);
+		super(time * (time * 10), true);
 		this.time = time;
 		SERVER_UPDATING = true;
 		World.getWorld().schedule(this);
@@ -67,6 +68,7 @@ public class SystemUpdateTask extends ScheduledTask {
 		} else {
 			for (final Player player : World.getWorld().getPlayerRepository())
 				player.logout();
+			RestartCommandListener.restart();
 			stop();
 		}
 	}

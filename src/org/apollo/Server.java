@@ -53,14 +53,10 @@ public final class Server {
 		try {
 			server = new Server();
 			server.init(args.length == 1 ? args[0] : Release317.class.getName());
-			final SocketAddress service = new InetSocketAddress(
-					NetworkConstants.SERVICE_PORT);
-			final SocketAddress http = new InetSocketAddress(
-					NetworkConstants.HTTP_PORT);
-			final SocketAddress jaggrab = new InetSocketAddress(
-					NetworkConstants.JAGGRAB_PORT);
-			final SocketAddress api = new InetSocketAddress(
-					NetworkConstants.API_PORT);
+			final SocketAddress service = new InetSocketAddress(NetworkConstants.SERVICE_PORT);
+			final SocketAddress http = new InetSocketAddress(NetworkConstants.HTTP_PORT);
+			final SocketAddress jaggrab = new InetSocketAddress(NetworkConstants.JAGGRAB_PORT);
+			final SocketAddress api = new InetSocketAddress(NetworkConstants.API_PORT);
 			server.start();
 			server.bind(service, http, jaggrab, api);
 		} catch (final Throwable t) {

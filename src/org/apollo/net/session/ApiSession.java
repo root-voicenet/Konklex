@@ -10,7 +10,10 @@ import org.apollo.api.FrontendService;
 import org.apollo.api.method.Method;
 import org.apollo.api.method.handler.chain.MethodHandlerChain;
 import org.apollo.api.method.handler.chain.MethodHandlerChainGroup;
+import org.apollo.api.method.impl.SendPlayerMethod;
 import org.apollo.game.GameConstants;
+import org.apollo.game.model.Player;
+import org.apollo.game.model.World;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 
@@ -44,6 +47,14 @@ public final class ApiSession extends Session {
 	public ApiSession(Channel channel, ServerContext context) {
 		super(channel);
 		this.context = context;
+	}
+	
+	/**
+	 * Sends the players upon login.
+	 */
+	public void sendPlayers() {
+		for (Player player : World.getWorld().getPlayerRepository())
+			context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), true));
 	}
 
 	/*

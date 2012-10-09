@@ -22,7 +22,6 @@ import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
 import org.apollo.game.model.messaging.PlayerMessaging;
-import org.apollo.game.model.skill.HitpointSkillListener;
 import org.apollo.game.model.skill.LevelUpSkillListener;
 import org.apollo.game.model.skill.PrayerSkillListener;
 import org.apollo.game.model.skill.SkillListener;
@@ -311,7 +310,7 @@ public final class Player extends Character {
 	 * @param position The initial position.
 	 */
 	public Player(PlayerCredentials credentials, Position position) {
-		super(position, true);
+		super(position);
 		init();
 		this.credentials = credentials;
 	}
@@ -633,13 +632,10 @@ public final class Player extends Character {
 		final SkillListener levelUpListener = new LevelUpSkillListener(this);
 		// prayer listener
 		final SkillListener prayerListener = new PrayerSkillListener(this);
-		// hitpoints listener
-		final SkillListener hitpointListener = new HitpointSkillListener(this);
 		// add the listeners
 		skills.addListener(syncListener);
 		skills.addListener(levelUpListener);
 		skills.addListener(prayerListener);
-		skills.addListener(hitpointListener);
 	}
 
 	/**
@@ -1000,5 +996,10 @@ public final class Player extends Character {
 	 */
 	public Seedling getSeedling() {
 		return seedling;
+	}
+
+	@Override
+	public boolean isControlling() {
+		return true;
 	}
 }

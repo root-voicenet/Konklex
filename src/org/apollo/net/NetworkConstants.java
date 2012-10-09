@@ -15,16 +15,16 @@ public final class NetworkConstants {
 	 * The JAGGRAB port.
 	 */
 	public static final int JAGGRAB_PORT = 43595;
+	
+	/**
+	 * The API port.
+	 */
+	public static final int API_PORT = 43596;
 
 	/**
 	 * The HTTP port.
 	 */
 	public static final int HTTP_PORT = 80;
-	
-	/**
-	 * The API port.
-	 */
-	public static final int API_PORT = 4473;
 
 	/**
 	 * The terminator of a string.

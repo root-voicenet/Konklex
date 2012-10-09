@@ -46,7 +46,7 @@ public final class RegionManager {
 	 */
 	public Collection<Event> getLocalEvents(Character character) {
 		final Region region = getRegionByLocation(character.getPosition());
-		return region.getEvents();
+		return Collections.unmodifiableCollection(region.getEvents());
 	}
 
 	/**
@@ -141,6 +141,14 @@ public final class RegionManager {
 	 */
 	public Region getRegionByLocation(Position location) {
 		return getRegion(location.getX() / REGION_SIZE, location.getY() / REGION_SIZE);
+	}
+	
+	/**
+	 * Gets the size of the regions.
+	 * @return The size.
+	 */
+	public int size() {
+		return activeRegions.size();
 	}
 	
 	/**

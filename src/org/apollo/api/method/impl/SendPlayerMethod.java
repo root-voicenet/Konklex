@@ -22,6 +22,11 @@ public final class SendPlayerMethod extends Method {
 	 * The world.
 	 */
 	private int world;
+
+	/**
+	 * The rights.
+	 */
+	private int rights;
 	
 	/**
 	 * Creates the send player method.
@@ -31,6 +36,17 @@ public final class SendPlayerMethod extends Method {
 	public SendPlayerMethod(long player, boolean online) {
 		this.player = player;
 		this.online = online;
+	}
+	
+	/**
+	 * Creates the send player method.
+	 * @param player The player.
+	 * @param online The online flag.
+	 * @param rights The rights.
+	 */
+	public SendPlayerMethod(long player, int rights, boolean online) {
+		this(player, online);
+		this.rights = rights;
 	}
 	
 	/**
@@ -66,6 +82,14 @@ public final class SendPlayerMethod extends Method {
 	 */
 	public int getWorld() {
 		return world;
+	}
+
+	/**
+	 * Gets the rights.
+	 * @return The rights.
+	 */
+	public int getRights() {
+		return rights;
 	}
 
 }

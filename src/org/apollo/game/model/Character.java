@@ -10,6 +10,7 @@ import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.Inventory.StackMode;
 import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.model.region.Region;
+import org.apollo.game.model.skill.HitpointSkillListener;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
@@ -120,18 +121,11 @@ public abstract class Character {
 	private boolean facing = false;
 
 	/**
-	 * True if player, false if npc.
-	 */
-	private final boolean type;
-
-	/**
 	 * Creates a new character with the specified initial position.
 	 * @param position The initial position of this character.
-	 * @param type True if player, false if npc.
 	 */
-	public Character(Position position, boolean type) {
+	public Character(Position position) {
 		this.position = position;
-		this.type = type;
 		init();
 	}
 
@@ -143,46 +137,23 @@ public abstract class Character {
 		final int temp = health + getHealth() > getHealthMax() ? getHealthMax() : health + getHealth();
 		setHealth(temp);
 	}
-
-	/**
-	 * Create a new damage event.
-	 * @param hit The damage to hit.
-	 */
-	public void damageEntity(int hit) {
-		final DamageEvent damage = new DamageEvent(hit, getHealth(), getHealthMax());
-		final int health = getHealth() - damage.getDamageDone();
-		setHealth(health);
-		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
-	}
 	
 	/**
 	 * Damages the character.
 	 * @param hit The damage to deal.
 	 * @param type The damage type.
 	 */
-	public void damage(int hit) {
-		final DamageEvent damage = new DamageEvent(hit > getHealth() ? getHealth() : hit, getHealth(), getHealthMax());
-		final int health = getHealth() - damage.getDamageDone();
+	public void damage(int... hit) {
+		DamageEvent damage = new DamageEvent(hit[0] > getHealth() ? getHealth() : hit[0], getHealth(), getHealthMax());
+		int health = getHealth() - damage.getDamageDone();
 		setHealth(health);
 		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
-	}
-
-	/**
-	 * Create a new damage event.
-	 * @param hit The damage to hit.
-	 * @param hit2 The damage to hit.
-	 */
-	public void damageEntity(int hit, int hit2) {
-		DamageEvent damage = null;
-		int health = 0;
-		damage = new DamageEvent(hit, getHealth(), getHealthMax());
-		health = getHealth() - damage.getDamageDone();
-		setHealth(health);
-		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
-		damage = new DamageEvent(hit2, getHealth(), getHealthMax());
-		health = getHealth() - damage.getDamageDone();
-		setHealth(health);
-		blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
+		if (hit.length == 2) {
+			damage = new DamageEvent(hit[1] > getHealth() ? getHealth() : hit[1], getHealth(), getHealthMax());
+			health = getHealth() - damage.getDamageDone();
+			setHealth(health);
+			blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
+		}
 	}
 
 	/**
@@ -350,6 +321,7 @@ public abstract class Character {
 	 * Initialises this character.
 	 */
 	private void init() {
+		skillSet.addListener(new HitpointSkillListener(this));
 		World.getWorld().schedule(new SkillNormalizationTask(this));
 		
 		final Character me = this;
@@ -412,20 +384,10 @@ public abstract class Character {
 	}
 	
 	/**
-	 * Checks if this character is a player.
-	 * @return True if player, false if npc.
+	 * Checks if this user is a controllable player.
+	 * @return True if this character is being controlled, false if otherwise.
 	 */
-	public boolean isPlayer() {
-		return type;
-	}
-	
-	/**
-	 * Checks if this character is a npc.
-	 * @return True if npc, false if player.
-	 */
-	public boolean isNpc() {
-		return !type;
-	}
+	public abstract boolean isControlling();
 
 	/**
 	 * Sends an {@link Event} to either:

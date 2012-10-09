@@ -438,7 +438,7 @@ public final class World {
 		} else {
 			final boolean success = playerRepository.add(player);
 			if (success) {
-				context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), true));
+				context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), player.getPrivilegeLevel().toInteger(), true));
 				logger.info("Registered player: " + player + " [online=" + playerRepository.size() + "]");
 				return RegistrationStatus.OK;
 			} else {

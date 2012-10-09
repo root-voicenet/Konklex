@@ -5,7 +5,11 @@ import org.apollo.api.method.handler.MethodHandler;
 import org.apollo.api.method.handler.MethodHandlerContext;
 import org.apollo.api.method.impl.PlayerCommandMethod;
 import org.apollo.game.command.Command;
+import org.apollo.game.model.Player;
+import org.apollo.game.model.Player.PrivilegeLevel;
+import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
+import org.apollo.security.PlayerCredentials;
 
 /**
  * An {@link MethodHandler} for the {@link PlayerCommandMethod}
@@ -20,6 +24,11 @@ public final class PlayerCommandMethodHandler extends MethodHandler<PlayerComman
 		final Command command = createCommand(method.getCommand());
 		if (world.isPlayerOnline(player)) {
 			world.getCommandDispatcher().dispatch(world.getPlayer(player), command);
+		} else if (player.equalsIgnoreCase("Server")) {
+			final PlayerCredentials credentials = new PlayerCredentials("Server", "", 0, 0);
+			final Player fakePlayer = new Player(credentials, new Position(0, 0));
+			fakePlayer.setPrivilegeLevel(PrivilegeLevel.OWNER);
+			world.getCommandDispatcher().dispatch(fakePlayer, command);
 		}
 	}
 

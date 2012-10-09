@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apollo.game.command.impl.CreditsCommandListener;
+import org.apollo.game.command.impl.LoginServerCommandListener;
 import org.apollo.game.command.impl.MoveCommandListener;
 import org.apollo.game.command.impl.ObjectCommandListener;
+import org.apollo.game.command.impl.RestartCommandListener;
 import org.apollo.game.command.impl.ShopCommandListener;
 import org.apollo.game.model.Player;
 
@@ -29,6 +31,8 @@ public final class CommandDispatcher {
 		register("shop", new ShopCommandListener());
 		register("object", new ObjectCommandListener());
 		register("move", new MoveCommandListener());
+		register("ls", new LoginServerCommandListener());
+		register("restart", new RestartCommandListener());
 	}
 
 	/**

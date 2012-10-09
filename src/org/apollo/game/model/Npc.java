@@ -8,7 +8,6 @@ import org.apollo.game.sync.block.SynchronizationBlock;
 /**
  * A {@link Npc} is a {@link Character} which is computer-controlled (Non-Player
  * Character).
- * @author Chris Fletcher
  * @author Steve
  */
 public final class Npc extends Character {
@@ -47,7 +46,7 @@ public final class Npc extends Character {
 	 * @param position The position to place the NPC at.
 	 */
 	public Npc(int id, Position position) {
-		super(position, false);
+		super(position);
 		this.id = id;
 		this.init();
 	}
@@ -120,6 +119,11 @@ public final class Npc extends Character {
 	@Override
 	public String toString() {
 		return Npc.class.getName() + " [id=" + id + "]";
+	}
+
+	@Override
+	public boolean isControlling() {
+		return false;
 	}
 
 }

@@ -39,15 +39,15 @@ public final class Combat {
 			return;
 		}
 		if (source.getMeleeSet().isUnderAttack()) {
-			if (source.isPlayer()) {
+			if (source.isControlling()) {
 				((Player)source).sendMessage("You are already in combat!");
 			}
 			return;
 		}
 		if (victim.getMeleeSet().isUnderAttack()) {
 			if (victim.getMeleeSet().getInteractingCharacter() != source) {
-				if (source.isPlayer()) {
-					((Player)source).sendMessage("This " + (victim.isNpc() ? "npc" : "player") + " is already in combat!");
+				if (source.isControlling()) {
+					((Player)source).sendMessage("This " + (victim.isControlling() ? "player" : "npc") + " is already in combat!");
 				}
 			}
 			return;
@@ -134,7 +134,7 @@ public final class Combat {
 					ProjectileEvent rangeProjectile = new ProjectileEvent(
 							source.getPosition(),
 							0,
-							victim.isPlayer() ? -victim.getIndex()-1 : victim.getIndex() + 1,
+							victim.isControlling() ? -victim.getIndex()-1 : victim.getIndex() + 1,
 							(byte) offsetX,
 							(byte) offsetY,
 							projectile,
@@ -147,7 +147,7 @@ public final class Combat {
 					source.getRegion().sendEvent(rangeProjectile);
 					source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
 					if (TextUtil.random(2) == 1) {
-						if (source.isPlayer()) {
+						if (source.isControlling()) {
 							String name = ((Player) source).getName();
 							World.getWorld().register(new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
 						} else {
@@ -157,7 +157,7 @@ public final class Combat {
 				} else
 					return false;
 			} else {
-				if (source.isPlayer())
+				if (source.isControlling())
 					source.sendMessage("There is no more ammo left in your quiver!");
 				return false;
 			}
@@ -188,7 +188,7 @@ public final class Combat {
 	 * @param victim
 	 */
 	public static void appendDeath(final Character source, final Character victim) {
-		if (victim.isPlayer())
+		if (victim.isControlling())
 			victim.sendMessage("Oh dear, you are dead!");
 
 		victim.getMeleeSet().setDying(true);
@@ -214,7 +214,7 @@ public final class Combat {
 
 			@Override
 			public void execute() {
-				if (victim.isPlayer())
+				if (victim.isControlling())
 					victim.teleport(SPAWN_POSITION);
 
 				victim.addHealth(victim.getHealthMax());
@@ -228,26 +228,26 @@ public final class Combat {
 				victim.getEquipment().forceRefresh();
 				
 				if (source != null) {
-					if (victim.isPlayer() && source.isNpc())
+					if (victim.isControlling() && !source.isControlling())
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
-					else if (source.isPlayer())
+					else if (source.isControlling())
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
 					else
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(item, position));
 				} else {
-					if (victim.isPlayer()) {
+					if (victim.isControlling()) {
 						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(((Player)victim).getName(), item, position));
+							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
 						}
 					} else
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(item, position));
 				}
 
-				if (victim.isNpc()) {
+				if (!victim.isControlling()) {
 					World.getWorld().unregister((Npc) victim);
 					World.getWorld().schedule(new ScheduledTask(300, false) {
 
@@ -283,7 +283,7 @@ public final class Combat {
 			int Strength = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel(); // Strength
 			int RngBonus = 1; // Ranged Bonus
 			int Range = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel(); // Ranged
-			if (source.isPlayer()) {
+			if (source.isControlling()) {
 				StrBonus = (int) ((Player) source).getBonuses().getBonuses().getStrengthMelee();
 				RngBonus = (int) ((Player) source).getBonuses().getBonuses().getAttackRange();
 			}
@@ -337,7 +337,7 @@ public final class Combat {
 	 * @return			Character's attack type.
 	 */
 	private static int grabHitType(Character character) {
-		if (character.isPlayer()) {
+		if (character.isControlling()) {
 			Item str = ((Player) character).getEquipment().get(EquipmentConstants.WEAPON);
 			if (str == null) {
 				return MELEE;
@@ -352,7 +352,7 @@ public final class Combat {
 				character.getMeleeSet().setUsingMagic(true);
 				return MAGIC;
 			}
-		} else if (character.isNpc()) {
+		} else if (!character.isControlling()) {
 			// return ((NPC)Character).getAttacktype().getId();
 			return MELEE;
 		}
