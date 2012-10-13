@@ -103,7 +103,7 @@ public abstract class Character {
 	/**
 	 * The character's melee set.
 	 */
-	private final MeleeSet meleeSet = new MeleeSet(this);
+	private MeleeSet meleeSet = new MeleeSet(this);
 
 	/**
 	 * The character's current region.
@@ -262,11 +262,18 @@ public abstract class Character {
 	}
 
 	/**
-	 * Gets the {@link MeleeSet}set.
+	 * Gets the {@link MeleeSet}.
 	 * @return The melee set.
 	 */
 	public MeleeSet getMeleeSet() {
 		return meleeSet;
+	}
+	
+	/**
+	 * Resets the melee set.
+	 */
+	public void resetMeleeSet() {
+		meleeSet = new MeleeSet(this);
 	}
 
 	/**
@@ -365,7 +372,8 @@ public abstract class Character {
 	 * @param animation The animation.
 	 */
 	public void playAnimation(Animation animation) {
-		blockSet.add(SynchronizationBlock.createAnimationBlock(animation));
+		if (animation != null)
+			blockSet.add(SynchronizationBlock.createAnimationBlock(animation));
 	}
 
 	/**
@@ -373,7 +381,8 @@ public abstract class Character {
 	 * @param graphic The graphic.
 	 */
 	public void playGraphic(Graphic graphic) {
-		blockSet.add(SynchronizationBlock.createGraphicBlock(graphic));
+		if (graphic != null)
+			blockSet.add(SynchronizationBlock.createGraphicBlock(graphic));
 	}
 
 	/**

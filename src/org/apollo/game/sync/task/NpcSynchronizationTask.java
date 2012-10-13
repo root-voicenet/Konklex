@@ -63,6 +63,8 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 		    if (!n.isActive() || n.isTeleporting() || !check || n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 				it.remove();
 				segments.add(new RemoveCharacterSegment());
+				// There is something wrong with removing the npcs in this code.
+				// TODO
 		    } else
 		    	segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
 		}

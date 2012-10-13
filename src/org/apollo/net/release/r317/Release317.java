@@ -191,6 +191,7 @@ public final class Release317 extends Release {
 		register(new ItemOnFloorEventDecoder(), 25);
 		register(new MagicOnObjectEventDecoder(), 35);
 		register(new MagicOnGroundEventDecoder(), 181);
+		register(new MagicOnNpcEventDecoder(), 131);
 		// register encoders
 		register(IdAssignmentEvent.class, new IdAssignmentEventEncoder());
 		register(RegionChangeEvent.class, new RegionChangeEventEncoder());

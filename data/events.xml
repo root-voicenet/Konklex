@@ -18,8 +18,9 @@
     <chain/>
   </event>
   <event>
-    <type>org.apollo.game.event.impl.MagicOnPlayerEvent</type>
+    <type>org.apollo.game.event.impl.MagicEvent</type>
     <chain>
+      <handler>org.apollo.game.event.handler.impl.MagicOnPlayerVerificationHandler</handler>
     </chain>
   </event>
   <event>

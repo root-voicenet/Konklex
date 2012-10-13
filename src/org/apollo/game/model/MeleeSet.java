@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apollo.game.event.impl.ProjectileEvent;
+import org.apollo.game.scheduling.ScheduledTask;
 
 /**
  * A class representing characters attacking eachother.
@@ -94,11 +95,24 @@ public final class MeleeSet {
 	private int special;
 
 	/**
+	 * The task.
+	 */
+	private ScheduledTask task;
+
+	/**
 	 * Start a new melee class for the specified character.
 	 * @param character The character.
 	 */
 	public MeleeSet(Character character) {
 		this.character = character;
+	}
+	
+	/**
+	 * Sets the task.
+	 * @param task The task.
+	 */
+	public void setTask(ScheduledTask task) {
+		this.task = task;
 	}
 	
 	/**
@@ -267,5 +281,13 @@ public final class MeleeSet {
 	 */
 	public int getSpecial() {
 		return special;
+	}
+
+	/**
+	 * Gets the task before appending the hit.
+	 * @return The task before appending the hit.
+	 */
+	public ScheduledTask getTask() {
+		return task;
 	}
 }

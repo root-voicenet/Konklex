@@ -9,7 +9,7 @@ import org.apollo.net.release.EventDecoder;
 import org.apollo.net.release.EventEncoder;
 
 /**
- * An {@link EventEncoder} for the {@link SendOnlineStatusEvent}
+ * An {@link EventEncoder} for the {@link FriendsListEvent}
  * @author Steve
  */
 public final class FriendsListEventDecoder extends EventDecoder<FriendsListEvent> {

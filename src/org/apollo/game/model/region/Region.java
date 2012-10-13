@@ -1,6 +1,7 @@
 package org.apollo.game.model.region;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -222,6 +223,19 @@ public final class Region {
 	public Collection<Player> getPlayers() {
 		synchronized (this) {
 			return Collections.unmodifiableCollection(new LinkedList<Player>(players));
+		}
+	}
+	
+	/**
+	 * Gets the list of characters.
+	 * @return The list of characters.
+	 */
+	public List<Character> getCharacters() {
+		List<Character> characters = new ArrayList<Character>(players.size()+npcs.size());
+		synchronized (this) {
+			characters.addAll(players);
+			characters.addAll(npcs);
+			return Collections.unmodifiableList(characters);
 		}
 	}
 

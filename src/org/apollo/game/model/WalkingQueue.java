@@ -82,6 +82,11 @@ public final class WalkingQueue {
 	private boolean running;
 
 	/**
+	 * Stop for this many pulses.
+	 */
+	private int stop;
+
+	/**
 	 * Creates a walking queue for the specified character.
 	 * @param character The character.
 	 */
@@ -97,6 +102,9 @@ public final class WalkingQueue {
 	 * {@code false} if not.
 	 */
 	public boolean addFirstStep(Position clientConnectionPosition) {
+		if (stop > 0) {
+			return false;
+		}
 		final Position serverPosition = character.getPosition();
 		int deltaX = clientConnectionPosition.getX() - serverPosition.getX();
 		int deltaY = clientConnectionPosition.getY() - serverPosition.getY();
@@ -132,7 +140,7 @@ public final class WalkingQueue {
 	 * @param y The y coordinate of this step.
 	 */
 	private void addStep(int x, int y) {
-		if (points.size() >= MAXIMUM_SIZE)
+		if (points.size() >= MAXIMUM_SIZE || stop > 0)
 			return;
 		final Point last = getLast();
 		final int deltaX = x - last.position.getX();
@@ -208,6 +216,9 @@ public final class WalkingQueue {
 	 * Called every pulse, updates the queue.
 	 */
 	public void pulse() {
+		if (stop > 0) {
+			stop--;
+		}
 		Position position = character.getPosition();
 		Direction first = Direction.NONE;
 		Direction second = Direction.NONE;
@@ -277,5 +288,12 @@ public final class WalkingQueue {
 	 */
 	public int size() {
 		return points.size();
+	}
+
+	/**
+	 * Call this when they cannot move.
+	 */
+	public void stop(int stop) {
+		this.stop = stop;
 	}
 }

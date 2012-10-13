@@ -39,22 +39,16 @@ public final class HitpointSkillListener extends SkillAdapter {
 	@Override
 	public void skillUpdated(SkillSet set, int id, Skill skill) {
 		if (id == Skill.HITPOINTS) {
-			System.out.println(character.toString()+" => skillUpdated("+set.toString()+", "+id+", "+skill.getCurrentLevel()+")");
 			if (character.isControlling()) {
 				((Player) character).send(new SetInterfaceTextEvent(4016, Integer.toString(skill.getCurrentLevel())));
 			}
-			System.out.println(character.toString()+" Dying is "+Boolean.toString(character.getMeleeSet().isDying()));
 			if (skill.getCurrentLevel() <= 0 && !character.getMeleeSet().isDying()) {
 				Character victim = character.getMeleeSet().getInteractingCharacter();
 				if (victim != null) {
 					if (victim.getHealth() <= 0 && !victim.getMeleeSet().isDying()) {
-						victim.getMeleeSet().setAttacking(false);
-						victim.getMeleeSet().setUnderAttack(false);
-						victim.getMeleeSet().setInteractingCharacter(null);
+						victim.resetMeleeSet();
 						victim.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-						character.getMeleeSet().setAttacking(false);
-						character.getMeleeSet().setUnderAttack(false);
-						character.getMeleeSet().setInteractingCharacter(null);
+						character.resetMeleeSet();
 						character.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
 					}
 				} Combat.appendDeath(victim, character); // actually, we are the victim. the victim is the source who killed us.
