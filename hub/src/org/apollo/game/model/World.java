@@ -8,57 +8,57 @@ import java.util.Map;
  * @author Steve
  */
 public final class World {
-	
+
 	/**
 	 * The players.
 	 */
 	private final Map<String, Player> players = new HashMap<String, Player>();
-	
+
 	/**
 	 * The time.
 	 */
 	private int time;
-	
+
 	/**
 	 * The npcs.
 	 */
 	private int npcs;
-	
+
 	/**
 	 * The objects.
 	 */
 	private int objects;
-	
+
 	/**
 	 * The items.
 	 */
 	private int items;
-	
+
 	/**
 	 * The regions.
 	 */
 	private int regions;
-	
+
 	/**
 	 * The threads.
 	 */
 	private int threads;
-	
+
 	/**
 	 * The cpu usage.
 	 */
 	private int cpu;
-	
+
 	/**
 	 * The ram usage.
 	 */
 	private int ram;
-	
+
 	/**
 	 * The status.
 	 */
 	private int status;
-	
+
 	/**
 	 * Gets the players.
 	 * @return The players.
@@ -66,7 +66,7 @@ public final class World {
 	public Map<String, Player> getPlayers() {
 		return players;
 	}
-	
+
 	/**
 	 * Checks if a player is online.
 	 * @param user The username.

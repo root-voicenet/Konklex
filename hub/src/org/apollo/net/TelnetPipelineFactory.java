@@ -25,7 +25,7 @@ public final class TelnetPipelineFactory implements ChannelPipelineFactory {
 	 * The server event handler.
 	 */
 	private final ApolloHandler handler;
-	
+
 	/**
 	 * The server context.
 	 */
@@ -43,6 +43,7 @@ public final class TelnetPipelineFactory implements ChannelPipelineFactory {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
 	 */
 	@Override

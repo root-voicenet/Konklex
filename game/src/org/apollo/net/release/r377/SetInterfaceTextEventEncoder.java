@@ -11,24 +11,19 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link SetInterfaceTextEvent}.
- * 
  * @author Graham
  */
-public final class SetInterfaceTextEventEncoder extends
-EventEncoder<SetInterfaceTextEvent> {
+public final class SetInterfaceTextEventEncoder extends EventEncoder<SetInterfaceTextEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(SetInterfaceTextEvent event) {
-		final GamePacketBuilder builder = new GamePacketBuilder(232,
-				PacketType.VARIABLE_SHORT);
-		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD,
-				event.getInterfaceId());
+		final GamePacketBuilder builder = new GamePacketBuilder(232, PacketType.VARIABLE_SHORT);
+		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, event.getInterfaceId());
 		builder.putString(event.getText());
 		return builder.toGamePacket();
 	}

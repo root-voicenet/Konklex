@@ -8,8 +8,7 @@ import org.jboss.netty.handler.timeout.IdleStateHandler;
 import org.jboss.netty.util.Timer;
 
 /**
- * A {@link ChannelPipelineFactory} which creates {@link ChannelPipeline}s for
- * the service pipeline.
+ * A {@link ChannelPipelineFactory} which creates {@link ChannelPipeline}s for the service pipeline.
  * @author Graham
  */
 public final class ServicePipelineFactory implements ChannelPipelineFactory {
@@ -36,6 +35,7 @@ public final class ServicePipelineFactory implements ChannelPipelineFactory {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
 	 */
 	@Override

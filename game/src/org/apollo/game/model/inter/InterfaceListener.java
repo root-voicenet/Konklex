@@ -20,9 +20,8 @@ public interface InterfaceListener {
 	/**
 	 * Called when the interface has been closed.
 	 * @param player The player that closed the interface.
-	 * @param manually Flag for if the interface was closed manually (by the
-	 * player) or not (by the server), respectively {@code true} or
-	 * {@code false}.
+	 * @param manually Flag for if the interface was closed manually (by the player) or not (by the server),
+	 * respectively {@code true} or {@code false}.
 	 */
 	public void interfaceClosed(Player player, boolean manually);
 }

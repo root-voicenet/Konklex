@@ -20,17 +20,14 @@ import org.apollo.game.sync.seg.SynchronizationSegment;
 import org.apollo.game.sync.seg.TeleportSegment;
 
 /**
- * A {@link SynchronizationTask} which synchronizes the specified {@link Player}
- * .
- * 
+ * A {@link SynchronizationTask} which synchronizes the specified {@link Player} .
  * @author Graham
  */
 public final class PlayerSynchronizationTask extends SynchronizationTask {
 
 	/**
-	 * The maximum number of players to load per cycle. This prevents the update
-	 * packet from becoming too large (the client uses a 5000 byte buffer) and
-	 * also stops old spec PCs from crashing when they login or teleport.
+	 * The maximum number of players to load per cycle. This prevents the update packet from becoming too large (the
+	 * client uses a 5000 byte buffer) and also stops old spec PCs from crashing when they login or teleport.
 	 */
 	private static final int NEW_PLAYERS_PER_CYCLE = 20;
 
@@ -41,9 +38,7 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 
 	/**
 	 * Creates the {@link PlayerSynchronizationTask} for the specified player.
-	 * 
-	 * @param player
-	 *            The player.
+	 * @param player The player.
 	 */
 	public PlayerSynchronizationTask(Player player) {
 		this.player = player;
@@ -66,38 +61,43 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		}
 		if (player.isTeleporting() || player.hasRegionChanged()) {
 			segment = new TeleportSegment(blockSet, player.getPosition());
-		} else {
+		}
+		else {
 			segment = new MovementSegment(blockSet, player.getDirections());
 		}
 		final List<Player> localPlayers = player.getLocalPlayerList();
 		final int oldLocalPlayers = localPlayers.size();
 		final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
-		
+
 		int added = 0;
 		final Collection<Player> repository = World.getWorld().getRegionManager().getLocalPlayers(player);
-		
+
 		for (final Iterator<Player> it = localPlayers.iterator(); it.hasNext();) {
-		    final Player p = it.next();
-		    final boolean check = p.getPosition().getHeight() == player.getPosition().getHeight();
-		    if (!p.isHidden()) {
-			    if (!p.isActive() || p.isTeleporting() || !check || p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
+			final Player p = it.next();
+			final boolean check = p.getPosition().getHeight() == player.getPosition().getHeight();
+			if (!p.isHidden()) {
+				if (!p.isActive() || p.isTeleporting() || !check
+						|| p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 					it.remove();
 					segments.add(new RemoveCharacterSegment());
-			    } else
-			    	segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
-		    }
+				}
+				else
+					segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+			}
 		}
-		
+
 		for (final Player p : repository) {
 			if (localPlayers.size() >= 255) {
 				player.flagExcessivePlayers();
 				break;
-			} else if (added >= NEW_PLAYERS_PER_CYCLE)
+			}
+			else if (added >= NEW_PLAYERS_PER_CYCLE)
 				break;
 			if (p != player && !localPlayers.contains(p)) {
 				if (p.isHidden()) {
 					// do nothing, they want to be hidden.
-				} else {
+				}
+				else {
 					localPlayers.add(p);
 					added++;
 					blockSet = p.getBlockSet();
@@ -106,14 +106,12 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 						blockSet = blockSet.clone();
 						blockSet.add(SynchronizationBlock.createAppearanceBlock(p));
 					}
-					segments.add(new AddCharacterSegment(blockSet, p.getIndex(), p
-							.getPosition()));
+					segments.add(new AddCharacterSegment(blockSet, p.getIndex(), p.getPosition()));
 				}
 			}
 		}
-		final PlayerSynchronizationEvent event = new PlayerSynchronizationEvent(
-				lastKnownRegion, player.getPosition(), regionChanged, segment,
-				oldLocalPlayers, segments);
+		final PlayerSynchronizationEvent event = new PlayerSynchronizationEvent(lastKnownRegion, player.getPosition(),
+				regionChanged, segment, oldLocalPlayers, segments);
 		player.send(event);
 	}
 }

@@ -35,8 +35,8 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(NpcSynchronizationEvent event) {
@@ -51,7 +51,8 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 			else if (type == SegmentType.ADD_CHARACTER) {
 				putAddCharacterUpdate((AddNpcSegment) segment, event, builder);
 				putBlocks(segment, blockBuilder);
-			} else {
+			}
+			else {
 				putMovementUpdate(segment, event, builder);
 				putBlocks(segment, blockBuilder);
 			}
@@ -60,7 +61,8 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 			builder.putBits(14, 16383);
 			builder.switchToByteAccess();
 			builder.putRawBuilder(blockBuilder);
-		} else
+		}
+		else
 			builder.switchToByteAccess();
 		return builder.toGamePacket();
 	}
@@ -189,16 +191,19 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 			builder.putBits(3, directions[0].toInteger());
 			builder.putBits(3, directions[1].toInteger());
 			builder.putBit(updateRequired);
-		} else if (seg.getType() == SegmentType.WALK) {
+		}
+		else if (seg.getType() == SegmentType.WALK) {
 			final Direction[] directions = ((MovementSegment) seg).getDirections();
 			builder.putBits(1, 1);
 			builder.putBits(2, 1);
 			builder.putBits(3, directions[0].toInteger());
 			builder.putBit(updateRequired);
-		} else if (updateRequired) {
+		}
+		else if (updateRequired) {
 			builder.putBits(1, 1);
 			builder.putBits(2, 0);
-		} else
+		}
+		else
 			builder.putBits(1, 0);
 	}
 

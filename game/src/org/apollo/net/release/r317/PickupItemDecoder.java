@@ -10,7 +10,6 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link GroundItemEventEncoder}.
- * 
  * @author Arrowzftw
  */
 public final class PickupItemDecoder extends EventDecoder<PickupItemEvent> {
@@ -18,9 +17,7 @@ public final class PickupItemDecoder extends EventDecoder<PickupItemEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public PickupItemEvent decode(GamePacket packet) {

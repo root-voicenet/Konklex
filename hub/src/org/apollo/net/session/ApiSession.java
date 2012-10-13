@@ -20,7 +20,7 @@ public final class ApiSession extends Session {
 	 * The logger for this class.
 	 */
 	private static final Logger logger = Logger.getLogger(ApiSession.class.getName());
-	
+
 	/**
 	 * The server context.
 	 */
@@ -43,7 +43,7 @@ public final class ApiSession extends Session {
 	public void messageReceived(Object message) throws Exception {
 		handleMethod((Method) message);
 	}
-	
+
 	/**
 	 * Encodes and dispatches the specified method.
 	 * @param method The method.
@@ -53,9 +53,9 @@ public final class ApiSession extends Session {
 		final Channel channel = getChannel();
 		if (channel.isBound() && channel.isConnected() && channel.isOpen()) {
 			final ChannelFuture future = channel.write(method);
-			//if (method.getClass() == LogoutEvent.class) {
-			//	future.addListener(ChannelFutureListener.CLOSE);
-			//}
+			// if (method.getClass() == LogoutEvent.class) {
+			// future.addListener(ChannelFutureListener.CLOSE);
+			// }
 		}
 	}
 
@@ -72,16 +72,19 @@ public final class ApiSession extends Session {
 			methodType = (Class<? extends Method>) methodType.getSuperclass();
 			if (methodType == Method.class) {
 				methodType = null;
-			} else {
+			}
+			else {
 				chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
 			}
 		}
 		if (chain == null) {
 			logger.warning("No chain for method: " + method.getClass().getName() + ".");
-		} else {
+		}
+		else {
 			try {
 				chain.handle(this, method);
-			} catch (final Exception ex) {
+			}
+			catch (final Exception ex) {
 				logger.log(Level.SEVERE, "Error handling method.", ex);
 			}
 		}

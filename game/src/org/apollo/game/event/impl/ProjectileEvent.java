@@ -8,52 +8,52 @@ import org.apollo.game.model.Position;
  * @author Steve
  */
 public final class ProjectileEvent extends MapEvent {
-	
+
 	/**
 	 * The size.
 	 */
 	private final int size;
-	
+
 	/**
 	 * The target.
 	 */
 	private final int lockOn;
-	
+
 	/**
 	 * The offset x.
 	 */
 	private final byte offsetX;
-	
+
 	/**
 	 * The offset y.
 	 */
 	private final byte offsetY;
-	
+
 	/**
 	 * The projectile id.
 	 */
 	private final int projectileId;
-	
+
 	/**
 	 * The delay.
 	 */
 	private final int delay;
-	
+
 	/**
 	 * The duration.
 	 */
 	private final int duration;
-	
+
 	/**
 	 * The start height.
 	 */
 	private final int startHeight;
-	
+
 	/**
 	 * The end height.
 	 */
 	private final int endHeight;
-	
+
 	/**
 	 * The angle of the projectile.
 	 */
@@ -73,9 +73,8 @@ public final class ProjectileEvent extends MapEvent {
 	 * @param endHeight The ending height.
 	 * @param curve The angle of the projectile.
 	 */
-	public ProjectileEvent(Position start, int size, int lockOn,
-			byte offsetX, byte offsetY, int projectileId, int delay,
-			int duration, int startHeight, int endHeight, int curve) {
+	public ProjectileEvent(Position start, int size, int lockOn, byte offsetX, byte offsetY, int projectileId,
+			int delay, int duration, int startHeight, int endHeight, int curve) {
 		super(start, 3, 2);
 		this.size = size;
 		this.lockOn = lockOn;
@@ -88,7 +87,7 @@ public final class ProjectileEvent extends MapEvent {
 		this.endHeight = endHeight;
 		this.curve = curve;
 	}
-	
+
 	/**
 	 * Create a new projectile event.
 	 * @param start The starting position.
@@ -101,8 +100,7 @@ public final class ProjectileEvent extends MapEvent {
 	 * @param lockOn The victim.
 	 * @param mage The magic flag.
 	 */
-	public ProjectileEvent(Position start, byte offsetX,
-			byte offsetY, int projectileId, int startHeight, 
+	public ProjectileEvent(Position start, byte offsetX, byte offsetY, int projectileId, int startHeight,
 			int endHeight, int speed, int lockOn, boolean mage) {
 		this(start, 0, lockOn, offsetX, offsetY, projectileId, mage ? 50 : 41, speed, startHeight, endHeight, 16);
 	}

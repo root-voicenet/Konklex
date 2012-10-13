@@ -10,11 +10,12 @@ import org.apollo.util.TextUtil;
 
 public class MithrilSeeds {
 
-	public static final int[] flowerObjects = {2980, 2981, 2982, 2983, 2984, 2985, 2986, 2987, 2988};
-	public static final int[] flowerItems = {2460, 2462, 2464, 2466, 2468, 2470, 2472, 2474, 2476};
+	public static final int[] flowerObjects = { 2980, 2981, 2982, 2983, 2984, 2985, 2986, 2987, 2988 };
+
+	public static final int[] flowerItems = { 2460, 2462, 2464, 2466, 2468, 2470, 2472, 2474, 2476 };
 
 	public static void plantMithrilSeed(Player player) {
-		int flower = flowerObjects[TextUtil.random(flowerObjects.length)-1];
+		int flower = flowerObjects[TextUtil.random(flowerObjects.length) - 1];
 		int x = player.getPosition().getX();
 		int y = player.getPosition().getY();
 		GameObject p = new GameObject(ObjectDefinition.forId(flower), player.getPosition(), 10, -1);
@@ -24,7 +25,8 @@ public class MithrilSeeds {
 		}
 		if (player.getInventory().contains(299)) {
 			player.getInventory().remove(299);
-		} else {
+		}
+		else {
 			return;
 		}
 		player.playAnimation(new Animation(827));

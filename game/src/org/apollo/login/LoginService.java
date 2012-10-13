@@ -58,7 +58,8 @@ public final class LoginService extends Service {
 		final InputStream is = new FileInputStream("data/login.xml");
 		try {
 			rootNode = parser.parse(is);
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 		if (!rootNode.getName().equals("login")) {
@@ -96,7 +97,8 @@ public final class LoginService extends Service {
 		if (release.getReleaseNumber() != request.getReleaseNumber()) {
 			// TODO check archive 0 CRCs
 			session.handlePlayerLoaderResponse(request, new PlayerLoaderResponse(LoginConstants.STATUS_GAME_UPDATED));
-		} else {
+		}
+		else {
 			executor.submit(new PlayerLoaderWorker(loader, session, request));
 		}
 	}

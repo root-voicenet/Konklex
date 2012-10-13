@@ -16,9 +16,8 @@ public final class SwitchItemEventDecoder extends EventDecoder<SwitchItemEvent> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public SwitchItemEvent decode(GamePacket packet) {

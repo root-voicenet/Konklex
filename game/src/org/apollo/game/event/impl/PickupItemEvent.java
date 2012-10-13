@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * The Class PickupItemEvent.
- * 
  * @author Arrowzftw
  */
 public final class PickupItemEvent extends Event {
@@ -26,13 +25,9 @@ public final class PickupItemEvent extends Event {
 
 	/**
 	 * Create a new item.
-	 * 
-	 * @param itemId
-	 *            the item id
-	 * @param x
-	 *            the x
-	 * @param y
-	 *            the y
+	 * @param itemId the item id
+	 * @param x the x
+	 * @param y the y
 	 */
 	public PickupItemEvent(int itemId, int x, int y) {
 		this.itemId = itemId;
@@ -42,7 +37,6 @@ public final class PickupItemEvent extends Event {
 
 	/**
 	 * Return the item id.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getItemId() {
@@ -51,7 +45,6 @@ public final class PickupItemEvent extends Event {
 
 	/**
 	 * Return the item coord.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getX() {
@@ -60,7 +53,6 @@ public final class PickupItemEvent extends Event {
 
 	/**
 	 * Return the item coord.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getY() {

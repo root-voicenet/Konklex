@@ -22,10 +22,12 @@ public final class UptimeCommandListener implements CommandListener {
 				final String readableTime = getElapsedTimeHoursMinutesSecondsString(time * 15000);
 				builder.append(readableTime + "\r\n");
 				channel.write(builder.toString());
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
 			}
-		} else {
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
+			}
+		}
+		else {
 			if (context.getServerChannelGroup().size() > 0) {
 				final StringBuilder builder = new StringBuilder();
 				for (int i = 0; i < context.getServerChannelGroup().size(); i++) {
@@ -34,25 +36,26 @@ public final class UptimeCommandListener implements CommandListener {
 					builder.append("World " + (i + 1) + ": " + readableTime + "\r\n");
 				}
 				channel.write(builder.toString());
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": no worlds connected" + "\r\n");
+			}
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": no worlds connected" + "\r\n");
 			}
 		}
 	}
-	
+
 	/**
 	 * Gets the elapsed time in hours, minutes, and seconds.
 	 * @return The elapsed time in hours, minutes, and seconds.
 	 */
-	public String getElapsedTimeHoursMinutesSecondsString(long serverTime) {     
-	    long elapsedTime = serverTime;
-	    String format = String.format("%%0%dd", 2);
-	    elapsedTime = elapsedTime / 1000;
-	    String seconds = String.format(format, elapsedTime % 60);
-	    String minutes = String.format(format, (elapsedTime % 3600) / 60);
-	    String hours = String.format(format, elapsedTime / 3600);
-	    String time =  hours + ":" + minutes + ":" + seconds;
-	    return time;
+	public String getElapsedTimeHoursMinutesSecondsString(long serverTime) {
+		long elapsedTime = serverTime;
+		String format = String.format("%%0%dd", 2);
+		elapsedTime = elapsedTime / 1000;
+		String seconds = String.format(format, elapsedTime % 60);
+		String minutes = String.format(format, (elapsedTime % 3600) / 60);
+		String hours = String.format(format, elapsedTime / 3600);
+		String time = hours + ":" + minutes + ":" + seconds;
+		return time;
 	}
 
 }

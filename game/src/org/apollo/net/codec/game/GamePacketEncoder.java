@@ -30,10 +30,9 @@ public final class GamePacketEncoder extends OneToOneEncoder {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
-	 * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * java.lang.Object)
+	 * 
+	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss .netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
 	protected Object encode(ChannelHandlerContext ctx, Channel channel, Object msg) throws Exception {
@@ -47,7 +46,8 @@ public final class GamePacketEncoder extends OneToOneEncoder {
 			headerLength++;
 			if (payloadLength >= 256)
 				throw new Exception("Payload too long for variable byte packet");
-		} else if (type == PacketType.VARIABLE_SHORT) {
+		}
+		else if (type == PacketType.VARIABLE_SHORT) {
 			headerLength += 2;
 			if (payloadLength >= 65536)
 				throw new Exception("Payload too long for variable short packet");

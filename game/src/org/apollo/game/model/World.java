@@ -39,11 +39,9 @@ import org.apollo.util.CharacterRepository;
 import org.apollo.util.plugin.PluginManager;
 
 /**
- * The world class is a singleton which contains objects like the
- * {@link CharacterRepository} for players and NPCs. It should only contain
- * things relevant to the in-game world and not classes which deal with I/O and
- * such (these may be better off inside some custom {@link Service} or other
- * code, however, the circumstances are rare).
+ * The world class is a singleton which contains objects like the {@link CharacterRepository} for players and NPCs. It
+ * should only contain things relevant to the in-game world and not classes which deal with I/O and such (these may be
+ * better off inside some custom {@link Service} or other code, however, the circumstances are rare).
  * @author Graham
  */
 public final class World {
@@ -153,7 +151,7 @@ public final class World {
 	 * The uptime.
 	 */
 	private int uptime;
-	
+
 	/**
 	 * The world id.
 	 */
@@ -165,7 +163,7 @@ public final class World {
 	private World() {
 		schedule(new UptimeTask());
 	}
-	
+
 	/**
 	 * Gets the id.
 	 * @return The id.
@@ -173,7 +171,7 @@ public final class World {
 	public int getId() {
 		return id;
 	}
-	
+
 	/**
 	 * Sets the id.
 	 * @param id The id.
@@ -260,15 +258,12 @@ public final class World {
 	}
 
 	/**
-	 * Gets the character repository. NOTE:
-	 * {@link CharacterRepository#add(Character)} and
-	 * {@link CharacterRepository#remove(Character)} should not be called
-	 * directly! These mutation methods are not guaranteed to work in future
-	 * releases!
+	 * Gets the character repository. NOTE: {@link CharacterRepository#add(Character)} and
+	 * {@link CharacterRepository#remove(Character)} should not be called directly! These mutation methods are not
+	 * guaranteed to work in future releases!
 	 * <p>
-	 * Instead, use the {@link World#register(Player)} and
-	 * {@link World#unregister(Player)} methods which do the same thing and will
-	 * continue to work as normal in future releases.
+	 * Instead, use the {@link World#register(Player)} and {@link World#unregister(Player)} methods which do the same
+	 * thing and will continue to work as normal in future releases.
 	 * @return The character repository.
 	 */
 	public CharacterRepository<Player> getPlayerRepository() {
@@ -300,8 +295,7 @@ public final class World {
 	}
 
 	/**
-	 * Initialises the world by loading definitions from the specified file
-	 * system.
+	 * Initialises the world by loading definitions from the specified file system.
 	 * @param release The release number.
 	 * @param fs The file system.
 	 * @param mgr The plugin manager. TODO move this.
@@ -325,7 +319,8 @@ public final class World {
 				if (def != null)
 					nonNull++;
 			EquipmentDefinition.init(equipDefs);
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 		logger.info("Done (loaded " + nonNull + " equipment definitions).");
@@ -415,7 +410,8 @@ public final class World {
 		if (npcRepository.add(npc)) {
 			regionManager.getRegionByLocation(npc.getPosition()).addNpc(npc);
 			logger.info("Registered npc: " + npc + " [online=" + npcRepository.size() + "]");
-		} else
+		}
+		else
 			logger.info("Failed to register npc (server full): " + npc + " [online=" + npcRepository.size() + "]");
 	}
 
@@ -431,17 +427,21 @@ public final class World {
 			logger.warning("Failed to register player (server updating): " + player + " [online="
 					+ playerRepository.size() + "]");
 			return RegistrationStatus.WORLD_UPDATING;
-		} else if (Config.SERVER_WHITELIST) {
+		}
+		else if (Config.SERVER_WHITELIST) {
 			logger.warning("Failed to register player (server offline): " + player + " [online="
 					+ playerRepository.size() + "]");
 			return RegistrationStatus.WORLD_OFFLINE;
-		} else {
+		}
+		else {
 			final boolean success = playerRepository.add(player);
 			if (success) {
-				context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), player.getPrivilegeLevel().toInteger(), true));
+				context.getService(FrontendService.class).sendAll(
+						new SendPlayerMethod(player.getEncodedName(), player.getPrivilegeLevel().toInteger(), true));
 				logger.info("Registered player: " + player + " [online=" + playerRepository.size() + "]");
 				return RegistrationStatus.OK;
-			} else {
+			}
+			else {
 				logger.warning("Failed to register player (server full): " + player + " [online="
 						+ playerRepository.size() + "]");
 				return RegistrationStatus.WORLD_FULL;
@@ -500,7 +500,8 @@ public final class World {
 		if (npcRepository.remove(npc)) {
 			regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
 			logger.info("Unregistered npc: " + npc + " [online=" + npcRepository.size() + "]");
-		} else
+		}
+		else
 			logger.warning("Could not find npc to unregister: " + npc + "!");
 	}
 
@@ -513,7 +514,8 @@ public final class World {
 			context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), false));
 			regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
-		} else
+		}
+		else
 			logger.warning("Could not find player to unregister: " + player + "!");
 	}
 

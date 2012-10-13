@@ -11,7 +11,6 @@ import org.apollo.util.xml.XmlParser;
 
 /**
  * A class which manages {@link Service}s.
- * 
  * @author Graham
  */
 public final class ServiceManager {
@@ -19,8 +18,7 @@ public final class ServiceManager {
 	/**
 	 * The logger for this class.
 	 */
-	private static final Logger logger = Logger.getLogger(ServiceManager.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(ServiceManager.class.getName());
 
 	/**
 	 * The service map.
@@ -29,9 +27,7 @@ public final class ServiceManager {
 
 	/**
 	 * Creates and initializes the {@link ServiceManager}.
-	 * 
-	 * @throws Exception
-	 *             if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
 	public ServiceManager() throws Exception {
 		init();
@@ -39,11 +35,8 @@ public final class ServiceManager {
 
 	/**
 	 * Gets a service.
-	 * 
-	 * @param <S>
-	 *            The type of service.
-	 * @param clazz
-	 *            The service class.
+	 * @param <S> The type of service.
+	 * @param clazz The service class.
 	 * @return The service.
 	 */
 	@SuppressWarnings("unchecked")
@@ -53,9 +46,7 @@ public final class ServiceManager {
 
 	/**
 	 * Initializes this service manager.
-	 * 
-	 * @throws Exception
-	 *             if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
 	@SuppressWarnings("unchecked")
 	private void init() throws Exception {
@@ -65,7 +56,8 @@ public final class ServiceManager {
 		final InputStream is = new FileInputStream("data/services.xml");
 		try {
 			rootNode = parser.parse(is);
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 		if (!rootNode.getName().equals("services"))
@@ -75,21 +67,16 @@ public final class ServiceManager {
 				throw new Exception("unexpected name of child node");
 			if (!childNode.hasValue())
 				throw new Exception("child node must have a value!");
-			final Class<? extends Service> clazz = (Class<? extends Service>) Class
-					.forName(childNode.getValue());
+			final Class<? extends Service> clazz = (Class<? extends Service>) Class.forName(childNode.getValue());
 			register((Class<Service>) clazz, clazz.newInstance());
 		}
 	}
 
 	/**
 	 * Registers a service.
-	 * 
-	 * @param <S>
-	 *            The type of service.
-	 * @param clazz
-	 *            The service's class.
-	 * @param service
-	 *            The service.
+	 * @param <S> The type of service.
+	 * @param clazz The service's class.
+	 * @param service The service.
 	 */
 	private <S extends Service> void register(Class<S> clazz, S service) {
 		logger.fine("Registering service: " + clazz + "...");
@@ -98,9 +85,7 @@ public final class ServiceManager {
 
 	/**
 	 * Sets the context of all services.
-	 * 
-	 * @param ctx
-	 *            The server context.
+	 * @param ctx The server context.
 	 */
 	public void setContext(ServerContext ctx) {
 		for (final Service s : services.values())
@@ -113,8 +98,7 @@ public final class ServiceManager {
 	public void startAll() {
 		logger.info("Starting services...");
 		for (final Service service : services.values()) {
-			logger.fine("Starting service: " + service.getClass().getName()
-					+ "...");
+			logger.fine("Starting service: " + service.getClass().getName() + "...");
 			service.start();
 		}
 	}

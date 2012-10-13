@@ -15,8 +15,8 @@ import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.TextUtil;
 
 /**
- * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change
- * this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change this template use File | Settings | File
+ * Templates.
  */
 public class Herbs {
 
@@ -25,10 +25,13 @@ public class Herbs {
 	// set of global constants for Farming
 
 	private static final int START_HARVEST_AMOUNT = 3;
+
 	private static final int END_HARVEST_AMOUNT = 18;
 
 	private static final double COMPOST_CHANCE = 0.9;
+
 	private static final double SUPERCOMPOST_CHANCE = 0.7;
+
 	private static final double CLEARING_EXPERIENCE = 4;
 
 	public Herbs(Player player) {
@@ -37,11 +40,16 @@ public class Herbs {
 
 	// Farming data
 	public int[] farmingStages = new int[4];
+
 	public int[] farmingSeeds = new int[4];
+
 	public int[] farmingHarvest = new int[4];
+
 	public int[] farmingState = new int[4];
+
 	public long[] farmingTimer = new long[4];
-	public double[] diseaseChance = {1, 1, 1, 1, 1};
+
+	public double[] diseaseChance = { 1, 1, 1, 1, 1 };
 
 	/* set of the constants for the patch */
 
@@ -53,18 +61,33 @@ public class Herbs {
 	/* This is the enum holding the seeds info */
 
 	public enum HerbData {
-		GUAM(5291, 199, 9, 80, 0.25, 11, 12.5, 0x04, 0x08), MARRENTILL(5292, 201, 14, 80, 0.25, 13.5, 15, 0x0b, 0x0f), TARROMIN(5293, 203, 19, 80, 0.25, 16, 18, 0x12, 0x16), HARRALANDER(5294, 205, 26, 80, 0.25, 21.5, 24, 0x19, 0x1d), GOUT_TUBER(6311, 3261, 29, 80, 0.25, 105, 45, 0xc0, 0xc4), RANARR(5295, 207, 32, 80, 0.20, 27, 30.5, 0x20, 0x24), TOADFLAX(5296, 3049, 38, 80, 0.20, 34, 38.5, 0x27, 0x2b), IRIT(5297, 209, 44, 80, 0.20, 43, 48.5, 0x2e, 0x32), AVANTOE(5298, 211, 50, 80, 0.20, 54.5, 61.5, 0x35, 0x39), KUARM(5299, 213, 56, 80, 0.20, 69, 78, 0x44, 0x48), SNAPDRAGON(5300, 3051, 62, 80, 0.15, 87.5, 98.5, 0x4b, 0x4f), CADANTINE(5301, 215, 67, 80, 0.15, 106.5, 120, 0x52, 0x56), LANTADYME(5302, 2485, 73, 80, 0.15, 134.5, 151.5, 0x59, 0x5d), DWARF(5303, 217, 79, 80, 0.15, 170.5, 192, 0x60, 0x64), TORSOL(5304, 219, 85, 80, 0.15, 199.5, 224.5, 0x67, 0x6b)
+		GUAM(5291, 199, 9, 80, 0.25, 11, 12.5, 0x04, 0x08), MARRENTILL(5292, 201, 14, 80, 0.25, 13.5, 15, 0x0b, 0x0f), TARROMIN(
+				5293, 203, 19, 80, 0.25, 16, 18, 0x12, 0x16), HARRALANDER(5294, 205, 26, 80, 0.25, 21.5, 24, 0x19, 0x1d), GOUT_TUBER(
+				6311, 3261, 29, 80, 0.25, 105, 45, 0xc0, 0xc4), RANARR(5295, 207, 32, 80, 0.20, 27, 30.5, 0x20, 0x24), TOADFLAX(
+				5296, 3049, 38, 80, 0.20, 34, 38.5, 0x27, 0x2b), IRIT(5297, 209, 44, 80, 0.20, 43, 48.5, 0x2e, 0x32), AVANTOE(
+				5298, 211, 50, 80, 0.20, 54.5, 61.5, 0x35, 0x39), KUARM(5299, 213, 56, 80, 0.20, 69, 78, 0x44, 0x48), SNAPDRAGON(
+				5300, 3051, 62, 80, 0.15, 87.5, 98.5, 0x4b, 0x4f), CADANTINE(5301, 215, 67, 80, 0.15, 106.5, 120, 0x52,
+				0x56), LANTADYME(5302, 2485, 73, 80, 0.15, 134.5, 151.5, 0x59, 0x5d), DWARF(5303, 217, 79, 80, 0.15,
+				170.5, 192, 0x60, 0x64), TORSOL(5304, 219, 85, 80, 0.15, 199.5, 224.5, 0x67, 0x6b)
 
 		;
 
 		private int seedId;
+
 		private int harvestId;
+
 		private int levelRequired;
+
 		private int growthTime;
+
 		private double diseaseChance;
+
 		private double plantingXp;
+
 		private double harvestXp;
+
 		private int startingState;
+
 		private int endingState;
 
 		private static Map<Integer, HerbData> seeds = new HashMap<Integer, HerbData>();
@@ -75,7 +98,8 @@ public class Herbs {
 			}
 		}
 
-		HerbData(int seedId, int harvestId, int levelRequired, int growthTime, double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState) {
+		HerbData(int seedId, int harvestId, int levelRequired, int growthTime, double diseaseChance, double plantingXp,
+				double harvestXp, int startingState, int endingState) {
 			this.seedId = seedId;
 			this.harvestId = harvestId;
 			this.levelRequired = levelRequired;
@@ -131,8 +155,12 @@ public class Herbs {
 	/* This is the enum data about the different patches */
 
 	public enum HerbFieldsData {
-		ARDOUGNE(0, new Position[]{new Position(2670, 3374), new Position(2671, 3375)}), PHASMATYS(1, new Position[]{new Position(3605, 3529), new Position(3606, 3530)}), FALADOR(2, new Position[]{new Position(3058, 3311), new Position(3059, 3312)}), CATHERBY(3, new Position[]{new Position(2813, 3463), new Position(2814, 3464)});
+		ARDOUGNE(0, new Position[] { new Position(2670, 3374), new Position(2671, 3375) }), PHASMATYS(1,
+				new Position[] { new Position(3605, 3529), new Position(3606, 3530) }), FALADOR(2, new Position[] {
+				new Position(3058, 3311), new Position(3059, 3312) }), CATHERBY(3, new Position[] {
+				new Position(2813, 3463), new Position(2814, 3464) });
 		private int herbIndex;
+
 		private Position[] herbPosition;
 
 		HerbFieldsData(int herbIndex, Position[] herbPosition) {
@@ -142,7 +170,8 @@ public class Herbs {
 
 		public static HerbFieldsData forIdPosition(Position position) {
 			for (HerbFieldsData herbFieldsData : HerbFieldsData.values()) {
-				if (FarmingConstants.inRangeArea(herbFieldsData.getHerbPosition()[0], herbFieldsData.getHerbPosition()[1], position)) {
+				if (FarmingConstants.inRangeArea(herbFieldsData.getHerbPosition()[0],
+						herbFieldsData.getHerbPosition()[1], position)) {
 					return herbFieldsData;
 				}
 			}
@@ -162,13 +191,55 @@ public class Herbs {
 
 	public enum InspectData {
 
-		GUAM(5291, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), MARRENTILL(5292, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), TARROMIN(5293, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), HARRALANDER(5294, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), GOUT_TUBER(6311, new String[][]{
-				{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), RANARR(5295, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), TOADFLAX(5296, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), IRIT(5297, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), AVANTOE(5298, new String[][]{{"The seed has only just been planted."},
-				{"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), KUARM(5299, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), SNAPDRAGON(5300, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), CADANTINE(5301, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), LANTADYME(5302, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."},
-				{"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), DWARF(5303, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}}), TORSOL(5304, new String[][]{{"The seed has only just been planted."}, {"The herb is now ankle height."}, {"The herb is now knee height."}, {"The herb is now mid-thigh height."}, {"The herb is fully grown and ready to harvest."}})
+		GUAM(5291, new String[][] { { "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), MARRENTILL(5292, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), TARROMIN(5293, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), HARRALANDER(5294, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), GOUT_TUBER(6311, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), RANARR(5295, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), TOADFLAX(5296, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), IRIT(5297, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), AVANTOE(5298, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), KUARM(5299, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), SNAPDRAGON(5300, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), CADANTINE(5301, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), LANTADYME(5302, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), DWARF(5303, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } }), TORSOL(5304, new String[][] {
+				{ "The seed has only just been planted." }, { "The herb is now ankle height." },
+				{ "The herb is now knee height." }, { "The herb is now mid-thigh height." },
+				{ "The herb is fully grown and ready to harvest." } })
 
 		;
 		private int seedId;
+
 		private String[][] messages;
 
 		private static Map<Integer, InspectData> seeds = new HashMap<Integer, InspectData>();
@@ -218,14 +289,14 @@ public class Herbs {
 	public int getConfigValue(int herbStage, int seedId, int plantState, int index) {
 		HerbData herbData = HerbData.forId(seedId);
 		switch (herbStage) {
-			case 0 :// weed
-				return (GROWING << 6) + 0x00;
-			case 1 :// weed cleared
-				return (GROWING << 6) + 0x01;
-			case 2 :
-				return (GROWING << 6) + 0x02;
-			case 3 :
-				return (GROWING << 6) + 0x03;
+		case 0:// weed
+			return (GROWING << 6) + 0x00;
+		case 1:// weed cleared
+			return (GROWING << 6) + 0x01;
+		case 2:
+			return (GROWING << 6) + 0x02;
+		case 3:
+			return (GROWING << 6) + 0x03;
 		}
 		if (herbData == null) {
 			return -1;
@@ -233,19 +304,21 @@ public class Herbs {
 		if (farmingSeeds[index] == 6311) {
 			if (plantState == 1) {
 				return farmingStages[index] + 0xc1;
-			} else if (plantState == 2) {
+			}
+			else if (plantState == 2) {
 				return farmingStages[index] + 0xc3;
 			}
 		}
-		return (plantState == 2 ? farmingStages[index] + 0x9e : plantState == 1 ? farmingStages[index] + 0x9a : getPlantState(plantState) << 6) + herbData.getStartingState() + herbStage - 4;
+		return (plantState == 2 ? farmingStages[index] + 0x9e : plantState == 1 ? farmingStages[index] + 0x9a
+				: getPlantState(plantState) << 6) + herbData.getStartingState() + herbStage - 4;
 	}
 
 	/* getting the plant states */
 
 	public int getPlantState(int plantState) {
 		switch (plantState) {
-			case 0 :
-				return GROWING;
+		case 0:
+			return GROWING;
 		}
 		return -1;
 	}
@@ -324,15 +397,18 @@ public class Herbs {
 			if (!player.getInventory().contains(FarmingConstants.RAKE)) {
 				player.getInterfaceSet().sendStatement("You need a rake to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.RAKING_ANIM;
 				finalDelay = 5;
 			}
-		} else {
+		}
+		else {
 			if (!player.getInventory().contains(FarmingConstants.SPADE)) {
 				player.getInterfaceSet().sendStatement("You need a spade to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.SPADE_ANIM;
 				finalDelay = 3;
 			}
@@ -347,7 +423,8 @@ public class Herbs {
 				if (farmingStages[herbFieldsData.getHerbIndex()] <= 2) {
 					farmingStages[herbFieldsData.getHerbIndex()]++;
 					player.getInventory().add(new Item(6055));
-				} else {
+				}
+				else {
 					farmingStages[herbFieldsData.getHerbIndex()] = 3;
 					stop();
 				}
@@ -385,7 +462,8 @@ public class Herbs {
 			return false;
 		}
 		if (herbData.getLevelRequired() > player.getSkillSet().getSkill(Skill.FARMING).getCurrentLevel()) {
-			player.getInterfaceSet().sendStatement("You need a farming level of " + herbData.getLevelRequired() + " to plant this seed.");
+			player.getInterfaceSet().sendStatement(
+					"You need a farming level of " + herbData.getLevelRequired() + " to plant this seed.");
 			return true;
 		}
 		if (!player.getInventory().contains(FarmingConstants.SEED_DIBBER)) {
@@ -452,7 +530,9 @@ public class Herbs {
 			@Override
 			public void execute() {
 				if (farmingHarvest[herbFieldsData.getHerbIndex()] == 0) {
-					farmingHarvest[herbFieldsData.getHerbIndex()] = (int) (1 + (START_HARVEST_AMOUNT + TextUtil.random(END_HARVEST_AMOUNT - START_HARVEST_AMOUNT)) * (player.getEquipment().contains(7409) ? 1.10 : 1));
+					farmingHarvest[herbFieldsData.getHerbIndex()] = (int) (1 + (START_HARVEST_AMOUNT + TextUtil
+							.random(END_HARVEST_AMOUNT - START_HARVEST_AMOUNT))
+							* (player.getEquipment().contains(7409) ? 1.10 : 1));
 				}
 
 				if (farmingHarvest[herbFieldsData.getHerbIndex()] == 1) {
@@ -479,9 +559,9 @@ public class Herbs {
 				player.stopAnimation();
 				super.stop();
 			}
-			
+
 		};
-		
+
 		player.startAction(action);
 		return true;
 	}
@@ -505,7 +585,8 @@ public class Herbs {
 
 		player.sendMessage("You pour some " + (itemId == 6034 ? "super" : "") + "compost on the patch.");
 		player.playAnimation(new Animation(FarmingConstants.PUTTING_COMPOST));
-		player.getSkillSet().addExperience(Skill.FARMING, itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
+		player.getSkillSet().addExperience(Skill.FARMING,
+				itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
 
 		World.getWorld().schedule(new ScheduledTask(7, false) {
 
@@ -535,17 +616,24 @@ public class Herbs {
 		final InspectData inspectData = InspectData.forId(farmingSeeds[herbFieldsData.getHerbIndex()]);
 		final HerbData herbData = HerbData.forId(farmingSeeds[herbFieldsData.getHerbIndex()]);
 		if (farmingState[herbFieldsData.getHerbIndex()] == 1) {
-			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,", "or clear the patch with a spade.");
+			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,",
+					"or clear the patch with a spade.");
 			return true;
-		} else if (farmingState[herbFieldsData.getHerbIndex()] == 2) {
-			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.", "Clear the patch with a spade.");
+		}
+		else if (farmingState[herbFieldsData.getHerbIndex()] == 2) {
+			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.",
+					"Clear the patch with a spade.");
 			return true;
 		}
 		if (farmingStages[herbFieldsData.getHerbIndex()] == 0) {
-			player.getInterfaceSet().sendStatement("This is an herb patch. The soil has not been treated.", "The patch needs weeding.");
-		} else if (farmingStages[herbFieldsData.getHerbIndex()] == 3) {
-			player.getInterfaceSet().sendStatement("This is an herb patch. The soil has not been treated.", "The patch is empty and weeded.");
-		} else if (inspectData != null && herbData != null) {
+			player.getInterfaceSet().sendStatement("This is an herb patch. The soil has not been treated.",
+					"The patch needs weeding.");
+		}
+		else if (farmingStages[herbFieldsData.getHerbIndex()] == 3) {
+			player.getInterfaceSet().sendStatement("This is an herb patch. The soil has not been treated.",
+					"The patch is empty and weeded.");
+		}
+		else if (inspectData != null && herbData != null) {
 			player.sendMessage("You bend down and start to inspect the patch...");
 
 			player.playAnimation(new Animation(1331));
@@ -554,11 +642,17 @@ public class Herbs {
 				@Override
 				public void execute() {
 					if (farmingStages[herbFieldsData.getHerbIndex()] - 4 < inspectData.getMessages().length - 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[farmingStages[herbFieldsData.getHerbIndex()] - 4]);
-					} else if (farmingStages[herbFieldsData.getHerbIndex()] < herbData.getEndingState() - herbData.getStartingState() + 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 2]);
-					} else {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 1]);
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[farmingStages[herbFieldsData.getHerbIndex()] - 4]);
+					}
+					else if (farmingStages[herbFieldsData.getHerbIndex()] < herbData.getEndingState()
+							- herbData.getStartingState() + 2) {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 2]);
+					}
+					else {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 1]);
 					}
 					stop();
 				}

@@ -51,7 +51,8 @@ public final class ItemInformation {
 			System.out.println("\n");
 			int price = RuneWiki.getPrice(item);
 			System.out.println("GE Price: " + price);
-		} finally {
+		}
+		finally {
 			fs.close();
 		}
 	}

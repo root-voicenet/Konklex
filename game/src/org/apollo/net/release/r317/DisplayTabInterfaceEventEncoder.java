@@ -9,11 +9,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link DisplayTabInterfaceEvent}.
- * 
  * @author Chris Fletcher
  */
-public final class DisplayTabInterfaceEventEncoder extends
-EventEncoder<DisplayTabInterfaceEvent> {
+public final class DisplayTabInterfaceEventEncoder extends EventEncoder<DisplayTabInterfaceEvent> {
 
 	@Override
 	public GamePacket encode(DisplayTabInterfaceEvent event) {

@@ -14,8 +14,7 @@ public abstract class ResourceProvider {
 	/**
 	 * Checks that this provider can fulfill a request to the specified resource.
 	 * @param path The path to the resource, e.g. {@code /crc}.
-	 * @return {@code true} if the provider can fulfill a request to the
-	 * resource, {@code false} otherwise.
+	 * @return {@code true} if the provider can fulfill a request to the resource, {@code false} otherwise.
 	 * @throws IOException if an I/O error occurs.
 	 */
 	public abstract boolean accept(String path) throws IOException;

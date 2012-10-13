@@ -6,8 +6,7 @@ import org.apollo.game.model.Inventory;
 import org.apollo.game.model.Player;
 
 /**
- * An {@link InventoryListener} which sends a message to a player when an
- * inventory has run out of space.
+ * An {@link InventoryListener} which sends a message to a player when an inventory has run out of space.
  * @author Graham
  */
 public final class FullInventoryListener extends InventoryAdapter {
@@ -26,6 +25,7 @@ public final class FullInventoryListener extends InventoryAdapter {
 	 * The equipment full message.
 	 */
 	public static final String FULL_EQUIPMENT_MESSAGE = "Not enough equipment space."; // TODO
+
 	// confirm
 	// if
 	// possible
@@ -52,9 +52,8 @@ public final class FullInventoryListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#capacityExceeded(org.apollo
-	 * .game.model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#capacityExceeded(org.apollo .game.model.Inventory)
 	 */
 	@Override
 	public void capacityExceeded(Inventory inventory) {

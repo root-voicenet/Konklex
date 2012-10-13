@@ -7,7 +7,6 @@ import org.apollo.game.model.inv.InventoryAdapter;
 
 /**
  * The listener for the shop amount change.
- * 
  * @author Steve
  */
 public final class ShopAmountChangedListener extends InventoryAdapter {
@@ -19,9 +18,7 @@ public final class ShopAmountChangedListener extends InventoryAdapter {
 
 	/**
 	 * Create a new shop amount changed listener.
-	 * 
-	 * @param shop
-	 *            The shop.
+	 * @param shop The shop.
 	 */
 	public ShopAmountChangedListener(Shop shop) {
 		this.shop = shop;

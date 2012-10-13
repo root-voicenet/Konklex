@@ -26,6 +26,7 @@ public final class CombinedResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#accept(java.lang.String)
 	 */
 	@Override
@@ -35,6 +36,7 @@ public final class CombinedResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
 	 */
 	@Override

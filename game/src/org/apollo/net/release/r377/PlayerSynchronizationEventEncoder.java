@@ -38,8 +38,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(PlayerSynchronizationEvent event) {
@@ -56,7 +56,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 			else if (type == SegmentType.ADD_CHARACTER) {
 				putAddCharacterUpdate((AddCharacterSegment) segment, event, builder);
 				putBlocks(segment, blockBuilder);
-			} else {
+			}
+			else {
 				putMovementUpdate(segment, event, builder);
 				putBlocks(segment, blockBuilder);
 			}
@@ -65,7 +66,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 			builder.putBits(11, 2047);
 			builder.switchToByteAccess();
 			builder.putRawBuilder(blockBuilder);
-		} else
+		}
+		else
 			builder.switchToByteAccess();
 		return builder.toGamePacket();
 	}
@@ -76,7 +78,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	 * @param event The event.
 	 * @param builder The builder.
 	 */
-	private void putAddCharacterUpdate(AddCharacterSegment seg, PlayerSynchronizationEvent event, GamePacketBuilder builder) {
+	private void putAddCharacterUpdate(AddCharacterSegment seg, PlayerSynchronizationEvent event,
+			GamePacketBuilder builder) {
 		final boolean updateRequired = seg.getBlockSet().size() > 0;
 		final Position player = event.getPosition();
 		final Position other = seg.getPosition();
@@ -131,7 +134,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 				playerProperties.put(DataType.SHORT, 0x100 + style[3]);
 			else
 				playerProperties.put(DataType.BYTE, 0);
-		} else
+		}
+		else
 			playerProperties.put(DataType.SHORT, 0x100 + style[3]);
 		if ((item = equipment.get(EquipmentConstants.LEGS)) != null)
 			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
@@ -143,7 +147,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 				playerProperties.put(DataType.SHORT, 0x100 + style[0]);
 			else
 				playerProperties.put(DataType.BYTE, 0);
-		} else
+		}
+		else
 			playerProperties.put(DataType.SHORT, 0x100 + style[0]);
 		if ((item = equipment.get(EquipmentConstants.HANDS)) != null)
 			playerProperties.put(DataType.SHORT, 0x200 + item.getId());
@@ -202,7 +207,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 			if (mask >= 0x100) {
 				mask |= 0x20;
 				blockBuilder.put(DataType.SHORT, DataOrder.LITTLE, mask);
-			} else
+			}
+			else
 				blockBuilder.put(DataType.BYTE, mask);
 			if (blockSet.contains(AnimationBlock.class))
 				putAnimationBlock(blockSet.get(AnimationBlock.class), blockBuilder);
@@ -248,7 +254,8 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	 * @param event The event.
 	 * @param builder The builder.
 	 */
-	private void putMovementUpdate(SynchronizationSegment seg, PlayerSynchronizationEvent event, GamePacketBuilder builder) {
+	private void putMovementUpdate(SynchronizationSegment seg, PlayerSynchronizationEvent event,
+			GamePacketBuilder builder) {
 		final boolean updateRequired = seg.getBlockSet().size() > 0;
 		if (seg.getType() == SegmentType.TELEPORT) {
 			final Position pos = ((TeleportSegment) seg).getDestination();
@@ -259,23 +266,27 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 			builder.putBits(7, pos.getLocalY(event.getLastKnownRegion()));
 			builder.putBits(7, pos.getLocalX(event.getLastKnownRegion()));
 			builder.putBits(1, updateRequired ? 1 : 0);
-		} else if (seg.getType() == SegmentType.RUN) {
+		}
+		else if (seg.getType() == SegmentType.RUN) {
 			final Direction[] directions = ((MovementSegment) seg).getDirections();
 			builder.putBits(1, 1);
 			builder.putBits(2, 2);
 			builder.putBits(3, directions[0].toInteger());
 			builder.putBits(3, directions[1].toInteger());
 			builder.putBits(1, updateRequired ? 1 : 0);
-		} else if (seg.getType() == SegmentType.WALK) {
+		}
+		else if (seg.getType() == SegmentType.WALK) {
 			final Direction[] directions = ((MovementSegment) seg).getDirections();
 			builder.putBits(1, 1);
 			builder.putBits(2, 1);
 			builder.putBits(3, directions[0].toInteger());
 			builder.putBits(1, updateRequired ? 1 : 0);
-		} else if (updateRequired) {
+		}
+		else if (updateRequired) {
 			builder.putBits(1, 1);
 			builder.putBits(2, 0);
-		} else
+		}
+		else
 			builder.putBits(1, 0);
 	}
 

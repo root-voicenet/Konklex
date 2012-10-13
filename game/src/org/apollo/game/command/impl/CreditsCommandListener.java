@@ -11,26 +11,23 @@ import org.apollo.game.model.inter.quest.QuestConstants;
 import org.apollo.util.plugin.PluginManager;
 
 /**
- * Implements a {@code ::credits} command that lists the authors of all plugins
- * used in the server.
+ * Implements a {@code ::credits} command that lists the authors of all plugins used in the server.
  * @author Graham
  */
 public final class CreditsCommandListener implements CommandListener {
 
 	/*
-	 * If you are considering removing this command, please bear in mind that
-	 * Apollo took several people thousands of hours to create. We released it
-	 * to the world for free and it isn't much to ask to leave this command in.
-	 * It isn't very obtrusive and gives us some well-deserved recognition for
-	 * the work we have done. Thank you! The list of authors is generated from
-	 * the plugin manager. If you create a custom plugin, make sure you add your
-	 * name to the plugin.xml file and it'll appear here automatically!
+	 * If you are considering removing this command, please bear in mind that Apollo took several people thousands of
+	 * hours to create. We released it to the world for free and it isn't much to ask to leave this command in. It isn't
+	 * very obtrusive and gives us some well-deserved recognition for the work we have done. Thank you! The list of
+	 * authors is generated from the plugin manager. If you create a custom plugin, make sure you add your name to the
+	 * plugin.xml file and it'll appear here automatically!
 	 */
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.command.CommandListener#execute(org.apollo.game.model
-	 * .Player, org.apollo.game.command.Command)
+	 * 
+	 * @see org.apollo.game.command.CommandListener#execute(org.apollo.game.model .Player,
+	 * org.apollo.game.command.Command)
 	 */
 	@Override
 	public void execute(Player player, Command command) {

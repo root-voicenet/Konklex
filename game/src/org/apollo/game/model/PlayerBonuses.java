@@ -8,12 +8,12 @@ import org.apollo.tools.EquipmentConstants;
  * @author Steve
  */
 public final class PlayerBonuses {
-	
+
 	/**
 	 * The player.
 	 */
 	private final Player player;
-	
+
 	/**
 	 * The equipment bonuses.
 	 */
@@ -34,23 +34,23 @@ public final class PlayerBonuses {
 	 */
 	private int bonusForId(int bonus) {
 		int id = 0;
-		switch(bonus) {
-			case EquipmentBonuses.DEFENSE_SUMMONING:
-			case EquipmentBonuses.STRENGTH_RANGE:
-			case EquipmentBonuses.ABSORB_MAGIC:
-			case EquipmentBonuses.ABSORB_MELEE:
-			case EquipmentBonuses.ABSORB_RANGE:
-				id = -1;
-				break;
-			case EquipmentBonuses.STRENGTH_MELEE:
-				id = 10;
-				break;
-			case EquipmentBonuses.PRAYER:
-				id = 1;
-				break;
-			default:
-				id = bonus;
-				break;
+		switch (bonus) {
+		case EquipmentBonuses.DEFENSE_SUMMONING:
+		case EquipmentBonuses.STRENGTH_RANGE:
+		case EquipmentBonuses.ABSORB_MAGIC:
+		case EquipmentBonuses.ABSORB_MELEE:
+		case EquipmentBonuses.ABSORB_RANGE:
+			id = -1;
+			break;
+		case EquipmentBonuses.STRENGTH_MELEE:
+			id = 10;
+			break;
+		case EquipmentBonuses.PRAYER:
+			id = 1;
+			break;
+		default:
+			id = bonus;
+			break;
 		}
 		return id;
 	}
@@ -68,7 +68,7 @@ public final class PlayerBonuses {
 				newBonuses = newBonuses.append(equiped.getBonuses());
 			}
 		}
-		
+
 		this.bonuses = newBonuses;
 		writeBonus();
 	}
@@ -85,16 +85,16 @@ public final class PlayerBonuses {
 	 * Writes the bonuses.
 	 */
 	private void writeBonus() {
-        int i = 0;
-        String text = "";
-        for (double bonus : bonuses) {
-        	int bonusId = bonusForId(i);
-        	if (bonusId != -1) {
-	        	text = EquipmentConstants.BONUS_NAMES[bonusId] + ": " + Integer.toString((int) bonus);
-	        	player.send(new SetInterfaceTextEvent(1675 + bonusId, text));
-	        	i++;
-        	}
-        }
+		int i = 0;
+		String text = "";
+		for (double bonus : bonuses) {
+			int bonusId = bonusForId(i);
+			if (bonusId != -1) {
+				text = EquipmentConstants.BONUS_NAMES[bonusId] + ": " + Integer.toString((int) bonus);
+				player.send(new SetInterfaceTextEvent(1675 + bonusId, text));
+				i++;
+			}
+		}
 	}
 
 }

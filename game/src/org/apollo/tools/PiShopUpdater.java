@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Steve
  */
 public final class PiShopUpdater {
-	
+
 	/**
 	 * The shops being added.
 	 */
@@ -32,27 +32,30 @@ public final class PiShopUpdater {
 			return;
 		}
 		final String path = args[0];
-		final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(path))));
+		final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
+				new FileInputStream(path))));
 		try {
 			String content = "";
 			while ((content = br.readLine()) != null) {
 				if (content.startsWith("shop =")) {
 					try {
 						parseLine(content);
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
 			updateXml();
-		} finally {
+		}
+		finally {
 			br.close();
 		}
 	}
 
 	/**
 	 * Updates the shops xml.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private static void updateXml() throws IOException {
 		final BufferedWriter bw = new BufferedWriter(new FileWriter("data/plugins/shops/plugin.xml"));
@@ -81,7 +84,7 @@ public final class PiShopUpdater {
 		bw.write("    <script>stores.rb</script>");
 		for (String shop : shops) {
 			bw.newLine();
-			bw.write("    <script>"+shop+".rb</script>");
+			bw.write("    <script>" + shop + ".rb</script>");
 		}
 		bw.newLine();
 		bw.write("  </scripts>");
@@ -95,14 +98,14 @@ public final class PiShopUpdater {
 	/**
 	 * Parses a line.
 	 * @param content The line.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private static void parseLine(String content) throws IOException {
 		final String[] arguments = content.split("\t");
 		final int id = Integer.parseInt(arguments[0].replace("shop = ", ""));
 		final String name = arguments[1];
 		final String script = name.toLowerCase().replace(" ", "").replace("_", "");
-		final BufferedWriter bw = new BufferedWriter(new FileWriter("data/plugins/shops/"+script+".rb"));
+		final BufferedWriter bw = new BufferedWriter(new FileWriter("data/plugins/shops/" + script + ".rb"));
 		bw.write("# The " + name);
 		bw.newLine();
 		bw.newLine();
@@ -115,9 +118,9 @@ public final class PiShopUpdater {
 		bw.write("items = {");
 		bw.newLine();
 		bw.write("  # item id => item amount,");
-		for (int i = 4; i < arguments.length; i+=2) {
+		for (int i = 4; i < arguments.length; i += 2) {
 			int item = Integer.parseInt(arguments[i]);
-			int amount = Integer.parseInt(arguments[i+1]);
+			int amount = Integer.parseInt(arguments[i + 1]);
 			bw.newLine();
 			bw.write("  " + item + " => " + amount + ",");
 		}

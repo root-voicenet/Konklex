@@ -71,7 +71,8 @@ public final class UpdateService extends Service {
 			}
 			for (final RequestWorker<?, ?> worker : workers)
 				service.submit(worker);
-		} catch (final Exception ex) {
+		}
+		catch (final Exception ex) {
 			throw new RuntimeException(ex); // TODO neater/more elegant way
 		}
 	}

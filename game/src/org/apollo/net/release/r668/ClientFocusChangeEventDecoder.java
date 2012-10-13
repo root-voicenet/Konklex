@@ -8,11 +8,9 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link ClientFocusChangeEvent}.
- * 
  * @author Steve
  */
-public final class ClientFocusChangeEventDecoder extends
-EventDecoder<ClientFocusChangeEvent> {
+public final class ClientFocusChangeEventDecoder extends EventDecoder<ClientFocusChangeEvent> {
 
 	@Override
 	public ClientFocusChangeEvent decode(GamePacket packet) {

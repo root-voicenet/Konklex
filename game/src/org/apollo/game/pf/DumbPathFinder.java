@@ -3,8 +3,8 @@ package org.apollo.game.pf;
 import org.apollo.game.model.Position;
 
 /**
- * An implementation of a <code>PathFinder</code> which is 'dumb' and only looks
- * at surrounding tiles for a path, suitable for an NPC.
+ * An implementation of a <code>PathFinder</code> which is 'dumb' and only looks at surrounding tiles for a path,
+ * suitable for an NPC.
  * @author Graham Edgecombe
  */
 public class DumbPathFinder implements PathFinder {

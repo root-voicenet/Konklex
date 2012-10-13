@@ -48,12 +48,15 @@ public final class NoteUpdater {
 					if (itemToNote.containsKey(id)) {
 						os.writeBoolean(true); // notable
 						os.writeShort(itemToNote.get(id));
-					} else
+					}
+					else
 						os.writeBoolean(false); // not notable
-			} finally {
+			}
+			finally {
 				fs.close();
 			}
-		} finally {
+		}
+		finally {
 			os.close();
 		}
 	}

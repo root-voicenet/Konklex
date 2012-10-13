@@ -14,12 +14,12 @@ import org.jboss.netty.handler.codec.frame.FrameDecoder;
  * @author Steve
  */
 public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
-	
+
 	/**
 	 * The time.
 	 */
 	private int time;
-	
+
 	/**
 	 * The context.
 	 */
@@ -35,12 +35,13 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel.
-	 * ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
+	 * 
+	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel. ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
 	 */
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, ApiDecoderState state) throws Exception {
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, ApiDecoderState state)
+			throws Exception {
 		switch (state) {
 		case LOGIN_HANDSHAKE:
 			return decodeHandshake(ctx, channel, buffer);
@@ -86,7 +87,7 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 			buffer.readByte();
 			ChannelBuffer resp = ChannelBuffers.dynamicBuffer();
 			int nodes = context.getServerChannelGroup().size();
-			resp.writeByte(6*nodes);
+			resp.writeByte(6 * nodes);
 			resp.writeByte(nodes);
 			for (int i = 0; i < nodes; i++) {
 				final World world = context.getServerChannelGroup().getWorld(i + 1);

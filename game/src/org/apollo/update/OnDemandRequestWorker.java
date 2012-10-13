@@ -13,11 +13,9 @@ import org.jboss.netty.channel.Channel;
 
 /**
  * A worker which services 'on-demand' requests.
- * 
  * @author Graham
  */
-public final class OnDemandRequestWorker extends
-RequestWorker<OnDemandRequest, IndexedFileSystem> {
+public final class OnDemandRequestWorker extends RequestWorker<OnDemandRequest, IndexedFileSystem> {
 
 	/**
 	 * The maximum length of a chunk, in bytes.
@@ -26,38 +24,30 @@ RequestWorker<OnDemandRequest, IndexedFileSystem> {
 
 	/**
 	 * Creates the 'on-demand' request worker.
-	 * 
-	 * @param dispatcher
-	 *            The dispatcher.
-	 * @param fs
-	 *            The file system.
+	 * @param dispatcher The dispatcher.
+	 * @param fs The file system.
 	 */
-	public OnDemandRequestWorker(UpdateDispatcher dispatcher,
-			IndexedFileSystem fs) {
+	public OnDemandRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
 		super(dispatcher, fs);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apollo.update.RequestWorker#nextRequest(org.apollo.update.
-	 * UpdateDispatcher)
+	 * @see org.apollo.update.RequestWorker#nextRequest(org.apollo.update. UpdateDispatcher)
 	 */
 	@Override
-	protected ChannelRequest<OnDemandRequest> nextRequest(
-			UpdateDispatcher dispatcher) throws InterruptedException {
+	protected ChannelRequest<OnDemandRequest> nextRequest(UpdateDispatcher dispatcher) throws InterruptedException {
 		return dispatcher.nextOnDemandRequest();
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.apollo.update.RequestWorker#service(java.lang.Object,
-	 * org.jboss.netty.channel.Channel, java.lang.Object)
+	 * @see org.apollo.update.RequestWorker#service(java.lang.Object, org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
-	protected void service(IndexedFileSystem fs, Channel channel,
-			OnDemandRequest request) throws IOException {
+	protected void service(IndexedFileSystem fs, Channel channel, OnDemandRequest request) throws IOException {
 		final FileDescriptor desc = request.getFileDescriptor();
 		final ByteBuffer buf = fs.getFile(desc);
 		final int length = buf.remaining();
@@ -67,10 +57,8 @@ RequestWorker<OnDemandRequest, IndexedFileSystem> {
 				chunkSize = CHUNK_LENGTH;
 			final byte[] tmp = new byte[chunkSize];
 			buf.get(tmp, 0, tmp.length);
-			final ChannelBuffer chunkData = ChannelBuffers.wrappedBuffer(tmp,
-					0, chunkSize);
-			final OnDemandResponse response = new OnDemandResponse(desc,
-					length, chunk, chunkData);
+			final ChannelBuffer chunkData = ChannelBuffers.wrappedBuffer(tmp, 0, chunkSize);
+			final OnDemandResponse response = new OnDemandResponse(desc, length, chunk, chunkData);
 			channel.write(response);
 		}
 	}

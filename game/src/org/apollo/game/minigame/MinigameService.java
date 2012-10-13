@@ -12,9 +12,7 @@ import org.apollo.game.model.Player;
 import org.apollo.util.NamedThreadFactory;
 
 /**
- * The {@link MinigameService} class schedules and manages the execution of the
- * {@link MinigamePulseHandler} class.
- * 
+ * The {@link MinigameService} class schedules and manages the execution of the {@link MinigamePulseHandler} class.
  * @author Steve
  */
 public final class MinigameService extends Service {
@@ -23,8 +21,7 @@ public final class MinigameService extends Service {
 	 * The scheduled executor service.
 	 */
 	private final ScheduledExecutorService scheduledExecutor = Executors
-			.newSingleThreadScheduledExecutor(new NamedThreadFactory(
-					"MinigameService"));
+			.newSingleThreadScheduledExecutor(new NamedThreadFactory("MinigameService"));
 
 	/**
 	 * A queue of the current minigames.
@@ -33,9 +30,7 @@ public final class MinigameService extends Service {
 
 	/**
 	 * Adds a minigame.
-	 * 
-	 * @param minigame
-	 *            The minigame.
+	 * @param minigame The minigame.
 	 */
 	public void addMinigame(Minigame minigame) {
 		minigames.add(minigame);
@@ -43,9 +38,7 @@ public final class MinigameService extends Service {
 
 	/**
 	 * Called when a player disconnects.
-	 * 
-	 * @param player
-	 *            The player that is disconnecting.
+	 * @param player The player that is disconnecting.
 	 * @deprecated Only allow exitInitialEvents() to access this.
 	 */
 	@Deprecated
@@ -55,7 +48,8 @@ public final class MinigameService extends Service {
 				if (minigame != null) {
 					if (minigame.getTeam(player) != -1)
 						minigame.playerDisconnected(player);
-				} else
+				}
+				else
 					removeMinigame(minigame);
 		}
 	}
@@ -75,9 +69,7 @@ public final class MinigameService extends Service {
 
 	/**
 	 * Removes a minigame.
-	 * 
-	 * @param minigame
-	 *            The minigame.
+	 * @param minigame The minigame.
 	 */
 	public void removeMinigame(Minigame minigame) {
 		minigames.remove(minigame);
@@ -88,8 +80,7 @@ public final class MinigameService extends Service {
 	 */
 	@Override
 	public void start() {
-		scheduledExecutor.scheduleAtFixedRate(new MinigamePulseHandler(this),
-				GameConstants.MINIGAME_DELAY, GameConstants.MINIGAME_DELAY,
-				TimeUnit.MILLISECONDS);
+		scheduledExecutor.scheduleAtFixedRate(new MinigamePulseHandler(this), GameConstants.MINIGAME_DELAY,
+				GameConstants.MINIGAME_DELAY, TimeUnit.MILLISECONDS);
 	}
 }

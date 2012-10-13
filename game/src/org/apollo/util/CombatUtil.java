@@ -11,7 +11,7 @@ import org.apollo.game.model.Item;
  * @author Steve
  */
 public final class CombatUtil {
-	
+
 	/**
 	 * Gets the items kept on death.
 	 * @param keep The items to keep.
@@ -34,5 +34,5 @@ public final class CombatUtil {
 		}
 		return keptItems;
 	}
-	
+
 }

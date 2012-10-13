@@ -14,19 +14,16 @@ public final class OnDemandRequest implements Comparable<OnDemandRequest> {
 	 */
 	public enum Priority {
 		/**
-		 * High priority - used in-game when data is required immediately but
-		 * has not yet been received.
+		 * High priority - used in-game when data is required immediately but has not yet been received.
 		 */
 		HIGH(0),
 		/**
-		 * Medium priority - used while loading the 'bare minimum' required to
-		 * run the game.
+		 * Medium priority - used while loading the 'bare minimum' required to run the game.
 		 */
 		MEDIUM(1),
 		/**
-		 * Low priority - used when a file is not required urgently. The client
-		 * login screen says "loading extra files.." when low priority loading
-		 * is being performed.
+		 * Low priority - used when a file is not required urgently. The client login screen says
+		 * "loading extra files.." when low priority loading is being performed.
 		 */
 		LOW(2);
 
@@ -92,6 +89,7 @@ public final class OnDemandRequest implements Comparable<OnDemandRequest> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override

@@ -9,11 +9,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link DestroyGroundEvent}.
- * 
  * @author Steve
  */
-public final class DestroyGroundEventEncoder extends
-EventEncoder<DestroyGroundEvent> {
+public final class DestroyGroundEventEncoder extends EventEncoder<DestroyGroundEvent> {
 
 	@Override
 	public GamePacket encode(DestroyGroundEvent event) {

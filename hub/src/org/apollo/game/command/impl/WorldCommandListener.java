@@ -22,15 +22,17 @@ public final class WorldCommandListener implements CommandListener {
 		if (arguments.length >= 2) {
 			final int world = Integer.valueOf(arguments[0]);
 			if (context.getServerChannelGroup().contains(world)) {
-				switch(arguments[1]) {
+				switch (arguments[1]) {
 				case "player":
 					if (arguments.length >= 3) {
-						switch(arguments[2]) {
+						switch (arguments[2]) {
 						case "add":
 						case "remove":
 							if (arguments.length == 4) {
 								final String player = arguments[3];
-								final ReceivePlayerMethod method = new ReceivePlayerMethod(NameUtil.encodeBase37(player), 0, arguments[2].equalsIgnoreCase("add") ? 1 : 0, world);
+								final ReceivePlayerMethod method = new ReceivePlayerMethod(
+										NameUtil.encodeBase37(player), 0, arguments[2].equalsIgnoreCase("add") ? 1 : 0,
+										world);
 								context.getServerChannelGroup().write(method, world, false);
 							}
 							break;
@@ -68,32 +70,33 @@ public final class WorldCommandListener implements CommandListener {
 					channel.write(players + "\r\n");
 					break;
 				case "uptime":
-					//final int time = context.getServerChannelGroup().getTime(world);
-					//final String returnb = getElapsedTimeHoursMinutesSecondsString(time * 15000);
-					//channel.write(returnb + "\r\n");
+					// final int time = context.getServerChannelGroup().getTime(world);
+					// final String returnb = getElapsedTimeHoursMinutesSecondsString(time * 15000);
+					// channel.write(returnb + "\r\n");
 					break;
 				default:
-					channel.write("-bash: " + arguments[1]+": command not found" + "\r\n");
+					channel.write("-bash: " + arguments[1] + ": command not found" + "\r\n");
 					break;
 				}
-			} else
-				channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
+			}
+			else
+				channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
 		}
 	}
-	
+
 	/**
 	 * Gets the elapsed time in hours, minutes, and seconds.
 	 * @return The elapsed time in hours, minutes, and seconds.
 	 */
-	public String getElapsedTimeHoursMinutesSecondsString(long serverTime) {     
-	    long elapsedTime = serverTime;
-	    String format = String.format("%%0%dd", 2);
-	    elapsedTime = elapsedTime / 1000;
-	    String seconds = String.format(format, elapsedTime % 60);
-	    String minutes = String.format(format, (elapsedTime % 3600) / 60);
-	    String hours = String.format(format, elapsedTime / 3600);
-	    String time =  hours + ":" + minutes + ":" + seconds;
-	    return time;
+	public String getElapsedTimeHoursMinutesSecondsString(long serverTime) {
+		long elapsedTime = serverTime;
+		String format = String.format("%%0%dd", 2);
+		elapsedTime = elapsedTime / 1000;
+		String seconds = String.format(format, elapsedTime % 60);
+		String minutes = String.format(format, (elapsedTime % 3600) / 60);
+		String hours = String.format(format, elapsedTime / 3600);
+		String time = hours + ":" + minutes + ":" + seconds;
+		return time;
 	}
 
 }

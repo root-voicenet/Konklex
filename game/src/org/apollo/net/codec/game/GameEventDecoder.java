@@ -8,8 +8,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.oneone.OneToOneDecoder;
 
 /**
- * A {@link OneToOneDecoder} that decodes {@link GamePacket}s into {@link Event}
- * s.
+ * A {@link OneToOneDecoder} that decodes {@link GamePacket}s into {@link Event} s.
  * @author Graham
  */
 public final class GameEventDecoder extends OneToOneDecoder {
@@ -29,10 +28,9 @@ public final class GameEventDecoder extends OneToOneDecoder {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.handler.codec.oneone.OneToOneDecoder#decode(org.jboss
-	 * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * java.lang.Object)
+	 * 
+	 * @see org.jboss.netty.handler.codec.oneone.OneToOneDecoder#decode(org.jboss .netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {

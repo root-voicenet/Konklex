@@ -9,8 +9,7 @@ import org.apollo.game.model.Character;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
- * A {@link SkillListener} which sends config values when a player levels up
- * their health.
+ * A {@link SkillListener} which sends config values when a player levels up their health.
  * @author Steve
  */
 public final class HitpointSkillListener extends SkillAdapter {
@@ -51,7 +50,11 @@ public final class HitpointSkillListener extends SkillAdapter {
 						character.resetMeleeSet();
 						character.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
 					}
-				} Combat.appendDeath(victim, character); // actually, we are the victim. the victim is the source who killed us.
+				}
+				Combat.appendDeath(victim, character); // actually, we are the
+														// victim. the victim is
+														// the source who killed
+														// us.
 			}
 		}
 	}

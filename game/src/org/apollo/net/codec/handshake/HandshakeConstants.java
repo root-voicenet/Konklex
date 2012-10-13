@@ -2,7 +2,6 @@ package org.apollo.net.codec.handshake;
 
 /**
  * Holds handshake-related constants.
- * 
  * @author Graham
  */
 public final class HandshakeConstants {
@@ -21,7 +20,7 @@ public final class HandshakeConstants {
 	 * The id of the player count.
 	 */
 	public static final int SERVICE_COUNT = 16;
-	
+
 	/**
 	 * The id of the api.
 	 */

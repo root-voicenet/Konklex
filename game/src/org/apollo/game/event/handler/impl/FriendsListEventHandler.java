@@ -9,23 +9,18 @@ import org.apollo.util.NameUtil;
 
 /**
  * An {@link EventHandler} for the {@link FriendsListEvent}.
- * 
  * @author Steve
  */
-public final class FriendsListEventHandler extends
-EventHandler<FriendsListEvent> {
+public final class FriendsListEventHandler extends EventHandler<FriendsListEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
-	public void handle(EventHandlerContext ctx, Player player,
-			FriendsListEvent event) {
+	public void handle(EventHandlerContext ctx, Player player, FriendsListEvent event) {
 		try {
 			final String friend = NameUtil.decodeBase37(event.getFriend());
 			switch (event.getOpcode()) {
@@ -44,7 +39,8 @@ EventHandler<FriendsListEvent> {
 				break;
 			}
 			ctx.breakHandlerChain();
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -76,7 +76,7 @@ public final class GamePacket {
 
 	@Override
 	public String toString() {
-		return GamePacket.class.getName() + " [opcode=" + opcode + ", type=" + type.toString() + ", length="
-				+ length + "]";
+		return GamePacket.class.getName() + " [opcode=" + opcode + ", type=" + type.toString() + ", length=" + length
+				+ "]";
 	}
 }

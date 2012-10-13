@@ -5,7 +5,6 @@ import org.apollo.game.model.Position;
 
 /**
  * An {@link Event} which represents some sort of action at an object.
- * 
  * @author Graham
  */
 public abstract class ObjectActionEvent extends Event {
@@ -27,13 +26,9 @@ public abstract class ObjectActionEvent extends Event {
 
 	/**
 	 * Creates a new object action event.
-	 * 
-	 * @param option
-	 *            The option number.
-	 * @param id
-	 *            The id of the object.
-	 * @param position
-	 *            The position of the object.
+	 * @param option The option number.
+	 * @param id The id of the object.
+	 * @param position The position of the object.
 	 */
 	public ObjectActionEvent(int option, int id, Position position) {
 		this.option = option;
@@ -43,7 +38,6 @@ public abstract class ObjectActionEvent extends Event {
 
 	/**
 	 * Gets the id of the object.
-	 * 
 	 * @return The id of the object.
 	 */
 	public int getId() {
@@ -52,7 +46,6 @@ public abstract class ObjectActionEvent extends Event {
 
 	/**
 	 * Gets the option number.
-	 * 
 	 * @return The option number.
 	 */
 	public int getOption() {
@@ -61,7 +54,6 @@ public abstract class ObjectActionEvent extends Event {
 
 	/**
 	 * Gets the position of the object.
-	 * 
 	 * @return The position of the object.
 	 */
 	public Position getPosition() {

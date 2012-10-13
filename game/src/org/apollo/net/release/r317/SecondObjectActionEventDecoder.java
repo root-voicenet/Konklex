@@ -17,9 +17,8 @@ public final class SecondObjectActionEventDecoder extends EventDecoder<SecondObj
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public SecondObjectActionEvent decode(GamePacket packet) {

@@ -48,7 +48,7 @@ public final class ApiSession extends Session {
 		super(channel);
 		this.context = context;
 	}
-	
+
 	/**
 	 * Sends the players upon login.
 	 */
@@ -59,6 +59,7 @@ public final class ApiSession extends Session {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.net.session.Session#destroy()
 	 */
 	@Override
@@ -75,9 +76,9 @@ public final class ApiSession extends Session {
 		final Channel channel = getChannel();
 		if (channel.isBound() && channel.isConnected() && channel.isOpen()) {
 			final ChannelFuture future = channel.write(method);
-			//if (method.getClass() == LogoutEvent.class) {
-			//	future.addListener(ChannelFutureListener.CLOSE);
-			//}
+			// if (method.getClass() == LogoutEvent.class) {
+			// future.addListener(ChannelFutureListener.CLOSE);
+			// }
 		}
 	}
 
@@ -94,16 +95,19 @@ public final class ApiSession extends Session {
 				methodType = (Class<? extends Method>) methodType.getSuperclass();
 				if (methodType == Method.class) {
 					methodType = null;
-				} else {
+				}
+				else {
 					chain = (MethodHandlerChain<Method>) chainGroup.getChain(methodType);
 				}
 			}
 			if (chain == null) {
 				logger.warning("No chain for method: " + method.getClass().getName() + ".");
-			} else {
+			}
+			else {
 				try {
 					chain.handle(this, method);
-				} catch (final Exception ex) {
+				}
+				catch (final Exception ex) {
 					logger.log(Level.SEVERE, "Error handling method.", ex);
 				}
 			}
@@ -113,6 +117,7 @@ public final class ApiSession extends Session {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.net.session.Session#messageReceived(java.lang.Object)
 	 */
 	@Override
@@ -120,7 +125,8 @@ public final class ApiSession extends Session {
 		final Method method = (Method) message;
 		if (methodQueue.size() >= GameConstants.EVENTS_PER_PULSE) {
 			logger.warning("Too many methods in queue for api session, dropping...");
-		} else {
+		}
+		else {
 			methodQueue.add(method);
 		}
 	}

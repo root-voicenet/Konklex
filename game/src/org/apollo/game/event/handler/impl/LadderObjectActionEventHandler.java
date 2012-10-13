@@ -56,16 +56,19 @@ public final class LadderObjectActionEventHandler extends EventHandler<ObjectAct
 			if (actionName.contains("down") || actionName.contains("Down")) {
 				if (playerPosition.getHeight() == 0) {
 					climb(new Position(playerPosition.getX(), playerPosition.getY() + 6400, playerPosition.getHeight()));
-				} else {
+				}
+				else {
 					climb(new Position(playerPosition.getX(), playerPosition.getY(), playerPosition.getHeight() - 1));
 				}
-			} else if (actionName.contains("up") || actionName.contains("Up")) {
+			}
+			else if (actionName.contains("up") || actionName.contains("Up")) {
 				if (playerPosition.getY() > 6400) {
 					climb(new Position(playerPosition.getX(), playerPosition.getY() - 6400, playerPosition.getHeight()));
-				} else {
+				}
+				else {
 					climb(new Position(playerPosition.getX(), playerPosition.getY(), playerPosition.getHeight() + 1));
 				}
-			}			
+			}
 		}
 
 		/**

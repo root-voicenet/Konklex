@@ -10,14 +10,17 @@ public class Tile {
 	 * Constant values used by the bitmask.
 	 */
 	public static final int NORTH_TRAVERSAL_PERMITTED = 1;
+
 	/**
 	 * Constant values used by the bitmask.
 	 */
 	public static final int EAST_TRAVERSAL_PERMITTED = 2;
+
 	/**
 	 * Constant values used by the bitmask.
 	 */
 	public static final int SOUTH_TRAVERSAL_PERMITTED = 4;
+
 	/**
 	 * Constant values used by the bitmask.
 	 */

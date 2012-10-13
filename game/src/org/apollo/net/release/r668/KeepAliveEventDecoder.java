@@ -6,7 +6,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * A {@link EventDecoder} for the {@link KeepAliveEvent}.
- * 
  * @author Steve
  */
 public final class KeepAliveEventDecoder extends EventDecoder<KeepAliveEvent> {

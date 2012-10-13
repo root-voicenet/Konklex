@@ -8,11 +8,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link ChatPrivacySettingsEvent}
- * 
  * @author Steve
  */
-public final class ChatPrivacySettingsEventEncoder extends
-EventEncoder<ChatPrivacySettingsEvent> {
+public final class ChatPrivacySettingsEventEncoder extends EventEncoder<ChatPrivacySettingsEvent> {
 
 	@Override
 	public GamePacket encode(ChatPrivacySettingsEvent event) {

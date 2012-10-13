@@ -24,7 +24,8 @@ public final class ReceiveFriendMethodHandler extends MethodHandler<ReceiveFrien
 		System.out.println("Status: " + method.getStatus());
 		if (player != null) {
 			player.send(new SendFriendEvent(method.getFriend(), method.getStatus()));
-		} else {
+		}
+		else {
 			System.out.println("Player is null");
 		}
 	}

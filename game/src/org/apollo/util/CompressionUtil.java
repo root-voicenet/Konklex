@@ -33,7 +33,8 @@ public final class CompressionUtil {
 			final byte[] newCompressed = new byte[compressed.length - 4];
 			System.arraycopy(compressed, 4, newCompressed, 0, newCompressed.length);
 			return newCompressed;
-		} finally {
+		}
+		finally {
 			os.close();
 		}
 	}
@@ -51,14 +52,14 @@ public final class CompressionUtil {
 			os.write(bytes);
 			os.finish();
 			return bout.toByteArray();
-		} finally {
+		}
+		finally {
 			os.close();
 		}
 	}
 
 	/**
-	 * Unbzip2s the compressed array and places the result into the uncompressed
-	 * array.
+	 * Unbzip2s the compressed array and places the result into the uncompressed array.
 	 * @param compressed The compressed array.
 	 * @param uncompressed The uncompressed array.
 	 * @throws IOException if an I/O error occurs.
@@ -74,14 +75,14 @@ public final class CompressionUtil {
 				newCompressed)));
 		try {
 			is.readFully(uncompressed);
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 	}
 
 	/**
-	 * Ungzips the compressed array and places the results into the uncompressed
-	 * array.
+	 * Ungzips the compressed array and places the results into the uncompressed array.
 	 * @param compressed The compressed array.
 	 * @param uncompressed The uncompressed array.
 	 * @throws IOException if an I/O error occurs.
@@ -90,7 +91,8 @@ public final class CompressionUtil {
 		final DataInputStream is = new DataInputStream(new GZIPInputStream(new ByteArrayInputStream(compressed)));
 		try {
 			is.readFully(uncompressed);
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 	}

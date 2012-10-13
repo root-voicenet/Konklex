@@ -2,7 +2,6 @@ package org.apollo.game.model.region;
 
 /**
  * An immutable class which contains the coordinates of a region.
- * 
  * @author Graham
  */
 public final class RegionCoordinates {
@@ -19,11 +18,8 @@ public final class RegionCoordinates {
 
 	/**
 	 * Creates the region coordinates.
-	 * 
-	 * @param x
-	 *            The x coordinate.
-	 * @param y
-	 *            The y coordinate.
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
 	 */
 	public RegionCoordinates(int x, int y) {
 		this.x = x;
@@ -51,7 +47,6 @@ public final class RegionCoordinates {
 
 	/**
 	 * Gets the X coordinate.
-	 * 
 	 * @return The X coordinate.
 	 */
 	public int getX() {
@@ -60,7 +55,6 @@ public final class RegionCoordinates {
 
 	/**
 	 * Gets the Y coordinate.
-	 * 
 	 * @return The Y coordinate.
 	 */
 	public int getY() {

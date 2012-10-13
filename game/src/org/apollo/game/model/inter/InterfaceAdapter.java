@@ -4,7 +4,6 @@ import org.apollo.game.model.Player;
 
 /**
  * An adapter class for the {@link InterfaceListener}.
- * 
  * @author Chris Fletcher
  */
 public abstract class InterfaceAdapter implements InterfaceListener {

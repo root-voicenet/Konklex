@@ -2,14 +2,12 @@ package org.apollo.net.codec.game;
 
 /**
  * A class holding data-related constants.
- * 
  * @author Graham
  */
 public final class DataConstants {
 
 	/**
-	 * An array of bit masks. The element {@code n} is equal to
-	 * {@code 2<sup>n</sup> - 1}.
+	 * An array of bit masks. The element {@code n} is equal to {@code 2<sup>n</sup> - 1}.
 	 */
 	public static final int[] BIT_MASK = new int[32];
 	/**

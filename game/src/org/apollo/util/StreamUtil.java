@@ -5,8 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * A class which contains {@link InputStream}- and {@link OutputStream}-related
- * utility methods.
+ * A class which contains {@link InputStream}- and {@link OutputStream}-related utility methods.
  * @author Graham
  */
 public final class StreamUtil {

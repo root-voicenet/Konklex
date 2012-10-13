@@ -6,7 +6,6 @@ import org.apollo.game.model.Position;
 
 /**
  * An {@link Event} that sends items to the map tile.
- * 
  * @author Steve
  */
 public abstract class GroundEvent extends MapEvent {
@@ -18,11 +17,8 @@ public abstract class GroundEvent extends MapEvent {
 
 	/**
 	 * Create a new ground item event.
-	 * 
-	 * @param position
-	 *            The position of this ground item.
-	 * @param item
-	 *            The ground item.
+	 * @param position The position of this ground item.
+	 * @param item The ground item.
 	 */
 	public GroundEvent(Position position, GroundItem item) {
 		super(position);
@@ -31,7 +27,6 @@ public abstract class GroundEvent extends MapEvent {
 
 	/**
 	 * Gets the ground item.
-	 * 
 	 * @return The ground item.
 	 */
 	public GroundItem getGroundItem() {

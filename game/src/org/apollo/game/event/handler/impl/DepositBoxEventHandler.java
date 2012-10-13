@@ -10,15 +10,13 @@ import org.apollo.game.model.inter.bank.DepositBoxEnterAmountListener;
 import org.apollo.game.model.inter.bank.DepositBoxUtils;
 
 /**
- * An {@link EventHandler} which handles deposit box actions of
- * {@link ItemActionEvent}s.
+ * An {@link EventHandler} which handles deposit box actions of {@link ItemActionEvent}s.
  * @author Chris Fletcher
  */
 public final class DepositBoxEventHandler extends EventHandler<ItemActionEvent> {
 
 	/**
-	 * Converts an option to an amount for the
-	 * {@link #deposit(EventHandlerContext, Player, ItemActionEvent)} method.
+	 * Converts an option to an amount for the {@link #deposit(EventHandlerContext, Player, ItemActionEvent)} method.
 	 * @param option The option.
 	 * @return The amount.
 	 * @throws IllegalArgumentException if the option is not legal.
@@ -40,8 +38,7 @@ public final class DepositBoxEventHandler extends EventHandler<ItemActionEvent> 
 	}
 
 	/**
-	 * Converts an option to an amount for the
-	 * {@link #put(EventHandlerContext, Player, ItemActionEvent)} method.
+	 * Converts an option to an amount for the {@link #put(EventHandlerContext, Player, ItemActionEvent)} method.
 	 * @param option The option.
 	 * @return The amount.
 	 * @throws IllegalArgumentException if the option is not legal.

@@ -7,7 +7,7 @@ import java.lang.reflect.Constructor;
  * @author Steve
  */
 public final class ConstructionUtil {
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static Object initiate(String className, Object... iView) {
 		try {
@@ -18,7 +18,8 @@ public final class ConstructionUtil {
 				ctor.setAccessible(true);
 				return ctor.newInstance(iView);
 
-			} catch (NoSuchMethodException e) {
+			}
+			catch (NoSuchMethodException e) {
 				Constructor[] constructors = clazz.getDeclaredConstructors();
 				for (Constructor c : constructors) {
 					if (c.getParameterTypes().length > 1)
@@ -32,9 +33,10 @@ public final class ConstructionUtil {
 			}
 			return null;
 
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-} 
+}

@@ -59,47 +59,47 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	 * The defense range bonus.
 	 */
 	public static final int DEFENSE_RANGE = 9;
-	
+
 	/**
 	 * The defense summoning bonus.
 	 */
 	public static final int DEFENSE_SUMMONING = 10;
-	
+
 	/**
 	 * The absorb melee bonus.
 	 */
 	public static final int ABSORB_MELEE = 11;
-	
+
 	/**
 	 * The absorb magic bonus.
 	 */
 	public static final int ABSORB_MAGIC = 12;
-	
+
 	/**
 	 * The absorb range bonus.
 	 */
 	public static final int ABSORB_RANGE = 13;
-	
+
 	/**
 	 * The strength melee bonus.
 	 */
 	public static final int STRENGTH_MELEE = 14;
-	
+
 	/**
 	 * The strength range bonus.
 	 */
 	public static final int STRENGTH_RANGE = 15;
-	
+
 	/**
 	 * The prayer bonus.
 	 */
 	public static final int PRAYER = 16;
-	
+
 	/**
 	 * The magic bonus.
 	 */
 	public static final int MAGIC = 17;
-	
+
 	/**
 	 * The equipment bonuses.
 	 */
@@ -112,7 +112,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public EquipmentBonuses(double[] bonuses) {
 		this.bonuses = bonuses;
 	}
-	
+
 	/**
 	 * Gets the attack stab bonus.
 	 * @return The attack stab bonus.
@@ -120,7 +120,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAttackStab() {
 		return bonuses[ATTACK_STAB];
 	}
-	
+
 	/**
 	 * Gets the attack slash bonus.
 	 * @return The attack slash bonus.
@@ -128,7 +128,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAttackSlash() {
 		return bonuses[ATTACK_SLASH];
 	}
-	
+
 	/**
 	 * Gets the attack crush bonus.
 	 * @return The attack crush bonus.
@@ -136,7 +136,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAttackCrush() {
 		return bonuses[ATTACK_CRUSH];
 	}
-	
+
 	/**
 	 * Gets the attack magic bonus.
 	 * @return The attack magic bonus.
@@ -144,7 +144,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAttackMagic() {
 		return bonuses[ATTACK_MAGIC];
 	}
-	
+
 	/**
 	 * Gets the attack range bonus.
 	 * @return The attack range bonus.
@@ -152,7 +152,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAttackRange() {
 		return bonuses[ATTACK_RANGE];
 	}
-	
+
 	/**
 	 * Gets the defense stab bonus.
 	 * @return The defense stab bonus.
@@ -160,7 +160,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseStab() {
 		return bonuses[DEFENSE_STAB];
 	}
-	
+
 	/**
 	 * Gets the defense slash bonus.
 	 * @return The defense slash bonus.
@@ -168,7 +168,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseSlash() {
 		return bonuses[DEFENSE_SLASH];
 	}
-	
+
 	/**
 	 * Gets the defense crush bonus.
 	 * @return The defense crush bonus.
@@ -176,7 +176,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseCrush() {
 		return bonuses[DEFENSE_CRUSH];
 	}
-	
+
 	/**
 	 * Gets the defense magic bonus.
 	 * @return The defense magic bonus.
@@ -184,7 +184,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseMagic() {
 		return bonuses[DEFENSE_MAGIC];
 	}
-	
+
 	/**
 	 * Gets the defense range bonus.
 	 * @return The defense range bonus.
@@ -192,7 +192,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseRange() {
 		return bonuses[DEFENSE_RANGE];
 	}
-	
+
 	/**
 	 * Gets the defense summoning bonus.
 	 * @return The defense summoning bonus.
@@ -200,7 +200,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getDefenseSummoning() {
 		return bonuses[DEFENSE_SUMMONING];
 	}
-	
+
 	/**
 	 * Gets the absorb melee bonus.
 	 * @return The absorb melee bonus.
@@ -208,7 +208,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAbsorbMelee() {
 		return bonuses[ABSORB_MELEE];
 	}
-	
+
 	/**
 	 * Gets the absorb magic bonus.
 	 * @return The absorb magic bonus.
@@ -216,7 +216,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAbsorbMagic() {
 		return bonuses[ABSORB_MAGIC];
 	}
-	
+
 	/**
 	 * Gets the absorb range bonus.
 	 * @return The absorb range bonus.
@@ -224,7 +224,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getAbsorbRange() {
 		return bonuses[ABSORB_RANGE];
 	}
-	
+
 	/**
 	 * Gets the strength melee bonus.
 	 * @return The strength melee bonus.
@@ -232,7 +232,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getStrengthMelee() {
 		return bonuses[STRENGTH_MELEE];
 	}
-	
+
 	/**
 	 * Gets the strength range bonus.
 	 * @return The strength range bonus.
@@ -240,7 +240,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getStrengthRange() {
 		return bonuses[STRENGTH_RANGE];
 	}
-	
+
 	/**
 	 * Gets the prayer bonus.
 	 * @return The prayer bonus.
@@ -248,7 +248,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getPrayer() {
 		return bonuses[PRAYER];
 	}
-	
+
 	/**
 	 * Gets the magic bonus.
 	 * @return The magic bonus.
@@ -256,7 +256,7 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	public double getMagic() {
 		return bonuses[MAGIC];
 	}
-	
+
 	/**
 	 * Appends more equipment bonuses to the current bonuses.
 	 * @param bonuses The bonuses to append.

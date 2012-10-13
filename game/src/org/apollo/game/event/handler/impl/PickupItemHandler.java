@@ -16,10 +16,9 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PickupItemEvent event) {
@@ -29,9 +28,11 @@ public final class PickupItemHandler extends EventHandler<PickupItemEvent> {
 			if (item.getPosition().isWithinDistance(player.getPosition(), 1)) {
 				if (player.getInventory().add(item.getItem()) == null)
 					World.getWorld().unregister(item);
-			} else
+			}
+			else
 				ctx.breakHandlerChain();
-		} else
+		}
+		else
 			ctx.breakHandlerChain();
 	}
 }

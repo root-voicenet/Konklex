@@ -10,7 +10,6 @@ import org.jboss.netty.handler.codec.http.HttpRequest;
 
 /**
  * An update session.
- * 
  * @author Graham
  */
 public final class UpdateSession extends Session {
@@ -22,11 +21,8 @@ public final class UpdateSession extends Session {
 
 	/**
 	 * Creates an update session for the specified channel.
-	 * 
-	 * @param channel
-	 *            The channel.
-	 * @param context
-	 *            The server context.
+	 * @param channel The channel.
+	 * @param context The server context.
 	 */
 	public UpdateSession(Channel channel, ServerContext context) {
 		super(channel);
@@ -50,8 +46,7 @@ public final class UpdateSession extends Session {
 	 */
 	@Override
 	public void messageReceived(Object message) throws Exception {
-		final UpdateDispatcher dispatcher = context.getService(
-				UpdateService.class).getDispatcher();
+		final UpdateDispatcher dispatcher = context.getService(UpdateService.class).getDispatcher();
 		if (message instanceof OnDemandRequest)
 			dispatcher.dispatch(getChannel(), (OnDemandRequest) message);
 		else if (message instanceof JagGrabRequest)

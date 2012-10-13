@@ -9,8 +9,7 @@ import org.apollo.net.meta.PacketMetaData;
 import org.apollo.net.meta.PacketMetaDataGroup;
 
 /**
- * A {@link Release} is a distinct client version, for example 317 is a common
- * release used in server emulators.
+ * A {@link Release} is a distinct client version, for example 317 is a common release used in server emulators.
  * @author Graham
  * @author Steve
  */
@@ -25,7 +24,7 @@ public abstract class Release {
 	 * The decoders.
 	 */
 	private final EventDecoder<?>[] decoders = new EventDecoder<?>[256];
-	
+
 	/**
 	 * The api decoders.
 	 */
@@ -35,7 +34,7 @@ public abstract class Release {
 	 * The encoders.
 	 */
 	private final Map<Class<? extends Event>, EventEncoder<?>> encoders = new HashMap<Class<? extends Event>, EventEncoder<?>>();
-	
+
 	/**
 	 * The api encoders.
 	 */
@@ -45,7 +44,7 @@ public abstract class Release {
 	 * The incoming packet meta data.
 	 */
 	private final PacketMetaDataGroup incomingPacketMetaData;
-	
+
 	/**
 	 * The api incoming packet meta data.
 	 */
@@ -61,14 +60,15 @@ public abstract class Release {
 		this.incomingPacketMetaData = incomingPacketMetaData;
 		this.incomingApiPacketMetaData = incomingPacketMetaData;
 	}
-	
+
 	/**
 	 * Creates the release.
 	 * @param releaseNumber The release number.
 	 * @param incomingPacketMetaData The incoming meta data.
 	 * @param incomingApiPacketMetaData The incoming api meta data.
 	 */
-	public Release(int releaseNumber, PacketMetaDataGroup incomingPacketMetaData, PacketMetaDataGroup incomingApiPacketMetaData) {
+	public Release(int releaseNumber, PacketMetaDataGroup incomingPacketMetaData,
+			PacketMetaDataGroup incomingApiPacketMetaData) {
 		this.releaseNumber = releaseNumber;
 		this.incomingPacketMetaData = incomingPacketMetaData;
 		this.incomingApiPacketMetaData = incomingApiPacketMetaData;
@@ -84,7 +84,7 @@ public abstract class Release {
 			throw new IndexOutOfBoundsException();
 		return decoders[opcode];
 	}
-	
+
 	/**
 	 * Gets the {@link MethodDecoder} for the specified opcode.
 	 * @param opcode The opcode.
@@ -106,7 +106,7 @@ public abstract class Release {
 	public <E extends Event> EventEncoder<E> getEventEncoder(Class<E> type) {
 		return (EventEncoder<E>) encoders.get(type);
 	}
-	
+
 	/**
 	 * Gets an {@link MethodEncoder} for the specified method type.
 	 * @param <E> the element type
@@ -126,7 +126,7 @@ public abstract class Release {
 	public final PacketMetaData getIncomingPacketMetaData(int opcode) {
 		return incomingPacketMetaData.getMetaData(opcode);
 	}
-	
+
 	/**
 	 * Gets meta data for the specified incoming packet.
 	 * @param opcode The opcode of the incoming packet.
@@ -153,7 +153,7 @@ public abstract class Release {
 	public final <E extends Event> void register(Class<E> type, EventEncoder<E> encoder) {
 		encoders.put(type, encoder);
 	}
-	
+
 	/**
 	 * Registers a {@link MethodEncoder} for the specified method type.
 	 * @param <E> the element type
@@ -177,7 +177,7 @@ public abstract class Release {
 			decoders[opcode] = decoder;
 		}
 	}
-	
+
 	/**
 	 * Registers a {@link MethodDecoder} for the specified opcode.
 	 * @param decoder The {@link MethodDecoder}.

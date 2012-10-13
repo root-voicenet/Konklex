@@ -4,8 +4,8 @@ import org.apollo.api.method.Method;
 import org.apollo.net.codec.game.GamePacket;
 
 /**
- * An {@link MethodEncoder} encodes {@link Method} objects into
- * {@link FrontendPacket} s which can be sent over the network.
+ * An {@link MethodEncoder} encodes {@link Method} objects into {@link FrontendPacket} s which can be sent over the
+ * network.
  * @param <E> The type of {@link Method}.
  * @author Steve
  */

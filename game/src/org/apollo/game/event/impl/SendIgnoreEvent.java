@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An {@link FriendEvent} that sends users to the player's ignore list.
- * 
  * @author Steve
  */
 public final class SendIgnoreEvent extends Event {
@@ -16,9 +15,7 @@ public final class SendIgnoreEvent extends Event {
 
 	/**
 	 * Creates the new send ignore event.
-	 * 
-	 * @param friends
-	 *            The friends we are sending to the player's ignore list.
+	 * @param friends The friends we are sending to the player's ignore list.
 	 */
 	public SendIgnoreEvent(long[] friends) {
 		this.friends = friends;
@@ -26,7 +23,6 @@ public final class SendIgnoreEvent extends Event {
 
 	/**
 	 * Gets the friends to ignore.
-	 * 
 	 * @return The friends to ignore.
 	 */
 	public long[] getFriends() {

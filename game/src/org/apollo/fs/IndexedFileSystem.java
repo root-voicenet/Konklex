@@ -9,10 +9,8 @@ import java.nio.ByteBuffer;
 import java.util.zip.CRC32;
 
 /**
- * A file system based on top of the operating system's file system. It consists
- * of a data file and index files. Index files point to blocks in the data file,
- * which contains the actual data.
- * 
+ * A file system based on top of the operating system's file system. It consists of a data file and index files. Index
+ * files point to blocks in the data file, which contains the actual data.
  * @author Graham
  */
 public final class IndexedFileSystem implements Closeable {
@@ -39,13 +37,9 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Creates the file system with the specified base directory.
-	 * 
-	 * @param base
-	 *            The base directory.
-	 * @param readOnly
-	 *            A flag indicating if the file system will be read only.
-	 * @throws Exception
-	 *             if the file system is invalid.
+	 * @param base The base directory.
+	 * @param readOnly A flag indicating if the file system will be read only.
+	 * @throws Exception if the file system is invalid.
 	 */
 	public IndexedFileSystem(File base, boolean readOnly) throws Exception {
 		this.readOnly = readOnly;
@@ -67,17 +61,13 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Automatically detect the layout of the specified directory.
-	 * 
-	 * @param base
-	 *            The base directory.
-	 * @throws Exception
-	 *             if the file system is invalid.
+	 * @param base The base directory.
+	 * @throws Exception if the file system is invalid.
 	 */
 	private void detectLayout(File base) throws Exception {
 		int indexCount = 0;
 		for (int index = 0; index < indices.length; index++) {
-			final File f = new File(base.getAbsolutePath()
-					+ "/main_file_cache.idx" + index);
+			final File f = new File(base.getAbsolutePath() + "/main_file_cache.idx" + index);
 			if (f.exists() && !f.isDirectory()) {
 				indexCount++;
 				indices[index] = new RandomAccessFile(f, readOnly ? "r" : "rw");
@@ -85,10 +75,8 @@ public final class IndexedFileSystem implements Closeable {
 		}
 		if (indexCount <= 0)
 			throw new Exception("No index file(s) present");
-		final File oldEngineData = new File(base.getAbsolutePath()
-				+ "/main_file_cache.dat");
-		final File newEngineData = new File(base.getAbsolutePath()
-				+ "/main_file_cache.dat2");
+		final File oldEngineData = new File(base.getAbsolutePath() + "/main_file_cache.dat");
+		final File newEngineData = new File(base.getAbsolutePath() + "/main_file_cache.dat2");
 		if (oldEngineData.exists() && !oldEngineData.isDirectory())
 			data = new RandomAccessFile(oldEngineData, readOnly ? "r" : "rw");
 		else if (newEngineData.exists() && !oldEngineData.isDirectory())
@@ -99,10 +87,8 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Gets the CRC table.
-	 * 
 	 * @return The CRC table.
-	 * @throws IOException
-	 *             If an exception gets thrown.
+	 * @throws IOException If an exception gets thrown.
 	 */
 	public ByteBuffer getCrcTable() throws IOException {
 		if (readOnly) {
@@ -139,26 +125,22 @@ public final class IndexedFileSystem implements Closeable {
 				crcTable = buf.asReadOnlyBuffer();
 				return crcTable.duplicate();
 			}
-		} else
-			throw new IOException(
-					"cannot get CRC table from a writable file system");
+		}
+		else
+			throw new IOException("cannot get CRC table from a writable file system");
 	}
 
 	/**
 	 * Gets a file.
-	 * 
-	 * @param fd
-	 *            The {@link FileDescriptor} which points to the file.
+	 * @param fd The {@link FileDescriptor} which points to the file.
 	 * @return A {@link ByteBuffer} which contains the contents of the file.
-	 * @throws IOException
-	 *             if an I/O error occurs.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public ByteBuffer getFile(FileDescriptor fd) throws IOException {
 		final Index index = getIndex(fd);
 		final ByteBuffer buffer = ByteBuffer.allocate(index.getSize());
 		// calculate some initial values
-		long ptr = (long) index.getBlock()
-				* (long) FileSystemConstants.BLOCK_SIZE;
+		long ptr = (long) index.getBlock() * (long) FileSystemConstants.BLOCK_SIZE;
 		int read = 0;
 		final int size = index.getSize();
 		int blocks = size / FileSystemConstants.CHUNK_SIZE;
@@ -176,8 +158,7 @@ public final class IndexedFileSystem implements Closeable {
 			// parse header
 			final int nextFile = (header[0] & 0xFF) << 8 | header[1] & 0xFF;
 			final int curChunk = (header[2] & 0xFF) << 8 | header[3] & 0xFF;
-			final int nextBlock = (header[4] & 0xFF) << 16
-					| (header[5] & 0xFF) << 8 | header[6] & 0xFF;
+			final int nextBlock = (header[4] & 0xFF) << 16 | (header[5] & 0xFF) << 8 | header[6] & 0xFF;
 			final int nextType = header[7] & 0xFF;
 			// check expected chunk id is correct
 			if (i != curChunk)
@@ -211,14 +192,10 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Gets a file.
-	 * 
-	 * @param type
-	 *            The file type.
-	 * @param file
-	 *            The file id.
+	 * @param type The file type.
+	 * @param file The file id.
 	 * @return A {@link ByteBuffer} which contains the contents of the file.
-	 * @throws IOException
-	 *             if an I/O error occurs.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	public ByteBuffer getFile(int type, int file) throws IOException {
 		return getFile(new FileDescriptor(type, file));
@@ -226,12 +203,9 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Gets the number of files with the specified type.
-	 * 
-	 * @param type
-	 *            The type.
+	 * @param type The type.
 	 * @return The number of files.
-	 * @throws IOException
-	 *             if an I/O error occurs.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	private int getFileCount(int type) throws IOException {
 		if (type < 0 || type >= indices.length)
@@ -244,12 +218,9 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Gets the index of a file.
-	 * 
-	 * @param fd
-	 *            The {@link FileDescriptor} which points to the file.
+	 * @param fd The {@link FileDescriptor} which points to the file.
 	 * @return The {@link Index}.
-	 * @throws IOException
-	 *             if an I/O error occurs.
+	 * @throws IOException if an I/O error occurs.
 	 */
 	private Index getIndex(FileDescriptor fd) throws IOException {
 		final int index = fd.getType();
@@ -258,14 +229,12 @@ public final class IndexedFileSystem implements Closeable {
 		final byte[] buffer = new byte[FileSystemConstants.INDEX_SIZE];
 		final RandomAccessFile indexFile = indices[index];
 		synchronized (indexFile) {
-			final long ptr = (long) fd.getFile()
-					* (long) FileSystemConstants.INDEX_SIZE;
-			if (ptr >= 0
-					&& indexFile.length() >= ptr
-					+ FileSystemConstants.INDEX_SIZE) {
+			final long ptr = (long) fd.getFile() * (long) FileSystemConstants.INDEX_SIZE;
+			if (ptr >= 0 && indexFile.length() >= ptr + FileSystemConstants.INDEX_SIZE) {
 				indexFile.seek(ptr);
 				indexFile.readFully(buffer);
-			} else
+			}
+			else
 				throw new FileNotFoundException();
 		}
 		return Index.decode(buffer);
@@ -273,7 +242,6 @@ public final class IndexedFileSystem implements Closeable {
 
 	/**
 	 * Checks if this {@link IndexedFileSystem} is read only.
-	 * 
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isReadOnly() {

@@ -9,27 +9,22 @@ import java.util.Map;
 
 /**
  * A class which contains text-related utility methods.
- * 
  * @author Graham
  */
 public final class TextUtil {
 
 	/**
-	 * An array of characters ordered by frequency - the elements with lower
-	 * indices (generally) appear more often in chat messages.
+	 * An array of characters ordered by frequency - the elements with lower indices (generally) appear more often in
+	 * chat messages.
 	 */
-	public static final char[] FREQUENCY_ORDERED_CHARS = { ' ', 'e', 't', 'a',
-		'o', 'i', 'h', 'n', 's', 'r', 'd', 'l', 'u', 'm', 'w', 'c', 'y',
-		'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2',
-		'3', '4', '5', '6', '7', '8', '9', ' ', '!', '?', '.', ',', ':',
-		';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+', '=',
-		'\243', '$', '%', '"', '[', ']' };
+	public static final char[] FREQUENCY_ORDERED_CHARS = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l',
+			'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5',
+			'6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+',
+			'=', '\243', '$', '%', '"', '[', ']' };
 
 	/**
 	 * Capitalizes the string correctly.
-	 * 
-	 * @param str
-	 *            The input string.
+	 * @param str The input string.
 	 * @return The string with correct capitalization.
 	 */
 	public static String capitalize(String str) {
@@ -41,9 +36,11 @@ public final class TextUtil {
 				if (c >= 'a' && c <= 'z') {
 					chars[i] -= 0x20;
 					sentenceStart = false;
-				} else if (c >= 'A' && c <= 'Z')
+				}
+				else if (c >= 'A' && c <= 'Z')
 					sentenceStart = false;
-			} else if (c >= 'A' && c <= 'Z')
+			}
+			else if (c >= 'A' && c <= 'Z')
 				chars[i] += 0x20;
 			if (c == '.' || c == '!' || c == '?')
 				sentenceStart = true;
@@ -53,9 +50,7 @@ public final class TextUtil {
 
 	/**
 	 * Does something..
-	 * 
-	 * @param integer
-	 *            The integer.
+	 * @param integer The integer.
 	 * @return The commify'd string.
 	 */
 	public static String commify(int integer) {
@@ -63,13 +58,9 @@ public final class TextUtil {
 	}
 
 	/**
-	 * Compresses the input text ({@code in}) and places the result in the
-	 * {@code out} array.
-	 * 
-	 * @param in
-	 *            The input text.
-	 * @param out
-	 *            The output array.
+	 * Compresses the input text ({@code in}) and places the result in the {@code out} array.
+	 * @param in The input text.
+	 * @param out The output array.
 	 * @return The number of bytes written to the output array.
 	 */
 	public static int compress(String in, byte[] out) {
@@ -93,10 +84,12 @@ public final class TextUtil {
 					carry = tblPos;
 				else
 					out[outPos++] = (byte) tblPos;
-			} else if (tblPos < 13) {
+			}
+			else if (tblPos < 13) {
 				out[outPos++] = (byte) ((carry << 4) + tblPos);
 				carry = -1;
-			} else {
+			}
+			else {
 				out[outPos++] = (byte) ((carry << 4) + (tblPos >> 4));
 				carry = tblPos & 0xF;
 			}
@@ -108,9 +101,7 @@ public final class TextUtil {
 
 	/**
 	 * Filters invalid characters from the specified string.
-	 * 
-	 * @param str
-	 *            The input string.
+	 * @param str The input string.
 	 * @return The filtered string.
 	 */
 	public static String filterInvalidCharacters(String str) {
@@ -126,9 +117,7 @@ public final class TextUtil {
 
 	/**
 	 * Formats a items amount.
-	 * 
-	 * @param amount
-	 *            The amount.
+	 * @param amount The amount.
 	 * @return The formatted value.
 	 */
 	public static String formatValue(int amount) {
@@ -142,16 +131,12 @@ public final class TextUtil {
 
 	/**
 	 * Request url parameters.
-	 * 
-	 * @param url
-	 *            the url
+	 * @param url the url
 	 * @return the url parameters
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <E extends Object> Map<String, List<E>> getUrlParameters(
-			String url) {
+	public static <E extends Object> Map<String, List<E>> getUrlParameters(String url) {
 		final Map<String, List<E>> params = new HashMap<String, List<E>>();
 		final String[] urlParts = url.split("\\?");
 		if (urlParts.length > 1) {
@@ -170,7 +155,8 @@ public final class TextUtil {
 					}
 					values.add((E) value);
 				}
-			} catch (final Exception e) {
+			}
+			catch (final Exception e) {
 			}
 		}
 		return params;
@@ -178,26 +164,20 @@ public final class TextUtil {
 
 	/**
 	 * Inserts commas for a integer.
-	 * 
-	 * @param str
-	 *            The number (in string format)
+	 * @param str The number (in string format)
 	 * @return The integer formatted with commas.
 	 */
 	public static String insertCommas(String str) {
 		if (str.length() < 4)
 			return str;
-		return insertCommas(str.substring(0, str.length() - 3)) + ","
-		+ str.substring(str.length() - 3, str.length());
+		return insertCommas(str.substring(0, str.length() - 3)) + "," + str.substring(str.length() - 3, str.length());
 	}
 
 	/**
-	 * Uncompresses the compressed data ({@code in}) with the length ({@code len}
-	 * ) and returns the uncompressed {@link String}.
-	 * 
-	 * @param in
-	 *            The compressed input data.
-	 * @param len
-	 *            The length.
+	 * Uncompresses the compressed data ({@code in}) with the length ({@code len} ) and returns the uncompressed
+	 * {@link String}.
+	 * @param in The compressed input data.
+	 * @param len The length.
 	 * @return The uncompressed {@link String}.
 	 */
 	public static String uncompress(byte[] in, int len) {
@@ -206,20 +186,20 @@ public final class TextUtil {
 		int carry = -1;
 		for (int i = 0; i < len * 2; i++) {
 			final int tblPos = in[i / 2] >> 4 - 4 * (i % 2) & 0xF;
-		if (carry == -1) {
-			if (tblPos < 13)
-				out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[tblPos];
-			else
-				carry = tblPos;
-		} else {
-			out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[(carry << 4)
-			                                               + tblPos - 195];
-			carry = -1;
-		}
+			if (carry == -1) {
+				if (tblPos < 13)
+					out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[tblPos];
+				else
+					carry = tblPos;
+			}
+			else {
+				out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[(carry << 4) + tblPos - 195];
+				carry = -1;
+			}
 		}
 		return new String(out, 0, outPos);
 	}
-	
+
 	/**
 	 * Gets a random number.
 	 * @param range The range.

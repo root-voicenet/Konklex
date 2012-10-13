@@ -32,7 +32,8 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 		final Character other = acquaintance;
 		if (player.isDead() || !player.isActive() || other.isDead() || !other.isActive()) {
 			stop();
-		} else {
+		}
+		else {
 			int playerX = player.getPosition().getX();
 			int playerY = player.getPosition().getY();
 			int acquaintanceX = acquaintance.getPosition().getX();
@@ -45,21 +46,29 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 
 			if (acquaintanceY == playerY && acquaintanceX == playerX) {
 				walkTo(0, getMove(playerY, acquaintanceY - 1));
-			} else if (acquaintanceY > playerY && acquaintanceX == playerX) {
+			}
+			else if (acquaintanceY > playerY && acquaintanceX == playerX) {
 				walkTo(0, getMove(playerY, acquaintanceY - 1));
-			} else if (acquaintanceY < playerY && acquaintanceX == playerX) {
+			}
+			else if (acquaintanceY < playerY && acquaintanceX == playerX) {
 				walkTo(0, getMove(playerY, acquaintanceY + 1));
-			} else if (acquaintanceX > playerX && acquaintanceY == playerY) {
+			}
+			else if (acquaintanceX > playerX && acquaintanceY == playerY) {
 				walkTo(getMove(playerX, acquaintanceX - 1), 0);
-			} else if (acquaintanceX < playerX && acquaintanceY == playerX) {
+			}
+			else if (acquaintanceX < playerX && acquaintanceY == playerX) {
 				walkTo(getMove(playerX, acquaintanceX + 1), 0);
-			} else if (acquaintanceX < playerX && acquaintanceY < playerY) {
+			}
+			else if (acquaintanceX < playerX && acquaintanceY < playerY) {
 				walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY + 1));
-			} else if (acquaintanceX > playerX && acquaintanceY > playerY) {
+			}
+			else if (acquaintanceX > playerX && acquaintanceY > playerY) {
 				walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY - 1));
-			} else if (acquaintanceX < playerX && acquaintanceY > playerY) {
+			}
+			else if (acquaintanceX < playerX && acquaintanceY > playerY) {
 				walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY - 1));
-			} else if (acquaintanceX > playerX && acquaintanceY < playerY) {
+			}
+			else if (acquaintanceX > playerX && acquaintanceY < playerY) {
 				walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY + 1));
 			}
 		}

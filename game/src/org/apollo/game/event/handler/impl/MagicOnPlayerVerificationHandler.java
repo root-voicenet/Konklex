@@ -18,7 +18,7 @@ public final class MagicOnPlayerVerificationHandler extends EventHandler<MagicEv
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, MagicEvent event) {
 		final int id = event.getCharacterId();
-		switch(event.getOption()) {
+		switch (event.getOption()) {
 		case 0:
 			final Player victim = World.getWorld().getPlayerRepository().forIndex(id);
 			if (id < 0)

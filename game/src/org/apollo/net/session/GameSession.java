@@ -57,6 +57,7 @@ public final class GameSession extends Session {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.net.session.Session#destroy()
 	 */
 	@Override
@@ -91,16 +92,19 @@ public final class GameSession extends Session {
 				eventType = (Class<? extends Event>) eventType.getSuperclass();
 				if (eventType == Event.class) {
 					eventType = null;
-				} else {
+				}
+				else {
 					chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
 				}
 			}
 			if (chain == null) {
 				logger.warning("No chain for event: " + event.getClass().getName() + ".");
-			} else {
+			}
+			else {
 				try {
 					chain.handle(player, event);
-				} catch (final Exception ex) {
+				}
+				catch (final Exception ex) {
 					logger.log(Level.SEVERE, "Error handling event.", ex);
 				}
 			}
@@ -118,6 +122,7 @@ public final class GameSession extends Session {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.net.session.Session#messageReceived(java.lang.Object)
 	 */
 	@Override
@@ -125,7 +130,8 @@ public final class GameSession extends Session {
 		final Event event = (Event) message;
 		if (eventQueue.size() >= GameConstants.EVENTS_PER_PULSE) {
 			logger.warning("Too many events in queue for game session, dropping...");
-		} else {
+		}
+		else {
 			eventQueue.add(event);
 		}
 	}

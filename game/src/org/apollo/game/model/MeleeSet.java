@@ -11,27 +11,27 @@ import org.apollo.game.scheduling.ScheduledTask;
  * @author Steve
  */
 public final class MeleeSet {
-	
+
 	/**
 	 * The list of projectiles.
 	 */
 	private final List<ProjectileEvent> projectiles = new ArrayList<ProjectileEvent>();
-	
+
 	/**
 	 * The special flag.
 	 */
 	private boolean usingSpecial;
-	
+
 	/**
 	 * The magic flag.
 	 */
 	private boolean usingMagic;
-	
+
 	/**
 	 * The magic spell id.
 	 */
 	private int magicSpellId;
-	
+
 	/**
 	 * The time since the last attack.
 	 */
@@ -41,7 +41,7 @@ public final class MeleeSet {
 	 * The auto retaliating flag.
 	 */
 	private boolean autoRetaliating;
-	
+
 	/**
 	 * Gets the auto retaliating flag.
 	 * @return True if retaliating, false if not.
@@ -62,12 +62,12 @@ public final class MeleeSet {
 	 * The attack timer.
 	 */
 	private int attackTimer = 4;
-	
+
 	/**
 	 * The attacking flag.
 	 */
 	private boolean attacking;
-	
+
 	/**
 	 * The under attack flag.
 	 */
@@ -106,7 +106,7 @@ public final class MeleeSet {
 	public MeleeSet(Character character) {
 		this.character = character;
 	}
-	
+
 	/**
 	 * Sets the task.
 	 * @param task The task.
@@ -114,7 +114,7 @@ public final class MeleeSet {
 	public void setTask(ScheduledTask task) {
 		this.task = task;
 	}
-	
+
 	/**
 	 * Gets the interacting character.
 	 * @return The interacting character.
@@ -122,7 +122,7 @@ public final class MeleeSet {
 	public Character getInteractingCharacter() {
 		return interacter;
 	}
-	
+
 	/**
 	 * Sets the special.
 	 * @param special The special.
@@ -130,7 +130,7 @@ public final class MeleeSet {
 	public void setSpecial(int special) {
 		this.special = special;
 	}
-	
+
 	/**
 	 * Sets the interacting character.
 	 * @param interacter The interacting character.
@@ -178,7 +178,7 @@ public final class MeleeSet {
 	public int getMagicSpellId() {
 		return magicSpellId;
 	}
-	
+
 	/**
 	 * Gets the list of projectiles.
 	 * @return The list of projectiles.
@@ -258,7 +258,7 @@ public final class MeleeSet {
 	public void setUnderAttack(boolean underAttack) {
 		this.underAttack = underAttack;
 	}
-	
+
 	/**
 	 * Gets the dying flag.
 	 * @return True if dying, false if not.

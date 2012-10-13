@@ -9,17 +9,17 @@ import org.apollo.util.TextUtil;
  * @author Steve
  */
 public final class PlayerCommandMethod extends Method {
-	
+
 	/**
 	 * The player.
 	 */
 	private final long player;
-	
+
 	/**
 	 * The command.
 	 */
 	private final byte[] command;
-	
+
 	/**
 	 * Creates a player command method.
 	 * @param player The player.
@@ -28,7 +28,7 @@ public final class PlayerCommandMethod extends Method {
 	public PlayerCommandMethod(String player, String command) {
 		this(NameUtil.encodeBase37(player), command);
 	}
-	
+
 	/**
 	 * Creates a player command method.
 	 * @param player The player.
@@ -42,7 +42,7 @@ public final class PlayerCommandMethod extends Method {
 		this.player = player;
 		this.command = temp;
 	}
-	
+
 	/**
 	 * Creates a player command method.
 	 * @param player The player.
@@ -52,7 +52,7 @@ public final class PlayerCommandMethod extends Method {
 		this.player = player;
 		this.command = command;
 	}
-	
+
 	/**
 	 * Creates a player command method.
 	 * @param player The player.
@@ -61,7 +61,7 @@ public final class PlayerCommandMethod extends Method {
 	public PlayerCommandMethod(String player, byte[] command) {
 		this(NameUtil.encodeBase37(player), command);
 	}
-	
+
 	/**
 	 * Gets the player.
 	 * @return The player.
@@ -69,7 +69,7 @@ public final class PlayerCommandMethod extends Method {
 	public long getPlayer() {
 		return player;
 	}
-	
+
 	/**
 	 * Gets the message.
 	 * @return The message.

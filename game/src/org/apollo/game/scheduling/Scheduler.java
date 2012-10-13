@@ -23,8 +23,7 @@ public final class Scheduler {
 	private final List<ScheduledTask> tasks = new ArrayList<ScheduledTask>();
 
 	/**
-	 * Called every pulse: executes tasks that are still pending, adds new tasks
-	 * and stops old tasks.
+	 * Called every pulse: executes tasks that are still pending, adds new tasks and stops old tasks.
 	 */
 	public void pulse() {
 		ScheduledTask task;

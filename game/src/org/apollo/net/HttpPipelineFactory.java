@@ -42,6 +42,7 @@ public final class HttpPipelineFactory implements ChannelPipelineFactory {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.jboss.netty.channel.ChannelPipelineFactory#getPipeline()
 	 */
 	@Override

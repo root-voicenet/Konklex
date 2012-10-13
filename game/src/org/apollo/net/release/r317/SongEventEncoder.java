@@ -15,27 +15,27 @@ public final class SongEventEncoder extends EventEncoder<SongEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(SongEvent event) {
 		GamePacketBuilder builder = null;
-		switch(event.getType()) {
-			case 1:
-				builder = new GamePacketBuilder(74);
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
+		switch (event.getType()) {
+		case 1:
+			builder = new GamePacketBuilder(74);
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
 			break;
-			case 2:
-				builder = new GamePacketBuilder(121);
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getDelay());
+		case 2:
+			builder = new GamePacketBuilder(121);
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getDelay());
 			break;
-			case 3:
-				builder = new GamePacketBuilder(174);
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSoundType());
-				builder.put(DataType.SHORT, DataOrder.LITTLE, event.getDelay());
+		case 3:
+			builder = new GamePacketBuilder(174);
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSound());
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getSoundType());
+			builder.put(DataType.SHORT, DataOrder.LITTLE, event.getDelay());
 			break;
 		}
 		return builder.toGamePacket();

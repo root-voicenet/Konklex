@@ -32,9 +32,7 @@ public final class Server {
 
 	/**
 	 * The entry point of the Apollo server application.
-	 * 
-	 * @param args
-	 *            The command-line arguments passed to the application.
+	 * @param args The command-line arguments passed to the application.
 	 */
 	public static void main(String[] args) {
 		Server server = null;
@@ -44,7 +42,8 @@ public final class Server {
 			final SocketAddress telnet = new InetSocketAddress(args.length == 1 ? Integer.parseInt(args[0]) : 3918);
 			server.start();
 			server.bind(telnet);
-		} catch (final Throwable t) {
+		}
+		catch (final Throwable t) {
 			logger.log(Level.SEVERE, "Error whilst starting server.", t);
 		}
 	}
@@ -53,24 +52,23 @@ public final class Server {
 	 * The {@link ServerBootstrap} for the TELNET listener.
 	 */
 	private final ServerBootstrap telnetBootstrap = new ServerBootstrap();
-	
+
 	/**
 	 * The {@link ClientBootstrap} for the servers.
 	 */
 	private final ClientBootstrap clientBootstrap = new ClientBootstrap();
-	
+
 	/**
 	 * The server's context.
 	 */
 	private static ServerContext context;
 
 	/**
-	 * The {@link ExecutorService} used for network events. The named thread
-	 * factory is unused as Netty names threads itself.
+	 * The {@link ExecutorService} used for network events. The named thread factory is unused as Netty names threads
+	 * itself.
 	 */
-	private final ExecutorService networkExecutor = Executors
-			.newCachedThreadPool();
-	
+	private final ExecutorService networkExecutor = Executors.newCachedThreadPool();
+
 	/**
 	 * The service manager.
 	 */
@@ -78,9 +76,7 @@ public final class Server {
 
 	/**
 	 * Creates the Apollo server.
-	 * 
-	 * @throws Exception
-	 *             if an error occurs whilst creating services.
+	 * @throws Exception if an error occurs whilst creating services.
 	 */
 	public Server() throws Exception {
 		logger.info("Starting Apollo...");
@@ -95,7 +91,8 @@ public final class Server {
 		logger.info("Binding TELNET listener to address: " + telnetAddress + "...");
 		try {
 			telnetBootstrap.bind(telnetAddress);
-		} catch (final Throwable t) {
+		}
+		catch (final Throwable t) {
 			logger.log(Level.WARNING, "Binding to TELNET failed: hub will not work!", t);
 		}
 		logger.info("Ready for connections.");
@@ -118,7 +115,7 @@ public final class Server {
 		final ChannelPipelineFactory clientPipelineFactory = new ApiPipelineFactory(apiHandler, context);
 		clientBootstrap.setPipelineFactory(clientPipelineFactory);
 	}
-	
+
 	/**
 	 * Starts the server.
 	 * @throws Exception if an error occurs.
@@ -126,7 +123,7 @@ public final class Server {
 	public void start() throws Exception {
 		serviceManager.startAll();
 	}
-	
+
 	/**
 	 * Gets the context.
 	 */

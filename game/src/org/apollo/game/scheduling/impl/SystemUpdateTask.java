@@ -7,8 +7,7 @@ import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
- * An {@link ScheduledTask} that processes a system update timer for the players
- * online.
+ * An {@link ScheduledTask} that processes a system update timer for the players online.
  * @author Steve
  */
 public class SystemUpdateTask extends ScheduledTask {
@@ -34,7 +33,8 @@ public class SystemUpdateTask extends ScheduledTask {
 		if (!SERVER_UPDATING) {
 			new SystemUpdateTask(time);
 			return true;
-		} else
+		}
+		else
 			return false;
 	}
 
@@ -65,7 +65,8 @@ public class SystemUpdateTask extends ScheduledTask {
 			for (final Player player : World.getWorld().getPlayerRepository())
 				player.send(new SystemUpdateEvent(time * 100));
 			started = true;
-		} else {
+		}
+		else {
 			for (final Player player : World.getWorld().getPlayerRepository())
 				player.logout();
 			RestartCommandListener.restart();

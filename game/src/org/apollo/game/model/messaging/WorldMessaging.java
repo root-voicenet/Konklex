@@ -101,11 +101,13 @@ public final class WorldMessaging {
 			user.send(new PrivateChatLoadedEvent(2));
 			try {
 				user.getMessaging().refresh();
-			} catch (final Exception e) {
+			}
+			catch (final Exception e) {
 				// do nothing
 			}
 			events.add(user.getName().toLowerCase());
-		} else if (player instanceof String)
+		}
+		else if (player instanceof String)
 			events.add(((String) player).toLowerCase());
 	}
 
@@ -133,8 +135,12 @@ public final class WorldMessaging {
 			friend.send(new SendPrivateChatEvent(sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(),
 					message, friend.getMessaging().getLastId()));
 		else
-			World.getWorld().getContext().getService(FrontendService.class).sendAll(
-					new PrivateChatMethod(reciever, sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(), message));
+			World.getWorld()
+					.getContext()
+					.getService(FrontendService.class)
+					.sendAll(
+							new PrivateChatMethod(reciever, sender.getEncodedName(), sender.getPrivilegeLevel()
+									.toInteger(), message));
 	}
 
 	/**
@@ -151,13 +157,15 @@ public final class WorldMessaging {
 		final byte[] recompressed = new byte[uncompressed.length()];
 		TextUtil.compress(uncompressed, recompressed);
 		if (friend != null) {
-			friend.send(new SendPrivateChatEvent(NameUtil.encodeBase37(sender), 0, recompressed, friend.getMessaging().getLastId()));
-		} else {
-			World.getWorld().getContext().getService(FrontendService.class).sendAll(
-					new PrivateChatMethod(reciever, sender, 0, message));
+			friend.send(new SendPrivateChatEvent(NameUtil.encodeBase37(sender), 0, recompressed, friend.getMessaging()
+					.getLastId()));
+		}
+		else {
+			World.getWorld().getContext().getService(FrontendService.class)
+					.sendAll(new PrivateChatMethod(reciever, sender, 0, message));
 		}
 	}
-	
+
 	/**
 	 * Gets the world.
 	 * @param player The player.
@@ -179,7 +187,8 @@ public final class WorldMessaging {
 		for (final Player all : World.getWorld().getPlayerRepository())
 			try {
 				all.getMessaging().refresh(player);
-			} catch (final Exception e) {
+			}
+			catch (final Exception e) {
 				// do nothing
 			}
 	}

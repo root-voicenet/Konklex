@@ -10,7 +10,6 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link PositionEvent}.
- * 
  * @author Steve
  */
 public final class PositionEventEncoder extends EventEncoder<PositionEvent> {
@@ -18,8 +17,7 @@ public final class PositionEventEncoder extends EventEncoder<PositionEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(PositionEvent event) {

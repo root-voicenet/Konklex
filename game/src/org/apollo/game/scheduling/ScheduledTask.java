@@ -24,8 +24,8 @@ public abstract class ScheduledTask {
 	/**
 	 * Creates a new scheduled task.
 	 * @param delay The delay between executions of the task, in pulses.
-	 * @param immediate A flag indicating if this task should (for the first
-	 * execution) be ran immediately, or after the {@code delay}.
+	 * @param immediate A flag indicating if this task should (for the first execution) be ran immediately, or after the
+	 * {@code delay}.
 	 */
 	public ScheduledTask(int delay, boolean immediate) {
 		setDelay(delay);
@@ -46,8 +46,7 @@ public abstract class ScheduledTask {
 	}
 
 	/**
-	 * Pulses this task: updates the delay and calls {@link #execute()} if
-	 * necessary.
+	 * Pulses this task: updates the delay and calls {@link #execute()} if necessary.
 	 */
 	final void pulse() {
 		if (running && pulses-- == 0) {

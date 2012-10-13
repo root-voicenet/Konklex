@@ -2,7 +2,6 @@ package org.apollo.game.model;
 
 /**
  * Contains the world configuration data.
- * 
  * @author Steve
  */
 public class Config {

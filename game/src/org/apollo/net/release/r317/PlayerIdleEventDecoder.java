@@ -6,7 +6,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link PlayerIdleEvent}
- * 
  * @author Steve
  */
 public final class PlayerIdleEventDecoder extends EventDecoder<PlayerIdleEvent> {

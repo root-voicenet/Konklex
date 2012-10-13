@@ -9,7 +9,7 @@ import org.apollo.game.model.Character;
  * @author Steve
  */
 public class MagicEvent extends Event {
-	
+
 	/**
 	 * The character that was clicked.
 	 */
@@ -52,13 +52,14 @@ public class MagicEvent extends Event {
 	public int getCharacterId() {
 		return characterId;
 	}
-	
+
 	/**
 	 * Gets the victim.
 	 * @return The victim.
 	 */
 	public Character getVictim() {
-		return option == 0 ? World.getWorld().getPlayerRepository().forIndex(characterId) : World.getWorld().getNpcRepository().forIndex(characterId);
+		return option == 0 ? World.getWorld().getPlayerRepository().forIndex(characterId) : World.getWorld()
+				.getNpcRepository().forIndex(characterId);
 	}
 
 	/**

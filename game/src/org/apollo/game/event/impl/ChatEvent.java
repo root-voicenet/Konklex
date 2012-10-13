@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An event sent by the client to send a public chat message to other players.
- * 
  * @author Graham
  */
 public final class ChatEvent extends Event {
@@ -31,18 +30,12 @@ public final class ChatEvent extends Event {
 
 	/**
 	 * Creates a new chat event.
-	 * 
-	 * @param message
-	 *            The message.
-	 * @param compressedMessage
-	 *            The compressed message.
-	 * @param color
-	 *            The text color.
-	 * @param effects
-	 *            The text effects.
+	 * @param message The message.
+	 * @param compressedMessage The compressed message.
+	 * @param color The text color.
+	 * @param effects The text effects.
 	 */
-	public ChatEvent(String message, byte[] compressedMessage, int color,
-			int effects) {
+	public ChatEvent(String message, byte[] compressedMessage, int color, int effects) {
 		this.message = message;
 		this.compressedMessage = compressedMessage;
 		this.color = color;
@@ -51,7 +44,6 @@ public final class ChatEvent extends Event {
 
 	/**
 	 * Gets the compressed message.
-	 * 
 	 * @return The compressed message.
 	 */
 	public byte[] getCompressedMessage() {
@@ -60,7 +52,6 @@ public final class ChatEvent extends Event {
 
 	/**
 	 * Gets the message.
-	 * 
 	 * @return The message.
 	 */
 	public String getMessage() {
@@ -69,7 +60,6 @@ public final class ChatEvent extends Event {
 
 	/**
 	 * Gets the text color.
-	 * 
 	 * @return The text color.
 	 */
 	public int getTextColor() {
@@ -78,7 +68,6 @@ public final class ChatEvent extends Event {
 
 	/**
 	 * Gets the text effects.
-	 * 
 	 * @return The text effects.
 	 */
 	public int getTextEffects() {

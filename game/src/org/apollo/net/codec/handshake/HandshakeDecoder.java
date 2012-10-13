@@ -13,8 +13,8 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.handler.codec.frame.FrameDecoder;
 
 /**
- * A {@link FrameDecoder} which decodes the handshake and makes changes to the
- * pipeline as appropriate for the selected service.
+ * A {@link FrameDecoder} which decodes the handshake and makes changes to the pipeline as appropriate for the selected
+ * service.
  * @author Graham
  */
 public final class HandshakeDecoder extends FrameDecoder {
@@ -53,10 +53,9 @@ public final class HandshakeDecoder extends FrameDecoder {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.handler.codec.frame.FrameDecoder#decode(org.jboss.netty
-	 * .channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * org.jboss.netty.buffer.ChannelBuffer)
+	 * 
+	 * @see org.jboss.netty.handler.codec.frame.FrameDecoder#decode(org.jboss.netty .channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer)
 	 */
 	@Override
 	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {

@@ -1,8 +1,7 @@
 package org.apollo.game.event.impl;
 
 /**
- * The second {@link ItemOptionEvent}, used for equipping an item (amongst
- * others?).
+ * The second {@link ItemOptionEvent}, used for equipping an item (amongst others?).
  * @author Chris Fletcher
  */
 public final class SecondItemOptionEvent extends ItemOptionEvent {

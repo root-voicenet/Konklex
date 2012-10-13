@@ -7,17 +7,17 @@ import org.apollo.api.method.Method;
  * @author Steve
  */
 public final class ReceivePlayerMethod extends Method {
-	
+
 	/**
 	 * The player.
 	 */
 	private final long player;
-	
+
 	/**
 	 * The rights.
 	 */
 	private final int rights;
-	
+
 	/**
 	 * The world.
 	 */
@@ -27,7 +27,7 @@ public final class ReceivePlayerMethod extends Method {
 	 * The status.
 	 */
 	private final int status;
-	
+
 	/**
 	 * Creates the send player method.
 	 * @param player The player.
@@ -41,7 +41,7 @@ public final class ReceivePlayerMethod extends Method {
 		this.status = status;
 		this.world = world;
 	}
-	
+
 	/**
 	 * Gets the player.
 	 * @return The player.
@@ -49,7 +49,7 @@ public final class ReceivePlayerMethod extends Method {
 	public long getPlayer() {
 		return player;
 	}
-	
+
 	/**
 	 * Gets the rights.
 	 * @return The rights.

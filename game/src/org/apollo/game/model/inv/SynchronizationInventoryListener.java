@@ -8,8 +8,7 @@ import org.apollo.game.model.Player;
 import org.apollo.game.model.SlottedItem;
 
 /**
- * An {@link InventoryListener} which synchronizes the state of the server's
- * inventory with the client's.
+ * An {@link InventoryListener} which synchronizes the state of the server's inventory with the client's.
  * @author Graham
  */
 public final class SynchronizationInventoryListener extends InventoryAdapter {
@@ -46,9 +45,8 @@ public final class SynchronizationInventoryListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game
-	 * .model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game .model.Inventory)
 	 */
 	@Override
 	public void itemsUpdated(Inventory inventory) {
@@ -57,9 +55,9 @@ public final class SynchronizationInventoryListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game
-	 * .model.Inventory, int, org.apollo.game.model.Item)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game .model.Inventory, int,
+	 * org.apollo.game.model.Item)
 	 */
 	@Override
 	public void itemUpdated(Inventory inventory, int slot, Item item) {

@@ -17,23 +17,18 @@ import org.apollo.game.model.inter.dialog.DialogueListener;
 /**
  * Represents the set of interfaces the player has open.
  * <p>
- * This class manages all six distinct types of interface (the last two are not
- * present on 317 servers).
+ * This class manages all six distinct types of interface (the last two are not present on 317 servers).
  * </p>
  * <ul>
- * <li><strong>Windows:</strong> the ones people mostly associate with the word
- * interfaces. Things like your bank, the wildy warning screen, the trade
- * screen, etc.</li>
- * <li><strong>Overlays:</strong> display in the same place as windows, but
- * don't prevent you from moving. For example, the wilderness level indicator.</li>
- * <li><strong>Dialogues:</strong> interfaces which are displayed over the chat
- * box.</li>
- * <li><strong>Sidebars:</strong> an interface which displays over the inventory
- * area.</li>
- * <li><strong>Fullscreen windows:</strong> a window which displays over the
- * whole screen e.g. the 377 welcome screen.</li>
- * <li><strong>Fullscreen background:</strong> an interface displayed behind the
- * fullscreen window, typically a blank, black screen.</li>
+ * <li><strong>Windows:</strong> the ones people mostly associate with the word interfaces. Things like your bank, the
+ * wildy warning screen, the trade screen, etc.</li>
+ * <li><strong>Overlays:</strong> display in the same place as windows, but don't prevent you from moving. For example,
+ * the wilderness level indicator.</li>
+ * <li><strong>Dialogues:</strong> interfaces which are displayed over the chat box.</li>
+ * <li><strong>Sidebars:</strong> an interface which displays over the inventory area.</li>
+ * <li><strong>Fullscreen windows:</strong> a window which displays over the whole screen e.g. the 377 welcome screen.</li>
+ * <li><strong>Fullscreen background:</strong> an interface displayed behind the fullscreen window, typically a blank,
+ * black screen.</li>
  * </ul>
  * @author Graham
  */
@@ -73,8 +68,7 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * Called when the player has clicked the specified button. Notifies the
-	 * current interface listener.
+	 * Called when the player has clicked the specified button. Notifies the current interface listener.
 	 * @param button The button's interface id.
 	 * @return {@code true} if the event handler chain should be broken.
 	 */
@@ -98,10 +92,8 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * An internal method for closing the interface, notifying the listener if
-	 * appropriate, but not sending any events.
-	 * @param manually Flag for if the interface was closed manually (by the
-	 * player).
+	 * An internal method for closing the interface, notifying the listener if appropriate, but not sending any events.
+	 * @param manually Flag for if the interface was closed manually (by the player).
 	 */
 	private void closeAndNotify(boolean manually) {
 		amountListener = null;
@@ -132,8 +124,7 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * Called when the player has clicked the "Click here to continue" button on
-	 * a dialogue.
+	 * Called when the player has clicked the "Click here to continue" button on a dialogue.
 	 */
 	public void continueRequested() {
 		if (dialogueListener != null)
@@ -141,8 +132,7 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * Called when the client has entered the specified amount. Notifies the
-	 * current listener.
+	 * Called when the client has entered the specified amount. Notifies the current listener.
 	 * @param amount The amount.
 	 */
 	public void enteredAmount(int amount) {
@@ -204,19 +194,19 @@ public final class InterfaceSet {
 	 */
 	public void sendStatement(String... lines) {
 		switch (lines.length) {
-		case 1 :
+		case 1:
 			sendStatement(lines[0]);
 			break;
-		case 2 :
+		case 2:
 			sendStatement(lines[0], lines[1]);
 			break;
-		case 3 :
+		case 3:
 			sendStatement(lines[0], lines[1], lines[2]);
 			break;
-		case 4 :
+		case 4:
 			sendStatement(lines[0], lines[1], lines[2], lines[3]);
 			break;
-		case 5 :
+		case 5:
 			sendStatement(lines[0], lines[1], lines[2], lines[3], lines[4]);
 			break;
 		}

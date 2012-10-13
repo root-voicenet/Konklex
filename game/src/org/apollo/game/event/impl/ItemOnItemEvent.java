@@ -1,8 +1,7 @@
 package org.apollo.game.event.impl;
 
 /**
- * An event which is sent by the client when a player uses one inventory item on
- * another.
+ * An event which is sent by the client when a player uses one inventory item on another.
  * @author Chris Fletcher
  */
 public final class ItemOnItemEvent extends InventoryItemEvent {
@@ -31,7 +30,8 @@ public final class ItemOnItemEvent extends InventoryItemEvent {
 	 * @param targetId The id of the target item.
 	 * @param targetSlot The slot of the target item.
 	 */
-	public ItemOnItemEvent(int usedInterface, int usedId, int usedSlot, int targetInterface, int targetId, int targetSlot) {
+	public ItemOnItemEvent(int usedInterface, int usedId, int usedSlot, int targetInterface, int targetId,
+			int targetSlot) {
 		super(0, usedInterface, usedId, usedSlot);
 		this.targetInterface = targetInterface;
 		this.targetSlot = targetSlot;

@@ -8,8 +8,8 @@ import org.jboss.netty.channel.Channel;
 import org.jboss.netty.handler.codec.http.HttpRequest;
 
 /**
- * A {@link ResourceProvider} which maps virtual resources (such as
- * {@code /media}) to files in an {@link IndexedFileSystem}.
+ * A {@link ResourceProvider} which maps virtual resources (such as {@code /media}) to files in an
+ * {@link IndexedFileSystem}.
  * @author Graham
  */
 public final class VirtualResourceProvider extends ResourceProvider {
@@ -18,7 +18,7 @@ public final class VirtualResourceProvider extends ResourceProvider {
 	 * An array of valid prefixes.
 	 */
 	private static final String[] VALID_PREFIXES = { "crc", "title", "config", "interface", "media", "versionlist",
-		"textures", "wordenc", "sounds" };
+			"textures", "wordenc", "sounds" };
 
 	/**
 	 * The file system.
@@ -35,6 +35,7 @@ public final class VirtualResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#accept(java.lang.String)
 	 */
 	@Override
@@ -47,6 +48,7 @@ public final class VirtualResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
 	 */
 	@Override

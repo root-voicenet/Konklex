@@ -6,8 +6,7 @@ import org.apollo.game.model.Player;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
- * An {@link InventoryListener} which updates the player's appearance when any
- * items are updated.
+ * An {@link InventoryListener} which updates the player's appearance when any items are updated.
  * @author Graham
  */
 public final class AppearanceInventoryListener extends InventoryAdapter {
@@ -27,9 +26,8 @@ public final class AppearanceInventoryListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game
-	 * .model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game .model.Inventory)
 	 */
 	@Override
 	public void itemsUpdated(Inventory inventory) {
@@ -38,9 +36,9 @@ public final class AppearanceInventoryListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game
-	 * .model.Inventory, int, org.apollo.game.model.Item)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game .model.Inventory, int,
+	 * org.apollo.game.model.Item)
 	 */
 	@Override
 	public void itemUpdated(Inventory inventory, int slot, Item item) {

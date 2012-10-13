@@ -32,21 +32,23 @@ public final class RestartCommandListener extends PrivilegedCommandListener {
 				public void execute() {
 					restart();
 				}
-				
+
 			});
-		} else {
+		}
+		else {
 			restart();
 		}
 	}
-	
+
 	/**
 	 * Restarts this application.
 	 */
 	public static final void restart() {
 		try {
-			String cmd[] = {"sh", "-c", "/home/buroa/konklex/Run_Game.sh"}; 
+			String cmd[] = { "sh", "-c", "/home/buroa/konklex/Run_Game.sh" };
 			Runtime.getRuntime().exec(cmd);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.exit(0);

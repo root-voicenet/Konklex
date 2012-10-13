@@ -16,8 +16,7 @@ import org.jboss.netty.handler.timeout.IdleStateAwareChannelUpstreamHandler;
 import org.jboss.netty.handler.timeout.IdleStateEvent;
 
 /**
- * An implementation of {@link SimpleChannelUpstreamHandler} which handles
- * incoming upstream events from Netty.
+ * An implementation of {@link SimpleChannelUpstreamHandler} which handles incoming upstream events from Netty.
  * @author Graham
  */
 public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
@@ -42,10 +41,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.channel.SimpleChannelUpstreamHandler#channelConnected
-	 * (org.jboss.netty.channel.ChannelHandlerContext ,
-	 * org.jboss.netty.channel.ChannelStateEvent)
+	 * 
+	 * @see org.jboss.netty.channel.SimpleChannelUpstreamHandler#channelConnected
+	 * (org.jboss.netty.channel.ChannelHandlerContext , org.jboss.netty.channel.ChannelStateEvent)
 	 */
 	@Override
 	public void channelConnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
@@ -57,10 +55,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.channel.SimpleChannelUpstreamHandler#channelDisconnected
-	 * (org.jboss.netty.channel. ChannelHandlerContext,
-	 * org.jboss.netty.channel.ChannelStateEvent)
+	 * 
+	 * @see org.jboss.netty.channel.SimpleChannelUpstreamHandler#channelDisconnected (org.jboss.netty.channel.
+	 * ChannelHandlerContext, org.jboss.netty.channel.ChannelStateEvent)
 	 */
 	@Override
 	public void channelDisconnected(ChannelHandlerContext ctx, ChannelStateEvent e) throws Exception {
@@ -74,10 +71,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.handler.timeout.IdleStateAwareChannelUpstreamHandler#
-	 * channelIdle(org.jboss.netty.channel. ChannelHandlerContext,
-	 * org.jboss.netty.handler.timeout.IdleStateEvent)
+	 * 
+	 * @see org.jboss.netty.handler.timeout.IdleStateAwareChannelUpstreamHandler# channelIdle(org.jboss.netty.channel.
+	 * ChannelHandlerContext, org.jboss.netty.handler.timeout.IdleStateEvent)
 	 */
 	@Override
 	public void channelIdle(ChannelHandlerContext ctx, IdleStateEvent e) throws Exception {
@@ -86,10 +82,9 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.channel.SimpleChannelUpstreamHandler#exceptionCaught(
-	 * org.jboss.netty.channel.ChannelHandlerContext ,
-	 * org.jboss.netty.channel.ExceptionEvent)
+	 * 
+	 * @see org.jboss.netty.channel.SimpleChannelUpstreamHandler#exceptionCaught(
+	 * org.jboss.netty.channel.ChannelHandlerContext , org.jboss.netty.channel.ExceptionEvent)
 	 */
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, ExceptionEvent e) throws Exception {
@@ -99,16 +94,16 @@ public final class ApolloHandler extends IdleStateAwareChannelUpstreamHandler {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.channel.SimpleChannelUpstreamHandler#messageReceived(
-	 * org.jboss.netty.channel.ChannelHandlerContext ,
-	 * org.jboss.netty.channel.MessageEvent)
+	 * 
+	 * @see org.jboss.netty.channel.SimpleChannelUpstreamHandler#messageReceived(
+	 * org.jboss.netty.channel.ChannelHandlerContext , org.jboss.netty.channel.MessageEvent)
 	 */
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
 		if (ctx.getAttachment() != null) {
 			((Session) ctx.getAttachment()).messageReceived(e.getMessage());
-		} else {
+		}
+		else {
 			TelnetHandler handler = (TelnetHandler) ctx.getPipeline().get("telnetHandler");
 			handler.messageReceived(ctx, e);
 		}

@@ -9,7 +9,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link MagicOnItemEvent}.
- * 
  * @author Chris Fletcher
  */
 public final class MagicOnItemEventDecoder extends EventDecoder<MagicOnItemEvent> {

@@ -1,8 +1,7 @@
 package org.apollo.game.pf;
 
 /**
- * A class which stores a grid of tiles and manages which directions can or
- * cannot be traversed.
+ * A class which stores a grid of tiles and manages which directions can or cannot be traversed.
  * @author Graham Edgecombe
  */
 public class TileMap {
@@ -34,8 +33,7 @@ public class TileMap {
 	private final int height;
 
 	/**
-	 * Creates a blank tile map with the specified width and height. The map is
-	 * filled with <code>EMPTY_TILE</code>s.
+	 * Creates a blank tile map with the specified width and height. The map is filled with <code>EMPTY_TILE</code>s.
 	 * @param width The width of the tile map.
 	 * @param height The height of the tile map.
 	 */
@@ -44,8 +42,7 @@ public class TileMap {
 	}
 
 	/**
-	 * Creates and fills a map with the specified width, height and default
-	 * tile.
+	 * Creates and fills a map with the specified width, height and default tile.
 	 * @param width The width of the tile map.
 	 * @param height The height of the tile map.
 	 * @param defaultTile The default tile, which the map is filled with.
@@ -62,8 +59,7 @@ public class TileMap {
 	/**
 	 * Creates the tile map with the specified initial grid of tiles.
 	 * @param tiles The tiles array.
-	 * @throws IllegalArgumentException if the width is zero or the heights are
-	 * zero or differ.
+	 * @throws IllegalArgumentException if the width is zero or the heights are zero or differ.
 	 */
 	public TileMap(Tile[][] tiles) {
 		this.tiles = tiles;

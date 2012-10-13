@@ -5,8 +5,7 @@ import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
- * An {@link ScheduledTask} for sending the {@link FriendsListEvent} to the
- * player.
+ * An {@link ScheduledTask} for sending the {@link FriendsListEvent} to the player.
  * @author Steve
  */
 public class UpdateFriendsTask extends ScheduledTask {
@@ -20,6 +19,7 @@ public class UpdateFriendsTask extends ScheduledTask {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.scheduling.ScheduledTask#execute()
 	 */
 	@Override

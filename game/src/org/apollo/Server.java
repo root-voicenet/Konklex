@@ -31,7 +31,6 @@ import org.jboss.netty.util.Timer;
 
 /**
  * The core class of the Apollo server.
- * 
  * @author Graham
  */
 public final class Server {
@@ -39,14 +38,11 @@ public final class Server {
 	/**
 	 * The logger for this class.
 	 */
-	private static final Logger logger = Logger.getLogger(Server.class
-			.getName());
+	private static final Logger logger = Logger.getLogger(Server.class.getName());
 
 	/**
 	 * The entry point of the Apollo server application.
-	 * 
-	 * @param args
-	 *            The command-line arguments passed to the application.
+	 * @param args The command-line arguments passed to the application.
 	 */
 	public static void main(String[] args) {
 		Server server = null;
@@ -59,7 +55,8 @@ public final class Server {
 			final SocketAddress api = new InetSocketAddress(NetworkConstants.API_PORT);
 			server.start();
 			server.bind(service, http, jaggrab, api);
-		} catch (final Throwable t) {
+		}
+		catch (final Throwable t) {
 			logger.log(Level.SEVERE, "Error whilst starting server.", t);
 		}
 	}
@@ -78,18 +75,17 @@ public final class Server {
 	 * The {@link ServerBootstrap} for the JAGGRAB listener.
 	 */
 	private final ServerBootstrap jagGrabBootstrap = new ServerBootstrap();
-	
+
 	/**
 	 * The {@link ServerBootstrap} for the API listener.
 	 */
 	private final ServerBootstrap apiBootstrap = new ServerBootstrap();
 
 	/**
-	 * The {@link ExecutorService} used for network events. The named thread
-	 * factory is unused as Netty names threads itself.
+	 * The {@link ExecutorService} used for network events. The named thread factory is unused as Netty names threads
+	 * itself.
 	 */
-	private final ExecutorService networkExecutor = Executors
-			.newCachedThreadPool();
+	private final ExecutorService networkExecutor = Executors.newCachedThreadPool();
 
 	/**
 	 * The service manager.
@@ -108,9 +104,7 @@ public final class Server {
 
 	/**
 	 * Creates the Apollo server.
-	 * 
-	 * @throws Exception
-	 *             if an error occurs whilst creating services.
+	 * @throws Exception if an error occurs whilst creating services.
 	 */
 	public Server() throws Exception {
 		logger.info("Starting Apollo...");
@@ -120,86 +114,66 @@ public final class Server {
 
 	/**
 	 * Binds the server to the specified address.
-	 * 
-	 * @param serviceAddress
-	 *            The service address to bind to.
-	 * @param httpAddress
-	 *            The HTTP address to bind to.
-	 * @param jagGrabAddress
-	 *            The JAGGRAB address to bind to.
-	 * @param api 
+	 * @param serviceAddress The service address to bind to.
+	 * @param httpAddress The HTTP address to bind to.
+	 * @param jagGrabAddress The JAGGRAB address to bind to.
+	 * @param api
 	 */
-	public void bind(SocketAddress serviceAddress, SocketAddress httpAddress,
-			SocketAddress jagGrabAddress, SocketAddress apiAddress) {
-		logger.info("Binding service listener to address: " + serviceAddress
-				+ "...");
+	public void bind(SocketAddress serviceAddress, SocketAddress httpAddress, SocketAddress jagGrabAddress,
+			SocketAddress apiAddress) {
+		logger.info("Binding service listener to address: " + serviceAddress + "...");
 		serviceBootstrap.bind(serviceAddress);
 		logger.info("Binding HTTP listener to address: " + httpAddress + "...");
 		try {
 			httpBootstrap.bind(httpAddress);
-		} catch (final Throwable t) {
-			logger.log(
-					Level.WARNING,
-					"Binding to HTTP failed: client will use JAGGRAB as a fallback (not reccomended)!",
-					t);
 		}
-		logger.info("Binding JAGGRAB listener to address: " + jagGrabAddress
-				+ "...");
+		catch (final Throwable t) {
+			logger.log(Level.WARNING,
+					"Binding to HTTP failed: client will use JAGGRAB as a fallback (not reccomended)!", t);
+		}
+		logger.info("Binding JAGGRAB listener to address: " + jagGrabAddress + "...");
 		jagGrabBootstrap.bind(jagGrabAddress);
 		logger.info("Binding API listener to address: " + apiAddress + "...");
 		try {
 			apiBootstrap.bind(apiAddress);
-		} catch (final Throwable t) {
-			logger.log(
-					Level.WARNING,
-					"Binding to API failed: no api calls will be made!",
-					t);
+		}
+		catch (final Throwable t) {
+			logger.log(Level.WARNING, "Binding to API failed: no api calls will be made!", t);
 		}
 		logger.info("Ready for connections.");
 	}
 
 	/**
 	 * Initialises the server.
-	 * 
-	 * @param releaseClassName
-	 *            The class name of the current active {@link Release}.
-	 * @throws ClassNotFoundException
-	 *             if the release class could not be found.
-	 * @throws InstantiationException
-	 *             if the release class could not be instantiated.
-	 * @throws IllegalAccessException
-	 *             if the release class could not be accessed.
+	 * @param releaseClassName The class name of the current active {@link Release}.
+	 * @throws ClassNotFoundException if the release class could not be found.
+	 * @throws InstantiationException if the release class could not be instantiated.
+	 * @throws IllegalAccessException if the release class could not be accessed.
 	 */
-	public void init(String releaseClassName) throws ClassNotFoundException,
-	InstantiationException, IllegalAccessException {
+	public void init(String releaseClassName) throws ClassNotFoundException, InstantiationException,
+			IllegalAccessException {
 		final Class<?> clazz = Class.forName(releaseClassName);
 		final Release release = (Release) clazz.newInstance();
 		logger.info("Initialized release #" + release.getReleaseNumber() + ".");
-		final ChannelFactory factory = new NioServerSocketChannelFactory(
-				networkExecutor, networkExecutor);
+		final ChannelFactory factory = new NioServerSocketChannelFactory(networkExecutor, networkExecutor);
 		serviceBootstrap.setFactory(factory);
 		httpBootstrap.setFactory(factory);
 		jagGrabBootstrap.setFactory(factory);
 		apiBootstrap.setFactory(factory);
 		context = new ServerContext(release, serviceManager);
 		final ApolloHandler handler = new ApolloHandler(context);
-		final ChannelPipelineFactory servicePipelineFactory = new ServicePipelineFactory(
-				handler, timer);
+		final ChannelPipelineFactory servicePipelineFactory = new ServicePipelineFactory(handler, timer);
 		serviceBootstrap.setPipelineFactory(servicePipelineFactory);
-		final ChannelPipelineFactory httpPipelineFactory = new HttpPipelineFactory(
-				handler, timer);
+		final ChannelPipelineFactory httpPipelineFactory = new HttpPipelineFactory(handler, timer);
 		httpBootstrap.setPipelineFactory(httpPipelineFactory);
-		final ChannelPipelineFactory jagGrabPipelineFactory = new JagGrabPipelineFactory(
-				handler, timer);
+		final ChannelPipelineFactory jagGrabPipelineFactory = new JagGrabPipelineFactory(handler, timer);
 		jagGrabBootstrap.setPipelineFactory(jagGrabPipelineFactory);
-		final ChannelPipelineFactory apiPipelineFactory = new ApiPipelineFactory(
-				handler, timer);
+		final ChannelPipelineFactory apiPipelineFactory = new ApiPipelineFactory(handler, timer);
 		apiBootstrap.setPipelineFactory(apiPipelineFactory);
 	}
 
 	/**
 	 * Check if the filesystem is windows.
-	 * 
 	 * @return True if windows, false if otherwise.
 	 */
 	private boolean isWindows() {
@@ -216,31 +190,28 @@ public final class Server {
 			System.setProperty("org.hyperic.sigar.path", "-");
 			final String seperator = System.getProperty("file.separator");
 
-			String file = new File(".").getCanonicalPath() + seperator + "data"
-					+ seperator + "library" + seperator;
+			String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
 			if (System.getProperty("os.arch").contains("x86"))
 				file += "sigar-32.dll";
 			else
 				file += isWindows() ? "sigar.dll" : "sigar.so";
 			Runtime.getRuntime().load(file);
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 			logger.log(Level.INFO, "Failed to load SIGAR library.", e);
 		}
 	}
 
 	/**
 	 * Starts the server.
-	 * 
-	 * @throws Exception
-	 *             if an error occurs.
+	 * @throws Exception if an error occurs.
 	 */
 	public void start() throws Exception {
 		loadSigar();
 		final PluginManager mgr = new PluginManager(new PluginContext(context));
 		serviceManager.startAll();
 		final int releaseNo = context.getRelease().getReleaseNumber();
-		final IndexedFileSystem fs = new IndexedFileSystem(new File("data/fs/"
-				+ releaseNo), true);
+		final IndexedFileSystem fs = new IndexedFileSystem(new File("data/fs/" + releaseNo), true);
 		World.getWorld().init(releaseNo, fs, mgr, context);
 		mgr.start();
 		startTasks();

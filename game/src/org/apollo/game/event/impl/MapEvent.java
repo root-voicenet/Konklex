@@ -13,7 +13,7 @@ public abstract class MapEvent extends Event {
 	 * The position of the map event.
 	 */
 	private final Position position;
-	
+
 	/**
 	 * The offsetY.
 	 */
@@ -31,7 +31,7 @@ public abstract class MapEvent extends Event {
 	public MapEvent(Position position) {
 		this.position = position;
 	}
-	
+
 	/**
 	 * Creates a new map event.
 	 * @param position The position of the map event.
@@ -51,7 +51,7 @@ public abstract class MapEvent extends Event {
 	public Position getPosition() {
 		return position;
 	}
-	
+
 	/**
 	 * Gets the offset x.
 	 * @return The offset x.
@@ -59,7 +59,7 @@ public abstract class MapEvent extends Event {
 	public int getOffsetX() {
 		return offsetX;
 	}
-	
+
 	/**
 	 * Gets the offset y.
 	 * @return The offset y.

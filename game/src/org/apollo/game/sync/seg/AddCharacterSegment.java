@@ -49,6 +49,7 @@ public final class AddCharacterSegment extends SynchronizationSegment {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.sync.seg.SynchronizationSegment#getType()
 	 */
 	@Override

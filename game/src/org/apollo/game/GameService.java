@@ -22,16 +22,14 @@ import org.apollo.util.xml.XmlNode;
 import org.apollo.util.xml.XmlParser;
 
 /**
- * The {@link GameService} class schedules and manages the execution of the
- * {@link GamePulseHandler} class.
+ * The {@link GameService} class schedules and manages the execution of the {@link GamePulseHandler} class.
  * @author Graham
  */
 public final class GameService extends Service {
 
 	/**
-	 * The number of times to unregister players per cycle. This is to ensure
-	 * the saving threads don't get swamped with requests and slow everything
-	 * down.
+	 * The number of times to unregister players per cycle. This is to ensure the saving threads don't get swamped with
+	 * requests and slow everything down.
 	 */
 	private static final int UNREGISTERS_PER_CYCLE = 50;
 
@@ -55,7 +53,7 @@ public final class GameService extends Service {
 	 * The player {@link ClientSynchronizer}.
 	 */
 	private ClientSynchronizer clientsynchronizer;
-	
+
 	/**
 	 * The npc {@link ClientSynchronizer}.
 	 */
@@ -96,7 +94,8 @@ public final class GameService extends Service {
 		try {
 			final EventHandlerChainParser chainGroupParser = new EventHandlerChainParser(is);
 			chainGroup = chainGroupParser.parse();
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 		is = new FileInputStream("data/synchronizer.xml");
@@ -115,7 +114,8 @@ public final class GameService extends Service {
 			final Class<?> nclazz = Class.forName(npcNode.getValue());
 			clientsynchronizer = (ClientSynchronizer) pclazz.newInstance();
 			npcsynchronizer = (ClientSynchronizer) nclazz.newInstance();
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 	}
@@ -166,8 +166,7 @@ public final class GameService extends Service {
 	}
 
 	/**
-	 * Unregisters a player. Returns immediately. The player is unregistered at
-	 * the start of the next cycle.
+	 * Unregisters a player. Returns immediately. The player is unregistered at the start of the next cycle.
 	 * @param player The player.
 	 */
 	public void unregisterPlayer(Player player) {

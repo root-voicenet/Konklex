@@ -34,8 +34,7 @@ public final class PlayerCredentials {
 	private final int uid;
 
 	/**
-	 * Creates a new {@link PlayerCredentials} object with the specified name,
-	 * password and uid.
+	 * Creates a new {@link PlayerCredentials} object with the specified name, password and uid.
 	 * @param username The player's username.
 	 * @param password The player's password.
 	 * @param usernameHash The hash of the player's username.

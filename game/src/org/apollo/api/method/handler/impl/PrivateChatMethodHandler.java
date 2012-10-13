@@ -19,10 +19,8 @@ public final class PrivateChatMethodHandler extends MethodHandler<PrivateChatMet
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(MethodHandlerContext ctx, ProxyApiSession session, PrivateChatMethod method) {

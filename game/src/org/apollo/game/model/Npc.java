@@ -6,8 +6,7 @@ import org.apollo.game.model.def.NpcDefinition;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
- * A {@link Npc} is a {@link Character} which is computer-controlled (Non-Player
- * Character).
+ * A {@link Npc} is a {@link Character} which is computer-controlled (Non-Player Character).
  * @author Steve
  */
 public final class Npc extends Character {
@@ -26,7 +25,7 @@ public final class Npc extends Character {
 	 * The random walking flag.
 	 */
 	private boolean randomWalking;
-	
+
 	/**
 	 * The facing id.
 	 */
@@ -58,7 +57,7 @@ public final class Npc extends Character {
 	public NpcDefinition getDefinition() {
 		return NpcDefinition.forId(id);
 	}
-	
+
 	/**
 	 * Sets the face.
 	 * @param face The face.
@@ -66,7 +65,7 @@ public final class Npc extends Character {
 	public void setFace(int face) {
 		this.face = face;
 	}
-	
+
 	/**
 	 * Gets the face.
 	 * @return The face.

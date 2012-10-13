@@ -7,9 +7,7 @@ import org.apollo.game.model.SkillSet;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
- * A {@link SkillListener} which synchronizes the state of a {@link SkillSet}
- * with a client.
- * 
+ * A {@link SkillListener} which synchronizes the state of a {@link SkillSet} with a client.
  * @author Graham
  */
 public final class SynchronizationSkillListener extends SkillAdapter {
@@ -21,9 +19,7 @@ public final class SynchronizationSkillListener extends SkillAdapter {
 
 	/**
 	 * Creates the skill synchronization listener.
-	 * 
-	 * @param player
-	 *            The player.
+	 * @param player The player.
 	 */
 	public SynchronizationSkillListener(Player player) {
 		this.player = player;
@@ -32,22 +28,18 @@ public final class SynchronizationSkillListener extends SkillAdapter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.model.skill.SkillAdapter#levelledUp(org.apollo.game.model
-	 * .SkillSet, int, org.apollo.game.model.Skill)
+	 * @see org.apollo.game.model.skill.SkillAdapter#levelledUp(org.apollo.game.model .SkillSet, int,
+	 * org.apollo.game.model.Skill)
 	 */
 	@Override
 	public void levelledUp(SkillSet set, int id, Skill skill) {
-		player.getBlockSet().add(
-				SynchronizationBlock.createAppearanceBlock(player));
+		player.getBlockSet().add(SynchronizationBlock.createAppearanceBlock(player));
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.model.skill.SkillAdapter#skillsUpdated(org.apollo.game
-	 * .model.SkillSet)
+	 * @see org.apollo.game.model.skill.SkillAdapter#skillsUpdated(org.apollo.game .model.SkillSet)
 	 */
 	@Override
 	public void skillsUpdated(SkillSet set) {
@@ -58,9 +50,8 @@ public final class SynchronizationSkillListener extends SkillAdapter {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.model.skill.SkillAdapter#skillUpdated(org.apollo.game
-	 * .model.SkillSet, int, org.apollo.game.model.Skill)
+	 * @see org.apollo.game.model.skill.SkillAdapter#skillUpdated(org.apollo.game .model.SkillSet, int,
+	 * org.apollo.game.model.Skill)
 	 */
 	@Override
 	public void skillUpdated(SkillSet set, int id, Skill skill) {

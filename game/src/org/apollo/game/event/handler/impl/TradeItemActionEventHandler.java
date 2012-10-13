@@ -10,8 +10,7 @@ import org.apollo.game.model.inter.trade.TradeDepositEnterAmountListener;
 import org.apollo.game.model.inter.trade.TradeWithdrawEnterAmountListener;
 
 /**
- * An {@link EventHandler} which responds to {@link ItemActionEvent}s for adding
- * items.
+ * An {@link EventHandler} which responds to {@link ItemActionEvent}s for adding items.
  * @author Steve
  */
 public class TradeItemActionEventHandler extends EventHandler<ItemActionEvent> {

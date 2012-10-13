@@ -21,8 +21,7 @@ public final class Release668 extends Release {
 	 */
 	public static final int[] PACKET_LENGTHS = new int[256];
 	/**
-	 * Initializes the {@link #PACKET_LENGTHS} array. TODO make it like the 317
-	 * one.
+	 * Initializes the {@link #PACKET_LENGTHS} array. TODO make it like the 317 one.
 	 */
 	static {
 		for (int id = 0; id < PACKET_LENGTHS.length; id++)

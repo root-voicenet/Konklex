@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An {@link Event} that changes the minimap state.
- * 
  * @author Steve
  */
 public final class MinimapStateEvent extends Event {
@@ -16,9 +15,7 @@ public final class MinimapStateEvent extends Event {
 
 	/**
 	 * Creates the minimap state event.
-	 * 
-	 * @param state
-	 *            The state to set.
+	 * @param state The state to set.
 	 */
 	public MinimapStateEvent(int state) {
 		this.state = state;
@@ -26,7 +23,6 @@ public final class MinimapStateEvent extends Event {
 
 	/**
 	 * Gets the state.
-	 * 
 	 * @return The state.
 	 */
 	public int getState() {

@@ -35,8 +35,8 @@ public final class DummyPlayerLoader implements PlayerLoader {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.io.player.PlayerLoader#loadPlayer(org.apollo.security.
-	 * PlayerCredentials)
+	 * 
+	 * @see org.apollo.io.player.PlayerLoader#loadPlayer(org.apollo.security. PlayerCredentials)
 	 */
 	@Override
 	public PlayerLoaderResponse loadPlayer(PlayerCredentials credentials) throws Exception {
@@ -101,7 +101,8 @@ public final class DummyPlayerLoader implements PlayerLoader {
 					final double experience = in.readDouble();
 					skills.setSkill(i, new Skill(experience, level, SkillSet.getLevelForExperience(experience)));
 				}
-			} finally {
+			}
+			finally {
 				skills.startFiringEvents();
 			}
 			// read friends
@@ -113,7 +114,8 @@ public final class DummyPlayerLoader implements PlayerLoader {
 				p.getMessaging().add(user, friends.getValue(event), true);
 			}
 			return new PlayerLoaderResponse(LoginConstants.STATUS_OK, p);
-		} finally {
+		}
+		finally {
 			in.close();
 		}
 	}
@@ -133,11 +135,13 @@ public final class DummyPlayerLoader implements PlayerLoader {
 				final int amount = in.readInt();
 				if (id != 0) {
 					inventory.set(slot, new Item(id - 1, amount));
-				} else {
+				}
+				else {
 					inventory.reset(slot);
 				}
 			}
-		} finally {
+		}
+		finally {
 			inventory.startFiringEvents();
 		}
 	}

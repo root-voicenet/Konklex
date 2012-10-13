@@ -31,8 +31,7 @@ public final class SwitchItemEvent extends Event {
 	/**
 	 * Creates a new switch item event.
 	 * @param interfaceId The interface id.
-	 * @param inserting A flag indicating if the interface is in 'insert' mode
-	 * instead of swap mode.
+	 * @param inserting A flag indicating if the interface is in 'insert' mode instead of swap mode.
 	 * @param oldSlot The old slot.
 	 * @param newSlot The new slot.
 	 */

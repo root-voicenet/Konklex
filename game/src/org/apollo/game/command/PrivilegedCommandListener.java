@@ -5,8 +5,7 @@ import org.apollo.game.model.Player;
 import org.apollo.game.model.Player.PrivilegeLevel;
 
 /**
- * A {@link CommandListener} which checks the {@link PrivilegeLevel} of the
- * {@link Player} executing the command.
+ * A {@link CommandListener} which checks the {@link PrivilegeLevel} of the {@link Player} executing the command.
  * @author Graham
  */
 public abstract class PrivilegedCommandListener implements CommandListener {
@@ -26,9 +25,9 @@ public abstract class PrivilegedCommandListener implements CommandListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.command.CommandListener#execute(org.apollo.game.model
-	 * .Player, org.apollo.game.command.Command)
+	 * 
+	 * @see org.apollo.game.command.CommandListener#execute(org.apollo.game.model .Player,
+	 * org.apollo.game.command.Command)
 	 */
 	@Override
 	public final void execute(Player player, Command command) {

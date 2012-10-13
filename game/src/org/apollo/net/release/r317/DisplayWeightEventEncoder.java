@@ -8,11 +8,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link DisplayWeightEvent}
- * 
  * @author Steve
  */
-public final class DisplayWeightEventEncoder extends
-EventEncoder<DisplayWeightEvent> {
+public final class DisplayWeightEventEncoder extends EventEncoder<DisplayWeightEvent> {
 
 	@Override
 	public GamePacket encode(DisplayWeightEvent event) {

@@ -42,11 +42,13 @@ public final class TeleportAction extends Action<Character> {
 			}
 			getCharacter().playAnimation(new Animation(714));
 			attributes.set(0, true);
-		} else if (!attributes.get(1)) {
+		}
+		else if (!attributes.get(1)) {
 			getCharacter().playGraphic(new Graphic(308, 15, 100));
 			attributes.set(1, true);
 			setDelay(1);
-		} else if (!attributes.get(2)) {
+		}
+		else if (!attributes.get(2)) {
 			getCharacter().stopGraphic();
 			getCharacter().playAnimation(new Animation(1979));
 			teleport();

@@ -49,7 +49,8 @@ public final class Archive {
 				buffer.get(compressed);
 				CompressionUtil.unbzip2(compressed, uncompressed);
 				entryBuffer = ByteBuffer.wrap(uncompressed);
-			} else {
+			}
+			else {
 				final byte[] buf = new byte[extractedSizes[i]];
 				buffer.get(buf);
 				entryBuffer = ByteBuffer.wrap(buf);

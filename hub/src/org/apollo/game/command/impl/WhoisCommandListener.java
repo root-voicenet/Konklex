@@ -23,8 +23,9 @@ public final class WhoisCommandListener implements CommandListener {
 				builder.append("Rights: " + context.getServerChannelGroup().getRights(arguments[0]) + "\r\n");
 				builder.append("World: " + context.getServerChannelGroup().get(arguments[0]));
 				channel.write(builder.toString() + "\r\n");
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": player not found" + "\r\n");
+			}
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": player not found" + "\r\n");
 			}
 		}
 	}

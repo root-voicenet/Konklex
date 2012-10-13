@@ -18,11 +18,8 @@ public final class TelnetSession extends Session {
 
 	/**
 	 * Creates an update session for the specified channel.
-	 * 
-	 * @param channel
-	 *            The channel.
-	 * @param context
-	 *            The server context.
+	 * @param channel The channel.
+	 * @param context The server context.
 	 */
 	public TelnetSession(Channel channel, ServerContext context) {
 		super(channel);

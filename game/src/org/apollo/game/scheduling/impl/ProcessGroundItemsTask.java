@@ -6,7 +6,6 @@ import org.apollo.game.scheduling.ScheduledTask;
 
 /**
  * An {@link ScheduledTask} that processes ground item ticks.
- * 
  * @author Steve
  */
 public final class ProcessGroundItemsTask extends ScheduledTask {

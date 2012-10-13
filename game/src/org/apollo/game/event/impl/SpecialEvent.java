@@ -7,17 +7,17 @@ import org.apollo.game.event.Event;
  * @author Steve
  */
 public final class SpecialEvent extends Event {
-	
+
 	/**
 	 * The bar.
 	 */
 	private final int bar;
-	
+
 	/**
 	 * The amount.
 	 */
 	private final int amount;
-	
+
 	/**
 	 * Creates the special event.
 	 * @param bar The bar.
@@ -27,7 +27,7 @@ public final class SpecialEvent extends Event {
 		this.bar = bar;
 		this.amount = amount;
 	}
-	
+
 	/**
 	 * Gets the bar.
 	 * @return The bar.
@@ -35,7 +35,7 @@ public final class SpecialEvent extends Event {
 	public int getBar() {
 		return bar;
 	}
-	
+
 	/**
 	 * Gets the amount.
 	 * @return The amount.

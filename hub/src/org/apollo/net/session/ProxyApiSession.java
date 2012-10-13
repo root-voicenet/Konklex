@@ -7,12 +7,12 @@ import org.apollo.api.method.Method;
  * @author Steve
  */
 public final class ProxyApiSession {
-	
+
 	/**
 	 * The session.
 	 */
 	private final ApiSession session;
-	
+
 	/**
 	 * Creates the proxified api session.
 	 * @param session The session.
@@ -20,7 +20,7 @@ public final class ProxyApiSession {
 	public ProxyApiSession(ApiSession session) {
 		this.session = session;
 	}
-	
+
 	/**
 	 * Sends a method.
 	 * @param method The method to send.

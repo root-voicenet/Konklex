@@ -32,6 +32,7 @@ public final class TradeWithdrawEnterAmountListener implements EnterAmountListen
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.model.inter.EnterAmountListener#amountEntered(int)
 	 */
 	@Override

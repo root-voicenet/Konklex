@@ -117,7 +117,7 @@ public final class Region {
 			players.add(player);
 		}
 	}
-	
+
 	/**
 	 * Adds a new character.
 	 * @param character The new character.
@@ -125,7 +125,8 @@ public final class Region {
 	public void addCharacter(Character character) {
 		if (character instanceof Player) {
 			addPlayer((Player) character);
-		} else if (character instanceof Npc) {
+		}
+		else if (character instanceof Npc) {
 			addNpc((Npc) character);
 		}
 	}
@@ -225,13 +226,13 @@ public final class Region {
 			return Collections.unmodifiableCollection(new LinkedList<Player>(players));
 		}
 	}
-	
+
 	/**
 	 * Gets the list of characters.
 	 * @return The list of characters.
 	 */
 	public List<Character> getCharacters() {
-		List<Character> characters = new ArrayList<Character>(players.size()+npcs.size());
+		List<Character> characters = new ArrayList<Character>(players.size() + npcs.size());
 		synchronized (this) {
 			characters.addAll(players);
 			characters.addAll(npcs);
@@ -271,7 +272,7 @@ public final class Region {
 			npcs.remove(npc);
 		}
 	}
-	
+
 	/**
 	 * Removes a old character.
 	 * @param character The character to remove.
@@ -279,7 +280,8 @@ public final class Region {
 	public void removeCharacter(Character character) {
 		if (character instanceof Player) {
 			removePlayer((Player) character);
-		} else if (character instanceof Npc) {
+		}
+		else if (character instanceof Npc) {
 			removeNpc((Npc) character);
 		}
 	}
@@ -331,7 +333,8 @@ public final class Region {
 		for (final Player player : players) {
 			if (event instanceof MapEvent) {
 				final MapEvent map = (MapEvent) event;
-				player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(), map.getOffsetY()));
+				player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(), map
+						.getOffsetY()));
 			}
 			player.send(event);
 		}

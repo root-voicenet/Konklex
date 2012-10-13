@@ -18,9 +18,8 @@ import org.apollo.game.model.World;
 public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 
 	/**
-	 * The maximum number of players to load per cycle. This prevents the update
-	 * packet from becoming too large (the client uses a 5000 byte buffer) and
-	 * also stops old spec PCs from crashing when they login or teleport.
+	 * The maximum number of players to load per cycle. This prevents the update packet from becoming too large (the
+	 * client uses a 5000 byte buffer) and also stops old spec PCs from crashing when they login or teleport.
 	 */
 	private static final int EVENTS_PER_CYCLE = 20;
 
@@ -42,11 +41,11 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 		int added = 0;
 		final List<Event> localEvents = player.getLocalEventList();
 		final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
-		
+
 		for (final Event event : localEvents)
 			if (!events.contains(event))
 				localEvents.remove(event);
-		
+
 		for (final Event event : events) {
 			if (added >= EVENTS_PER_CYCLE)
 				break;
@@ -54,16 +53,19 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 				if (event instanceof CreateGroundEvent) {
 					final CreateGroundEvent ground = (CreateGroundEvent) event;
 					final GroundItem item = ground.getGroundItem();
-					if (item.getControllerName().equals("null") || item.getControllerName().equals(player.getName()) || item.getPulses() == 0) {
+					if (item.getControllerName().equals("null") || item.getControllerName().equals(player.getName())
+							|| item.getPulses() == 0) {
 						localEvents.add(event);
 						player.send(new PositionEvent(player.getLastKnownRegion(), ground.getPosition()));
 						player.send(event);
 						added++;
 					}
-				} else if (localEvents.add(event)) {
+				}
+				else if (localEvents.add(event)) {
 					if (event instanceof MapEvent) {
 						final MapEvent map = (MapEvent) event;
-						player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(), map.getOffsetY()));
+						player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(),
+								map.getOffsetY()));
 					}
 					player.send(event);
 					added++;

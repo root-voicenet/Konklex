@@ -13,8 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
- * A simple XML parser which uses the internal {@link org.xml.sax} API to create
- * a tree of {@link XmlNode} objects.
+ * A simple XML parser which uses the internal {@link org.xml.sax} API to create a tree of {@link XmlNode} objects.
  * @author Graham
  */
 public final class XmlParser {
@@ -27,6 +26,7 @@ public final class XmlParser {
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see org.xml.sax.helpers.DefaultHandler#characters(char[], int, int)
 		 */
 		@Override
@@ -36,8 +36,8 @@ public final class XmlParser {
 
 		/*
 		 * (non-Javadoc)
-		 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String,
-		 * java.lang.String, java.lang.String)
+		 * 
+		 * @see org.xml.sax.helpers.DefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
 		 */
 		@Override
 		public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -86,8 +86,7 @@ public final class XmlParser {
 	private XmlNode currentNode;
 
 	/**
-	 * The stack of nodes, which is used when traversing the document and going
-	 * through child nodes.
+	 * The stack of nodes, which is used when traversing the document and going through child nodes.
 	 */
 	private final Stack<XmlNode> nodeStack = new Stack<XmlNode>();
 

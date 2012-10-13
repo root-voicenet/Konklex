@@ -11,7 +11,7 @@ import org.apollo.game.scheduling.ScheduledTask;
  * @author Steve
  */
 public final class UptimeTask extends ScheduledTask {
-	
+
 	/**
 	 * The uptime.
 	 */

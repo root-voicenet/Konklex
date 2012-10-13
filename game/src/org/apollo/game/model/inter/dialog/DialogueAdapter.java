@@ -4,7 +4,6 @@ import org.apollo.game.model.Player;
 
 /**
  * An adapter for the {@link DialogueListener}.
- * 
  * @author Chris Fletcher
  */
 public abstract class DialogueAdapter implements DialogueListener {

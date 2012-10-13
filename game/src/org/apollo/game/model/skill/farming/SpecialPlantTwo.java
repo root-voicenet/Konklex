@@ -15,8 +15,8 @@ import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.TextUtil;
 
 /**
- * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change
- * this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change this template use File | Settings | File
+ * Templates.
  */
 public class SpecialPlantTwo {
 
@@ -25,7 +25,9 @@ public class SpecialPlantTwo {
 	// set of global constants for Farming
 
 	private static final double COMPOST_CHANCE = 0.9;
+
 	private static final double SUPERCOMPOST_CHANCE = 0.7;
+
 	private static final double CLEARING_EXPERIENCE = 4;
 
 	public SpecialPlantTwo(Player player) {
@@ -34,32 +36,52 @@ public class SpecialPlantTwo {
 
 	// Farming data
 	public int[] farmingStages = new int[4];
+
 	public int[] farmingSeeds = new int[4];
+
 	public int[] farmingState = new int[4];
+
 	public long[] farmingTimer = new long[4];
-	public double[] diseaseChance = {1, 1, 1, 1};
-	public boolean[] hasFullyGrown = {false, false, false, false};
+
+	public double[] diseaseChance = { 1, 1, 1, 1 };
+
+	public boolean[] hasFullyGrown = { false, false, false, false };
 
 	public static final int MAIN_SPECIAL_PLANT_CONFIG = 512;
 
 	/* This is the enum holding the seeds info */
 
 	public enum SpecialPlantData {
-		BELLADONNA(5281, 2398, 1, 63, 280, 0.15, 91, 512, 0x04, 0x08, -1, 0, 5, 8), CACTUS(5280, 6016, 1, 55, 550, 0.15, 66.5, 25, 0x08, 0x12, 0x1f, 374, 11, 17), BITTERCAP(5282, 6004, 1, 53, 220, 0.15, 61.5, 57.7, 0x04, 0x0f, -1, 0, 12, 17);
+		BELLADONNA(5281, 2398, 1, 63, 280, 0.15, 91, 512, 0x04, 0x08, -1, 0, 5, 8), CACTUS(5280, 6016, 1, 55, 550,
+				0.15, 66.5, 25, 0x08, 0x12, 0x1f, 374, 11, 17), BITTERCAP(5282, 6004, 1, 53, 220, 0.15, 61.5, 57.7,
+				0x04, 0x0f, -1, 0, 12, 17);
 
 		private int seedId;
+
 		private int harvestId;
+
 		private int seedAmount;
+
 		private int levelRequired;
+
 		private int growthTime;
+
 		private double diseaseChance;
+
 		private double plantingXp;
+
 		private double harvestXp;
+
 		private int startingState;
+
 		private int endingState;
+
 		private int checkHealthState;
+
 		private double checkHealthExperience;
+
 		private int diseaseDiffValue;
+
 		private int deathDiffValue;
 
 		private static Map<Integer, SpecialPlantData> seeds = new HashMap<Integer, SpecialPlantData>();
@@ -70,7 +92,9 @@ public class SpecialPlantTwo {
 			}
 		}
 
-		SpecialPlantData(int seedId, int harvestId, int seedAmount, int levelRequired, int growthTime, double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState, int checkHealthState, double checkHealthExperience, int diseaseDiffValue, int deathDiffValue) {
+		SpecialPlantData(int seedId, int harvestId, int seedAmount, int levelRequired, int growthTime,
+				double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState,
+				int checkHealthState, double checkHealthExperience, int diseaseDiffValue, int deathDiffValue) {
 			this.seedId = seedId;
 			this.harvestId = harvestId;
 			this.seedAmount = seedAmount;
@@ -151,10 +175,14 @@ public class SpecialPlantTwo {
 	/* This is the enum data about the different patches */
 
 	public enum SpecialPlantFieldsData {
-		DRAYNOR_MANOR(0, new Position[]{new Position(3086, 3354), new Position(3087, 3355)}, 5281), AL_KARID(2, new Position[]{new Position(3315, 3202), new Position(3316, 3203)}, 5280), CANIFIS(3, new Position[]{new Position(3451, 3472), new Position(3452, 3473)}, 5282);
+		DRAYNOR_MANOR(0, new Position[] { new Position(3086, 3354), new Position(3087, 3355) }, 5281), AL_KARID(2,
+				new Position[] { new Position(3315, 3202), new Position(3316, 3203) }, 5280), CANIFIS(3,
+				new Position[] { new Position(3451, 3472), new Position(3452, 3473) }, 5282);
 
 		private int specialPlantsIndex;
+
 		private Position[] specialPlantPosition;
+
 		private int seedId;
 
 		SpecialPlantFieldsData(int specialPlantsIndex, Position[] specialPlantPosition, int seedId) {
@@ -165,7 +193,8 @@ public class SpecialPlantTwo {
 
 		public static SpecialPlantFieldsData forIdPosition(Position position) {
 			for (SpecialPlantFieldsData specialPlantFieldsData : SpecialPlantFieldsData.values()) {
-				if (FarmingConstants.inRangeArea(specialPlantFieldsData.getSpecialPlantPosition()[0], specialPlantFieldsData.getSpecialPlantPosition()[1], position)) {
+				if (FarmingConstants.inRangeArea(specialPlantFieldsData.getSpecialPlantPosition()[0],
+						specialPlantFieldsData.getSpecialPlantPosition()[1], position)) {
 					return specialPlantFieldsData;
 				}
 			}
@@ -188,10 +217,23 @@ public class SpecialPlantTwo {
 	/* This is the enum that hold the different data for inspecting the plant */
 
 	public enum InspectData {
-		BELLADONNA(5281, new String[][]{{"The belladonna seed has only just been planted."}, {"The belladonna plant grows a little taller."}, {"The belladonna plant grows taller and leafier."}, {"The belladonna plant grows some flower buds."}, {"The belladonna plant is ready to harvest."}}), CACTUS(5280, new String[][]{{"The cactus seed has only just been planted."}, {"The cactus grows taller."}, {"The cactus grows two small stumps."}, {"The cactus grows its stumps longer."}, {"The cactus grows larger."}, {"The cactus curves its arms upwards and grows another stump."}, {"The cactus grows all three of its arms upwards."}, {"The cactus is ready to be harvested."}}), BITTERCAP(5282, new String[][]{{"The mushroom spore has only just been planted."}, {"The mushrooms grow a little taller."}, {"The mushrooms grow a little taller."}, {"The mushrooms grow a little larger."}, {"The mushrooms grow a little larger."}, {"The mushrooms tops grow a little wider."},
-				{"The mushrooms are ready to harvest."}});
+		BELLADONNA(5281, new String[][] { { "The belladonna seed has only just been planted." },
+				{ "The belladonna plant grows a little taller." },
+				{ "The belladonna plant grows taller and leafier." },
+				{ "The belladonna plant grows some flower buds." }, { "The belladonna plant is ready to harvest." } }), CACTUS(
+				5280, new String[][] { { "The cactus seed has only just been planted." },
+						{ "The cactus grows taller." }, { "The cactus grows two small stumps." },
+						{ "The cactus grows its stumps longer." }, { "The cactus grows larger." },
+						{ "The cactus curves its arms upwards and grows another stump." },
+						{ "The cactus grows all three of its arms upwards." },
+						{ "The cactus is ready to be harvested." } }), BITTERCAP(5282, new String[][] {
+				{ "The mushroom spore has only just been planted." }, { "The mushrooms grow a little taller." },
+				{ "The mushrooms grow a little taller." }, { "The mushrooms grow a little larger." },
+				{ "The mushrooms grow a little larger." }, { "The mushrooms tops grow a little wider." },
+				{ "The mushrooms are ready to harvest." } });
 
 		private int seedId;
+
 		private String[][] messages;
 
 		private static Map<Integer, InspectData> seeds = new HashMap<Integer, InspectData>();
@@ -240,14 +282,14 @@ public class SpecialPlantTwo {
 	public int getConfigValue(int specialStage, int seedId, int plantState, int index) {
 		SpecialPlantData specialPlantData = SpecialPlantData.forId(seedId);
 		switch (specialStage) {
-			case 0 :// weed
-				return 0x00;
-			case 1 :// weed cleared
-				return 0x01;
-			case 2 :
-				return 0x02;
-			case 3 :
-				return 0x03;
+		case 0:// weed
+			return 0x00;
+		case 1:// weed cleared
+			return 0x01;
+		case 2:
+			return 0x02;
+		case 3:
+			return 0x03;
 		}
 		if (specialPlantData == null) {
 			return -1;
@@ -266,14 +308,14 @@ public class SpecialPlantTwo {
 	public int getPlantState(int plantState, SpecialPlantData specialPlantData, int specialStage) {
 		int value = specialPlantData.getStartingState() + specialStage - 4;
 		switch (plantState) {
-			case 0 :
-				return value;
-			case 1 :
-				return value + specialPlantData.getDiseaseDiffValue();
-			case 2 :
-				return value + specialPlantData.getDeathDiffValue();
-			case 3 :
-				return specialPlantData.getCheckHealthState();
+		case 0:
+			return value;
+		case 1:
+			return value + specialPlantData.getDiseaseDiffValue();
+		case 2:
+			return value + specialPlantData.getDeathDiffValue();
+		case 3:
+			return specialPlantData.getCheckHealthState();
 		}
 		return -1;
 	}
@@ -300,8 +342,11 @@ public class SpecialPlantTwo {
 			if (farmingTimer[i] == 0 || farmingState[i] == 2 || farmingState[i] == 3 || (state > nbStates)) {
 				continue;
 			}
-			if (4 + state != farmingStages[i] && farmingStages[i] <= specialPlantData.getEndingState() - specialPlantData.getStartingState() + (specialPlantData == SpecialPlantData.BELLADONNA ? 5 : -2)) {
-				if (farmingStages[i] == specialPlantData.getEndingState() - specialPlantData.getStartingState() - 2 && specialPlantData.getCheckHealthState() != -1) {
+			if (4 + state != farmingStages[i]
+					&& farmingStages[i] <= specialPlantData.getEndingState() - specialPlantData.getStartingState()
+							+ (specialPlantData == SpecialPlantData.BELLADONNA ? 5 : -2)) {
+				if (farmingStages[i] == specialPlantData.getEndingState() - specialPlantData.getStartingState() - 2
+						&& specialPlantData.getCheckHealthState() != -1) {
 					farmingStages[i] = specialPlantData.getEndingState() - specialPlantData.getStartingState() + 4;
 					farmingState[i] = 3;
 					updateSpecialPlants();
@@ -360,7 +405,8 @@ public class SpecialPlantTwo {
 	/* clearing the patch with a rake of a spade */
 
 	public boolean clearPatch(int objectX, int objectY, int itemId) {
-		final SpecialPlantFieldsData hopsFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData hopsFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX,
+				objectY));
 		int finalAnimation;
 		int finalDelay;
 		if (hopsFieldsData == null || (itemId != FarmingConstants.RAKE && itemId != FarmingConstants.SPADE)) {
@@ -373,21 +419,24 @@ public class SpecialPlantTwo {
 			if (!player.getInventory().contains(FarmingConstants.RAKE)) {
 				player.getInterfaceSet().sendStatement("You need a rake to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.RAKING_ANIM;
 				finalDelay = 5;
 			}
-		} else {
+		}
+		else {
 			if (!player.getInventory().contains(FarmingConstants.SPADE)) {
 				player.getInterfaceSet().sendStatement("You need a spade to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.SPADE_ANIM;
 				finalDelay = 3;
 			}
 		}
 		final int animation = finalAnimation;
-		
+
 		player.playAnimation(new Animation(animation));
 		World.getWorld().schedule(new ScheduledTask(finalDelay, false) {
 
@@ -397,7 +446,8 @@ public class SpecialPlantTwo {
 				if (farmingStages[hopsFieldsData.getSpecialPlantsIndex()] <= 2) {
 					farmingStages[hopsFieldsData.getSpecialPlantsIndex()]++;
 					player.getInventory().add(new Item(6055));
-				} else {
+				}
+				else {
 					farmingStages[hopsFieldsData.getSpecialPlantsIndex()] = 3;
 					stop();
 				}
@@ -425,7 +475,8 @@ public class SpecialPlantTwo {
 	/* planting the seeds */
 
 	public boolean plantSeeds(int objectX, int objectY, final int seedId) {
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		final SpecialPlantData specialPlantData = SpecialPlantData.forId(seedId);
 		if (specialPlantFieldsData == null || specialPlantData == null || specialPlantFieldsData.getSeedId() != seedId) {
 			return false;
@@ -435,7 +486,8 @@ public class SpecialPlantTwo {
 			return false;
 		}
 		if (specialPlantData.getLevelRequired() > player.getSkillSet().getSkill(Skill.FARMING).getCurrentLevel()) {
-			player.getInterfaceSet().sendStatement("You need a farming level of " + specialPlantData.getLevelRequired() + " to plant this seed.");
+			player.getInterfaceSet().sendStatement(
+					"You need a farming level of " + specialPlantData.getLevelRequired() + " to plant this seed.");
 			return true;
 		}
 		if (!player.getInventory().contains(FarmingConstants.SEED_DIBBER)) {
@@ -443,14 +495,14 @@ public class SpecialPlantTwo {
 			return true;
 		}
 		if (player.getInventory().getItemCount(specialPlantData.getSeedId()) < specialPlantData.getSeedAmount()) {
-			player.getInterfaceSet().sendStatement("You need atleast " + specialPlantData.getSeedAmount() + " seeds to plant here.");
+			player.getInterfaceSet().sendStatement(
+					"You need atleast " + specialPlantData.getSeedAmount() + " seeds to plant here.");
 			return true;
 		}
 		player.playAnimation(new Animation(FarmingConstants.SEED_DIBBING));
 		farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] = 4;
 		player.getInventory().remove(new Item(seedId, specialPlantData.getSeedAmount()));
 
-		
 		World.getWorld().schedule(new ScheduledTask(3, false) {
 
 			@Override
@@ -487,11 +539,13 @@ public class SpecialPlantTwo {
 	/* harvesting the plant resulted */
 
 	public boolean harvestOrCheckHealth(int objectX, int objectY) {
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		if (specialPlantFieldsData == null) {
 			return false;
 		}
-		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
+		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData
+				.getSpecialPlantsIndex()]);
 		if (specialPlantData == null) {
 			return false;
 		}
@@ -499,7 +553,7 @@ public class SpecialPlantTwo {
 			player.sendMessage("Not enough space in your inventory.");
 			return true;
 		}
-		
+
 		player.playAnimation(new Animation(832));
 		Action<Player> action = new Action<Player>(2, false, player) {
 
@@ -515,7 +569,8 @@ public class SpecialPlantTwo {
 					player.getSkillSet().addExperience(Skill.FARMING, specialPlantData.getCheckHealthXp());
 					farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] = 0;
 					hasFullyGrown[specialPlantFieldsData.getSpecialPlantsIndex()] = false;
-					farmingTimer[specialPlantFieldsData.getSpecialPlantsIndex()] = World.getWorld().getUptime() - specialPlantData.getGrowthTime();
+					farmingTimer[specialPlantFieldsData.getSpecialPlantsIndex()] = World.getWorld().getUptime()
+							- specialPlantData.getGrowthTime();
 					modifyStage(specialPlantFieldsData.getSpecialPlantsIndex());
 					stop();
 					return;
@@ -525,22 +580,22 @@ public class SpecialPlantTwo {
 				player.getSkillSet().addExperience(Skill.FARMING, specialPlantData.getHarvestXp());
 
 				switch (specialPlantData) {
-					case BELLADONNA :
+				case BELLADONNA:
+					resetSpecialPlants(specialPlantFieldsData.getSpecialPlantsIndex());
+					farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] = 3;
+					farmingTimer[specialPlantFieldsData.getSpecialPlantsIndex()] = World.getWorld().getUptime();
+					break;
+				case CACTUS:
+					farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()]--;
+					break;
+				case BITTERCAP:
+					farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()]++;
+					if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] == 16) {
 						resetSpecialPlants(specialPlantFieldsData.getSpecialPlantsIndex());
 						farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] = 3;
 						farmingTimer[specialPlantFieldsData.getSpecialPlantsIndex()] = World.getWorld().getUptime();
-						break;
-					case CACTUS :
-						farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()]--;
-						break;
-					case BITTERCAP :
-						farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()]++;
-						if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] == 16) {
-							resetSpecialPlants(specialPlantFieldsData.getSpecialPlantsIndex());
-							farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] = 3;
-							farmingTimer[specialPlantFieldsData.getSpecialPlantsIndex()] = World.getWorld().getUptime();
-						}
-						break;
+					}
+					break;
 				}
 				updateSpecialPlants();
 				stop();
@@ -552,7 +607,7 @@ public class SpecialPlantTwo {
 				super.stop();
 			}
 		};
-		
+
 		player.startAction(action);
 		return true;
 	}
@@ -570,11 +625,13 @@ public class SpecialPlantTwo {
 		if (itemId != 6032 && itemId != 6034) {
 			return false;
 		}
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		if (specialPlantFieldsData == null) {
 			return false;
 		}
-		if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] != 3 || farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 5) {
+		if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] != 3
+				|| farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 5) {
 			player.sendMessage("This patch doesn't need compost.");
 			return true;
 		}
@@ -583,14 +640,15 @@ public class SpecialPlantTwo {
 
 		player.sendMessage("You pour some " + (itemId == 6034 ? "super" : "") + "compost on the patch.");
 		player.playAnimation(new Animation(FarmingConstants.PUTTING_COMPOST));
-		player.getSkillSet().addExperience(Skill.FARMING, itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
+		player.getSkillSet().addExperience(Skill.FARMING,
+				itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
 
-		
 		World.getWorld().schedule(new ScheduledTask(7, false) {
 
 			@Override
 			public void execute() {
-				diseaseChance[specialPlantFieldsData.getSpecialPlantsIndex()] *= itemId == 6032 ? COMPOST_CHANCE : SUPERCOMPOST_CHANCE;
+				diseaseChance[specialPlantFieldsData.getSpecialPlantsIndex()] *= itemId == 6032 ? COMPOST_CHANCE
+						: SUPERCOMPOST_CHANCE;
 				farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] = 5;
 				stop();
 			}
@@ -607,40 +665,60 @@ public class SpecialPlantTwo {
 	/* inspecting a plant */
 
 	public boolean inspect(int objectX, int objectY) {
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		if (specialPlantFieldsData == null) {
 			return false;
 		}
 		final InspectData inspectData = InspectData.forId(farmingSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
-		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
+		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData
+				.getSpecialPlantsIndex()]);
 		if (farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 1) {
-			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,", "or clear the patch with a spade.");
+			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,",
+					"or clear the patch with a spade.");
 			return true;
-		} else if (farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 2) {
-			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.", "Clear the patch with a spade.");
+		}
+		else if (farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 2) {
+			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.",
+					"Clear the patch with a spade.");
 			return true;
-		} else if (farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 3) {
-			player.getInterfaceSet().sendStatement("This plant has fully grown. You can check it's health", "to gain some farming experiences.");
+		}
+		else if (farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] == 3) {
+			player.getInterfaceSet().sendStatement("This plant has fully grown. You can check it's health",
+					"to gain some farming experiences.");
 			return true;
 		}
 		if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] == 0) {
-			player.getInterfaceSet().sendStatement("This is one of the special patches. The soil has not been treated.", "The patch needs weeding.");
-		} else if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] == 3) {
-			player.getInterfaceSet().sendStatement("This is one of the special patches. The soil has not been treated.", "The patch is empty and weeded.");
-		} else if (inspectData != null && specialPlantData != null) {
+			player.getInterfaceSet().sendStatement(
+					"This is one of the special patches. The soil has not been treated.", "The patch needs weeding.");
+		}
+		else if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] == 3) {
+			player.getInterfaceSet().sendStatement(
+					"This is one of the special patches. The soil has not been treated.",
+					"The patch is empty and weeded.");
+		}
+		else if (inspectData != null && specialPlantData != null) {
 			player.sendMessage("You bend down and start to inspect the patch...");
 			player.playAnimation(new Animation(1331));
-			
+
 			World.getWorld().schedule(new ScheduledTask(5, false) {
 
 				@Override
 				public void execute() {
 					if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] - 4 < inspectData.getMessages().length - 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] - 4]);
-					} else if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] < specialPlantData.getEndingState() - specialPlantData.getStartingState() + 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 2]);
-					} else {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 1]);
+						player.getInterfaceSet()
+								.sendStatement(
+										inspectData.getMessages()[farmingStages[specialPlantFieldsData
+												.getSpecialPlantsIndex()] - 4]);
+					}
+					else if (farmingStages[specialPlantFieldsData.getSpecialPlantsIndex()] < specialPlantData
+							.getEndingState() - specialPlantData.getStartingState() + 2) {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 2]);
+					}
+					else {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 1]);
 					}
 					stop();
 				}
@@ -658,7 +736,8 @@ public class SpecialPlantTwo {
 	/* opening the corresponding guide about the patch */
 
 	public boolean guide(int objectX, int objectY) {
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		if (specialPlantFieldsData == null) {
 			return false;
 		}
@@ -668,11 +747,13 @@ public class SpecialPlantTwo {
 	/* Curing the plant */
 
 	public boolean curePlant(int objectX, int objectY, int itemId) {
-		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldsData = SpecialPlantFieldsData.forIdPosition(new Position(
+				objectX, objectY));
 		if (specialPlantFieldsData == null || itemId != 6036) {
 			return false;
 		}
-		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData.getSpecialPlantsIndex()]);
+		final SpecialPlantData specialPlantData = SpecialPlantData.forId(farmingSeeds[specialPlantFieldsData
+				.getSpecialPlantsIndex()]);
 		if (specialPlantData == null) {
 			return false;
 		}
@@ -683,7 +764,7 @@ public class SpecialPlantTwo {
 		player.getInventory().remove(new Item(itemId));
 		player.getInventory().add(new Item(229));
 		player.playAnimation(new Animation(FarmingConstants.CURING_ANIM));
-		
+
 		farmingState[specialPlantFieldsData.getSpecialPlantsIndex()] = 0;
 		World.getWorld().schedule(new ScheduledTask(7, false) {
 
@@ -715,7 +796,8 @@ public class SpecialPlantTwo {
 	/* checking if the patch is raked */
 
 	public boolean checkIfRaked(int objectX, int objectY) {
-		final SpecialPlantFieldsData specialPlantFieldData = SpecialPlantFieldsData.forIdPosition(new Position(objectX, objectY));
+		final SpecialPlantFieldsData specialPlantFieldData = SpecialPlantFieldsData.forIdPosition(new Position(objectX,
+				objectY));
 		if (specialPlantFieldData == null)
 			return false;
 		if (farmingStages[specialPlantFieldData.getSpecialPlantsIndex()] == 3)

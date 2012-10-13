@@ -7,12 +7,12 @@ import org.apollo.api.method.Method;
  * @author Steve
  */
 public final class LabelWorldMethod extends Method {
-	
+
 	/**
 	 * The world.
 	 */
 	private final int world;
-	
+
 	/**
 	 * Creates the label world method.
 	 * @param world The world.
@@ -20,7 +20,7 @@ public final class LabelWorldMethod extends Method {
 	public LabelWorldMethod(int world) {
 		this.world = world;
 	}
-	
+
 	/**
 	 * Gets the world.
 	 * @return The world.

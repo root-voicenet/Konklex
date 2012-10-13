@@ -7,12 +7,12 @@ import org.apollo.api.method.Method;
  * @author Steve
  */
 public final class TimeMethod extends Method {
-	
+
 	/**
 	 * The time.
 	 */
 	private final long time;
-	
+
 	/**
 	 * The world.
 	 */
@@ -57,7 +57,7 @@ public final class TimeMethod extends Method {
 	 * The status.
 	 */
 	private final int status;
-	
+
 	/**
 	 * Creates the time method.
 	 * @param world The world id.
@@ -71,7 +71,8 @@ public final class TimeMethod extends Method {
 	 * @param ram The ram usage.
 	 * @param status The status.
 	 */
-	public TimeMethod(int world, int objects, int npcs, int items, int regions, long time, int threads, int cpu, int ram, int status) {
+	public TimeMethod(int world, int objects, int npcs, int items, int regions, long time, int threads, int cpu,
+			int ram, int status) {
 		this.world = world;
 		this.objects = objects;
 		this.npcs = npcs;
@@ -83,7 +84,7 @@ public final class TimeMethod extends Method {
 		this.ram = ram;
 		this.status = status;
 	}
-	
+
 	/**
 	 * Gets the time.
 	 * @return The time.

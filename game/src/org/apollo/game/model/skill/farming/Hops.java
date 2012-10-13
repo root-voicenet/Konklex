@@ -15,8 +15,8 @@ import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.TextUtil;
 
 /**
- * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change
- * this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: vayken Date: 24/02/12 Time: 20:34 To change this template use File | Settings | File
+ * Templates.
  */
 public class Hops {
 
@@ -25,11 +25,15 @@ public class Hops {
 	// set of global constants for Farming
 
 	private static final int START_HARVEST_AMOUNT = 3;
+
 	private static final int END_HARVEST_AMOUNT = 41;
 
 	private static final double WATERING_CHANCE = 0.5;
+
 	private static final double COMPOST_CHANCE = 0.9;
+
 	private static final double SUPERCOMPOST_CHANCE = 0.7;
+
 	private static final double CLEARING_EXPERIENCE = 4;
 
 	public Hops(Player player) {
@@ -38,20 +42,30 @@ public class Hops {
 
 	// Farming data
 	public int[] farmingStages = new int[4];
+
 	public int[] farmingSeeds = new int[4];
+
 	public int[] farmingHarvest = new int[4];
+
 	public int[] farmingState = new int[4];
+
 	public long[] farmingTimer = new long[4];
-	public double[] diseaseChance = {1, 1, 1, 1};
-	public boolean[] hasFullyGrown = {false, false, false, false};
-	public boolean[] farmingWatched = {false, false, false, false};
+
+	public double[] diseaseChance = { 1, 1, 1, 1 };
+
+	public boolean[] hasFullyGrown = { false, false, false, false };
+
+	public boolean[] farmingWatched = { false, false, false, false };
 
 	/* set of the constants for the patch */
 
 	// states - 2 bits plant - 6 bits
 	public static final int GROWING = 0x00;
+
 	public static final int WATERED = 0x01;
+
 	public static final int DISEASED = 0x02;
+
 	public static final int DEAD = 0x03;
 
 	public static final int MAIN_HOPS_CONFIG = 506;
@@ -59,18 +73,33 @@ public class Hops {
 	/* This is the enum holding the seeds info */
 
 	public enum HopsData {
-		BARLEY(5305, 6006, 4, 3, new int[]{6032, 3}, 40, 0.35, 8.5, 9.5, 0x31, 0x35), HAMMERSTONE(5307, 5994, 4, 4, new int[]{6010, 1}, 40, 0.35, 9, 10, 0x04, 0x08), ASGARNIAN(5308, 5996, 4, 8, new int[]{5458, 1}, 40, 0.30, 10.5, 12, 0x0b, 0x10), JUTE(5306, 5931, 3, 13, new int[]{6008, 6}, 40, 0.30, 13, 14.5, 0x38, 0x3d), YANILLIAN(5309, 5998, 4, 16, new int[]{5968, 1}, 40, 0.25, 14.5, 16, 0x13, 0x19), KRANDORIAN(5310, 6000, 4, 21, new int[]{5478}, 40, 0.25, 17.5, 19.5, 0x1c, 0x23), WILDBLOOD(5311, 6002, 4, 28, new int[]{6012, 1}, 40, 0.20, 23, 26, 0x26, 0x2e), ;
+		BARLEY(5305, 6006, 4, 3, new int[] { 6032, 3 }, 40, 0.35, 8.5, 9.5, 0x31, 0x35), HAMMERSTONE(5307, 5994, 4, 4,
+				new int[] { 6010, 1 }, 40, 0.35, 9, 10, 0x04, 0x08), ASGARNIAN(5308, 5996, 4, 8, new int[] { 5458, 1 },
+				40, 0.30, 10.5, 12, 0x0b, 0x10), JUTE(5306, 5931, 3, 13, new int[] { 6008, 6 }, 40, 0.30, 13, 14.5,
+				0x38, 0x3d), YANILLIAN(5309, 5998, 4, 16, new int[] { 5968, 1 }, 40, 0.25, 14.5, 16, 0x13, 0x19), KRANDORIAN(
+				5310, 6000, 4, 21, new int[] { 5478 }, 40, 0.25, 17.5, 19.5, 0x1c, 0x23), WILDBLOOD(5311, 6002, 4, 28,
+				new int[] { 6012, 1 }, 40, 0.20, 23, 26, 0x26, 0x2e), ;
 
 		private int seedId;
+
 		private int harvestId;
+
 		private int seedAmount;
+
 		private int levelRequired;
+
 		private int[] paymentToWatch;
+
 		private int growthTime;
+
 		private double diseaseChance;
+
 		private double plantingXp;
+
 		private double harvestXp;
+
 		private int startingState;
+
 		private int endingState;
 
 		private static Map<Integer, HopsData> seeds = new HashMap<Integer, HopsData>();
@@ -81,7 +110,8 @@ public class Hops {
 			}
 		}
 
-		HopsData(int seedId, int harvestId, int seedAmount, int levelRequired, int[] paymentToWatch, int growthTime, double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState) {
+		HopsData(int seedId, int harvestId, int seedAmount, int levelRequired, int[] paymentToWatch, int growthTime,
+				double diseaseChance, double plantingXp, double harvestXp, int startingState, int endingState) {
 			this.seedId = seedId;
 			this.harvestId = harvestId;
 			this.seedAmount = seedAmount;
@@ -148,10 +178,15 @@ public class Hops {
 
 	public enum HopsFieldsData {
 
-		LUMBRIDGE(0, new Position[]{new Position(3227, 3313, 0), new Position(3231, 3317, 0)}, 2333), MCGRUBOR(1, new Position[]{new Position(2664, 3523, 0), new Position(2669, 3528, 0)}, 2334), YANILLE(2, new Position[]{new Position(2574, 3103, 0), new Position(2577, 3106, 0)}, 2332), ENTRANA(3, new Position[]{new Position(2809, 3335, 0), new Position(2812, 3338, 0)}, 2327);
+		LUMBRIDGE(0, new Position[] { new Position(3227, 3313, 0), new Position(3231, 3317, 0) }, 2333), MCGRUBOR(1,
+				new Position[] { new Position(2664, 3523, 0), new Position(2669, 3528, 0) }, 2334), YANILLE(2,
+				new Position[] { new Position(2574, 3103, 0), new Position(2577, 3106, 0) }, 2332), ENTRANA(3,
+				new Position[] { new Position(2809, 3335, 0), new Position(2812, 3338, 0) }, 2327);
 
 		private int hopsIndex;
+
 		private Position[] hopsPosition;
+
 		private int npcId;
 
 		private static Map<Integer, HopsFieldsData> npcsProtecting = new HashMap<Integer, HopsFieldsData>();
@@ -175,7 +210,8 @@ public class Hops {
 
 		public static HopsFieldsData forIdPosition(Position position) {
 			for (HopsFieldsData hopsFieldsData : HopsFieldsData.values()) {
-				if (FarmingConstants.inRangeArea(hopsFieldsData.getHopsPosition()[0], hopsFieldsData.getHopsPosition()[1], position)) {
+				if (FarmingConstants.inRangeArea(hopsFieldsData.getHopsPosition()[0],
+						hopsFieldsData.getHopsPosition()[1], position)) {
 					return hopsFieldsData;
 				}
 			}
@@ -199,10 +235,46 @@ public class Hops {
 
 	public enum InspectData {
 
-		BARLEY(5305, new String[][]{{"The barley seeds have only just been planted."}, {"Grain heads develop at the upper part of the stalks,", "as the barley grows taller."}, {"The barley grows taller, the heads weighing", "slightly on the stalks."}, {"The barley grows taller."}, {"The barley is ready to harvest. The heads of grain", "are weighing down heavily on the stalks!"}}), HAMMERSTONE(5307, new String[][]{{"The Hammerstone seeds have only just been planted."}, {"The Hammerstone hops plant grows a little bit taller."}, {"The Hammerstone hops plant grows a bit taller."}, {"The Hammerstone hops plant grows a bit taller."}, {"The Hammerstone hops plant is ready to harvest."}}), ASGARNIAN(5308, new String[][]{{"The Asgarnian seeds have only just been planted."}, {"The Asgarnian hops plant grows a bit taller."}, {"The Asgarnian hops plant grows a bit taller."}, {"The Asgarnian hops plant grows a bit taller."}, {"The upper new leaves appear dark green to the", "rest of the plant."},
-				{"The Asgarnian hops plant is ready to harvest."}}), JUTE(5306, new String[][]{{"The Jute seeds have only just been planted."}, {"The jute plants grow taller."}, {"The jute plants grow taller."}, {"The jute plants grow taller."}, {"The jute plant grows taller. They are as high", "as the player."}, {"The jute plants are ready to harvest."}}), YANILLIAN(5309, new String[][]{{"The Yanillian seeds have only just been planted."}, {"The Yanillian hops plant grows a bit taller."}, {"The Yanillian hops plant grows a bit taller."}, {"The Yanillian hops plant grows a bit taller."}, {"The new leaves on the top of the Yanillian hops", "plant are dark green."}, {"The new leaves on the top of the Yanillian hops", "plant are dark green."}, {"The Yanillian hops plant is ready to harvest."}}), KRANDORIAN(5310, new String[][]{{"The Krandorian seeds have only just been planted."}, {"The Krandorian plant grows a bit taller."}, {"The Krandorian plant grows a bit taller."},
-				{"The Krandorian plant grows a bit taller."}, {"The new leaves on top of the Krandorian plant are", "dark green."}, {"The Krandorian plant grows a bit taller."}, {"The new leaves on top of the Krandorian plant", "are dark green."}, {"The Krandorian plant is ready for harvesting."}}), WILDBLOOD(5311, new String[][]{{"The wildblood seeds have only just been planted."}, {"The wildblood hops plant grows a bit taller."}, {"The wildblood hops plant grows a bit taller."}, {"The wildblood hops plant grows a bit taller."}, {"The wildblood hops plant grows a bit taller."}, {"The wildblood hops plant grows a bit taller."}, {"The wildblood hops plant grows a bit taller."}, {"The new leaves at the top of the wildblood hops plant", "are dark green."}, {"The wildblood hops plant is ready to harvest."}});
+		BARLEY(5305, new String[][] { { "The barley seeds have only just been planted." },
+				{ "Grain heads develop at the upper part of the stalks,", "as the barley grows taller." },
+				{ "The barley grows taller, the heads weighing", "slightly on the stalks." },
+				{ "The barley grows taller." },
+				{ "The barley is ready to harvest. The heads of grain", "are weighing down heavily on the stalks!" } }), HAMMERSTONE(
+				5307, new String[][] { { "The Hammerstone seeds have only just been planted." },
+						{ "The Hammerstone hops plant grows a little bit taller." },
+						{ "The Hammerstone hops plant grows a bit taller." },
+						{ "The Hammerstone hops plant grows a bit taller." },
+						{ "The Hammerstone hops plant is ready to harvest." } }), ASGARNIAN(5308, new String[][] {
+				{ "The Asgarnian seeds have only just been planted." },
+				{ "The Asgarnian hops plant grows a bit taller." }, { "The Asgarnian hops plant grows a bit taller." },
+				{ "The Asgarnian hops plant grows a bit taller." },
+				{ "The upper new leaves appear dark green to the", "rest of the plant." },
+				{ "The Asgarnian hops plant is ready to harvest." } }), JUTE(5306, new String[][] {
+				{ "The Jute seeds have only just been planted." }, { "The jute plants grow taller." },
+				{ "The jute plants grow taller." }, { "The jute plants grow taller." },
+				{ "The jute plant grows taller. They are as high", "as the player." },
+				{ "The jute plants are ready to harvest." } }), YANILLIAN(5309, new String[][] {
+				{ "The Yanillian seeds have only just been planted." },
+				{ "The Yanillian hops plant grows a bit taller." }, { "The Yanillian hops plant grows a bit taller." },
+				{ "The Yanillian hops plant grows a bit taller." },
+				{ "The new leaves on the top of the Yanillian hops", "plant are dark green." },
+				{ "The new leaves on the top of the Yanillian hops", "plant are dark green." },
+				{ "The Yanillian hops plant is ready to harvest." } }), KRANDORIAN(5310, new String[][] {
+				{ "The Krandorian seeds have only just been planted." },
+				{ "The Krandorian plant grows a bit taller." }, { "The Krandorian plant grows a bit taller." },
+				{ "The Krandorian plant grows a bit taller." },
+				{ "The new leaves on top of the Krandorian plant are", "dark green." },
+				{ "The Krandorian plant grows a bit taller." },
+				{ "The new leaves on top of the Krandorian plant", "are dark green." },
+				{ "The Krandorian plant is ready for harvesting." } }), WILDBLOOD(5311, new String[][] {
+				{ "The wildblood seeds have only just been planted." },
+				{ "The wildblood hops plant grows a bit taller." }, { "The wildblood hops plant grows a bit taller." },
+				{ "The wildblood hops plant grows a bit taller." }, { "The wildblood hops plant grows a bit taller." },
+				{ "The wildblood hops plant grows a bit taller." }, { "The wildblood hops plant grows a bit taller." },
+				{ "The new leaves at the top of the wildblood hops plant", "are dark green." },
+				{ "The wildblood hops plant is ready to harvest." } });
 		private int seedId;
+
 		private String[][] messages;
 
 		private static Map<Integer, InspectData> seeds = new HashMap<Integer, InspectData>();
@@ -252,14 +324,14 @@ public class Hops {
 	public int getConfigValue(int hopsStage, int seedId, int plantState, int index) {
 		HopsData hopsData = HopsData.forId(seedId);
 		switch (hopsStage) {
-			case 0 :// weed
-				return (GROWING << 6) + 0x00;
-			case 1 :// weed cleared
-				return (GROWING << 6) + 0x01;
-			case 2 :
-				return (GROWING << 6) + 0x02;
-			case 3 :
-				return (GROWING << 6) + 0x03;
+		case 0:// weed
+			return (GROWING << 6) + 0x00;
+		case 1:// weed cleared
+			return (GROWING << 6) + 0x01;
+		case 2:
+			return (GROWING << 6) + 0x02;
+		case 3:
+			return (GROWING << 6) + 0x03;
 		}
 		if (hopsData == null) {
 			return -1;
@@ -275,14 +347,14 @@ public class Hops {
 
 	public int getPlantState(int plantState) {
 		switch (plantState) {
-			case 0 :
-				return GROWING;
-			case 1 :
-				return WATERED;
-			case 2 :
-				return DISEASED;
-			case 3 :
-				return DEAD;
+		case 0:
+			return GROWING;
+		case 1:
+			return WATERED;
+		case 2:
+			return DISEASED;
+		case 3:
+			return DEAD;
 		}
 		return -1;
 	}
@@ -350,7 +422,8 @@ public class Hops {
 				int growth = hopsData.getGrowthTime();
 				farmingTimer[index] += (growth / difference);
 				modifyStage(index);
-			} else {
+			}
+			else {
 				farmingState[index] = 3;
 			}
 		}
@@ -389,7 +462,10 @@ public class Hops {
 		if (hopsData == null) {
 			return false;
 		}
-		if (farmingState[hopsFieldsData.getHopsIndex()] == 1 || farmingStages[hopsFieldsData.getHopsIndex()] <= 1 || farmingStages[hopsFieldsData.getHopsIndex()] == hopsData.getEndingState() - hopsData.getStartingState() + 4) {
+		if (farmingState[hopsFieldsData.getHopsIndex()] == 1
+				|| farmingStages[hopsFieldsData.getHopsIndex()] <= 1
+				|| farmingStages[hopsFieldsData.getHopsIndex()] == hopsData.getEndingState()
+						- hopsData.getStartingState() + 4) {
 			player.sendMessage("This patch doesn't need watering.");
 			return true;
 		}
@@ -403,7 +479,6 @@ public class Hops {
 		player.sendMessage("You water the patch.");
 		player.playAnimation(new Animation(FarmingConstants.WATERING_CAN_ANIM));
 
-		
 		World.getWorld().schedule(new ScheduledTask(5, false) {
 
 			@Override
@@ -439,21 +514,24 @@ public class Hops {
 			if (!player.getInventory().contains(FarmingConstants.RAKE)) {
 				player.getInterfaceSet().sendStatement("You need a rake to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.RAKING_ANIM;
 				finalDelay = 5;
 			}
-		} else {
+		}
+		else {
 			if (!player.getInventory().contains(FarmingConstants.SPADE)) {
 				player.getInterfaceSet().sendStatement("You need a spade to clear this path.");
 				return true;
-			} else {
+			}
+			else {
 				finalAnimation = FarmingConstants.SPADE_ANIM;
 				finalDelay = 3;
 			}
 		}
 		final int animation = finalAnimation;
-		
+
 		player.playAnimation(new Animation(animation));
 		World.getWorld().schedule(new ScheduledTask(finalDelay, false) {
 
@@ -463,7 +541,8 @@ public class Hops {
 				if (farmingStages[hopsFieldsData.getHopsIndex()] <= 2) {
 					farmingStages[hopsFieldsData.getHopsIndex()]++;
 					player.getInventory().add(new Item(6055));
-				} else {
+				}
+				else {
 					farmingStages[hopsFieldsData.getHopsIndex()] = 3;
 					stop();
 				}
@@ -501,7 +580,8 @@ public class Hops {
 			return false;
 		}
 		if (hopsData.getLevelRequired() > player.getSkillSet().getSkill(Skill.FARMING).getCurrentLevel()) {
-			player.getInterfaceSet().sendStatement("You need a farming level of " + hopsData.getLevelRequired() + " to plant this seed.");
+			player.getInterfaceSet().sendStatement(
+					"You need a farming level of " + hopsData.getLevelRequired() + " to plant this seed.");
 			return true;
 		}
 		if (!player.getInventory().contains(FarmingConstants.SEED_DIBBER)) {
@@ -509,14 +589,14 @@ public class Hops {
 			return true;
 		}
 		if (player.getInventory().getItemCount(hopsData.getSeedId()) < hopsData.getSeedAmount()) {
-			player.getInterfaceSet().sendStatement("You need atleast " + hopsData.getSeedAmount() + " seeds to plant here.");
+			player.getInterfaceSet().sendStatement(
+					"You need atleast " + hopsData.getSeedAmount() + " seeds to plant here.");
 			return true;
 		}
 		player.playAnimation(new Animation(FarmingConstants.SEED_DIBBING));
 		farmingStages[hopsFieldsData.getHopsIndex()] = 4;
 		player.getInventory().remove(new Item(seedId, hopsData.getSeedAmount()));
 
-		
 		World.getWorld().schedule(new ScheduledTask(3, false) {
 
 			@Override
@@ -571,7 +651,9 @@ public class Hops {
 			@Override
 			public void execute() {
 				if (farmingHarvest[hopsFieldsData.getHopsIndex()] == 0) {
-					farmingHarvest[hopsFieldsData.getHopsIndex()] = (int) (1 + (START_HARVEST_AMOUNT + TextUtil.random(END_HARVEST_AMOUNT - START_HARVEST_AMOUNT)) * (player.getEquipment().contains(7409) ? 1.10 : 1));
+					farmingHarvest[hopsFieldsData.getHopsIndex()] = (int) (1 + (START_HARVEST_AMOUNT + TextUtil
+							.random(END_HARVEST_AMOUNT - START_HARVEST_AMOUNT))
+							* (player.getEquipment().contains(7409) ? 1.10 : 1));
 				}
 				if (farmingHarvest[hopsFieldsData.getHopsIndex()] == 1) {
 					resetHops(hopsFieldsData.getHopsIndex());
@@ -598,7 +680,7 @@ public class Hops {
 				super.stop();
 			}
 		};
-		
+
 		player.startAction(action);
 		return true;
 	}
@@ -622,9 +704,9 @@ public class Hops {
 
 		player.sendMessage("You pour some " + (itemId == 6034 ? "super" : "") + "compost on the patch.");
 		player.playAnimation(new Animation(FarmingConstants.PUTTING_COMPOST));
-		player.getSkillSet().addExperience(Skill.FARMING, itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
+		player.getSkillSet().addExperience(Skill.FARMING,
+				itemId == 6034 ? Compost.SUPER_COMPOST_EXP_USE : Compost.COMPOST_EXP_USE);
 
-		
 		World.getWorld().schedule(new ScheduledTask(7, false) {
 
 			@Override
@@ -653,31 +735,44 @@ public class Hops {
 		final InspectData inspectData = InspectData.forId(farmingSeeds[hopsFieldsData.getHopsIndex()]);
 		final HopsData hopsData = HopsData.forId(farmingSeeds[hopsFieldsData.getHopsIndex()]);
 		if (farmingState[hopsFieldsData.getHopsIndex()] == 2) {
-			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,", "or clear the patch with a spade.");
+			player.getInterfaceSet().sendStatement("This plant is diseased. Use a plant cure on it to cure it,",
+					"or clear the patch with a spade.");
 			return true;
-		} else if (farmingState[hopsFieldsData.getHopsIndex()] == 3) {
-			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.", "Clear the patch with a spade.");
+		}
+		else if (farmingState[hopsFieldsData.getHopsIndex()] == 3) {
+			player.getInterfaceSet().sendStatement("This plant is dead. You did not cure it while it was diseased.",
+					"Clear the patch with a spade.");
 			return true;
 		}
 		if (farmingStages[hopsFieldsData.getHopsIndex()] == 0) {
-			player.getInterfaceSet().sendStatement("This is a hops patch. The soil has not been treated.", "The patch needs weeding.");
-		} else if (farmingStages[hopsFieldsData.getHopsIndex()] == 3) {
-			player.getInterfaceSet().sendStatement("This is a hops patch. The soil has not been treated.", "The patch is empty and weeded.");
-		} else if (inspectData != null && hopsData != null) {
+			player.getInterfaceSet().sendStatement("This is a hops patch. The soil has not been treated.",
+					"The patch needs weeding.");
+		}
+		else if (farmingStages[hopsFieldsData.getHopsIndex()] == 3) {
+			player.getInterfaceSet().sendStatement("This is a hops patch. The soil has not been treated.",
+					"The patch is empty and weeded.");
+		}
+		else if (inspectData != null && hopsData != null) {
 			player.sendMessage("You bend down and start to inspect the patch...");
 
 			player.playAnimation(new Animation(1331));
-			
+
 			World.getWorld().schedule(new ScheduledTask(5, false) {
 
 				@Override
 				public void execute() {
 					if (farmingStages[hopsFieldsData.getHopsIndex()] - 4 < inspectData.getMessages().length - 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[farmingStages[hopsFieldsData.getHopsIndex()] - 4]);
-					} else if (farmingStages[hopsFieldsData.getHopsIndex()] < hopsData.getEndingState() - hopsData.getStartingState() + 2) {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 2]);
-					} else {
-						player.getInterfaceSet().sendStatement(inspectData.getMessages()[inspectData.getMessages().length - 1]);
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[farmingStages[hopsFieldsData.getHopsIndex()] - 4]);
+					}
+					else if (farmingStages[hopsFieldsData.getHopsIndex()] < hopsData.getEndingState()
+							- hopsData.getStartingState() + 2) {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 2]);
+					}
+					else {
+						player.getInterfaceSet().sendStatement(
+								inspectData.getMessages()[inspectData.getMessages().length - 1]);
 					}
 					stop();
 				}
@@ -720,7 +815,7 @@ public class Hops {
 		player.getInventory().remove(new Item(itemId));
 		player.getInventory().add(new Item(229));
 		player.playAnimation(new Animation(FarmingConstants.CURING_ANIM));
-		
+
 		farmingState[hopsFieldsData.getHopsIndex()] = 0;
 		World.getWorld().schedule(new ScheduledTask(7, false) {
 

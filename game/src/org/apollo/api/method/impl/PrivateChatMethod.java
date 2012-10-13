@@ -14,7 +14,7 @@ public final class PrivateChatMethod extends Method {
 	 * The friend.
 	 */
 	private final long friend;
-	
+
 	/**
 	 * The sender.
 	 */
@@ -32,15 +32,10 @@ public final class PrivateChatMethod extends Method {
 
 	/**
 	 * Create a new private chat event.
-	 * 
-	 * @param friend
-	 *            The friend to send this message too.
-	 * @param sender
-	 *            The sender.
-	 * @param rights
-	 *            The sender rights.
-	 * @param message
-	 *            The decoded message.
+	 * @param friend The friend to send this message too.
+	 * @param sender The sender.
+	 * @param rights The sender rights.
+	 * @param message The decoded message.
 	 */
 	public PrivateChatMethod(long friend, long sender, int rights, byte[] message) {
 		this.friend = friend;
@@ -48,34 +43,24 @@ public final class PrivateChatMethod extends Method {
 		this.rights = rights;
 		this.message = message;
 	}
-	
+
 	/**
 	 * Create a new private chat event.
-	 * 
-	 * @param friend
-	 *            The friend to send this message too.
-	 * @param sender
-	 *            The sender.
-	 * @param rights
-	 *            The sender rights.
-	 * @param message
-	 *            The decoded message.
+	 * @param friend The friend to send this message too.
+	 * @param sender The sender.
+	 * @param rights The sender rights.
+	 * @param message The decoded message.
 	 */
 	public PrivateChatMethod(String friend, String sender, int rights, byte[] message) {
 		this(NameUtil.encodeBase37(friend), NameUtil.encodeBase37(sender), rights, message);
 	}
-	
+
 	/**
 	 * Create a new private chat event.
-	 * 
-	 * @param friend
-	 *            The friend to send this message too.
-	 * @param sender
-	 *            The sender.
-	 * @param rights
-	 *            The sender rights.
-	 * @param message
-	 *            The decoded message.
+	 * @param friend The friend to send this message too.
+	 * @param sender The sender.
+	 * @param rights The sender rights.
+	 * @param message The decoded message.
 	 */
 	public PrivateChatMethod(long friend, long sender, int rights, String message) {
 		message = TextUtil.filterInvalidCharacters(message);
@@ -87,18 +72,13 @@ public final class PrivateChatMethod extends Method {
 		this.rights = rights;
 		this.message = temp;
 	}
-	
+
 	/**
 	 * Create a new private chat event.
-	 * 
-	 * @param friend
-	 *            The friend to send this message too.
-	 * @param sender
-	 *            The sender.
-	 * @param rights
-	 *            The sender rights.
-	 * @param message
-	 *            The decoded message.
+	 * @param friend The friend to send this message too.
+	 * @param sender The sender.
+	 * @param rights The sender rights.
+	 * @param message The decoded message.
 	 */
 	public PrivateChatMethod(String friend, String sender, int rights, String message) {
 		message = TextUtil.filterInvalidCharacters(message);
@@ -113,7 +93,6 @@ public final class PrivateChatMethod extends Method {
 
 	/**
 	 * Gets the friend.
-	 * 
 	 * @return The friend.
 	 */
 	public long getFriend() {
@@ -122,7 +101,6 @@ public final class PrivateChatMethod extends Method {
 
 	/**
 	 * Gets the message.
-	 * 
 	 * @return The message.
 	 */
 	public byte[] getMessage() {

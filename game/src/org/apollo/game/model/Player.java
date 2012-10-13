@@ -137,12 +137,12 @@ public final class Player extends Character {
 	 * The membership flag.
 	 */
 	private boolean members = false;
-	
+
 	/**
 	 * The skill guide selected id.
 	 */
 	private int selected = 0;
-	
+
 	/**
 	 * The skill guide selected items.
 	 */
@@ -187,7 +187,7 @@ public final class Player extends Character {
 	 * This player's interface set.
 	 */
 	private final InterfaceSet interfaceSet = new InterfaceSet(this);
-	
+
 	/**
 	 * The player's equipment bonuses.
 	 */
@@ -243,7 +243,7 @@ public final class Player extends Character {
 	 * The dialogue id that is currently open.
 	 */
 	private int dialogueId;
-	
+
 	/**
 	 * The hidden flag.
 	 */
@@ -293,7 +293,7 @@ public final class Player extends Character {
 	 * The special plant two.
 	 */
 	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
-	
+
 	/**
 	 * The seedling.
 	 */
@@ -323,7 +323,7 @@ public final class Player extends Character {
 			viewingDistance--;
 		}
 	}
-	
+
 	/**
 	 * Sets the hide boolean flag.
 	 * @param hide The hide flag.
@@ -331,7 +331,7 @@ public final class Player extends Character {
 	public void setHide(boolean hide) {
 		this.hide = hide;
 	}
-	
+
 	/**
 	 * Sets the skill guide selected id.
 	 * @param selected The skill guide selected id.
@@ -339,7 +339,7 @@ public final class Player extends Character {
 	public void setSelected(int selected) {
 		this.selected = selected;
 	}
-	
+
 	/**
 	 * Sets the skill guide selected items.
 	 * @param item The skill guide selected items.
@@ -347,7 +347,7 @@ public final class Player extends Character {
 	public void setItem(int[] item) {
 		this.item = item;
 	}
-	
+
 	/**
 	 * Gets the skill guide selected items.
 	 * @return The skill guide selected items.
@@ -355,7 +355,7 @@ public final class Player extends Character {
 	public int[] getItem() {
 		return item;
 	}
-	
+
 	/**
 	 * Gets the selected skill guide id.
 	 * @return The selected skill guide id.
@@ -363,7 +363,7 @@ public final class Player extends Character {
 	public int getSelected() {
 		return selected;
 	}
-	
+
 	/**
 	 * Gets the hide boolean flag.
 	 * @return True if hidden, false if otherwise.
@@ -439,8 +439,7 @@ public final class Player extends Character {
 
 	/**
 	 * Gets the last known region.
-	 * @return The last known region, or {@code null} if the player has never
-	 * known a region.
+	 * @return The last known region, or {@code null} if the player has never known a region.
 	 */
 	public Position getLastKnownRegion() {
 		return lastKnownRegion;
@@ -567,8 +566,7 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Increments this player's viewing distance if it is less than the maximum
-	 * viewing distance.
+	 * Increments this player's viewing distance if it is less than the maximum viewing distance.
 	 */
 	public void incrementViewingDistance() {
 		if (viewingDistance < Position.MAX_DISTANCE) {
@@ -694,6 +692,7 @@ public final class Player extends Character {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.model.Character#send(org.apollo.game.event.Event)
 	 */
 	@Override
@@ -706,7 +705,8 @@ public final class Player extends Character {
 				queuedEvents.clear();
 			}
 			session.dispatchEvent(event);
-		} else {
+		}
+		else {
 			queuedEvents.add(event);
 		}
 	}
@@ -738,11 +738,11 @@ public final class Player extends Character {
 		send(new BuildPlayerMenuEvent(3, true, "Attack"));
 		send(new BuildPlayerMenuEvent(4, false, "Follow"));
 		send(new BuildPlayerMenuEvent(5, false, "Trade with"));
-		//send privacy settings
+		// send privacy settings
 		send(new ChatPrivacySettingsEvent(publicChat, privateChat, trade));
-		//send the run
+		// send the run
 		send(new UpdateRunEnergyEvent(getRunEnergy()));
-		//send private chat
+		// send private chat
 		World.getWorld().getMessaging().register(this);
 		send(new ResetClientEvent());
 	}
@@ -766,8 +766,7 @@ public final class Player extends Character {
 
 	/**
 	 * Sets the character design flag.
-	 * @param designedCharacter A flag indicating if the character has been
-	 * designed.
+	 * @param designedCharacter A flag indicating if the character has been designed.
 	 */
 	public void setDesignedCharacter(boolean designedCharacter) {
 		this.designedCharacter = designedCharacter;
@@ -899,6 +898,7 @@ public final class Player extends Character {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -989,7 +989,7 @@ public final class Player extends Character {
 	public FruitTree getFruitTrees() {
 		return fruitTree;
 	}
-	
+
 	/**
 	 * Gets the seedling.
 	 * @return The seedling.

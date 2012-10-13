@@ -4,9 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A class which handles the logic for each pulse of the {@link MinigameService}
- * .
- * 
+ * A class which handles the logic for each pulse of the {@link MinigameService} .
  * @author Steve
  */
 public final class MinigamePulseHandler implements Runnable {
@@ -14,8 +12,7 @@ public final class MinigamePulseHandler implements Runnable {
 	/**
 	 * The logger for this class.
 	 */
-	private static final Logger logger = Logger
-			.getLogger(MinigamePulseHandler.class.getName());
+	private static final Logger logger = Logger.getLogger(MinigamePulseHandler.class.getName());
 
 	/**
 	 * The {@link MinigameService}.
@@ -24,9 +21,7 @@ public final class MinigamePulseHandler implements Runnable {
 
 	/**
 	 * Creates the minigame pulse handler object.
-	 * 
-	 * @param service
-	 *            The {@link MinigameService}.
+	 * @param service The {@link MinigameService}.
 	 */
 	MinigamePulseHandler(MinigameService service) {
 		this.service = service;
@@ -41,7 +36,8 @@ public final class MinigamePulseHandler implements Runnable {
 	public void run() {
 		try {
 			service.pulse();
-		} catch (final Throwable t) {
+		}
+		catch (final Throwable t) {
 			logger.log(Level.INFO, "Exception during pulse.", t);
 		}
 	}

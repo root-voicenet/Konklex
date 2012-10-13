@@ -3,8 +3,7 @@ package org.apollo.game.event.impl;
 import org.apollo.game.event.Event;
 
 /**
- * An event which is sent to the client to make a character model on an
- * interface play a certain animation.
+ * An event which is sent to the client to make a character model on an interface play a certain animation.
  * @author Chris Fletcher
  */
 public final class SetInterfaceModelMoodEvent extends Event {

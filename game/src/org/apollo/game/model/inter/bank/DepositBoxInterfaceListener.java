@@ -6,9 +6,8 @@ import org.apollo.game.model.inter.InterfaceListener;
 import org.apollo.game.model.inv.InventoryListener;
 
 /**
- * An implementation of the {@link InterfaceListener} to revert deposit box
- * actions and remove the associated inventory listeners upon closing an
- * interface.
+ * An implementation of the {@link InterfaceListener} to revert deposit box actions and remove the associated inventory
+ * listeners upon closing an interface.
  * @author Chris Fletcher
  */
 public final class DepositBoxInterfaceListener extends InterfaceAdapter {

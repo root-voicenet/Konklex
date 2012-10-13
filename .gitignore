@@ -10,12 +10,11 @@
 *.iws
 /build
 /target
-/game/bin
-/connector/bin
 /out
 /doc
 /lib
-/src/rebel.xml
+/game/bin
+/hub/bin
 /game/.classpath
 /connector/.classpath
 /game/.project

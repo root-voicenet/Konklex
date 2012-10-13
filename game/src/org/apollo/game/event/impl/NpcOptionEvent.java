@@ -5,8 +5,7 @@ import org.apollo.game.model.Npc;
 import org.apollo.game.model.World;
 
 /**
- * An {@link Event} which is sent by the client when the player has clicked an
- * option of an {@link Npc}.
+ * An {@link Event} which is sent by the client when the player has clicked an option of an {@link Npc}.
  * @author Steve
  */
 public abstract class NpcOptionEvent extends Event {

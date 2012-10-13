@@ -4,8 +4,8 @@ import org.apollo.game.event.Event;
 import org.apollo.net.codec.game.GamePacket;
 
 /**
- * An {@link EventDecoder} decodes a {@link GamePacket} into an {@link Event}
- * object which can be processed by the server.
+ * An {@link EventDecoder} decodes a {@link GamePacket} into an {@link Event} object which can be processed by the
+ * server.
  * @param <E> The type of {@link Event}.
  * @author Graham
  */

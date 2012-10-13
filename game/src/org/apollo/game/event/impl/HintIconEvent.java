@@ -5,7 +5,6 @@ import org.apollo.game.model.Position;
 
 /**
  * An {@link Event} used to draw hint icon on and/or above the object.
- * 
  * @author Solid Snake
  */
 public final class HintIconEvent extends Event {
@@ -37,11 +36,8 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Constructor for NPC/Player.
-	 * 
-	 * @param type
-	 *            1 NPC ? 10 Player
-	 * @param id
-	 *            NPC/Player id
+	 * @param type 1 NPC ? 10 Player
+	 * @param id NPC/Player id
 	 */
 	public HintIconEvent(int type, int id) {
 		this.val = 2;
@@ -51,11 +47,8 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Constructor for Objects.
-	 * 
-	 * @param pos
-	 *            The position of the hint icon
-	 * @param orient
-	 *            The orient
+	 * @param pos The position of the hint icon
+	 * @param orient The orient
 	 */
 	public HintIconEvent(Position pos, int orient) {
 		this.val = 1;
@@ -65,7 +58,6 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Gets icon id.
-	 * 
 	 * @return id
 	 */
 	public int getId() {
@@ -74,7 +66,6 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Gets icon facing.
-	 * 
 	 * @return facing
 	 */
 	public int getOrient() {
@@ -83,7 +74,6 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Gets the position.
-	 * 
 	 * @return position
 	 */
 	public Position getPos() {
@@ -92,7 +82,6 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Gets icon type.
-	 * 
 	 * @return type
 	 */
 	public int getType() {
@@ -101,7 +90,6 @@ public final class HintIconEvent extends Event {
 
 	/**
 	 * Gets the value.
-	 * 
 	 * @return the value.
 	 */
 	public int getVal() {

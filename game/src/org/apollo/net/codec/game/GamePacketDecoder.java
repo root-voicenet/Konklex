@@ -55,12 +55,13 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel.
-	 * ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
+	 * 
+	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel. ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
 	 */
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, GameDecoderState state) throws Exception {
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, GameDecoderState state)
+			throws Exception {
 		switch (state) {
 		case GAME_OPCODE:
 			return decodeOpcode(ctx, channel, buffer);
@@ -86,7 +87,8 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
 			length = buffer.readUnsignedByte();
 			if (length == 0) {
 				return decodeZeroLengthPacket(ctx, channel, buffer);
-			} else {
+			}
+			else {
 				setState(GameDecoderState.GAME_PAYLOAD);
 			}
 		}
@@ -115,7 +117,8 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
 				length = metaData.getLength();
 				if (length == 0) {
 					return decodeZeroLengthPacket(ctx, channel, buffer);
-				} else {
+				}
+				else {
 					setState(GameDecoderState.GAME_PAYLOAD);
 				}
 				break;
@@ -147,15 +150,16 @@ public final class GamePacketDecoder extends StatefulFrameDecoder<GameDecoderSta
 	}
 
 	/**
-	 * Decodes a zero length packet. This hackery is required as Netty will
-	 * throw an exception if we return a frame but have read nothing!
+	 * Decodes a zero length packet. This hackery is required as Netty will throw an exception if we return a frame but
+	 * have read nothing!
 	 * @param ctx The channel handler context.
 	 * @param channel The channel.
 	 * @param buffer The buffer.
 	 * @return The frame, or {@code null}.
 	 * @throws Exception if an error occurs.
 	 */
-	private Object decodeZeroLengthPacket(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
+	private Object decodeZeroLengthPacket(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer)
+			throws Exception {
 		final ChannelBuffer payload = ChannelBuffers.buffer(0);
 		setState(GameDecoderState.GAME_OPCODE);
 		return new GamePacket(opcode, type, payload);

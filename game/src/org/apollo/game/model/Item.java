@@ -54,7 +54,7 @@ public final class Item {
 	public ItemDefinition getDefinition() {
 		return ItemDefinition.forId(id);
 	}
-	
+
 	/**
 	 * Gets the {@link EquipmentBonuses} which gives bonuses to this item.
 	 * @return The bonuses.
@@ -73,6 +73,7 @@ public final class Item {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

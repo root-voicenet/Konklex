@@ -14,11 +14,11 @@ import org.apollo.util.TextUtil;
  */
 public final class ChatEventDecoder extends EventDecoder<ChatEvent> {
 
-    @Override
-    public ChatEvent decode(GamePacket packet) {
+	@Override
+	public ChatEvent decode(GamePacket packet) {
 		GamePacketReader reader = new GamePacketReader(packet);
 		int effects = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.SUBTRACT);
-		int color = (int) reader.getUnsigned(DataType.BYTE,DataTransformation.SUBTRACT);
+		int color = (int) reader.getUnsigned(DataType.BYTE, DataTransformation.SUBTRACT);
 		int length = packet.getLength() - 2;
 		byte[] originalCompressed = new byte[length];
 		reader.getBytesReverse(DataTransformation.ADD, originalCompressed);
@@ -28,6 +28,6 @@ public final class ChatEventDecoder extends EventDecoder<ChatEvent> {
 		byte[] recompressed = new byte[length];
 		TextUtil.compress(uncompressed, recompressed);
 		return new ChatEvent(uncompressed, recompressed, color, effects);
-    }
+	}
 
 }

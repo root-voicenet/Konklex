@@ -24,9 +24,9 @@ import org.apollo.game.sync.seg.SynchronizationSegment;
  */
 public final class NpcSynchronizationTask extends SynchronizationTask {
 
-	/** The maximum number of npcs to load per cycle. This prevents the update
-	 * packet from becoming too large (the client uses a 5000 byte buffer) and
-	 * also stops old spec PCs from crashing when they login or teleport.
+	/**
+	 * The maximum number of npcs to load per cycle. This prevents the update packet from becoming too large (the client
+	 * uses a 5000 byte buffer) and also stops old spec PCs from crashing when they login or teleport.
 	 */
 	private static final int NEW_NPCS_PER_CYCLE = 20;
 
@@ -45,6 +45,7 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -53,22 +54,24 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 		final List<Npc> localNPCs = player.getLocalNpcList();
 		final int oldLocalPlayers = localNPCs.size();
 		final List<SynchronizationSegment> segments = new ArrayList<SynchronizationSegment>();
-		
+
 		int added = 0;
 		final Collection<Npc> repository = World.getWorld().getRegionManager().getLocalNpcs(player);
-		
+
 		for (final Iterator<Npc> it = localNPCs.iterator(); it.hasNext();) {
-		    final Npc n = it.next();
-		    final boolean check = n.getPosition().getHeight() == player.getPosition().getHeight();
-		    if (!n.isActive() || n.isTeleporting() || !check || n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
+			final Npc n = it.next();
+			final boolean check = n.getPosition().getHeight() == player.getPosition().getHeight();
+			if (!n.isActive() || n.isTeleporting() || !check
+					|| n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 				it.remove();
 				segments.add(new RemoveCharacterSegment());
 				// There is something wrong with removing the npcs in this code.
 				// TODO
-		    } else
-		    	segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
+			}
+			else
+				segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
 		}
-		
+
 		for (final Npc n : repository)
 			if (localNPCs.size() >= 255 || !Config.SERVER_NPCS)
 				break;
@@ -86,7 +89,8 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 					segments.add(new AddNpcSegment(blockSet, n.getIndex(), n.getPosition(), n.getDefinition().getId()));
 				}
 			}
-		final NpcSynchronizationEvent event = new NpcSynchronizationEvent(player.getPosition(), oldLocalPlayers, segments);
+		final NpcSynchronizationEvent event = new NpcSynchronizationEvent(player.getPosition(), oldLocalPlayers,
+				segments);
 		player.send(event);
 	}
 
@@ -97,16 +101,16 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 	 */
 	private Position getPositon(Npc n) {
 		switch (n.getFace()) {
-			case 5:
-				return n.getPosition().transform(-1, 0, 0);
-			case 4:
-				return n.getPosition().transform(1, 0, 0);
-			case 3:
-				return n.getPosition().transform(0, -1, 0);
-			case 2:
-				return n.getPosition().transform(0, 1, 0);
-			default:
-				return n.getPosition();
+		case 5:
+			return n.getPosition().transform(-1, 0, 0);
+		case 4:
+			return n.getPosition().transform(1, 0, 0);
+		case 3:
+			return n.getPosition().transform(0, -1, 0);
+		case 2:
+			return n.getPosition().transform(0, 1, 0);
+		default:
+			return n.getPosition();
 		}
 	}
 }

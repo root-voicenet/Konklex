@@ -14,8 +14,7 @@ import org.apollo.util.xml.XmlParser;
 import org.xml.sax.SAXException;
 
 /**
- * A class which parses the {@code npc-spawns.xml} file to populate the world
- * with {@link Npc}s.
+ * A class which parses the {@code npc-spawns.xml} file to populate the world with {@link Npc}s.
  * @author Chris Fletcher
  */
 public final class NpcSpawnParser {
@@ -38,15 +37,15 @@ public final class NpcSpawnParser {
 	public NpcSpawnParser(InputStream is) {
 		try {
 			this.parser = new XmlParser();
-		} catch (final SAXException e) {
+		}
+		catch (final SAXException e) {
 			this.parser = null;
 		}
 		this.is = is;
 	}
 
 	/**
-	 * Parses the XML and produces an array of {@link Npc}s which are to be
-	 * registered to the world..
+	 * Parses the XML and produces an array of {@link Npc}s which are to be registered to the world..
 	 * @return An {@link EventHandlerChainGroup}.
 	 * @throws IOException if an I/O error occurs.
 	 * @throws SAXException if a SAX error occurs.
@@ -55,10 +54,12 @@ public final class NpcSpawnParser {
 		XmlNode rootNode = null;
 		try {
 			rootNode = parser.parse(is);
-		} catch (final IOException e) {
+		}
+		catch (final IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (final SAXException e) {
+		}
+		catch (final SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -77,10 +78,10 @@ public final class NpcSpawnParser {
 			final XmlNode posNode = npcNode.getChild("position");
 			final XmlNode nodeX = posNode.getChild("x");
 			final XmlNode nodeY = posNode.getChild("y");
-			
+
 			final String nodeF = npcNode.getAttribute("face");
 			int face = 0;
-			
+
 			if (nodeF != null)
 				face = Integer.parseInt(nodeF);
 
@@ -93,7 +94,8 @@ public final class NpcSpawnParser {
 			if (nodeZ != null) {
 				final int height = Integer.parseInt(nodeZ.getValue());
 				pos = new Position(x, y, height);
-			} else
+			}
+			else
 				pos = new Position(x, y);
 
 			final Npc npc = new Npc(id, pos);

@@ -17,8 +17,8 @@ import org.apollo.game.model.def.ObjectDefinition;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
- * Created by IntelliJ IDEA. User: vayken Date: 22/02/12 Time: 15:43 To change
- * this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: vayken Date: 22/02/12 Time: 15:43 To change this template use File | Settings | File
+ * Templates.
  */
 public class Compost {
 
@@ -29,15 +29,21 @@ public class Compost {
 	}
 
 	public int[] compostBins = new int[4];
+
 	public long[] compostBinsTimer = new long[4];
+
 	public int[] organicItemAdded = new int[4];
+
 	public int tempCompostState;
 
 	/* setting up the experiences constants */
 
 	public static final double COMPOST_EXP_RETRIEVE = 4.5;
+
 	public static final double SUPER_COMPOST_EXP_RETRIEVE = 8.5;
+
 	public static final double COMPOST_EXP_USE = 18;
+
 	public static final double SUPER_COMPOST_EXP_USE = 26;
 
 	public static final double ROTTEN_TOMATOES_EXP_RETRIEVE = 8.5;
@@ -56,18 +62,24 @@ public class Compost {
 
 	public static final int SECOND_TYPE_COMPOST_BIN = 7818;
 
-	public static final int[] COMPOST_ORGANIC = {6055, 1942, 1957, 1965, 5986, 5504, 5982, 249, 251, 253, 255, 257, 2998, 259, 261, 263, 3000, 265, 2481, 267, 269, 1951, 753, 2126, 247, 239, 6018};
+	public static final int[] COMPOST_ORGANIC = { 6055, 1942, 1957, 1965, 5986, 5504, 5982, 249, 251, 253, 255, 257,
+			2998, 259, 261, 263, 3000, 265, 2481, 267, 269, 1951, 753, 2126, 247, 239, 6018 };
 
-	public static final int[] SUPER_COMPOST_ORGANIC = {2114, 5978, 5980, 5982, 6004, 247, 6469};
+	public static final int[] SUPER_COMPOST_ORGANIC = { 2114, 5978, 5980, 5982, 6004, 247, 6469 };
 
 	/* this is the enum that stores the different locations of the compost bins */
 
 	public enum CompostBinLocations {
-		NORTH_ARDOUGNE(0, new Position(2661, 3375, 0), FIRST_TYPE_COMPOST_BIN, 3), PHASMATYS(1, new Position(3610, 3522, 0), SECOND_TYPE_COMPOST_BIN, 1), FALADOR(2, new Position(3056, 3312, 0), FIRST_TYPE_COMPOST_BIN, 4), CATHERBY(3, new Position(2804, 3464, 0), FIRST_TYPE_COMPOST_BIN, 3);
+		NORTH_ARDOUGNE(0, new Position(2661, 3375, 0), FIRST_TYPE_COMPOST_BIN, 3), PHASMATYS(1, new Position(3610,
+				3522, 0), SECOND_TYPE_COMPOST_BIN, 1), FALADOR(2, new Position(3056, 3312, 0), FIRST_TYPE_COMPOST_BIN,
+				4), CATHERBY(3, new Position(2804, 3464, 0), FIRST_TYPE_COMPOST_BIN, 3);
 
 		private int compostIndex;
+
 		private Position binPosition;
+
 		private int binObjectId;
+
 		private int objectFace;
 
 		private static Map<Integer, CompostBinLocations> bins = new HashMap<Integer, CompostBinLocations>();
@@ -88,6 +100,7 @@ public class Compost {
 		public static CompostBinLocations forId(int index) {
 			return bins.get(index);
 		}
+
 		public static CompostBinLocations forPosition(Position position) {
 			for (CompostBinLocations compostBinLocations : CompostBinLocations.values()) {
 				if (compostBinLocations.binPosition.equals(position)) {
@@ -117,20 +130,34 @@ public class Compost {
 	/* this is the enum that stores the different compost bins stages */
 
 	public enum CompostBinStages {
-		FIRST_TYPE(7808, 7813, 7809, 7810, 7811, 7812, 7814, 7815, 7816, 7817, 7828, 7829, 7830, 7831), SECOND_TYPE(7818, 7823, 7819, 7820, 7821, 7822, 7824, 7825, 7826, 7827, 7832, 7833, 7834, 7835);
+		FIRST_TYPE(7808, 7813, 7809, 7810, 7811, 7812, 7814, 7815, 7816, 7817, 7828, 7829, 7830, 7831), SECOND_TYPE(
+				7818, 7823, 7819, 7820, 7821, 7822, 7824, 7825, 7826, 7827, 7832, 7833, 7834, 7835);
 		private int binEmpty;
+
 		private int closedBin;
+
 		private int binWithCompostable;
+
 		private int binFullOfCompostable;
+
 		private int binWithSuperCompostable;
+
 		private int binFullOFSuperCompostable;
+
 		private int binWithCompost;
+
 		private int binFullOfCompost;
+
 		private int binWithSuperCompost;
+
 		private int binFullOfSuperCompost;
+
 		private int binWithTomatoes;
+
 		private int binFullOfTomatoes;
+
 		private int binWithRottenTomatoes;
+
 		private int binFullOfRottenTomatoes;
 
 		private static Map<Integer, CompostBinStages> bins = new HashMap<Integer, CompostBinStages>();
@@ -141,7 +168,10 @@ public class Compost {
 			}
 		}
 
-		CompostBinStages(int binEmpty, int closedBin, int binWithCompostable, int binFullOfCompostable, int binWithSuperCompostable, int binFullOFSuperCompostable, int binWithCompost, int binFullOfCompost, int binWithSuperCompost, int binFullOfSuperCompost, int binWithTomatoes, int binFullOfTomatoes, int binWithRottenTomatoes, int binFullOfRottenTomatoes) {
+		CompostBinStages(int binEmpty, int closedBin, int binWithCompostable, int binFullOfCompostable,
+				int binWithSuperCompostable, int binFullOFSuperCompostable, int binWithCompost, int binFullOfCompost,
+				int binWithSuperCompost, int binFullOfSuperCompost, int binWithTomatoes, int binFullOfTomatoes,
+				int binWithRottenTomatoes, int binFullOfRottenTomatoes) {
 			this.binEmpty = binEmpty;
 			this.closedBin = closedBin;
 			this.binWithCompostable = binWithCompostable;
@@ -235,12 +265,15 @@ public class Compost {
 		if (compostBins[index] > 0) {
 			if (compostBins[index] % 17 == 0) {
 				finalObject = compostBinStages.getBinWithSuperCompostable();
-			} else if (compostBins[index] % 77 == 0) {
+			}
+			else if (compostBins[index] % 77 == 0) {
 				finalObject = compostBinStages.getBinWithTomatoes();
-			} else {
+			}
+			else {
 				finalObject = compostBinStages.getBinWithCompostable();
 			}
-		} else {
+		}
+		else {
 			finalObject = compostBinStages.getBinEmpty();
 		}
 
@@ -248,47 +281,51 @@ public class Compost {
 		if (compostBins[index] == 255) {
 			finalObject = compostBinStages.getBinFullOFSuperCompostable();
 			tempCompostState = 2;
-		} else if (compostBins[index] == 1155) {
+		}
+		else if (compostBins[index] == 1155) {
 			finalObject = compostBinStages.getBinFullOfTomatoes();
 			tempCompostState = 3;
-		} else if (organicItemAdded[index] == 15) {
+		}
+		else if (organicItemAdded[index] == 15) {
 			finalObject = compostBinStages.getBinFullOfCompostable();
 			tempCompostState = 1;
 		}
 		// handling the closed state of the compost bin
 		switch (compostBins[index]) {
 
-			case 100 :
-			case 200 :
-			case 300 :
-				finalObject = compostBinStages.getClosedBin();
-				break;
+		case 100:
+		case 200:
+		case 300:
+			finalObject = compostBinStages.getClosedBin();
+			break;
 
-			// handling the rotted state of the compost in the bin
-			case 150 :
-				finalObject = compostBinStages.getBinFullOfCompost();
-				break;
-			case 250 :
-				finalObject = compostBinStages.getBinFullOfSuperCompost();
-				break;
-			case 350 :
-				finalObject = compostBinStages.getBinFullOfRottenTomatoes();
-				break;
+		// handling the rotted state of the compost in the bin
+		case 150:
+			finalObject = compostBinStages.getBinFullOfCompost();
+			break;
+		case 250:
+			finalObject = compostBinStages.getBinFullOfSuperCompost();
+			break;
+		case 350:
+			finalObject = compostBinStages.getBinFullOfRottenTomatoes();
+			break;
 
 		}
 
 		// handle the compost bin state when the player retrieve the compost
 		if (compostBins[index] == 150 && organicItemAdded[index] < 15) {
 			finalObject = compostBinStages.getBinWithCompost();
-		} else if (compostBins[index] == 250 && organicItemAdded[index] < 15) {
+		}
+		else if (compostBins[index] == 250 && organicItemAdded[index] < 15) {
 			finalObject = compostBinStages.getBinWithSuperCompost();
 		}
 		if (compostBins[index] == 350 && organicItemAdded[index] < 15) {
 			finalObject = compostBinStages.getBinWithRottenTomatoes();
 		}
-		
+
 		final Position pos = new Position(x, y, z);
-		GameObject object = new GameObject(ObjectDefinition.forId(finalObject), pos, 10, CompostBinLocations.forId(index).getObjectFace());
+		GameObject object = new GameObject(ObjectDefinition.forId(finalObject), pos, 10, CompostBinLocations.forId(
+				index).getObjectFace());
 		player.send(new PositionEvent(player.getLastKnownRegion(), pos));
 		player.send(new CreateObjectEvent(object));
 	}
@@ -307,11 +344,11 @@ public class Compost {
 				updateCompostBin(index);
 				stop();
 			}
-			
+
 			public void stop() {
 				super.stop();
 			}
-			
+
 		});
 	}
 
@@ -330,14 +367,15 @@ public class Compost {
 					updateCompostBin(index);
 					stop();
 				}
-				
+
 				@Override
 				public void stop() {
 					super.stop();
 				}
-				
+
 			});
-		} else {
+		}
+		else {
 			player.sendMessage("The compost bin is still rotting. I should wait until it is complete.");
 		}
 	}
@@ -367,7 +405,8 @@ public class Compost {
 		if (organicItemUsed == TOMATO) {
 			if (compostBins[index] % 77 == 0) {
 				incrementFactor = 77;
-			} else {
+			}
+			else {
 				incrementFactor = 2;
 			}
 		}
@@ -393,19 +432,20 @@ public class Compost {
 				compostBins[index] += factor;
 				updateCompostBin(index);
 			}
-			
+
 			@Override
 			public void stop() {
 				player.stopAnimation();
 				super.stop();
 			}
-			
+
 		});
 	}
 
 	// handle what happens when the player retrieve the compost
 	public void retrieveCompost(final int index) {
-		final int finalItem = compostBins[index] == 150 ? COMPOST : compostBins[index] == 250 ? SUPER_COMPOST : ROTTE_TOMATO;
+		final int finalItem = compostBins[index] == 150 ? COMPOST : compostBins[index] == 250 ? SUPER_COMPOST
+				: ROTTE_TOMATO;
 
 		player.playAnimation(new Animation(832, 0));
 		Action<Player> action = new Action<Player>(2, false, player) {
@@ -416,7 +456,11 @@ public class Compost {
 					stop();
 					return;
 				}
-				player.getSkillSet().addExperience(Skill.FARMING, finalItem == COMPOST ? COMPOST_EXP_RETRIEVE : finalItem == SUPER_COMPOST ? SUPER_COMPOST_EXP_RETRIEVE : ROTTEN_TOMATOES_EXP_RETRIEVE);
+				player.getSkillSet().addExperience(
+						Skill.FARMING,
+						finalItem == COMPOST ? COMPOST_EXP_RETRIEVE
+								: finalItem == SUPER_COMPOST ? SUPER_COMPOST_EXP_RETRIEVE
+										: ROTTEN_TOMATOES_EXP_RETRIEVE);
 				if (compostBins[index] != 350) {
 					player.getInventory().remove(new Item(1925));
 				}
@@ -428,15 +472,15 @@ public class Compost {
 				}
 				updateCompostBin(index);
 			}
-			
+
 			@Override
 			public void stop() {
 				player.stopAnimation();
 				super.stop();
 			}
-			
+
 		};
-		
+
 		player.startAction(action);
 	}
 
@@ -444,34 +488,35 @@ public class Compost {
 
 	public boolean handleItemOnObject(int itemUsed, int objectId, int objectX, int objectY) {
 		switch (objectId) {
-			case 7814 :
-			case 7815 :
-			case 7816 :
-			case 7817 :
-			case 7824 :
-			case 7825 :
-			case 7826 :
-			case 7827 :
-				if (itemUsed == 1925) {
-					retrieveCompost(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
-				} else {
-					player.sendMessage("You might need some buckets to gather the compost.");
-				}
-				return true;
+		case 7814:
+		case 7815:
+		case 7816:
+		case 7817:
+		case 7824:
+		case 7825:
+		case 7826:
+		case 7827:
+			if (itemUsed == 1925) {
+				retrieveCompost(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
+			}
+			else {
+				player.sendMessage("You might need some buckets to gather the compost.");
+			}
+			return true;
 
-			case 7839 :
-			case 7838 :
-			case 7837 :
-			case 7836 :
-			case 7808 :
-			case 7809 :
-			case 7811 :
-			case 7819 :
-			case 7821 :
-			case 7828 :
-			case 7832 :
-				fillCompostBin(new Position(objectX, objectY), itemUsed);
-				return true;
+		case 7839:
+		case 7838:
+		case 7837:
+		case 7836:
+		case 7808:
+		case 7809:
+		case 7811:
+		case 7819:
+		case 7821:
+		case 7828:
+		case 7832:
+			fillCompostBin(new Position(objectX, objectY), itemUsed);
+			return true;
 
 		}
 		return false;
@@ -483,26 +528,26 @@ public class Compost {
 
 		switch (objectId) {
 
-			case 7810 :
-			case 7812 :
-			case 7820 :
-			case 7822 :
-			case 7829 :
-			case 7833 :
-				closeCompostBin(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
-				return true;
+		case 7810:
+		case 7812:
+		case 7820:
+		case 7822:
+		case 7829:
+		case 7833:
+			closeCompostBin(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
+			return true;
 
-			case 7813 :
-			case 7823 :
-				openCompostBin(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
-				return true;
+		case 7813:
+		case 7823:
+			openCompostBin(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
+			return true;
 
-			case 7830 :
-			case 7831 :
-			case 7834 :
-			case 7835 :
-				retrieveCompost(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
-				return true;
+		case 7830:
+		case 7831:
+		case 7834:
+		case 7835:
+			retrieveCompost(CompostBinLocations.forPosition(new Position(objectX, objectY)).getCompostIndex());
+			return true;
 
 		}
 		return false;

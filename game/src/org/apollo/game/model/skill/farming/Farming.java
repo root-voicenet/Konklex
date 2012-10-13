@@ -35,7 +35,7 @@ public class Farming {
 		if (player.getAllotment().plantSeed(x, y, item)) {
 			return true;
 		}
-		
+
 		// flowers
 		if (player.getFlowers().plantScareCrow(x, y, item)) {
 			return true;
@@ -105,20 +105,10 @@ public class Farming {
 			return true;
 		}
 		/*
-		// trees
-		if (player.getTrees().pruneArea(x, y, item)) {
-			return true;
-		}
-		if (player.getTrees().putCompost(x, y, item)) {
-			return true;
-		}
-		if (player.getTrees().plantSapling(x, y, item)) {
-			return true;
-		}
-		if (player.getTrees().clearPatch(x, y, item)) {
-			return true;
-		}
-		*/
+		 * // trees if (player.getTrees().pruneArea(x, y, item)) { return true; } if (player.getTrees().putCompost(x, y,
+		 * item)) { return true; } if (player.getTrees().plantSapling(x, y, item)) { return true; } if
+		 * (player.getTrees().clearPatch(x, y, item)) { return true; }
+		 */
 		// fruit trees
 		if (player.getFruitTrees().pruneArea(x, y, item)) {
 			return true;
@@ -182,11 +172,8 @@ public class Farming {
 			return true;
 		}
 		/*
-		// trees
-		if (player.getTrees().inspect(x, y)) {
-			return true;
-		}
-		*/
+		 * // trees if (player.getTrees().inspect(x, y)) { return true; }
+		 */
 		// fruit trees
 		if (player.getFruitTrees().inspect(x, y)) {
 			return true;
@@ -203,45 +190,14 @@ public class Farming {
 	}
 
 	/*
-	public static boolean guide(Player player, int x, int y) {
-		// allotments
-		if (player.getAllotment().guide(x, y)) {
-			return true;
-		} // flowers
-		if (player.getFlowers().guide(x, y)) {
-			return true;
-		}
-		// herbs
-		if (player.getHerbs().guide(x, y)) {
-			return true;
-		}
-		// hops
-		if (player.getHops().guide(x, y)) {
-			return true;
-		}
-		// bushes
-		if (player.getBushes().guide(x, y)) {
-			return true;
-		}
-		// trees
-		if (player.getTrees().guide(x, y)) {
-			return true;
-		}
-		// fruit trees
-		if (player.getFruitTrees().guide(x, y)) {
-			return true;
-		}
-		// special plant one
-		if (player.getSpecialPlantOne().guide(x, y)) {
-			return true;
-		}
-		// special plant two
-		if (player.getSpecialPlantTwo().guide(x, y)) {
-			return true;
-		}
-		return false;
-	}
-	*/
+	 * public static boolean guide(Player player, int x, int y) { // allotments if (player.getAllotment().guide(x, y)) {
+	 * return true; } // flowers if (player.getFlowers().guide(x, y)) { return true; } // herbs if
+	 * (player.getHerbs().guide(x, y)) { return true; } // hops if (player.getHops().guide(x, y)) { return true; } //
+	 * bushes if (player.getBushes().guide(x, y)) { return true; } // trees if (player.getTrees().guide(x, y)) { return
+	 * true; } // fruit trees if (player.getFruitTrees().guide(x, y)) { return true; } // special plant one if
+	 * (player.getSpecialPlantOne().guide(x, y)) { return true; } // special plant two if
+	 * (player.getSpecialPlantTwo().guide(x, y)) { return true; } return false; }
+	 */
 
 	public static boolean harvest(Player player, int x, int y) {
 		// allotments
@@ -266,14 +222,9 @@ public class Farming {
 			return true;
 		}
 		/*
-		// trees
-		if (player.getTrees().checkHealth(x, y)) {
-			return true;
-		}
-		if (player.getTrees().cut(x, y)) {
-			return true;
-		}
-		*/
+		 * // trees if (player.getTrees().checkHealth(x, y)) { return true; } if (player.getTrees().cut(x, y)) { return
+		 * true; }
+		 */
 		// fruit trees
 		if (player.getFruitTrees().harvestOrCheckHealth(x, y)) {
 			return true;

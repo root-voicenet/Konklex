@@ -13,12 +13,12 @@ import org.jboss.netty.handler.codec.frame.FrameDecoder;
  * @author Steve
  */
 public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
-	
+
 	/**
 	 * The api packet length.
 	 */
 	private int apiLength;
-	
+
 	/**
 	 * The nodes.
 	 */
@@ -33,12 +33,13 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel.
-	 * ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
+	 * 
+	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel. ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
 	 */
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, ApiDecoderState state) throws Exception {
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, ApiDecoderState state)
+			throws Exception {
 		switch (state) {
 		case LOGIN_HANDSHAKE:
 			return decodeHandshake(ctx, channel, buffer);
@@ -101,7 +102,8 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 				buf.writeByte(1);
 				channel.write(buf);
 				setState(ApiDecoderState.LOGIN_PAYLOAD);
-			} else {
+			}
+			else {
 				throw new Exception("Invalid password");
 			}
 		}

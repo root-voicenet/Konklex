@@ -38,7 +38,8 @@ public final class BankUtils {
 			inventory.stopFiringEvents();
 		try {
 			removed = inventory.remove(item.getId(), amount);
-		} finally {
+		}
+		finally {
 			if (amount > 1)
 				inventory.startFiringEvents();
 		}
@@ -72,7 +73,8 @@ public final class BankUtils {
 			inventory.stopFiringEvents();
 		try {
 			removed = inventory.remove(item.getId(), amount);
-		} finally {
+		}
+		finally {
 			if (amount > 1)
 				inventory.startFiringEvents();
 		}
@@ -144,7 +146,8 @@ public final class BankUtils {
 		try {
 			bank.remove(item.getId(), amount - remaining);
 			bank.shift();
-		} finally {
+		}
+		finally {
 			bank.startFiringEvents();
 		}
 		bank.forceRefresh();

@@ -16,23 +16,23 @@ import org.jboss.netty.channel.group.DefaultChannelGroup;
  * @author Steve
  */
 public final class ApolloServerChannelGroup extends DefaultChannelGroup {
-	
+
 	/**
 	 * The channels.
 	 */
 	private final List<Channel> channels = new ArrayList<Channel>();
-	
+
 	/**
 	 * The worlds.
 	 */
 	private final Map<Integer, World> worlds = new HashMap<Integer, World>();
-	
+
 	@Override
 	public boolean add(Channel e) {
 		worlds.put(channels.size() + 1, new World());
 		return channels.add(e) && super.add(e);
 	}
-	
+
 	/**
 	 * Writes to other worlds.
 	 * @param object The object to write.
@@ -49,7 +49,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 				}
 			}
 	}
-	
+
 	/**
 	 * Checks if a player is online.
 	 * @param index The index.
@@ -59,7 +59,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 	public boolean isPlayerOnline(int index, String player) {
 		return worlds.containsKey(index) && worlds.get(index).isPlayerOnline(player);
 	}
-	
+
 	/**
 	 * Checks if a player is online.
 	 * @param index The index.
@@ -74,12 +74,12 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 		}
 		return contains;
 	}
-	
+
 	@Override
 	public boolean remove(Object o) {
 		return channels.remove(o) && super.remove(o);
 	}
-	
+
 	/**
 	 * Checks if the group contains the world.
 	 * @param index The world index.
@@ -88,7 +88,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 	public boolean contains(int index) {
 		return worlds.containsKey(index);
 	}
-	
+
 	/**
 	 * Gets the channel.
 	 * @param index The world index.
@@ -99,7 +99,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 			return channels.get(index);
 		return null;
 	}
-	
+
 	/**
 	 * Gets the player.
 	 * @param player The player.
@@ -112,7 +112,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * Gets the size of the channels.
 	 * @return The size of the channels.
@@ -120,7 +120,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 	public int size() {
 		return channels.size();
 	}
-	
+
 	/**
 	 * Gets the size of the world.
 	 * @return The size of the world.
@@ -130,7 +130,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 			return worlds.get(index).getPlayers().size();
 		return 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		String buf = "";
@@ -139,7 +139,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 		}
 		return buf;
 	}
-	
+
 	/**
 	 * Gets the worlds.
 	 * @return The worlds.
@@ -147,7 +147,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 	public final Map<Integer, World> getWorlds() {
 		return worlds;
 	}
-	
+
 	/**
 	 * Gets the players.
 	 * @return The players.
@@ -157,7 +157,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 			return worlds.get(index).getPlayers();
 		return null;
 	}
-	
+
 	/**
 	 * Gets the world.
 	 * @param world The world.
@@ -168,7 +168,7 @@ public final class ApolloServerChannelGroup extends DefaultChannelGroup {
 			return worlds.get(world);
 		return null;
 	}
-	
+
 	/**
 	 * Gets the players rights.
 	 * @param player The player.

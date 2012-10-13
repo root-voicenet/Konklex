@@ -8,7 +8,6 @@ import org.apollo.game.model.inter.store.Shop;
 
 /**
  * Implements a {@code ::shop} command that opens a shop.
- * 
  * @author Steve
  */
 public final class ShopCommandListener implements CommandListener {
@@ -18,7 +17,8 @@ public final class ShopCommandListener implements CommandListener {
 		if (command.getArguments().length == 1) {
 			final int shop = Integer.parseInt(command.getArguments()[0]);
 			World.getWorld().getStores().openShop(player, shop);
-		} else if (command.getArguments().length == 2) {
+		}
+		else if (command.getArguments().length == 2) {
 			final int shop = Integer.parseInt(command.getArguments()[0]);
 			final String name = command.getArguments()[1];
 			World.getWorld().getStores().addShop(shop, new Shop(name));

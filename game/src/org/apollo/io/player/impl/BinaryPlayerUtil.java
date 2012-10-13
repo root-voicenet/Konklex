@@ -5,8 +5,7 @@ import java.io.File;
 import org.apollo.util.NameUtil;
 
 /**
- * A utility class with common functionality used by the binary player loader/
- * savers.
+ * A utility class with common functionality used by the binary player loader/ savers.
  * @author Graham
  */
 public final class BinaryPlayerUtil {

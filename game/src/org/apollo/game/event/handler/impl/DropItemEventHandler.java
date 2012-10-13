@@ -16,10 +16,9 @@ public final class DropItemEventHandler extends EventHandler<ItemOptionEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, ItemOptionEvent event) {
@@ -30,7 +29,8 @@ public final class DropItemEventHandler extends EventHandler<ItemOptionEvent> {
 				final GroundItem groundItem = new GroundItem(player.getName(), item, player.getPosition());
 				World.getWorld().register(groundItem);
 				player.getInventory().reset(slot);
-			} else
+			}
+			else
 				ctx.breakHandlerChain();
 		}
 	}

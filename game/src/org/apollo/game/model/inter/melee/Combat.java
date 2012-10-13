@@ -32,24 +32,24 @@ public final class Combat {
 
 	/**
 	 * Handles the attacking packet.
-	 * @param source	Character that initiates combat.
-	 * @param victim	Character that is being attacked.
+	 * @param source Character that initiates combat.
+	 * @param victim Character that is being attacked.
 	 */
 	public static void attack(Character source, Character victim) {
-		if (source == null || victim == null ||
-				source.getHealth() <= 0 || victim.getHealth() <= 0) {
+		if (source == null || victim == null || source.getHealth() <= 0 || victim.getHealth() <= 0) {
 			return;
 		}
 		if (source.getMeleeSet().isUnderAttack()) {
 			if (source.isControlling()) {
-				((Player)source).sendMessage("You are already in combat!");
+				((Player) source).sendMessage("You are already in combat!");
 			}
 			return;
 		}
 		if (victim.getMeleeSet().isUnderAttack()) {
 			if (!victim.getMeleeSet().getInteractingCharacter().equals(source)) {
 				if (source.isControlling()) {
-					((Player)source).sendMessage("This " + (victim.isControlling() ? "player" : "npc") + " is already in combat!");
+					((Player) source).sendMessage("This " + (victim.isControlling() ? "player" : "npc")
+							+ " is already in combat!");
 				}
 			}
 			return;
@@ -60,18 +60,20 @@ public final class Combat {
 				source.getWalkingQueue().clear();
 			}
 			initiateInteraction(source, victim);
-		} else {
+		}
+		else {
 			walkToVictim(source, victim, true);
 		}
 	}
 
 	/**
-	 * Combat process, used to check if player is under attack,
-	 * lower attack timer, walk to the Character if not in distance, etc.
-	 * @param source	Character to process.
+	 * Combat process, used to check if player is under attack, lower attack timer, walk to the Character if not in
+	 * distance, etc.
+	 * @param source Character to process.
 	 */
 	public static void process(Character source) {
-		if (source.getMeleeSet().getInteractingCharacter() != null && source.getMeleeSet().isUnderAttack() && System.currentTimeMillis() - source.getMeleeSet().getLastAttack() >= 10000) {
+		if (source.getMeleeSet().getInteractingCharacter() != null && source.getMeleeSet().isUnderAttack()
+				&& System.currentTimeMillis() - source.getMeleeSet().getLastAttack() >= 10000) {
 			if (!source.getMeleeSet().isAttacking())
 				source.getMeleeSet().setInteractingCharacter(null);
 			source.getMeleeSet().setUnderAttack(false);
@@ -82,7 +84,7 @@ public final class Combat {
 				source.resetMeleeSet();
 			}
 			final int type = grabHitType(source);
-			switch(type) {
+			switch (type) {
 			case MELEE:
 				if (!source.getPosition().isWithinDistance(victim.getPosition(), 1)) {
 					walkToVictim(source, victim, false);
@@ -100,13 +102,17 @@ public final class Combat {
 			source.turnTo(victim.getPosition());
 			int time = source.getMeleeSet().getAttackTimer();
 			if (time > 0) {
-				source.getMeleeSet().setAttackTimer(time-1);
-				ScheduledTask task = source.getMeleeSet().getTask(); // comes after we attack.
+				source.getMeleeSet().setAttackTimer(time - 1);
+				ScheduledTask task = source.getMeleeSet().getTask(); // comes
+																		// after
+																		// we
+																		// attack.
 				if (task != null) {
 					World.getWorld().schedule(task);
 					source.getMeleeSet().setTask(null);
 				}
-			} else {
+			}
+			else {
 				int damage = TextUtil.random(grabMaxHit(type, source, victim));
 				if (appendHit(type, source, victim, damage)) {
 					if (source.getMeleeSet().isUsingSpecial()) {
@@ -128,30 +134,30 @@ public final class Combat {
 	 * @param damage The damage done.
 	 */
 	private static void appendSpecial(int type, Character source, Character victim, int damage) {
-		switch(type) {
+		switch (type) {
 		case MAGIC:
 			break;
 		default:
 			damage *= 1.25;
 			break;
 		}
-		source.getMeleeSet().setSpecial(source.getMeleeSet().getSpecial()-25);
+		source.getMeleeSet().setSpecial(source.getMeleeSet().getSpecial() - 25);
 	}
 
 	/**
-	 * Appends a hit to the victim. 
+	 * Appends a hit to the victim.
 	 * @param type The type.
 	 * @param source The source.
-	 * @param victim The victim. 
+	 * @param victim The victim.
 	 * @param damage The damage.
 	 * @return True if hit was successful, false if not.
 	 */
 	private static boolean appendHit(int type, Character source, Character victim, int damage) {
-		switch(type) {
+		switch (type) {
 		case RANGED:
 			return appendRange(source, victim, damage);
 		case MAGIC:
-			return appendMagic(source, victim,damage);
+			return appendMagic(source, victim, damage);
 		default:
 			return appendMelee(source, victim, damage);
 		}
@@ -170,42 +176,27 @@ public final class Combat {
 		Mage spell = MagicConstants.Mage.forMagic(source.getMeleeSet().getMagicSpellId());
 		if (spell != null) {
 			/*
-			for (Item item : spell.getItems()) {
-				if (source.getInventory().contains(item)) {
-					source.getInventory().remove(item);
-				} else {
-					source.sendMessage("You do not have enough runes to cast this spell!");
-					return false;
-				}
-			}
+			 * for (Item item : spell.getItems()) { if (source.getInventory().contains(item)) {
+			 * source.getInventory().remove(item); } else {
+			 * source.sendMessage("You do not have enough runes to cast this spell!" ); return false; } }
 			 */
 
 			if (spell.getLevelReq() > source.getSkillSet().getSkill(Skill.MAGIC).getCurrentLevel()) {
 				source.sendMessage("You do not have the required level to cast this spell!");
 				return false;
 			}
-			
+
 			source.playAnimation(spell.getAnimation());
-			
+
 			if (TextUtil.random(4) == 1) {
 				victim.playGraphic(new Graphic(339, 0, 100));
 				return false;
 			}
 
 			victim.playGraphic(spell.getGraphics().get(0));
-			ProjectileEvent mageProjectile = new ProjectileEvent(
-					source.getPosition(),
-					0,
-					victim.isControlling() ? -victim.getIndex()-1 : victim.getIndex()+1,
-							(byte) offsetX,
-							(byte) offsetY,
-							spell.getProjectile(),
-							51,
-							90,
-							43,
-							31,
-							16
-					);
+			ProjectileEvent mageProjectile = new ProjectileEvent(source.getPosition(), 0,
+					victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
+					(byte) offsetY, spell.getProjectile(), 51, 90, 43, 31, 16);
 			source.getRegion().sendEvent(mageProjectile);
 			victim.playGraphic(spell.getGraphics().get(1));
 			victim.getWalkingQueue().stop(15);
@@ -219,24 +210,16 @@ public final class Combat {
 					for (Character character : characters) {
 						if (!character.equals(source) && !character.equals(victim)) {
 							if (character.getPosition().isWithinDistance(victim.getPosition(), 4)) {
-								if (hit > 18) break;
+								if (hit > 18)
+									break;
 								offsetX = (source.getPosition().getX() - character.getPosition().getX()) * -1;
 								offsetY = (source.getPosition().getY() - character.getPosition().getY()) * -1;
 								character.getWalkingQueue().stop(15);
 								character.playGraphic(spell.getGraphics().get(0));
-								ProjectileEvent projectile = new ProjectileEvent(
-										source.getPosition(),
-										0,
-										character.isControlling() ? -character.getIndex()-1 : character.getIndex()+1,
-												(byte) offsetX,
-												(byte) offsetY,
-												spell.getProjectile(),
-												51,
-												90,
-												43,
-												31,
-												16
-										);
+								ProjectileEvent projectile = new ProjectileEvent(source.getPosition(), 0,
+										character.isControlling() ? -character.getIndex() - 1
+												: character.getIndex() + 1, (byte) offsetX, (byte) offsetY,
+										spell.getProjectile(), 51, 90, 43, 31, 16);
 								source.getRegion().sendEvent(projectile);
 								character.playGraphic(spell.getGraphics().get(1));
 								character.damage(TextUtil.random(damage));
@@ -266,37 +249,35 @@ public final class Combat {
 			if (item.getAmount() > 0) {
 				int projectile = RangeConstants.Range.forArrow(item.getId());
 				if (projectile != -1) {
-					ProjectileEvent rangeProjectile = new ProjectileEvent(
-							source.getPosition(),
-							0,
-							victim.isControlling() ? -victim.getIndex()-1 : victim.getIndex() + 1,
-									(byte) offsetX,
-									(byte) offsetY,
-									projectile,
-									51, // Delay, Default: 51
-									70, // Duration, Default: 70
-									43,
-									31,
-									16
-							);
+					ProjectileEvent rangeProjectile = new ProjectileEvent(source.getPosition(), 0,
+							victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
+							(byte) offsetY, projectile, 51, // Delay, Default:
+															// 51
+							70, // Duration, Default: 70
+							43, 31, 16);
 					source.getRegion().sendEvent(rangeProjectile);
 					source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
 					if (TextUtil.random(2) == 1) {
 						if (source.isControlling()) {
 							String name = ((Player) source).getName();
-							World.getWorld().register(new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
-						} else {
+							World.getWorld().register(
+									new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
+						}
+						else {
 							World.getWorld().register(new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
 						}
 					}
-				} else
+				}
+				else
 					return false;
-			} else {
+			}
+			else {
 				if (source.isControlling())
 					source.sendMessage("There is no more ammo left in your quiver!");
 				return false;
 			}
-		} else {
+		}
+		else {
 			return false;
 		}
 		source.playAnimation(new Animation(426));
@@ -372,24 +353,26 @@ public final class Combat {
 					else
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(item, position));
-				} else {
+				}
+				else {
 					if (victim.isControlling()) {
 						for (Item item : inventory) {
 							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
 						}
-					} else
+					}
+					else
 						for (Item item : inventory)
 							World.getWorld().register(new GroundItem(item, position));
 				}
 
 				if (!victim.isControlling()) {
-					//World.getWorld().unregister((Npc) victim);
+					// World.getWorld().unregister((Npc) victim);
 					World.getWorld().schedule(new ScheduledTask(300, false) {
 
 						@Override
 						public void execute() {
 							victim.getMeleeSet().setDying(false);
-							//World.getWorld().register((Npc) victim);
+							// World.getWorld().register((Npc) victim);
 							stop();
 						}
 
@@ -403,15 +386,15 @@ public final class Combat {
 
 	/**
 	 * Calculates entity's max hit.
-	 * @param type      The type of max hit to calculate.
-	 * @param source	Entity to grab max hit for.
-	 * @param victim	To have for calculating their defense bonus, etc.
-	 * @return			Source's max hit.
+	 * @param type The type of max hit to calculate.
+	 * @param source Entity to grab max hit for.
+	 * @param victim To have for calculating their defense bonus, etc.
+	 * @return Source's max hit.
 	 */
 	@SuppressWarnings("unused")
 	private static int grabMaxHit(int type, Character source, Character victim) {
 		double MaxHit = 0;
-		switch(type) {
+		switch (type) {
 		case MAGIC:
 			int MgBonus = 1; // Magic Bonus
 			int Magic = source.getSkillSet().getSkill(Skill.MAGIC).getCurrentLevel(); // Magic
@@ -427,7 +410,7 @@ public final class Combat {
 			MaxHit += d1 * 0.11D;
 			Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
 			if (item != null) {
-				switch(item.getId()) {
+				switch (item.getId()) {
 				case 882:
 				case 883:
 					MaxHit *= 1.042D;
@@ -476,8 +459,8 @@ public final class Combat {
 
 	/**
 	 * Gets character's attack type; melee, ranged or magic.
-	 * @param character	Character to get attack type for.
-	 * @return			Character's attack type.
+	 * @param character Character to get attack type for.
+	 * @return Character's attack type.
 	 */
 	private static int grabHitType(Character character) {
 		if (character.isControlling()) {
@@ -494,7 +477,8 @@ public final class Combat {
 			if (strn.contains("bow")) {
 				return RANGED;
 			}
-		} else if (!character.isControlling()) {
+		}
+		else if (!character.isControlling()) {
 			// return ((NPC)Character).getAttacktype().getId();
 			return MELEE;
 		}
@@ -503,8 +487,8 @@ public final class Combat {
 
 	/**
 	 * Initiates an interaction between two entities.
-	 * @param source	Initiating Character.
-	 * @param victim	Character being attacked.
+	 * @param source Initiating Character.
+	 * @param victim Character being attacked.
 	 */
 	private static void initiateInteraction(final Character source, final Character victim) {
 		source.getMeleeSet().setInteractingCharacter(victim);
@@ -518,9 +502,9 @@ public final class Combat {
 
 	/**
 	 * Handles an Character walking to their victim if distance is off.
-	 * @param source		Character that will walk to victim.
-	 * @param victim		Character being attacked.
-	 * @param initAttack	Check if it's the first time attack is being initialized.
+	 * @param source Character that will walk to victim.
+	 * @param victim Character being attacked.
+	 * @param initAttack Check if it's the first time attack is being initialized.
 	 */
 	private static void walkToVictim(final Character source, final Character victim, final boolean initAttack) {
 		World.getWorld().schedule(new ScheduledTask(0, true) {
@@ -531,7 +515,8 @@ public final class Combat {
 					final int y = victim.getPosition().getY() - (source.getPosition().getY() + 1);
 					final Position walkToPosition = source.getPosition().transform(x, y, 0);
 					source.getWalkingQueue().walkTo(walkToPosition);
-				} else {
+				}
+				else {
 					if (initAttack)
 						attack(source, victim);
 					stop();

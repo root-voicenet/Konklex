@@ -7,7 +7,6 @@ import org.apollo.game.event.handler.chain.EventHandlerChain;
 
 /**
  * A group of {@link MethodHandlerChain}s classified by the {@link Method} type.
- * 
  * @author Steve
  */
 public final class MethodHandlerChainGroup {
@@ -19,24 +18,17 @@ public final class MethodHandlerChainGroup {
 
 	/**
 	 * Creates the method handler chain group.
-	 * 
-	 * @param chains
-	 *            The chains map.
+	 * @param chains The chains map.
 	 */
-	public MethodHandlerChainGroup(
-			Map<Class<? extends Method>, MethodHandlerChain<?>> chains) {
+	public MethodHandlerChainGroup(Map<Class<? extends Method>, MethodHandlerChain<?>> chains) {
 		this.chains = chains;
 	}
 
 	/**
 	 * Gets an {@link EventHandlerChain} from this group.
-	 * 
-	 * @param <E>
-	 *            The type of method.
-	 * @param clazz
-	 *            The event class.
-	 * @return The {@link MethodHandlerChain} if one was found, {@code null}
-	 *         otherwise.
+	 * @param <E> The type of method.
+	 * @param clazz The event class.
+	 * @return The {@link MethodHandlerChain} if one was found, {@code null} otherwise.
 	 */
 	@SuppressWarnings("unchecked")
 	public <E extends Method> MethodHandlerChain<E> getChain(Class<E> clazz) {

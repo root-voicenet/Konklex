@@ -28,8 +28,8 @@ public final class RubyPluginEnvironment implements PluginEnvironment {
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.util.plugin.PluginEnvironment#parse(java.io.InputStream,
-	 * java.lang.String)
+	 * 
+	 * @see org.apollo.util.plugin.PluginEnvironment#parse(java.io.InputStream, java.lang.String)
 	 */
 	@Override
 	public void parse(InputStream is, String name) {
@@ -45,16 +45,16 @@ public final class RubyPluginEnvironment implements PluginEnvironment {
 		final InputStream is = new FileInputStream(f);
 		try {
 			parse(is, f.getAbsolutePath());
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.util.plugin.PluginEnvironment#setContext(org.apollo.util.plugin
-	 * .PluginContext)
+	 * 
+	 * @see org.apollo.util.plugin.PluginEnvironment#setContext(org.apollo.util.plugin .PluginContext)
 	 */
 	@Override
 	public void setContext(PluginContext context) {

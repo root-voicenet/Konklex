@@ -16,8 +16,8 @@ public final class BuildPlayerMenuEventEncoder extends EventEncoder<BuildPlayerM
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(BuildPlayerMenuEvent event) {

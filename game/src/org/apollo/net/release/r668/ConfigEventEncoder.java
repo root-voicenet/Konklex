@@ -19,8 +19,8 @@ public class ConfigEventEncoder extends EventEncoder<ConfigEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(ConfigEvent event) {
@@ -30,7 +30,8 @@ public class ConfigEventEncoder extends EventEncoder<ConfigEvent> {
 			builder = new GamePacketBuilder(101);
 			builder.put(DataType.SHORT, event.getId());
 			builder.put(DataType.BYTE, DataTransformation.ADD, value);
-		} else {
+		}
+		else {
 			builder = new GamePacketBuilder(39);
 			builder.put(DataType.INT, DataOrder.INVERSED_MIDDLE, event.getId());
 			builder.put(DataType.SHORT, DataTransformation.ADD, value);

@@ -70,7 +70,8 @@ public final class ObjectDefinitionParser {
 				code = buffer.get() & 0xFF;
 				if (code == 0) {
 					break outer_loop;
-				} else if (code == 1) {
+				}
+				else if (code == 1) {
 					final int len = buffer.get();
 					if (len > 0) {
 						modelIds = new int[len];
@@ -79,61 +80,80 @@ public final class ObjectDefinitionParser {
 							modelIds[k1] = buffer.getShort();
 							objectTypes[k1] = buffer.get();
 						}
-					} else {
+					}
+					else {
 						buffer.position(buffer.position() + (len * 3));
 					}
-				} else if (code == 2) {
+				}
+				else if (code == 2) {
 					def.setName(ByteBufferUtil.readString(buffer));
-				} else if (code == 3) {
+				}
+				else if (code == 3) {
 					def.setDescription(ByteBufferUtil.readString(buffer));
-				} else if (code == 5) {
+				}
+				else if (code == 5) {
 					final int len = buffer.get();
 					if (len > 0) {
 						modelIds = new int[len];
 						for (int k1 = 0; k1 < len; k1++) {
 							modelIds[k1] = buffer.getShort();
 						}
-					} else {
+					}
+					else {
 						buffer.position(buffer.position() + (len * 3));
 					}
-				} else if (code == 14) {
+				}
+				else if (code == 14) {
 					int sizeX = buffer.get() & 0xFF;
 					def.setSizeX(sizeX);
-				} else if (code == 15) {
+				}
+				else if (code == 15) {
 					int sizeY = buffer.get() & 0xFF;
 					def.setSizeY(sizeY);
-				} else if (code == 17) {
+				}
+				else if (code == 17) {
 					def.setWalkable(false);
-				} else if (code == 18) {
+				}
+				else if (code == 18) {
 					def.setSolid(false);
-				} else if (code == 19) {
+				}
+				else if (code == 19) {
 					interactableValue = buffer.get() & 0xFF;
 					def.setInteractable(interactableValue == 1);
-				} else if (code == 21) {
+				}
+				else if (code == 21) {
 					@SuppressWarnings("unused")
 					boolean flatTerrain = true;
-				} else if (code == 22) {
+				}
+				else if (code == 22) {
 					@SuppressWarnings("unused")
 					boolean flatShading = true;
-				} else if (code == 23) {
+				}
+				else if (code == 23) {
 					@SuppressWarnings("unused")
 					boolean unknown = true;
-				} else if (code == 24) {
+				}
+				else if (code == 24) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.getShort() & 0xFFFF;
-				} else if (code == 28) {
+				}
+				else if (code == 28) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.get();
-				} else if (code == 29) {
+				}
+				else if (code == 29) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.get();
-				} else if (code == 39) {
+				}
+				else if (code == 39) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.get();
-				} else if (code >= 30 && code < 39) {
+				}
+				else if (code >= 30 && code < 39) {
 					String action = ByteBufferUtil.readString(buffer);
 					def.addAction(code - 30, action);
-				} else if (code == 40) {
+				}
+				else if (code == 40) {
 					int i1 = buffer.get();
 					for (int i2 = 0; i2 < i1; i2++) {
 						@SuppressWarnings("unused")
@@ -141,42 +161,56 @@ public final class ObjectDefinitionParser {
 						@SuppressWarnings("unused")
 						int unknown2 = buffer.getShort() & 0xFFFF;
 					}
-				} else if (code == 60) {
+				}
+				else if (code == 60) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.getShort() & 0xFFFF;
-				} else if (code == 62) {
+				}
+				else if (code == 62) {
 					// idk
-				} else if (code == 64) {
+				}
+				else if (code == 64) {
 					// idk
-				} else if (code == 65) {
+				}
+				else if (code == 65) {
 					int scaleX = buffer.getShort() & 0xFFFF;
 					def.setScaleX(scaleX);
-				} else if (code == 66) {
+				}
+				else if (code == 66) {
 					int scaleY = buffer.getShort() & 0xFFFF;
 					def.setScaleY(scaleY);
-				} else if (code == 67) {
+				}
+				else if (code == 67) {
 					int scaleZ = buffer.getShort() & 0xFFFF;
 					def.setScaleZ(scaleZ);
-				} else if (code == 68) {
+				}
+				else if (code == 68) {
 					int mapSceneId = buffer.getShort() & 0xFFFF;
 					def.setMapSceneId(mapSceneId);
-				} else if (code == 69) {
+				}
+				else if (code == 69) {
 					@SuppressWarnings("unused")
 					int unknown = buffer.get();
-				} else if (code == 70) {
+				}
+				else if (code == 70) {
 					int offsetX = buffer.getShort() & 0xFFFF;
 					def.setOffsetX(offsetX);
-				} else if (code == 71) {
+				}
+				else if (code == 71) {
 					int offsetY = buffer.getShort() & 0xFFFF;
 					def.setOffsetY(offsetY);
-				} else if (code == 72) {
+				}
+				else if (code == 72) {
 					int offsetZ = buffer.getShort() & 0xFFFF;
 					def.setOffsetZ(offsetZ);
-				} else if (code == 73) {
+				}
+				else if (code == 73) {
 					// idk
-				} else if (code == 74) {
+				}
+				else if (code == 74) {
 					// idk
-				} else {
+				}
+				else {
 					if (code != 75) {
 						continue;
 					}

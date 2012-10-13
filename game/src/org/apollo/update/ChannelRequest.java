@@ -3,8 +3,7 @@ package org.apollo.update;
 import org.jboss.netty.channel.Channel;
 
 /**
- * A specialised request which contains a channel as well as the request object
- * itself.
+ * A specialised request which contains a channel as well as the request object itself.
  * @param <T> The type of request.
  * @author Graham
  */
@@ -32,6 +31,7 @@ public final class ChannelRequest<T> implements Comparable<ChannelRequest<T>> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@SuppressWarnings("unchecked")

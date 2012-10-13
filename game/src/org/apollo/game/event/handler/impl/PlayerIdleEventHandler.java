@@ -16,7 +16,8 @@ public final class PlayerIdleEventHandler extends EventHandler<PlayerIdleEvent> 
 	public void handle(EventHandlerContext ctx, Player player, PlayerIdleEvent event) {
 		if (player.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER)) {
 			ctx.breakHandlerChain();
-		} else {
+		}
+		else {
 			player.logout();
 		}
 	}

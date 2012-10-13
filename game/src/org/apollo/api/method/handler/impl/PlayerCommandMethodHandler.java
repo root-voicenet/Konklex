@@ -24,7 +24,8 @@ public final class PlayerCommandMethodHandler extends MethodHandler<PlayerComman
 		final Command command = createCommand(method.getCommand());
 		if (world.isPlayerOnline(player)) {
 			world.getCommandDispatcher().dispatch(world.getPlayer(player), command);
-		} else if (player.equalsIgnoreCase("Server")) {
+		}
+		else if (player.equalsIgnoreCase("Server")) {
 			final PlayerCredentials credentials = new PlayerCredentials("Server", "", 0, 0);
 			final Player fakePlayer = new Player(credentials, new Position(0, 0));
 			fakePlayer.setPrivilegeLevel(PrivilegeLevel.OWNER);

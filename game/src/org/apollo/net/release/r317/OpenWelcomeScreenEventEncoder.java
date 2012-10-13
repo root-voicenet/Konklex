@@ -9,19 +9,15 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link OpenWelcomeScreenEvent}
- * 
  * @author Steve
  */
-public final class OpenWelcomeScreenEventEncoder extends
-EventEncoder<OpenWelcomeScreenEvent> {
+public final class OpenWelcomeScreenEventEncoder extends EventEncoder<OpenWelcomeScreenEvent> {
 
 	@Override
 	public GamePacket encode(OpenWelcomeScreenEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(176);
-		builder.put(DataType.BYTE, DataTransformation.NEGATE,
-				event.getDaysSinceLastRecovery());
-		builder.put(DataType.SHORT, DataTransformation.ADD,
-				event.getUnreadMessages());
+		builder.put(DataType.BYTE, DataTransformation.NEGATE, event.getDaysSinceLastRecovery());
+		builder.put(DataType.SHORT, DataTransformation.ADD, event.getUnreadMessages());
 		builder.put(DataType.BYTE, event.isMember() ? 1 : 0);
 		builder.put(DataType.INT, event.getLastLoggedIp());
 		builder.put(DataType.SHORT, event.getLastLoggedIn());

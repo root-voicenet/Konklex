@@ -8,11 +8,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link UpdateRunEnergyEvent}
- * 
  * @author Steve
  */
-public final class UpdateRunEnergyEventEncoder extends
-EventEncoder<UpdateRunEnergyEvent> {
+public final class UpdateRunEnergyEventEncoder extends EventEncoder<UpdateRunEnergyEvent> {
 
 	@Override
 	public GamePacket encode(UpdateRunEnergyEvent event) {

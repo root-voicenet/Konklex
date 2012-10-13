@@ -20,8 +20,7 @@ public final class EquipmentDefinition {
 	/**
 	 * Gets an equipment definition by its id.
 	 * @param id The id.
-	 * @return {@code null} if the item is not equipment, the definition
-	 * otherwise.
+	 * @return {@code null} if the item is not equipment, the definition otherwise.
 	 */
 	public static EquipmentDefinition forId(int id) {
 		if (id < 0 || id >= ItemDefinition.count())
@@ -58,7 +57,7 @@ public final class EquipmentDefinition {
 	 * The required levels.
 	 */
 	private int attack = 1, strength = 1, defence = 1, ranged = 1, magic = 1;
-	
+
 	/**
 	 * The bonuses.
 	 */
@@ -164,7 +163,7 @@ public final class EquipmentDefinition {
 	public boolean isTwoHanded() {
 		return twoHanded;
 	}
-	
+
 	/**
 	 * Gets the item bonuses.
 	 * @return The item bonuses.
@@ -210,7 +209,7 @@ public final class EquipmentDefinition {
 	public void setSlot(int slot) {
 		this.slot = slot;
 	}
-	
+
 	/**
 	 * Sets the bonuses.
 	 * @param bonuses The bonuses.

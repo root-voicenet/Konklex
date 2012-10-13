@@ -14,8 +14,8 @@ public final class SendFriendEventEncoder extends EventEncoder<SendFriendEvent> 
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(SendFriendEvent event) {

@@ -10,9 +10,7 @@ import org.apollo.game.model.region.Region;
 import org.apollo.game.model.region.RegionManager;
 
 /**
- * A class which assist in building <code>TileMap</code>s from a collection of
- * <code>GameObject</code>s.
- * 
+ * A class which assist in building <code>TileMap</code>s from a collection of <code>GameObject</code>s.
  * @author Graham Edgecombe
  */
 public class TileMapBuilder {
@@ -33,13 +31,9 @@ public class TileMapBuilder {
 	private final int radius;
 
 	/**
-	 * Sets up the tile map builder with the specified radius, and center
-	 * position.
-	 * 
-	 * @param position
-	 *            The center position.
-	 * @param radius
-	 *            The radius.
+	 * Sets up the tile map builder with the specified radius, and center position.
+	 * @param position The center position.
+	 * @param radius The radius.
 	 */
 	public TileMapBuilder(Position position, int radius) {
 		this.centerPosition = position;
@@ -49,7 +43,6 @@ public class TileMapBuilder {
 
 	/**
 	 * Builds the tile map.
-	 * 
 	 * @return The built tile map.
 	 */
 	public TileMap build() {
@@ -91,15 +84,12 @@ public class TileMapBuilder {
 					sizeY = temp;
 				}
 
-				if (posX + sizeX < 0 || posY + sizeY < 0
-						|| posX >= tileMap.getWidth()
-						|| posY >= tileMap.getHeight())
+				if (posX + sizeX < 0 || posY + sizeY < 0 || posX >= tileMap.getWidth() || posY >= tileMap.getHeight())
 					continue;
 
 				if (obj.getType() >= 0 && obj.getType() <= 3) {
 					// walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth()
-							&& posY < tileMap.getHeight()) {
+					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 						// int finalRotation = (obj.getType() +
 						// obj.getRotation()) % 4;
 						final int finalRotation = obj.getRotation();
@@ -119,28 +109,28 @@ public class TileMapBuilder {
 						if (flags != t.getTraversalMask())
 							tileMap.setTile(posX, posY, new Tile(flags));
 					}
-				} else if (obj.getType() == 9) {
+				}
+				else if (obj.getType() == 9) {
 					// diagonal walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth()
-							&& posY < tileMap.getHeight())
+					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight())
 						tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-				} else if (obj.getType() == 10 || obj.getType() == 11)
+				}
+				else if (obj.getType() == 10 || obj.getType() == 11)
 					// world objects
 					for (int offX = 0; offX <= sizeX; offX++)
 						for (int offY = 0; offY <= sizeY; offY++) {
 							final int x = offX + posX;
 							final int y = offY + posY;
-							if (x >= 0 && y >= 0 && x < tileMap.getWidth()
-									&& y < tileMap.getHeight())
+							if (x >= 0 && y >= 0 && x < tileMap.getWidth() && y < tileMap.getHeight())
 								tileMap.setTile(x, y, TileMap.SOLID_TILE);
 						}
 				else if (obj.getType() == 22) {
 					// floor decoration
 					if (obj.getDefinition().getActions() != null)
-						if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth()
-						&& posY < tileMap.getHeight())
+						if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight())
 							tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-				} else {
+				}
+				else {
 					// 4-8 are wall decorations and 12-21 are roofs
 					// we can ignore those
 				}

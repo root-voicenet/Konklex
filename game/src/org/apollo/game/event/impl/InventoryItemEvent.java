@@ -3,8 +3,7 @@ package org.apollo.game.event.impl;
 import org.apollo.game.event.Event;
 
 /**
- * An {@link Event} which represents some sort of action on an item in an
- * inventory.
+ * An {@link Event} which represents some sort of action on an item in an inventory.
  * @author Chris Fletcher
  */
 public abstract class InventoryItemEvent extends Event {

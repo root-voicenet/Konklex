@@ -27,8 +27,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		private int cursor = 0;
 
 		/**
-		 * Index of element returned by most recent call to next or previous.
-		 * Reset to -1 if this element is deleted by a call to remove.
+		 * Index of element returned by most recent call to next or previous. Reset to -1 if this element is deleted by
+		 * a call to remove.
 		 */
 		private int lastRet = -1;
 
@@ -45,7 +45,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				lastRet = i;
 				cursor = i + 1;
 				return next;
-			} catch (final IndexOutOfBoundsException e) {
+			}
+			catch (final IndexOutOfBoundsException e) {
 				throw new NoSuchElementException();
 			}
 		}
@@ -59,31 +60,30 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				if (lastRet < cursor)
 					cursor--;
 				lastRet = -1;
-			} catch (final IndexOutOfBoundsException e) {
+			}
+			catch (final IndexOutOfBoundsException e) {
 				throw new ConcurrentModificationException();
 			}
 		}
 	}
 
 	/**
-	 * An enumeration containing the different 'stacking modes' of an
-	 * {@link Inventory}.
+	 * An enumeration containing the different 'stacking modes' of an {@link Inventory}.
 	 * @author Graham
 	 */
 	public enum StackMode {
 		/**
-		 * When in {@link #STACK_ALWAYS} mode, an {@link Inventory} will stack
-		 * every single item, regardless of the settings of individual items.
+		 * When in {@link #STACK_ALWAYS} mode, an {@link Inventory} will stack every single item, regardless of the
+		 * settings of individual items.
 		 */
 		STACK_ALWAYS,
 		/**
-		 * When in {@link #STACK_STACKABLE_ITEMS} mode, an {@link Inventory}
-		 * will stack items depending on their settings.
+		 * When in {@link #STACK_STACKABLE_ITEMS} mode, an {@link Inventory} will stack items depending on their
+		 * settings.
 		 */
 		STACK_STACKABLE_ITEMS,
 		/**
-		 * When in {@link #STACK_NEVER} mode, an {@link Inventory} will never
-		 * stack items.
+		 * When in {@link #STACK_NEVER} mode, an {@link Inventory} will never stack items.
 		 */
 		STACK_NEVER;
 	}
@@ -147,8 +147,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	/**
 	 * An alias for {@code add(id, 1)}.
 	 * @param id The id.
-	 * @return {@code true} if the item was added, {@code false} if there was
-	 * not enough room.
+	 * @return {@code true} if the item was added, {@code false} if there was not enough room.
 	 */
 	public boolean add(int id) {
 		return add(id, 1) == 0;
@@ -166,15 +165,12 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Adds an item to this inventory. This will attempt to add as much of the
-	 * item that is possible. If the item remains, it will be returned (in the
-	 * case of stackable items, any quantity that remains in the stack is
-	 * returned). If nothing remains, the method will return {@code null}. If
-	 * something remains, the listener will also be notified which could be
-	 * used, for example, to send a message to the player.
+	 * Adds an item to this inventory. This will attempt to add as much of the item that is possible. If the item
+	 * remains, it will be returned (in the case of stackable items, any quantity that remains in the stack is
+	 * returned). If nothing remains, the method will return {@code null}. If something remains, the listener will also
+	 * be notified which could be used, for example, to send a message to the player.
 	 * @param item The item to add to this inventory.
-	 * @return The item that remains if there is not enough room in the
-	 * inventory. If nothing remains, {@code null}.
+	 * @return The item that remains if there is not enough room in the inventory. If nothing remains, {@code null}.
 	 */
 	public Item add(Item item) {
 		final int id = item.getId();
@@ -194,7 +190,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 						amount = Integer.MAX_VALUE;
 						remaining = (int) (total - amount);
 						notifyCapacityExceeded();
-					} else {
+					}
+					else {
 						amount = (int) total;
 						remaining = 0;
 					}
@@ -223,7 +220,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 					if (remaining <= 0)
 						break;
 				}
-		} finally {
+		}
+		finally {
 			startFiringEvents();
 		}
 		if (remaining != item.getAmount())
@@ -236,13 +234,11 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Attempts to add all items in the specified inventory to this one, without
-	 * removing any from the specifed. This method has a slight performance
-	 * benefit over the {@link #addInventory(Inventory)} method, at the cost of
-	 * not knowing what items weren't added.
+	 * Attempts to add all items in the specified inventory to this one, without removing any from the specifed. This
+	 * method has a slight performance benefit over the {@link #addInventory(Inventory)} method, at the cost of not
+	 * knowing what items weren't added.
 	 * @param inventory The inventory to add the items of.
-	 * @return {@code true} if succesfully added, {@code false} if in any case
-	 * an item cannot be added.
+	 * @return {@code true} if succesfully added, {@code false} if in any case an item cannot be added.
 	 */
 	public boolean addAll(Inventory inventory) {
 		if (inventory.size == 0)
@@ -253,20 +249,19 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 			for (final Item item : inventory.items)
 				if (item != null && add(item) != null)
 					return false;
-		} finally {
+		}
+		finally {
 			firingEvents = oldFiringEvents;
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Attempts to remove all items in the specified inventory to this one, without
-	 * removing any from the specifed. This method has a slight performance
-	 * benefit over the {@link #addInventory(Inventory)} method, at the cost of
-	 * not knowing what items weren't added.
+	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specifed. This
+	 * method has a slight performance benefit over the {@link #addInventory(Inventory)} method, at the cost of not
+	 * knowing what items weren't added.
 	 * @param inventory The inventory of items to remove.
-	 * @return {@code true} if succesfully removed, {@code false} if in any case
-	 * an item cannot be removed.
+	 * @return {@code true} if succesfully removed, {@code false} if in any case an item cannot be removed.
 	 */
 	public boolean removeAll(Inventory inventory) {
 		if (inventory.size == 0)
@@ -277,18 +272,17 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 			for (final Item item : inventory.items)
 				if (item != null && remove(item) != item.getAmount())
 					return false;
-		} finally {
+		}
+		finally {
 			firingEvents = oldFiringEvents;
 		}
 		return true;
 	}
 
 	/**
-	 * Attempts to add all items in the specified inventory to this one, without
-	 * removing any from the specified.
+	 * Attempts to add all items in the specified inventory to this one, without removing any from the specified.
 	 * @param inventory The inventory to add the items of.
-	 * @return An array of items which have not been added ({@code null} if
-	 * everything was added).
+	 * @return An array of items which have not been added ({@code null} if everything was added).
 	 */
 	public Item[] addInventory(Inventory inventory) {
 		final List<Item> remainder = new ArrayList<Item>(capacity - size);
@@ -299,13 +293,11 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		}
 		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
 	}
-	
+
 	/**
-	 * Attempts to remove all items in the specified inventory to this one, without
-	 * removing any from the specified.
+	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specified.
 	 * @param inventory The inventory of items to remove.
-	 * @return An array of items which have not been removed ({@code null} if
-	 * everything was removed).
+	 * @return An array of items which have not been removed ({@code null} if everything was removed).
 	 */
 	public Item[] removeInventory(Inventory inventory) {
 		final List<Item> remainder = new ArrayList<Item>(capacity - size);
@@ -354,9 +346,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Creates a copy of this inventory. Listeners are not copied, they must be
-	 * added again yourself! This is so cloned copies don't send updates to
-	 * their counterparts.
+	 * Creates a copy of this inventory. Listeners are not copied, they must be added again yourself! This is so cloned
+	 * copies don't send updates to their counterparts.
 	 */
 	@Override
 	public Inventory clone() {
@@ -376,8 +367,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Checks if the inventory contains at least the specified amount of the
-	 * specified id.
+	 * Checks if the inventory contains at least the specified amount of the specified id.
 	 * @param id The item's id.
 	 * @param amount The amount.
 	 * @return {@code true} if so, {@code false} otherwise.
@@ -392,7 +382,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				if (item != null) {
 					if (item.getId() == id)
 						return item.getAmount() >= amount;
-						ctr++;
+					ctr++;
 				}
 			}
 		else {
@@ -470,11 +460,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Calculates the amount of free spaces this inventory still has left for
-	 * the specified id.
+	 * Calculates the amount of free spaces this inventory still has left for the specified id.
 	 * @param id The item's id.
-	 * @return The amount of items with the specified id that can still be added
-	 * to this inventory.
+	 * @return The amount of items with the specified id that can still be added to this inventory.
 	 */
 	public int freeSpace(int id) {
 		if (isStackable(ItemDefinition.forId(id))) {
@@ -483,13 +471,15 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				if (item != null) {
 					if (item.getId() == id)
 						return Integer.MAX_VALUE - item.getAmount();
-				} else {
+				}
+				else {
 					freeSlot = true;
 					break;
 				}
 			if (freeSlot)
 				return Integer.MAX_VALUE;
-		} else
+		}
+		else
 			return freeSlots();
 		return 0;
 	}
@@ -507,8 +497,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 
 	/**
 	 * Gets an array of all free slot values in this inventory.
-	 * @return An array of free slots, or a {@code 0-length} array if there
-	 * aren't any.
+	 * @return An array of free slots, or a {@code 0-length} array if there aren't any.
 	 */
 	public int[] getFreeSlots() {
 		final int count = freeSlots();
@@ -547,10 +536,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Gets the amount of items with the specified id in this inventory,
-	 * starting at the suggested slot. This method will prove to be much more
-	 * efficient if you already know the slot, and the item is stackable in this
-	 * inventory.
+	 * Gets the amount of items with the specified id in this inventory, starting at the suggested slot. This method
+	 * will prove to be much more efficient if you already know the slot, and the item is stackable in this inventory.
 	 * @param id The id.
 	 * @param suggestedSlot The suggested slot.
 	 * @return The number of matching items, or {@code 0} if none were found.
@@ -574,8 +561,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	/**
 	 * Gets the inventory slot for the specified id.
 	 * @param id The id.
-	 * @return The first found slot (starting at 0) containing the specified
-	 * item, or {@code -1} if none of the slots matched the conditions.
+	 * @return The first found slot (starting at 0) containing the specified item, or {@code -1} if none of the slots
+	 * matched the conditions.
 	 */
 	public int getSlot(int id) {
 		int ctr = 0;
@@ -624,10 +611,12 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 							continue;
 						}
 					}
-				} else if (other == null) {
+				}
+				else if (other == null) {
 					mock[slot] = item;
 					continue;
-				} else if (slot == capacity - 1)
+				}
+				else if (slot == capacity - 1)
 					return false;
 			}
 		}
@@ -637,8 +626,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	/**
 	 * Checks if the item specified by the definition should be stacked.
 	 * @param def The definition.
-	 * @return {@code true} if the item should be stacked, {@code false}
-	 * otherwise.
+	 * @return {@code true} if the item should be stacked, {@code false} otherwise.
 	 */
 	private boolean isStackable(ItemDefinition def) {
 		if (mode == StackMode.STACK_ALWAYS)
@@ -694,9 +682,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Removes {@code amount} of the item with the specified {@code id}. If the
-	 * item is stackable, it will remove it from the stack. If not, it'll remove
-	 * {@code amount} items.
+	 * Removes {@code amount} of the item with the specified {@code id}. If the item is stackable, it will remove it
+	 * from the stack. If not, it'll remove {@code amount} items.
 	 * @param id The id.
 	 * @param amount The amount.
 	 * @return The amount that was removed.
@@ -713,7 +700,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 					if (amount >= item.getAmount()) {
 						set(slot, null);
 						return item.getAmount();
-					} else {
+					}
+					else {
 						final int newAmount = item.getAmount() - amount;
 						set(slot, new Item(item.getId(), newAmount));
 						return amount;
@@ -759,10 +747,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Removes {@code amount} of the item at the specified {@code slot}. If the
-	 * item is not stacked, it will only remove the single item at the slot
-	 * (meaning it will ignore any amount higher than 1). This means that this
-	 * method will under no circumstances make any changes to other slots.
+	 * Removes {@code amount} of the item at the specified {@code slot}. If the item is not stacked, it will only remove
+	 * the single item at the slot (meaning it will ignore any amount higher than 1). This means that this method will
+	 * under no circumstances make any changes to other slots.
 	 * @param slot The slot.
 	 * @param amount The amount to remove.
 	 * @return The amount that was removed (0 if nothing was removed).
@@ -784,11 +771,10 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Removes {@code amount} of the item at the specified {@code slot}, under
-	 * the condition that this item matches the specified {@code id}. If the
-	 * item is not stacked, it will only remove the single item at the slot
-	 * (meaning it will ignore any amount higher than 1). This means that this
-	 * method will under no circumstances make any changes to other slots.
+	 * Removes {@code amount} of the item at the specified {@code slot}, under the condition that this item matches the
+	 * specified {@code id}. If the item is not stacked, it will only remove the single item at the slot (meaning it
+	 * will ignore any amount higher than 1). This means that this method will under no circumstances make any changes
+	 * to other slots.
 	 * @param slot The slot.
 	 * @param id The item id.
 	 * @param amount The amount to remove.
@@ -809,13 +795,12 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		}
 		return 0;
 	}
-	
+
 	/**
-	 * Removes {@code amount} of the item at the specified {@code slot}, under
-	 * the condition that this item matches the specified {@code id}. If the
-	 * item is not stacked, it will only remove the single item at the slot
-	 * (meaning it will ignore any amount higher than 1). This means that this
-	 * method will under no circumstances make any changes to other slots.
+	 * Removes {@code amount} of the item at the specified {@code slot}, under the condition that this item matches the
+	 * specified {@code id}. If the item is not stacked, it will only remove the single item at the slot (meaning it
+	 * will ignore any amount higher than 1). This means that this method will under no circumstances make any changes
+	 * to other slots.
 	 * @param slot The slot.
 	 * @param item The item.
 	 * @return The amount that was removed (0 if nothing was removed).
@@ -844,8 +829,7 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	/**
 	 * Sets the item that is in the specified slot.
 	 * @param slot The slot.
-	 * @param item The item, or {@code null} to remove the item that is in the
-	 * slot.
+	 * @param item The item, or {@code null} to remove the item that is in the slot.
 	 * @return The item that was in the slot.
 	 * @throws IndexOutOfBoundsException if the slot is out of bounds.
 	 */
@@ -914,7 +898,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				for (int slot = oldSlot; slot > newSlot; slot--)
 					swap(slot, slot - 1);
 			forceRefresh();
-		} else {
+		}
+		else {
 			final Item temp = items[oldSlot];
 			items[oldSlot] = items[newSlot];
 			items[newSlot] = temp;

@@ -19,12 +19,15 @@ public final class AnnounceCommandListener implements CommandListener {
 		if (arguments.length >= 1) {
 			int world = -1;
 			final Method method = new PlayerCommandMethod("Server", "yell" + " " + arguments[0].replaceAll("_", " "));
-			if (arguments.length == 2) world = Integer.parseInt(arguments[1]);
+			if (arguments.length == 2)
+				world = Integer.parseInt(arguments[1]);
 			if (world != -1)
 				if (context.getServerChannelGroup().contains(world))
 					context.getServerChannelGroup().get(world).write(method);
-				else channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
-			else context.getServerChannelGroup().write(method);
+				else
+					channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
+			else
+				context.getServerChannelGroup().write(method);
 		}
 	}
 

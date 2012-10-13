@@ -16,8 +16,7 @@ import org.apollo.net.session.ApiSession;
 import org.apollo.util.NamedThreadFactory;
 
 /**
- * The {@link FrontendService} class schedules and manages the execution of the
- * {@link FrontendPulseHandler} class.
+ * The {@link FrontendService} class schedules and manages the execution of the {@link FrontendPulseHandler} class.
  * @author Steve
  */
 public final class FrontendService extends Service {
@@ -71,7 +70,8 @@ public final class FrontendService extends Service {
 		try {
 			final MethodHandlerChainParser chainGroupParser = new MethodHandlerChainParser(is);
 			chainGroup = chainGroupParser.parse();
-		} finally {
+		}
+		finally {
 			is.close();
 		}
 	}
@@ -96,7 +96,7 @@ public final class FrontendService extends Service {
 	public void removeSession(ApiSession session) {
 		sessions.remove(session);
 	}
-	
+
 	/**
 	 * Sends all of the sessions the method.
 	 * @param method The method to send.

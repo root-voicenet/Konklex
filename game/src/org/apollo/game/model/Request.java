@@ -86,6 +86,7 @@ public final class Request {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals( java.lang.Object)
 	 */
 	@Override
@@ -139,12 +140,9 @@ public final class Request {
 	}
 
 	/**
-	 * Gets whether or not the request has timed out based on the the amount of
-	 * time specified.
-	 * @param timeoutLength The amount of time the request has lived before it's
-	 * considered to be timed out.
-	 * @return <code>true</code> if the request has timed out,
-	 * </code>false</code> if not.
+	 * Gets whether or not the request has timed out based on the the amount of time specified.
+	 * @param timeoutLength The amount of time the request has lived before it's considered to be timed out.
+	 * @return <code>true</code> if the request has timed out, </code>false</code> if not.
 	 */
 	public boolean hasTimedOut(int timeoutLength) {
 		if (state != State.TIMED_OUT) {
@@ -168,6 +166,7 @@ public final class Request {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

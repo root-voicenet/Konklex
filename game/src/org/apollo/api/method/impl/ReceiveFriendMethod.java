@@ -23,7 +23,7 @@ public final class ReceiveFriendMethod extends SendFriendMethod {
 		super(sender, friend);
 		this.status = status;
 	}
-	
+
 	/**
 	 * Creates the receive friend method.
 	 * @param sender The sender.

@@ -18,15 +18,13 @@ import org.apollo.game.sync.block.SynchronizationBlockSet;
 import org.apollo.util.CharacterRepository;
 
 /**
- * A {@link Character} is a living creature in the world, such as a player or
- * NPC.
+ * A {@link Character} is a living creature in the world, such as a player or NPC.
  * @author Graham
  */
 public abstract class Character {
 
 	/**
-	 * The index of this character in the {@link CharacterRepository} it belongs
-	 * to.
+	 * The index of this character in the {@link CharacterRepository} it belongs to.
 	 */
 	private int index = -1;
 
@@ -137,7 +135,7 @@ public abstract class Character {
 		final int temp = health + getHealth() > getHealthMax() ? getHealthMax() : health + getHealth();
 		setHealth(temp);
 	}
-	
+
 	/**
 	 * Damages the character.
 	 * @param hit The damage to deal.
@@ -174,8 +172,7 @@ public abstract class Character {
 
 	/**
 	 * Gets the directions as an array.
-	 * @return A zero, one or two element array containing the directions (in
-	 * order).
+	 * @return A zero, one or two element array containing the directions (in order).
 	 */
 	public Direction[] getDirections() {
 		if (firstDirection != Direction.NONE) {
@@ -183,7 +180,8 @@ public abstract class Character {
 				return new Direction[] { firstDirection, secondDirection };
 			else
 				return new Direction[] { firstDirection };
-		} else
+		}
+		else
 			return Direction.EMPTY_DIRECTION_ARRAY;
 	}
 
@@ -268,7 +266,7 @@ public abstract class Character {
 	public MeleeSet getMeleeSet() {
 		return meleeSet;
 	}
-	
+
 	/**
 	 * Resets the melee set.
 	 */
@@ -330,7 +328,7 @@ public abstract class Character {
 	private void init() {
 		skillSet.addListener(new HitpointSkillListener(this));
 		World.getWorld().schedule(new SkillNormalizationTask(this));
-		
+
 		final Character me = this;
 		World.getWorld().schedule(new ScheduledTask(1, false) {
 			@Override
@@ -391,7 +389,7 @@ public abstract class Character {
 	public void resetBlockSet() {
 		blockSet = new SynchronizationBlockSet();
 	}
-	
+
 	/**
 	 * Checks if this user is a controllable player.
 	 * @return True if this character is being controlled, false if otherwise.
@@ -457,7 +455,8 @@ public abstract class Character {
 				setRegion(region);
 				region.addCharacter(this);
 			}
-		} else {
+		}
+		else {
 			setRegion(region);
 			region.addCharacter(this);
 		}
@@ -482,8 +481,7 @@ public abstract class Character {
 
 	/**
 	 * Sets the teleporting flag.
-	 * @param teleporting the new teleporting {@code true} if the player is
-	 * teleporting, {@code false} if not.
+	 * @param teleporting the new teleporting {@code true} if the player is teleporting, {@code false} if not.
 	 */
 	public void setTeleporting(boolean teleporting) {
 		this.teleporting = teleporting;
@@ -548,8 +546,7 @@ public abstract class Character {
 	}
 
 	/**
-	 * Teleports this character to the specified position, setting the
-	 * appropriate flags and clearing the walking queue.
+	 * Teleports this character to the specified position, setting the appropriate flags and clearing the walking queue.
 	 * @param position The position.
 	 * @param action True if starting the teleport action, false if not.
 	 */
@@ -560,10 +557,9 @@ public abstract class Character {
 		this.stopAction(); // TODO do it on any movement is a must.. walking
 		// queue perhaps?
 	}
-	
+
 	/**
-	 * Teleports this character to the specified position, setting the
-	 * appropriate flags and clearing the walking queue.
+	 * Teleports this character to the specified position, setting the appropriate flags and clearing the walking queue.
 	 * @param position The position.
 	 */
 	public void teleport(Position position) {

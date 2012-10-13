@@ -8,9 +8,7 @@ import org.apollo.net.session.ProxyApiSession;
 
 /**
  * A chain of method handlers.
- * 
- * @param <E>
- *            The type of method the handlers in this chain handle.
+ * @param <E> The type of method the handlers in this chain handle.
  * @author Steve
  */
 public final class MethodHandlerChain<E extends Method> {
@@ -22,9 +20,7 @@ public final class MethodHandlerChain<E extends Method> {
 
 	/**
 	 * Creates the method handler chain.
-	 * 
-	 * @param handlers
-	 *            The handlers.
+	 * @param handlers The handlers.
 	 */
 	@SafeVarargs
 	public MethodHandlerChain(MethodHandler<E>... handlers) {
@@ -33,9 +29,7 @@ public final class MethodHandlerChain<E extends Method> {
 
 	/**
 	 * Dynamically adds an method handler to the end of the chain.
-	 * 
-	 * @param handler
-	 *            The handler.
+	 * @param handler The handler.
 	 */
 	@SuppressWarnings("unchecked")
 	public void addLast(MethodHandler<E> handler) {
@@ -46,13 +40,10 @@ public final class MethodHandlerChain<E extends Method> {
 	}
 
 	/**
-	 * Handles the method, passing it down the chain until the chain is broken
-	 * or the event reaches the end of the chain.
-	 * 
-	 * @param session
-	 *            The frontend session.
-	 * @param method
-	 *            The method.
+	 * Handles the method, passing it down the chain until the chain is broken or the event reaches the end of the
+	 * chain.
+	 * @param session The frontend session.
+	 * @param method The method.
 	 */
 	public void handle(final ApiSession session, E method) {
 		final boolean[] running = new boolean[1];

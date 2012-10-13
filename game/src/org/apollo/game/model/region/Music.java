@@ -5,32 +5,32 @@ package org.apollo.game.model.region;
  * @author Steve
  */
 public final class Music {
-	
+
 	/**
 	 * The music id.
 	 */
 	private final int music;
-	
+
 	/**
 	 * The coordinates south-west y.
 	 */
 	private final int swX;
-	
+
 	/**
 	 * The coordinates south-west x.
 	 */
 	private final int swY;
-	
+
 	/**
 	 * The coordinates south-easy x.
 	 */
 	private final int neX;
-	
+
 	/**
 	 * The coordinates south-easy y.
 	 */
 	private final int neY;
-	
+
 	/**
 	 * Creates a new cache for music.
 	 * @param music The music id.
@@ -46,7 +46,7 @@ public final class Music {
 		this.neX = neX;
 		this.neY = neY;
 	}
-	
+
 	/**
 	 * Gets the music id.
 	 * @return The music id.
@@ -54,7 +54,7 @@ public final class Music {
 	public int getMusic() {
 		return music;
 	}
-	
+
 	/**
 	 * Gets the south-west x.
 	 * @return The south-west x.
@@ -62,7 +62,7 @@ public final class Music {
 	public int getSwX() {
 		return swX;
 	}
-	
+
 	/**
 	 * Gets the south-west y.
 	 * @return The south-west y.
@@ -70,7 +70,7 @@ public final class Music {
 	public int getSwY() {
 		return swY;
 	}
-	
+
 	/**
 	 * Gets the north-east x.
 	 * @return The north-east x.
@@ -78,7 +78,7 @@ public final class Music {
 	public int getNeX() {
 		return neX;
 	}
-	
+
 	/**
 	 * Gets the north-east y.
 	 * @return The north-east y.

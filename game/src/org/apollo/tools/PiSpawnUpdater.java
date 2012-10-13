@@ -26,7 +26,8 @@ public final class PiSpawnUpdater {
 			return;
 		}
 		final String path = args[0];
-		final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(path))));
+		final BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(
+				new FileInputStream(path))));
 		final BufferedWriter bw = new BufferedWriter(new FileWriter("data/npc-spawns.xml"));
 		try {
 			bw.write("<spawn>");
@@ -35,14 +36,16 @@ public final class PiSpawnUpdater {
 				if (content.startsWith("spawn =")) {
 					try {
 						parseLine(content, bw);
-					} catch (Exception e) {
+					}
+					catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 			}
 			bw.newLine();
 			bw.write("</spawn>");
-		} finally {
+		}
+		finally {
 			br.close();
 			bw.close();
 		}
@@ -52,7 +55,7 @@ public final class PiSpawnUpdater {
 	 * Parses a line.
 	 * @param content The line.
 	 * @param bw The output stream.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private static void parseLine(String content, BufferedWriter bw) throws IOException {
 		String[] arguments = content.split("\t");
@@ -63,19 +66,20 @@ public final class PiSpawnUpdater {
 		int face = Integer.parseInt(arguments[4]);
 		bw.newLine();
 		if (face > 1) {
-			bw.write("\t<npc id=\""+id+"\" face=\""+face+"\">");
-		} else {
-			bw.write("\t<npc id=\""+id+"\">");
+			bw.write("\t<npc id=\"" + id + "\" face=\"" + face + "\">");
+		}
+		else {
+			bw.write("\t<npc id=\"" + id + "\">");
 		}
 		bw.newLine();
 		bw.write("\t\t<position>");
 		bw.newLine();
-		bw.write("\t\t\t<x>"+x+"</x>");
+		bw.write("\t\t\t<x>" + x + "</x>");
 		bw.newLine();
-		bw.write("\t\t\t<y>"+y+"</y>");
+		bw.write("\t\t\t<y>" + y + "</y>");
 		bw.newLine();
 		if (height > 0) {
-			bw.write("\t\t\t<height>"+height+"</height>");
+			bw.write("\t\t\t<height>" + height + "</height>");
 			bw.newLine();
 		}
 		bw.write("\t\t</position>");

@@ -39,8 +39,7 @@ public final class EventHandlerChain<E extends Event> {
 	}
 
 	/**
-	 * Handles the event, passing it down the chain until the chain is broken or
-	 * the event reaches the end of the chain.
+	 * Handles the event, passing it down the chain until the chain is broken or the event reaches the end of the chain.
 	 * @param player The player.
 	 * @param event The event.
 	 */

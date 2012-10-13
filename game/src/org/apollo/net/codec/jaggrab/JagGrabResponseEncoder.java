@@ -6,7 +6,6 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 
 /**
  * A {@link OneToOneEncoder} for the JAGGRAB protocol.
- * 
  * @author Graham
  */
 public final class JagGrabResponseEncoder extends OneToOneEncoder {
@@ -14,14 +13,11 @@ public final class JagGrabResponseEncoder extends OneToOneEncoder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
-	 * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * java.lang.Object)
+	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss .netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
-	protected Object encode(ChannelHandlerContext ctx, Channel c, Object msg)
-			throws Exception {
+	protected Object encode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {
 		if (msg instanceof JagGrabResponse) {
 			final JagGrabResponse resp = (JagGrabResponse) msg;
 			return resp.getFileData();

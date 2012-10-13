@@ -5,8 +5,8 @@ import org.apollo.game.model.inter.InterfaceListener;
 import org.apollo.game.model.inv.InventoryListener;
 
 /**
- * An {@link InterfaceListener} which removes the {@link InventoryListener}s
- * when the bank is closed. Also listens for button clicks on the bank window.
+ * An {@link InterfaceListener} which removes the {@link InventoryListener}s when the bank is closed. Also listens for
+ * button clicks on the bank window.
  * @author Graham
  * @author Chris Fletcher
  */

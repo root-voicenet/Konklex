@@ -16,24 +16,25 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, WalkEvent event) {
 		final WalkingQueue queue = player.getWalkingQueue();
 		final Position[] steps = event.getSteps();
 		if (player.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER) && event.isRunning()) {
-			player.teleport(steps[steps.length-1], false);
-		} else {
+			player.teleport(steps[steps.length - 1], false);
+		}
+		else {
 			for (int i = 0; i < steps.length; i++) {
 				final Position step = steps[i];
 				if (i == 0) {
 					if (!queue.addFirstStep(step))
 						return; /* ignore packet */
-				} else
+				}
+				else
 					queue.addStep(step);
 			}
 			if (!player.getWalkingQueue().getRunning())

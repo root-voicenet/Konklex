@@ -8,15 +8,12 @@ import org.apollo.game.model.Player;
 
 /**
  * An {@link EventHandler} for the {@link DialogueContinueEvent}.
- * 
  * @author Chris Fletcher
  */
-public final class DialogueContinueEventHandler extends
-EventHandler<DialogueContinueEvent> {
+public final class DialogueContinueEventHandler extends EventHandler<DialogueContinueEvent> {
 
 	@Override
-	public void handle(EventHandlerContext ctx, Player player,
-			DialogueContinueEvent event) {
+	public void handle(EventHandlerContext ctx, Player player, DialogueContinueEvent event) {
 		if (player.getInterfaceSet().contains(InterfaceType.DIALOGUE))
 			player.getInterfaceSet().continueRequested();
 	}

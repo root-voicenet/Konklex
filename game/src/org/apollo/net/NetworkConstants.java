@@ -15,7 +15,7 @@ public final class NetworkConstants {
 	 * The JAGGRAB port.
 	 */
 	public static final int JAGGRAB_PORT = 43595;
-	
+
 	/**
 	 * The API port.
 	 */

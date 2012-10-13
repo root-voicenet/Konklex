@@ -5,8 +5,7 @@ import org.apollo.game.model.Player;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
- * An {@link Tickable} task that increases the run energy when the player is
- * idle.
+ * An {@link Tickable} task that increases the run energy when the player is idle.
  * @author Steve
  */
 public class NormalizeEnergyTask extends ScheduledTask {

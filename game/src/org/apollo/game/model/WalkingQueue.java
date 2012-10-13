@@ -42,6 +42,7 @@ public final class WalkingQueue {
 
 		/*
 		 * (non-Javadoc)
+		 * 
 		 * @see java.lang.Object#toString()
 		 */
 		@Override
@@ -51,8 +52,7 @@ public final class WalkingQueue {
 	}
 
 	/**
-	 * The maximum size of the queue. If any additional steps are added, they
-	 * are discarded.
+	 * The maximum size of the queue. If any additional steps are added, they are discarded.
 	 */
 	private static final int MAXIMUM_SIZE = 128;
 
@@ -95,11 +95,10 @@ public final class WalkingQueue {
 	}
 
 	/**
-	 * Adds the first step to the queue, attempting to connect the server and
-	 * client position by looking at the previous queue.
+	 * Adds the first step to the queue, attempting to connect the server and client position by looking at the previous
+	 * queue.
 	 * @param clientConnectionPosition The first step.
-	 * @return {@code true} if the queues could be connected correctly,
-	 * {@code false} if not.
+	 * @return {@code true} if the queues could be connected correctly, {@code false} if not.
 	 */
 	public boolean addFirstStep(Position clientConnectionPosition) {
 		if (stop > 0) {
@@ -244,9 +243,11 @@ public final class WalkingQueue {
 						position = next.position;
 					}
 					setRunningQueue(true);
-				} else
+				}
+				else
 					setRunningQueue(false);
-			} else {
+			}
+			else {
 				setRunningQueue(false);
 				setRunning(false);
 			}
@@ -254,7 +255,7 @@ public final class WalkingQueue {
 		character.setDirections(first, second);
 		character.setPosition(position);
 	}
-	
+
 	/**
 	 * Walks to the position.
 	 * @param position The position to walk too.

@@ -15,7 +15,6 @@ import org.apollo.game.model.inv.SynchronizationInventoryListener;
 
 /**
  * An event handler which equips items.
- * 
  * @author Graham
  */
 public final class EquipEventHandler extends EventHandler<ItemOptionEvent> {
@@ -23,58 +22,44 @@ public final class EquipEventHandler extends EventHandler<ItemOptionEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
-	public void handle(EventHandlerContext ctx, Player player,
-			ItemOptionEvent event) {
-		if (event.getOption() == 2
-				&& event.getInterfaceId() == SynchronizationInventoryListener.INVENTORY_ID) {
+	public void handle(EventHandlerContext ctx, Player player, ItemOptionEvent event) {
+		if (event.getOption() == 2 && event.getInterfaceId() == SynchronizationInventoryListener.INVENTORY_ID) {
 			final int slot = event.getSlot();
 			final Item item = player.getInventory().get(slot);
 			final ItemDefinition itemDef = item.getDefinition();
-			final EquipmentDefinition equipDef = EquipmentDefinition.forId(item
-					.getId());
+			final EquipmentDefinition equipDef = EquipmentDefinition.forId(item.getId());
 			if (equipDef == null) {
 				ctx.breakHandlerChain();
 				return;
 			}
 			final SkillSet skillSet = player.getSkillSet();
-			if (skillSet.getSkill(Skill.ATTACK).getMaximumLevel() < equipDef
-					.getAttackLevel()) {
-				player.sendMessage("You need an Attack level of "
-						+ equipDef.getAttackLevel() + " to equip this item.");
+			if (skillSet.getSkill(Skill.ATTACK).getMaximumLevel() < equipDef.getAttackLevel()) {
+				player.sendMessage("You need an Attack level of " + equipDef.getAttackLevel() + " to equip this item.");
 				ctx.breakHandlerChain();
 				return;
 			}
-			if (skillSet.getSkill(Skill.STRENGTH).getMaximumLevel() < equipDef
-					.getStrengthLevel()) {
-				player.sendMessage("You need a Strength level of "
-						+ equipDef.getStrengthLevel() + " to equip this item.");
+			if (skillSet.getSkill(Skill.STRENGTH).getMaximumLevel() < equipDef.getStrengthLevel()) {
+				player.sendMessage("You need a Strength level of " + equipDef.getStrengthLevel()
+						+ " to equip this item.");
 				ctx.breakHandlerChain();
 				return;
 			}
-			if (skillSet.getSkill(Skill.DEFENCE).getMaximumLevel() < equipDef
-					.getDefenceLevel()) {
-				player.sendMessage("You need a Defence level of "
-						+ equipDef.getDefenceLevel() + " to equip this item.");
+			if (skillSet.getSkill(Skill.DEFENCE).getMaximumLevel() < equipDef.getDefenceLevel()) {
+				player.sendMessage("You need a Defence level of " + equipDef.getDefenceLevel() + " to equip this item.");
 				ctx.breakHandlerChain();
 				return;
 			}
-			if (skillSet.getSkill(Skill.RANGED).getMaximumLevel() < equipDef
-					.getRangedLevel()) {
-				player.sendMessage("You need a Ranged level of "
-						+ equipDef.getRangedLevel() + " to equip this item.");
+			if (skillSet.getSkill(Skill.RANGED).getMaximumLevel() < equipDef.getRangedLevel()) {
+				player.sendMessage("You need a Ranged level of " + equipDef.getRangedLevel() + " to equip this item.");
 				ctx.breakHandlerChain();
 				return;
 			}
-			if (skillSet.getSkill(Skill.MAGIC).getMaximumLevel() < equipDef
-					.getMagicLevel()) {
-				player.sendMessage("You need a Magic level of "
-						+ equipDef.getMagicLevel() + " to equip this item.");
+			if (skillSet.getSkill(Skill.MAGIC).getMaximumLevel() < equipDef.getMagicLevel()) {
+				player.sendMessage("You need a Magic level of " + equipDef.getMagicLevel() + " to equip this item.");
 				ctx.breakHandlerChain();
 				return;
 			}
@@ -86,8 +71,7 @@ public final class EquipEventHandler extends EventHandler<ItemOptionEvent> {
 			// TODO: put all this into another method somewhere
 			// check if there is enough space for a two handed weapon
 			if (equipDef.isTwoHanded()) {
-				final Item currentShield = equipment
-						.get(EquipmentConstants.SHIELD);
+				final Item currentShield = equipment.get(EquipmentConstants.SHIELD);
 				if (currentShield != null)
 					if (inventory.freeSlots() < 1) {
 						inventory.forceCapacityExceeded();
@@ -98,11 +82,9 @@ public final class EquipEventHandler extends EventHandler<ItemOptionEvent> {
 			// check if a shield is being added with a two handed weapon
 			boolean removeWeapon = false;
 			if (equipmentSlot == EquipmentConstants.SHIELD) {
-				final Item currentWeapon = equipment
-						.get(EquipmentConstants.WEAPON);
+				final Item currentWeapon = equipment.get(EquipmentConstants.WEAPON);
 				if (currentWeapon != null) {
-					final EquipmentDefinition weaponDef = EquipmentDefinition
-							.forId(currentWeapon.getId());
+					final EquipmentDefinition weaponDef = EquipmentDefinition.forId(currentWeapon.getId());
 					if (weaponDef.isTwoHanded()) {
 						if (inventory.freeSlots() < 1) {
 							inventory.forceCapacityExceeded();
@@ -114,15 +96,15 @@ public final class EquipEventHandler extends EventHandler<ItemOptionEvent> {
 				}
 			}
 			final Item previous = equipment.get(equipmentSlot);
-			if (itemDef.isStackable() && previous != null
-					&& previous.getId() == item.getId()) {
+			if (itemDef.isStackable() && previous != null && previous.getId() == item.getId()) {
 				// we know the item is there, so we can let the inventory class
 				// do its stacking magic
 				inventory.remove(item);
 				final Item tmp = equipment.add(item);
 				if (tmp != null)
 					inventory.add(tmp);
-			} else {
+			}
+			else {
 				// swap the weapons around
 				final Item tmp = equipment.reset(equipmentSlot);
 				equipment.set(equipmentSlot, item);

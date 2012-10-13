@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 /**
  * Represents a path found by a <code>PathFinder</code> between two points.
- * 
  * @author Graham Edgecombe
  */
 public class Path {
@@ -24,9 +23,7 @@ public class Path {
 
 	/**
 	 * Adds a point onto the queue.
-	 * 
-	 * @param p
-	 *            The point to add.
+	 * @param p The point to add.
 	 */
 	public void addPoint(Point p) {
 		tiles.addFirst(p);
@@ -34,7 +31,6 @@ public class Path {
 
 	/**
 	 * Gets the deque backing this path.
-	 * 
 	 * @return The deque backing this path.
 	 */
 	public Deque<Point> getPoints() {

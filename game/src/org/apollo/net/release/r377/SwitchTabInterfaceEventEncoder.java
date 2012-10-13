@@ -15,8 +15,8 @@ public final class SwitchTabInterfaceEventEncoder extends EventEncoder<SwitchTab
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(SwitchTabInterfaceEvent event) {

@@ -29,13 +29,15 @@ public final class GamePulseHandler implements Runnable {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
 	public void run() {
 		try {
 			service.pulse();
-		} catch (final Throwable t) {
+		}
+		catch (final Throwable t) {
 			logger.log(Level.SEVERE, "Exception during pulse.", t);
 		}
 	}

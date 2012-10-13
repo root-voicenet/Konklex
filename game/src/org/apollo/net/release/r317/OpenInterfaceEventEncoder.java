@@ -8,17 +8,14 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link OpenInterfaceEvent}.
- * 
  * @author Graham
  */
-public final class OpenInterfaceEventEncoder extends
-EventEncoder<OpenInterfaceEvent> {
+public final class OpenInterfaceEventEncoder extends EventEncoder<OpenInterfaceEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(OpenInterfaceEvent event) {

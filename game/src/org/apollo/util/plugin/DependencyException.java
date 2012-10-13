@@ -1,8 +1,7 @@
 package org.apollo.util.plugin;
 
 /**
- * An {@link Exception} which is thrown when a dependency cannot be resolved, or
- * when there is a circular dependency.
+ * An {@link Exception} which is thrown when a dependency cannot be resolved, or when there is a circular dependency.
  * @author Graham
  */
 @SuppressWarnings("serial")

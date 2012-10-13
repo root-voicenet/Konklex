@@ -4,7 +4,6 @@ import org.apollo.game.model.Position;
 
 /**
  * The force movement {@link SynchronizationBlock}.
- * 
  * @author Steve
  */
 public final class ForceMovementBlock extends SynchronizationBlock {
@@ -36,20 +35,13 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Creates the force movement block.
-	 * 
-	 * @param currentPosition
-	 *            The position we are currently at.
-	 * @param position
-	 *            The position to walk too.
-	 * @param firstSpeed
-	 *            The speed of the X coordinate.
-	 * @param secondSpeed
-	 *            The speed of the Y coordinate.
-	 * @param direction
-	 *            The direction.
+	 * @param currentPosition The position we are currently at.
+	 * @param position The position to walk too.
+	 * @param firstSpeed The speed of the X coordinate.
+	 * @param secondSpeed The speed of the Y coordinate.
+	 * @param direction The direction.
 	 */
-	ForceMovementBlock(Position currentPosition, Position position,
-			int firstSpeed, int secondSpeed, int direction) {
+	ForceMovementBlock(Position currentPosition, Position position, int firstSpeed, int secondSpeed, int direction) {
 		this.currentPosition = currentPosition;
 		this.position = position;
 		this.firstSpeed = firstSpeed;
@@ -59,7 +51,6 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the position we are at.
-	 * 
 	 * @return The position we are at.
 	 */
 	public Position getCurrentPosition() {
@@ -68,7 +59,6 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the direction.
-	 * 
 	 * @return The direction.
 	 */
 	public int getDirection() {
@@ -77,7 +67,6 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the speed of the X coordinate.
-	 * 
 	 * @return The speed of the X coordinate.
 	 */
 	public int getFirstSpeed() {
@@ -86,7 +75,6 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the position to walk too.
-	 * 
 	 * @return The position to walk too.
 	 */
 	public Position getPosition() {
@@ -95,7 +83,6 @@ public final class ForceMovementBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the speed of the Y coordinate.
-	 * 
 	 * @return The speed of the Y coordinate.
 	 */
 	public int getSecondSpeed() {

@@ -8,7 +8,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link ButtonEvent}.
- * 
  * @author Graham
  */
 public final class ButtonEventDecoder extends EventDecoder<ButtonEvent> {
@@ -16,9 +15,7 @@ public final class ButtonEventDecoder extends EventDecoder<ButtonEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public ButtonEvent decode(GamePacket packet) {

@@ -9,12 +9,12 @@ import org.apollo.game.model.Position;
  * @author Steve
  */
 public final class GraphicEvent extends MapEvent {
-	
+
 	/**
 	 * The graphic.
 	 */
 	private final Graphic graphic;
-	
+
 	/**
 	 * Creates the new graphic event.
 	 * @param graphic The graphic.
@@ -23,7 +23,7 @@ public final class GraphicEvent extends MapEvent {
 		super(position);
 		this.graphic = graphic;
 	}
-	
+
 	/**
 	 * Gets the graphic.
 	 * @return The graphic.

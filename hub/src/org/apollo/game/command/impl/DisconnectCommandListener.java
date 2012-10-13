@@ -18,8 +18,11 @@ public final class DisconnectCommandListener implements CommandListener {
 			final int world = Integer.parseInt(arguments[0]);
 			if (context.getServerChannelGroup().contains(world))
 				context.getServerChannelGroup().get(world).close();
-			else channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
-		} else context.getServerChannelGroup().close();
+			else
+				channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
+		}
+		else
+			context.getServerChannelGroup().close();
 	}
 
 }

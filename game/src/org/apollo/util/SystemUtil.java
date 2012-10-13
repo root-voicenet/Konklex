@@ -25,7 +25,8 @@ public final class SystemUtil {
 		try {
 			final ProcCpu procCPU = sigar.getProcCpu(sigar.getPid());
 			cpu = (int) Double.parseDouble(CpuPerc.format(procCPU.getPercent()).replace("%", ""));
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 		}
 		return cpu;
 	}
@@ -47,7 +48,8 @@ public final class SystemUtil {
 		try {
 			final ProcMem procMem = sigar.getProcMem(sigar.getPid());
 			ram = (int) (procMem.getResident() / 1024) / 1024;
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 		}
 		return ram;
 	}

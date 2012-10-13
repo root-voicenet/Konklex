@@ -3,8 +3,7 @@ package org.apollo.game.sync.task;
 import org.apollo.game.model.Npc;
 
 /**
- * A {@link SynchronizationTask} which does post-synchronization work for the
- * specified {@link Npc}.
+ * A {@link SynchronizationTask} which does post-synchronization work for the specified {@link Npc}.
  * @author Steve
  */
 public final class PostNpcSynchronizationTask extends SynchronizationTask {

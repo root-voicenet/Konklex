@@ -12,7 +12,6 @@ import org.apollo.util.NameUtil;
 
 /**
  * Holds the friends.
- * 
  * @author Steve
  */
 public final class PlayerMessaging {
@@ -37,9 +36,7 @@ public final class PlayerMessaging {
 
 		/**
 		 * Creates the new event.
-		 * 
-		 * @param value
-		 *            The value.
+		 * @param value The value.
 		 */
 		Event(int value) {
 			this.value = value;
@@ -47,7 +44,6 @@ public final class PlayerMessaging {
 
 		/**
 		 * Gets the integer value.
-		 * 
 		 * @return The integer value.
 		 */
 		public int toInteger() {
@@ -82,9 +78,7 @@ public final class PlayerMessaging {
 
 	/**
 	 * Create a new friends list.
-	 * 
-	 * @param player
-	 *            The player.
+	 * @param player The player.
 	 */
 	public PlayerMessaging(Player player) {
 		this.player = player;
@@ -93,15 +87,10 @@ public final class PlayerMessaging {
 
 	/**
 	 * Add a user.
-	 * 
-	 * @param who
-	 *            The user
-	 * @param what
-	 *            Friend or ignore
-	 * @param loader
-	 *            Are we loading from the {@link PlayerLoader}
-	 * @throws Exception
-	 *             the exception
+	 * @param who The user
+	 * @param what Friend or ignore
+	 * @param loader Are we loading from the {@link PlayerLoader}
+	 * @throws Exception the exception
 	 */
 	public void add(String who, Event what, boolean loader) throws Exception {
 		who = who.toLowerCase();
@@ -117,9 +106,11 @@ public final class PlayerMessaging {
 					throw new Exception("Friend is already added.");
 				else
 					friends.put(who, what);
-			} else
+			}
+			else
 				friends.put(who, what);
-		} else if (what == Event.IGNORE)
+		}
+		else if (what == Event.IGNORE)
 			if (friends.get(who) != null) {
 				if (friends.get(who).equals(Event.FRIEND))
 					throw new Exception("Friend is already added.");
@@ -127,14 +118,14 @@ public final class PlayerMessaging {
 					throw new Exception("Friend is already ignored.");
 				else
 					friends.put(who, what);
-			} else
+			}
+			else
 				friends.put(who, what);
 		this.size = friends.size();
 	}
 
 	/**
 	 * Get the friend capacity.
-	 * 
 	 * @return {@link Capacity}
 	 */
 	public int capacity() {
@@ -143,13 +134,9 @@ public final class PlayerMessaging {
 
 	/**
 	 * Delete a user.
-	 * 
-	 * @param who
-	 *            The user.
-	 * @param what
-	 *            Friend or ignore.
-	 * @throws Exception
-	 *             the exception
+	 * @param who The user.
+	 * @param what Friend or ignore.
+	 * @throws Exception the exception
 	 */
 	public void delete(String who, Event what) throws Exception {
 		who = who.toLowerCase();
@@ -161,9 +148,11 @@ public final class PlayerMessaging {
 					throw new Exception("Friend is not added.");
 				else
 					friends.remove(who);
-			} else
+			}
+			else
 				friends.remove(who);
-		} else if (what == Event.IGNORE)
+		}
+		else if (what == Event.IGNORE)
 			if (friends.get(who) != null) {
 				if (friends.get(who).equals(Event.FRIEND))
 					throw new Exception("Friend is added.");
@@ -171,14 +160,14 @@ public final class PlayerMessaging {
 					throw new Exception("Friend is not ignored.");
 				else
 					friends.remove(who);
-			} else
+			}
+			else
 				friends.remove(who);
 		this.size = friends.size();
 	}
 
 	/**
 	 * Gets the friends list.
-	 * 
 	 * @return {@link Map}
 	 */
 	public Map<String, Event> getFriends() {
@@ -187,7 +176,6 @@ public final class PlayerMessaging {
 
 	/**
 	 * Gets the size of the ignore list.
-	 * 
 	 * @return The size of the ignore list.
 	 */
 	private int getIgnoreSize() {
@@ -200,7 +188,6 @@ public final class PlayerMessaging {
 
 	/**
 	 * Get the chat id.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getLastId() {
@@ -209,12 +196,9 @@ public final class PlayerMessaging {
 
 	/**
 	 * Get the value for the event.
-	 * 
-	 * @param what
-	 *            The event.
+	 * @param what The event.
 	 * @return {@link Integer}
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public int getValue(Event what) throws Exception {
 		if (what == Event.FRIEND)
@@ -227,12 +211,9 @@ public final class PlayerMessaging {
 
 	/**
 	 * Get the event for the value.
-	 * 
-	 * @param what
-	 *            The event.
+	 * @param what The event.
 	 * @return {@link Event}
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public Event getValue(int what) throws Exception {
 		if (what == 1)
@@ -245,9 +226,7 @@ public final class PlayerMessaging {
 
 	/**
 	 * Refresh the friend list.
-	 * 
-	 * @throws Exception
-	 *             the exception
+	 * @throws Exception the exception
 	 */
 	public void refresh() throws Exception {
 		final long[] ignores = new long[getIgnoreSize()];
@@ -257,21 +236,19 @@ public final class PlayerMessaging {
 				final String friend = entry.getKey();
 				final boolean online = World.getWorld().getMessaging().isPlayerOnline(friend);
 				final int world = World.getWorld().getMessaging().getWorld(friend);
-				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(friend), online ? world+8 : 0);
+				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(friend),
+						online ? world + 8 : 0);
 				player.send(sendFriend);
-			} else
+			}
+			else
 				ignores[i++] = NameUtil.encodeBase37(entry.getKey());
 	}
 
 	/**
 	 * Manually refresh the specified player.
-	 * 
-	 * @param user
-	 *            The player.
-	 * @param event
-	 *            Adding or ignoring.
-	 * @throws Exception
-	 *             the exception.
+	 * @param user The player.
+	 * @param event Adding or ignoring.
+	 * @throws Exception the exception.
 	 */
 	public void refresh(String user) throws Exception {
 		user = user.toLowerCase();
@@ -280,7 +257,8 @@ public final class PlayerMessaging {
 			if (value == 1) {
 				final boolean online = World.getWorld().getMessaging().isPlayerOnline(user);
 				final int world = World.getWorld().getMessaging().getWorld(user);
-				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(user), online ? world+8 : 0);
+				final SendFriendEvent sendFriend = new SendFriendEvent(NameUtil.encodeBase37(user), online ? world + 8
+						: 0);
 				player.send(sendFriend);
 			}
 		}
@@ -288,7 +266,6 @@ public final class PlayerMessaging {
 
 	/**
 	 * Get the friends size.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int size() {

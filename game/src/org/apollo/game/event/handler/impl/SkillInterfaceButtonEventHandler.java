@@ -37,166 +37,166 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 		switch (buttonId) {
 		/* Skill menus */
 		case 8654:
-		case 33206 : // attack
+		case 33206: // attack
 			attackComplex(1);
 			player.setSelected(0);
 			return true;
 		case 8657:
-		case 33209 : // strength
+		case 33209: // strength
 			strengthComplex(1);
 			player.setSelected(1);
 			return true;
 		case 8660:
-		case 33212 : // Defence
+		case 33212: // Defence
 			defenceComplex(1);
 			player.setSelected(2);
 			return true;
 		case 8663:
-		case 33215 : // range
+		case 33215: // range
 			rangedComplex(1);
 			player.setSelected(3);
 			return true;
 		case 8666:
-		case 33218 : // prayer
+		case 33218: // prayer
 			prayerComplex(1);
 			player.setSelected(4);
 			return true;
 		case 8669:
-		case 33221 : // mage
+		case 33221: // mage
 			magicComplex(1);
 			player.setSelected(5);
 			return true;
 		case 8672:
-		case 33224 : // runecrafting
+		case 33224: // runecrafting
 			runecraftingComplex(1);
 			player.setSelected(6);
 			return true;
 		case 8655:
-		case 33207 : // hp
+		case 33207: // hp
 			hitpointsComplex(1);
 			player.setSelected(7);
 			return true;
 		case 8658:
-		case 33210 : // agility
+		case 33210: // agility
 			agilityComplex(1);
 			player.setSelected(8);
 			return true;
 		case 8661:
-		case 33213 : // herblore
+		case 33213: // herblore
 			herbloreComplex(1);
 			player.setSelected(9);
 			return true;
 		case 8664:
-		case 33216 : // theiving
+		case 33216: // theiving
 			thievingComplex(1);
 			player.setSelected(10);
 			return true;
 		case 8667:
-		case 33219 : // crafting
+		case 33219: // crafting
 			craftingComplex(1);
 			player.setSelected(11);
 			return true;
 		case 8670:
-		case 33222 : // fletching
+		case 33222: // fletching
 			fletchingComplex(1);
 			player.setSelected(12);
 			return true;
 		case 12162:
-		case 47130 :// slayer
+		case 47130:// slayer
 			slayerComplex(1);
 			player.setSelected(13);
 			return true;
 		case 8656:
-		case 33208 :// mining
+		case 33208:// mining
 			miningComplex(1);
 			player.setSelected(14);
 			return true;
 		case 8659:
-		case 33211 : // smithing
+		case 33211: // smithing
 			smithingComplex(1);
 			player.setSelected(15);
 			return true;
 		case 8662:
-		case 33214 : // fishing
+		case 33214: // fishing
 			fishingComplex(1);
 			player.setSelected(16);
 			return true;
 		case 8665:
-		case 33217 : // cooking
+		case 33217: // cooking
 			cookingComplex(1);
 			player.setSelected(17);
 			return true;
 		case 8668:
-		case 33220 : // firemaking
+		case 33220: // firemaking
 			firemakingComplex(1);
 			player.setSelected(18);
 			return true;
 		case 8671:
-		case 33223 : // woodcut
+		case 33223: // woodcut
 			woodcuttingComplex(1);
 			player.setSelected(19);
 			return true;
 		case 13928:
-		case 54104 : // farming
+		case 54104: // farming
 			farmingComplex(1);
 			player.setSelected(20);
 			return true;
 
-		case 34142 : // tab 1
+		case 34142: // tab 1
 			menuCompilation(1);
 			return true;
 
-		case 34119 : // tab 2
+		case 34119: // tab 2
 			menuCompilation(2);
 			return true;
 
-		case 34120 : // tab 3
+		case 34120: // tab 3
 			menuCompilation(3);
 			return true;
 
-		case 34123 : // tab 4
+		case 34123: // tab 4
 			menuCompilation(4);
 			return true;
 
-		case 34133 : // tab 5
+		case 34133: // tab 5
 			menuCompilation(5);
 			return true;
 
-		case 34136 : // tab 6
+		case 34136: // tab 6
 			menuCompilation(6);
 			return true;
 
-		case 34139 : // tab 7
+		case 34139: // tab 7
 			menuCompilation(7);
 			return true;
 
-		case 34155 : // tab 8
+		case 34155: // tab 8
 			menuCompilation(8);
 			return true;
 
-		case 34158 : // tab 9
+		case 34158: // tab 9
 			menuCompilation(9);
 			return true;
 
-		case 34161 : // tab 10
+		case 34161: // tab 10
 			menuCompilation(10);
 			return true;
 
-		case 59199 : // tab 11
+		case 59199: // tab 11
 			menuCompilation(11);
 			return true;
 
-		case 59202 : // tab 12
+		case 59202: // tab 12
 			menuCompilation(12);
 			return true;
 
-		case 59205 : // tab 13
+		case 59205: // tab 13
 			menuCompilation(13);
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Opens the menus.
 	 * @param screen The screen id.
@@ -204,45 +204,65 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	public void menuCompilation(int screen) {
 		if (player.getSelected() == 0) {
 			attackComplex(screen);
-		} else if (player.getSelected() == 1) {
+		}
+		else if (player.getSelected() == 1) {
 			strengthComplex(screen);
-		} else if (player.getSelected() == 2) {
+		}
+		else if (player.getSelected() == 2) {
 			defenceComplex(screen);
-		} else if (player.getSelected() == 3) {
+		}
+		else if (player.getSelected() == 3) {
 			rangedComplex(screen);
-		} else if (player.getSelected() == 4) {
+		}
+		else if (player.getSelected() == 4) {
 			prayerComplex(screen);
-		} else if (player.getSelected() == 5) {
+		}
+		else if (player.getSelected() == 5) {
 			magicComplex(screen);
-		} else if (player.getSelected() == 6) {
+		}
+		else if (player.getSelected() == 6) {
 			runecraftingComplex(screen);
-		} else if (player.getSelected() == 7) {
+		}
+		else if (player.getSelected() == 7) {
 			hitpointsComplex(screen);
-		} else if (player.getSelected() == 8) {
+		}
+		else if (player.getSelected() == 8) {
 			agilityComplex(screen);
-		} else if (player.getSelected() == 9) {
+		}
+		else if (player.getSelected() == 9) {
 			herbloreComplex(screen);
-		} else if (player.getSelected() == 10) {
+		}
+		else if (player.getSelected() == 10) {
 			thievingComplex(screen);
-		} else if (player.getSelected() == 11) {
+		}
+		else if (player.getSelected() == 11) {
 			craftingComplex(screen);
-		} else if (player.getSelected() == 12) {
+		}
+		else if (player.getSelected() == 12) {
 			fletchingComplex(screen);
-		} else if (player.getSelected() == 13) {
+		}
+		else if (player.getSelected() == 13) {
 			slayerComplex(screen);
-		} else if (player.getSelected() == 14) {
+		}
+		else if (player.getSelected() == 14) {
 			miningComplex(screen);
-		} else if (player.getSelected() == 15) {
+		}
+		else if (player.getSelected() == 15) {
 			smithingComplex(screen);
-		} else if (player.getSelected() == 16) {
+		}
+		else if (player.getSelected() == 16) {
 			fishingComplex(screen);
-		} else if (player.getSelected() == 17) {
+		}
+		else if (player.getSelected() == 17) {
 			cookingComplex(screen);
-		} else if (player.getSelected() == 18) {
+		}
+		else if (player.getSelected() == 18) {
 			firemakingComplex(screen);
-		} else if (player.getSelected() == 19) {
+		}
+		else if (player.getSelected() == 19) {
 			woodcuttingComplex(screen);
-		} else if (player.getSelected() == 20) {
+		}
+		else if (player.getSelected() == 20) {
 			farmingComplex(screen);
 		}
 	}
@@ -265,8 +285,9 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	 * @param op12 The option text 12.
 	 * @param op13 The option text 13.
 	 */
-	private void optionTab(String title, String currentTab, String op1, String op2, String op3, String op4, String op5, String op6, String op7, String op8, String op9, String op10, String op11, String op12, String op13) {
-		int[] interfaceChilds = {8800, 8844, 8813, 8825, 8828, 8838, 8841, 8850, 8860, 8863, 15294, 15304, 15307};
+	private void optionTab(String title, String currentTab, String op1, String op2, String op3, String op4, String op5,
+			String op6, String op7, String op8, String op9, String op10, String op11, String op12, String op13) {
+		int[] interfaceChilds = { 8800, 8844, 8813, 8825, 8828, 8838, 8841, 8850, 8860, 8863, 15294, 15304, 15307 };
 		for (int i : interfaceChilds)
 			player.send(new SetInterfaceComponentEvent(i, false));
 		player.send(new SetInterfaceTextEvent(8716, title));
@@ -307,7 +328,7 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			player.send(new SetInterfaceComponentEvent(interfaceChilds[10], true));
 		if (op12 == "")
 			player.send(new SetInterfaceComponentEvent(interfaceChilds[11], true));
-		if (op13 == ""){
+		if (op13 == "") {
 			player.send(new SetInterfaceComponentEvent(interfaceChilds[12], true));
 
 		}
@@ -373,8 +394,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1375, 9);
 			menuLine(level, type + " Two-Handed Sword", 1307, 10);
 			menuLine(level, type + " Halberd", 3190, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 2) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 2) {
 			clearMenu();
 			String level = "1";
 			String type = "Iron";
@@ -390,8 +413,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1363, 9);
 			menuLine(level, type + " Two-Handed Sword", 1309, 10);
 			menuLine(level, type + " Halberd", 3192, 11);
-			optionTab("Attack", type + "", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 3) {
+			optionTab("Attack", type + "", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 3) {
 			clearMenu();
 			String level = "5";
 			String type = "Steel";
@@ -407,8 +432,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1365, 9);
 			menuLine(level, type + " Two-Handed Sword", 1311, 10);
 			menuLine(level, type + " Halberd", 3194, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 4) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 4) {
 			clearMenu();
 			String level = "10";
 			String type = "Black";
@@ -424,8 +451,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1367, 9);
 			menuLine(level, type + " Two-Handed Sword", 1313, 10);
 			menuLine(level, type + " Halberd", 3196, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 5) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 5) {
 			clearMenu();
 			String level = "10";
 			String type = "White";
@@ -439,8 +468,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 6589, 7);
 			menuLine(level, type + " Two-Handed Sword", 6609, 8);
 			menuLine(level, type + " Halberd", 6599, 9);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 6) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 6) {
 			clearMenu();
 			String level = "20";
 			String type = "Mithril";
@@ -456,8 +487,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1369, 9);
 			menuLine(level, type + " Two-Handed Sword", 1315, 10);
 			menuLine(level, type + " Halberd", 3198, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 7) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 7) {
 			clearMenu();
 			String level = "30";
 			String type = "Adamant";
@@ -473,8 +506,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1371, 9);
 			menuLine(level, type + " Two-Handed Sword", 1317, 10);
 			menuLine(level, type + " Halberd", 3200, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 8) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 8) {
 			clearMenu();
 			String level = "40";
 			String type = "Rune";
@@ -490,8 +525,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1373, 9);
 			menuLine(level, type + " Two-Handed Sword", 1319, 10);
 			menuLine(level, type + " Halberd", 3202, 11);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 9) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 9) {
 			clearMenu();
 			String level = "60";
 			String type = "Dragon";
@@ -504,8 +541,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Battleaxe", 1377, 6);
 			menuLine(level, type + " Two-Handed Sword", 7158, 7);
 			menuLine(level, type + " Halberd", 3204, 8);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 10) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 10) {
 			clearMenu();
 			String level = "70";
 			String type = "Barrows";
@@ -514,8 +553,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, "Guthan's Spear", 4726, 2);
 			menuLine(level, "Torag's Hammers(With 70 Strength", 4747, 3);
 			menuLine(level, "Verac's Flail", 4755, 4);
-			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 11) {
+			optionTab("Attack", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 11) {
 			clearMenu();
 			menuLine("50", "Leaf-Bladed Spear(With 55 Slayer)", 4158, 0);
 			menuLine("50", "Ancient Staff(With 50 Magic)", 4675, 1);
@@ -524,11 +565,14 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("60", "TokTz-Mej-Tal(Obsidian Staff)", 6526, 4);
 			menuLine("60", "TokTz-Ket-Em(Obsidian Mace)", 6527, 5);
 			menuLine("70", "Abyssal Whip", 4151, 6);
-			optionTab("Attack", "Special", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
-		} else if (screen == 12) {
+			optionTab("Attack", "Special", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Special", "Milestones", "");
+		}
+		else if (screen == 12) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Attack", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Special", "Milestones", "");
+			optionTab("Attack", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant",
+					"Rune", "Dragon", "Barrows", "Special", "Milestones", "");
 		}
 	}
 
@@ -561,7 +605,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Strength", "Milestones", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Strength", "Milestones", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
 		}
 	}
 
@@ -586,7 +631,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1087, 6);
 			menuLine(level, type + " Platelegs", 1075, 7);
 			menuLine(level, type + " Boots", 4119, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 2) {
@@ -602,7 +648,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1081, 6);
 			menuLine(level, type + " Platelegs", 1067, 7);
 			menuLine(level, type + " Boots", 4121, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 3) {
@@ -618,7 +665,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1083, 6);
 			menuLine(level, type + " Platelegs", 1069, 7);
 			menuLine(level, type + " Boots", 4123, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 4) {
@@ -634,7 +682,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1089, 6);
 			menuLine(level, type + " Platelegs", 1077, 7);
 			menuLine(level, type + " Boots", 4125, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 5) {
@@ -650,7 +699,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 6627, 6);
 			menuLine(level, type + " Platelegs", 6625, 7);
 			menuLine(level, type + " Boots", 6619, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 6) {
@@ -666,7 +716,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1085, 6);
 			menuLine(level, type + " Platelegs", 1071, 7);
 			menuLine(level, type + " Boots", 4127, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 7) {
@@ -682,7 +733,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1091, 6);
 			menuLine(level, type + " Platelegs", 1073, 7);
 			menuLine(level, type + " Boots", 4129, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 8) {
@@ -698,7 +750,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Plateskirt", 1093, 6);
 			menuLine(level, type + " Platelegs", 1079, 7);
 			menuLine(level, type + " Boots", 4131, 8);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 9) {
@@ -710,7 +763,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, type + " Chainbody", 3140, 2);
 			menuLine(level, type + " Plateskirt", 4585, 3);
 			menuLine(level, type + " Platelegs", 4087, 4);
-			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", type, "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 10) {
@@ -734,7 +788,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine(level, "Verac's Helm", 4753, 15);
 			menuLine(level, "Verac's Brassard", 4757, 16);
 			menuLine(level, "Verac's Plateskirt", 4759, 17);
-			optionTab("Defence", "Barrows", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", "Barrows", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 11) {
@@ -764,7 +819,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("40", "Skeletal Top(With 40 Magic)", 6139, 22);
 			menuLine("40", "Skeletal Bottoms(With 40 Magic)", 6141, 23);
 			menuLine("44", "Farseer Helm", 3755, 24);
-			optionTab("Defence", "Magic", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", "Magic", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune",
+					"Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 12) {
@@ -797,13 +853,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("50", "Granite Shield(With 50 Strength)", 3122, 25);
 			menuLine("60", "TokTz-Ket-Xil(Obsidian Shield)", 6524, 26);
 			menuLine("70", "Crystal Shield(With 50 Agility)", 4224, 27);
-			optionTab("Defence", "Equipment", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", "Equipment", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant",
+					"Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 
 		else if (screen == 13) {
 			clearMenu();
 			menuLine("", "", -1, 0);// Skill mastery
-			optionTab("Defence", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant", "Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
+			optionTab("Defence", "Milestones", "Bronze", "Iron", "Steel", "Black", "White", "Mithril", "Adamant",
+					"Rune", "Dragon", "Barrows", "Magic", "Equipment", "Milestones");
 		}
 	}
 
@@ -824,7 +882,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("50", "Magic Bow", 859, 7);
 			menuLine("50", "Seercull", 6724, 8);
 			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 9);
-			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 2) {
@@ -856,7 +915,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("40", "Rune Throwing Axe", 805, 24);
 			menuLine("40", "Rune Throwing Knife", 868, 25);
 			menuLine("60", "TokTz-Xil-Ul(Obsidian Rings)", 6522, 26);
-			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -894,7 +954,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 30);
 			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 31);
 			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 32);
-			optionTab("Ranged", "Armour", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Armour", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -902,20 +963,23 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("1", "Crossbow", 837, 0);
 			menuLine("1", "Pheonix Crossbow", 767, 1);
 			menuLine("70", "Karil's Crossbow", 4734, 2);
-			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 5) {
 			clearMenu();
 			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 0);
-			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
 		}
 
 		else if (screen == 6) {
 			clearMenu();
 			menuLine("40", "Ranging Guild", 1464, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 	}
 
@@ -959,14 +1023,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("10", "Initiate Platemail(With 20 Defence)", 5575, 1);
 			menuLine("10", "Initiate Platelegs(With 20 Defence)", 5576, 2);
 			menuLine("50", "Enchant Unholy And Holy Symbols", 1724, 3);
-			optionTab("Prayer", "Equipment", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Prayer", "Equipment", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("31", "Monastery", 4674, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Prayer", "Milestones", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Prayer", "Milestones", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
 		}
 	}
 
@@ -982,7 +1048,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "your side interface. Move the mouse", -1, 2);
 			menuLine("", "over the icon of the spell you want and", -1, 3);
 			menuLine("", "a description will be availabe", -1, 4);
-			optionTab("Magic", "Spells", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Spells", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1013,7 +1080,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("92", "Blood Barrage", -1, 23);
 			menuLine("94", "Ice Barrage", -1, 24);
 			menuLine("96", "Teleport to Ghorrock", -1, 25);
-			optionTab("Magic", "Ancients", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Ancients", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -1047,7 +1115,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("70", "Ahrim's Hood(With 70 Defence)", 4708, 26);
 			menuLine("70", "Ahrim's Robe Top(With 70 Defence)", 4712, 27);
 			menuLine("70", "Ahrim's Robeskirt(With 70 Defence)", 4714, 28);
-			optionTab("Magic", "Armour", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Armour", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -1078,7 +1147,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("60", "Zamorak Staff", 2417, 23);
 			menuLine("60", "TokTz-Mej-Tal(Obsidian Staff)", 6526, 24);
 			menuLine("70", "Ahrim's Staff(With 70 Attack)", 4710, 25);
-			optionTab("Magic", "Weapons", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Weapons", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -1088,14 +1158,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("55", "Teacher Wand", 6912, 2);
 			menuLine("60", "Master Wand", 6914, 3);
 			menuLine("60", "Mage's Book", 6889, 4);
-			optionTab("Magic", "Special", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Special", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "",
+					"", "", "", "", "");
 		}
 
 		else if (screen == 6) {
 			clearMenu();
 			menuLine("66", "Magic Guild", 4675, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Magic", "Milestones", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "", "", "", "", "", "", "");
+			optionTab("Magic", "Milestones", "Spells", "Ancients", "Armour", "Weapons", "Special", "Milestones", "",
+					"", "", "", "", "", "");
 		}
 	}
 
@@ -1123,8 +1195,9 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("44", "Nature runes", 561, 14);
 			menuLine("54", "Law runes", 563, 15);
 			menuLine("65", "Death runes", 560, 16);
-			//menuLine("77", "Blood runes", 565, 17);
-			optionTab("RuneCrafting", "Runes", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "");
+			// menuLine("77", "Blood runes", 565, 17);
+			optionTab("RuneCrafting", "Runes", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1160,7 +1233,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("95", "6 Water runes per essence", 555, 28);
 			menuLine("98", "8 Mind runes per essence", 558, 29);
 			menuLine("99", "10 Air runes per essence", 556, 30);
-			optionTab("RuneCrafting", "Multiples", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("RuneCrafting", "Multiples", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "",
+					"", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -1169,13 +1243,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("25", "Medium Pouch(6 Essence)", 5510, 1);
 			menuLine("50", "Large Pouch(9 Essence)", 5512, 2);
 			menuLine("75", "Giant Pouch(12 Essence)", 5514, 3);
-			optionTab("RuneCrafting", "Equipment", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("RuneCrafting", "Equipment", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "",
+					"", "", "", "");
 		}
 
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("RuneCrafting", "Milestones", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("RuneCrafting", "Milestones", "Runes", "Multiples", "Equipment", "Milestones", "", "", "", "",
+					"", "", "", "", "");
 		}
 	}
 
@@ -1232,7 +1308,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("48", "Ape Atoll Agility Course", 4024, 7);// greegree
 			menuLine("52", "Wilderness Agility Course", 964, 8);// skull
 			menuLine("60", "Werewolf Agility Course", 6465, 9);// charos
-			optionTab("Agility", "Courses", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Agility", "Courses", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 2) {
@@ -1248,7 +1325,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("49", "Yanille Dungeon Contortion", 6520, 8);
 			menuLine("50", "Rogues' Den(With 50 Thieving)", 6518, 9);
 			menuLine("67", "Yanille Dungeon Rubble Climb", 6521, 10);
-			optionTab("Agility", "Areas", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Agility", "Areas", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 3) {
@@ -1292,14 +1370,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("80", "Taverly Dungeon Spiked Blade Jump", 6514, 36);
 			menuLine("81", "Slayer Dungeon Chasm Jump", 6514, 37);
 			menuLine("85", "Elven Overpass Advanced Cliff Scramble", 6517, 38);
-			optionTab("Agility", "Shortcuts", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Agility", "Shortcuts", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("50", "Crystal Equipment", 4207, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Agility", "Milestones", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Agility", "Milestones", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 	}
 
@@ -1365,7 +1445,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Herblore", "Milestones", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Herblore", "Milestones", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
 		}
 	}
 
@@ -1395,7 +1476,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("75", "Gnome", 3257, 16);
 			menuLine("80", "Hero", 3259, 17);
 			menuLine("85", "Elf", 6105, 18);
-			optionTab("Thieving", "Pickpocket", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Thieving", "Pickpocket", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1417,7 +1499,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("65", "Scimitar stall", 1323, 14);
 			menuLine("65", "Spice stall", 2007, 15);
 			menuLine("75", "Gem stall", 1607, 16);
-			optionTab("Thieving", "Stalls", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Thieving", "Stalls", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 3) {
@@ -1429,13 +1512,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("47", "Rellekka", 617, 4);
 			menuLine("59", "Chaos Druid Tower north of Ardougne", 565, 5);
 			menuLine("72", "King Lathas's castle in Ardougne", 383, 6);
-			optionTab("Thieving", "Chests", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Thieving", "Chests", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Thieving", "Milestones", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Thieving", "Milestones", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 	}
 
@@ -1449,7 +1534,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("10", "Cloth", 3224, 0);
 			menuLine("21", "Vegetable Sack", 5418, 1);
 			menuLine("36", "Fruit Basket", 5376, 2);
-			optionTab("Crafting", "Weaving", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Weaving", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1482,14 +1568,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("79", "Black Dragonhide Vambraces", 2491, 25);
 			menuLine("82", "Black Dragonhide Chaps", 2497, 26);
 			menuLine("84", "Black Dragonhide Body", 2503, 27);
-			optionTab("Crafting", "Armour", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Armour", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("1", "Wool", 1759, 0);
 			menuLine("10", "Flax into Bow Strings", 1777, 1);
-			optionTab("Crafting", "Spinning", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Spinning", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -1499,7 +1587,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("8", "Bowl", 1923, 2);
 			menuLine("19", "Plant Pot", 5350, 3);
 			menuLine("25", "Pot Lid", 4440, 4);
-			optionTab("Crafting", "Pottery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Pottery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -1512,7 +1601,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("42", "Fishbowl", 6667, 5);
 			menuLine("46", "Glass Orb", 567, 6);
 			menuLine("49", "Bullseye Lantern Lens", 4542, 7);
-			optionTab("Crafting", "Glass", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Glass", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 6) {
@@ -1549,7 +1639,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("80", "Dragonstone Amulet", 1683, 29);
 			menuLine("82", "Onyx Necklace", 6577, 30);
 			menuLine("90", "Onyx Amulet", 6579, 31);
-			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 7) {
@@ -1558,14 +1649,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("58", "Earth battlestaff", 1399, 1);
 			menuLine("62", "Fire battlestaff", 1393, 2);
 			menuLine("66", "Air battlestaff", 1397, 3);
-			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 
 		else if (screen == 8) {
 			clearMenu();
 			menuLine("40", "Crafting Guild", 1757, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery", "Weaponry", "Milestones", "", "", "", "", "");
+			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 	}
 
@@ -1590,7 +1683,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("62", "Adamant 'brutal' arrow", 4798, 11);
 			menuLine("75", "Rune arrow", 892, 12);
 			menuLine("77", "Rune 'brutal' arrow", 4803, 13);
-			optionTab("Fletching", "Arrows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Fletching", "Arrows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 2) {
@@ -1625,7 +1719,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Fletching", "Milestones", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Fletching", "Milestones", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 	}
 
@@ -1653,7 +1748,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("55", "Slayer's Staff(With 50 Magic)", 4170, 14);
 			menuLine("57", "Fungicide Spray", 7421, 15);
 			menuLine("60", "Nose Peg", 4168, 16);
-			optionTab("Slayer", "Equipment", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Slayer", "Equipment", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1679,7 +1775,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("80", "Nechrael", 4148, 18);
 			menuLine("85", "Abyssal Demon", 4149, 19);
 			menuLine("90", "Dark Beast", 6637, 20);
-			optionTab("Slayer", "Monsters", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Slayer", "Monsters", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 3) {
@@ -1689,13 +1786,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("1", "Edgeville Dungeon(Level 40 Combat)", 4155, 2);
 			menuLine("1", "Zanaris(Level 70 Combat)", 4155, 3);
 			menuLine("50", "Shilo Village(Level 100 Combat)", 4155, 4);
-			optionTab("Slayer", "Masters", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Slayer", "Masters", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Slayer", "Milestones", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Slayer", "Milestones", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
 	}
 
@@ -1761,7 +1860,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("50", "Mithril(4 Coal + 1 Mithril Ore", 2359, 6);
 			menuLine("70", "Adamant(6 Coal + 1 Adamantite Ore", 2361, 7);
 			menuLine("85", "Runite(8 Coal + 1 Runite Ore", 2363, 8);
-			optionTab("Smithing", "Smelting", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
+			optionTab("Smithing", "Smelting", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
 		}
 
 		else if (screen == 2) {
@@ -1791,8 +1891,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("16", type + " Platelegs - 3 Bars", 1075, 21);
 			menuLine("16", type + " Plateskirt - 3 Bars", 1087, 22);
 			menuLine("18", type + " Platebody - 5 Bars", 1117, 23);
-			optionTab("Smithing", "Bronze", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 3) {
+			optionTab("Smithing", "Bronze", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 3) {
 			clearMenu();
 			String type = "Iron";
 			menuLine("15", type + " Dagger - 1 Bar", 1203, 0);
@@ -1820,7 +1922,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("31", type + " Platelegs - 3 Bars", 1067, 22);
 			menuLine("31", type + " Plateskirt - 3 Bars", 1081, 23);
 			menuLine("33", type + " Platebody - 5 Bars", 1115, 24);
-			optionTab("Smithing", "Iron", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
+			optionTab("Smithing", "Iron", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
 		}
 
 		else if (screen == 4) {
@@ -1850,8 +1953,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("46", type + " Platelegs - 3 Bars", 1069, 21);
 			menuLine("46", type + " Plateskirt - 3 Bars", 1083, 22);
 			menuLine("48", type + " Platebody - 5 Bars", 1119, 23);
-			optionTab("Smithing", "Steel", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 5) {
+			optionTab("Smithing", "Steel", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 5) {
 			clearMenu();
 			String type = "Mithril";
 			menuLine("50", type + " Dagger - 1 Bar", 1209, 0);
@@ -1877,8 +1982,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("66", type + " Platelegs - 3 Bars", 1071, 20);
 			menuLine("66", type + " Plateskirt - 3 Bars", 1085, 21);
 			menuLine("68", type + " Platebody - 5 Bars", 1121, 22);
-			optionTab("Smithing", "Mithril", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 6) {
+			optionTab("Smithing", "Mithril", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 6) {
 			clearMenu();
 			String type = "Adamant";
 			menuLine("70", type + " Dagger - 1 Bar", 1211, 0);
@@ -1904,8 +2011,10 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("86", type + " Platelegs - 3 Bars", 1073, 20);
 			menuLine("86", type + " Plateskirt - 3 Bars", 1091, 21);
 			menuLine("88", type + " Platebody - 5 Bars", 1123, 22);
-			optionTab("Smithing", "Adamantite", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 7) {
+			optionTab("Smithing", "Adamantite", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite",
+					"Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 7) {
 			clearMenu();
 			String type = "Rune";
 			menuLine("85", type + " Dagger - 1 Bar", 1213, 0);
@@ -1931,24 +2040,33 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("99", type + " Platelegs - 3 Bars", 1079, 20);
 			menuLine("99", type + " Plateskirt - 3 Bars", 1093, 21);
 			menuLine("99", type + " Platebody - 5 Bars", 1127, 22);
-			optionTab("Smithing", "Runite", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 8) {
+			optionTab("Smithing", "Runite", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 8) {
 			clearMenu();
 			menuLine("50", "Gold Bowl(After Starting Legends' Quest", 721, 0);
 			menuLine("50", "Gold Helmet(After starting Between a Rock...", 4567, 1);
-			optionTab("Smithing", "Gold", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 9) {
+			optionTab("Smithing", "Gold", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 9) {
 			clearMenu();
 			menuLine("20", "Elemental Shield(After Elemental Workshop)", 2890, 0);
-			optionTab("Smithing", "Elemental", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 10) {
+			optionTab("Smithing", "Elemental", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite",
+					"Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 10) {
 			clearMenu();
 			menuLine("60", "Dragon Square Shield", 1187, 0);
-			optionTab("Smithing", "Other", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
-		} else if (screen == 11) {
+			optionTab("Smithing", "Other", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite",
+					"Gold", "Elemental", "Other", "Milestones", "", "");
+		}
+		else if (screen == 11) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Smithing", "Milestones", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite", "Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
+			optionTab("Smithing", "Milestones", "Smelting", "Bronze", "Iron", "Steel", "Mithril", "Adamantite",
+					"Runite", "Gold", "Elemental", "Other", "Milestones", "", "");
 		}
 	}
 
@@ -1966,7 +2084,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("35", "Harpoon", 311, 4);
 			menuLine("40", "Lobster Pot", 301, 5);
 			menuLine("65", "Vessel Fishing", 3157, 6);
-			optionTab("Fishing", "Techniques", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Fishing", "Techniques", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 2) {
@@ -1994,14 +2113,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("76", "Shark - Harpoon Fishing", 383, 20);
 			menuLine("79", "Sea Turtle - Fishing Trawler", 395, 21);
 			menuLine("81", "Manta Ray - Fishing Trawler", 389, 22);
-			optionTab("Fishing", "Catches", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Fishing", "Catches", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("68", "Fishing Guild", 385, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Fishing", "Milestones", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Fishing", "Milestones", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
+					"", "");
 		}
 	}
 
@@ -2045,7 +2166,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("80", "Shark", 385, 30);
 			menuLine("82", "Sea Turtle", 397, 31);
 			menuLine("91", "Manta Ray", 391, 32);
-			optionTab("Cooking", "Meats", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Meats", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 2) {
@@ -2058,7 +2180,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "3.Fill a bucket or jug with water from a sink", -1, 5);
 			menuLine("", "4.Mix the flour and water to make some dough", -1, 6);
 			menuLine("", "5.Cook the dough by using it with a stove", -1, 7);
-			optionTab("Cooking", "Bread", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Bread", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 3) {
@@ -2077,7 +2200,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "2.Place the dough in an empty pie dish", -1, 11);
 			menuLine("", "3.Use our choice of filling with the empty pie", -1, 12);
 			menuLine("", "4.Cook the pie by using it with a stove", -1, 13);
-			optionTab("Cooking", "Pies", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Pies", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 4) {
@@ -2092,7 +2216,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "To make curry:", -1, 7);
 			menuLine("", "Make uncooked stew as above.", -1, 8);
 			menuLine("", "Before cooking, add some spices or curry leaves", -1, 9);
-			optionTab("Cooking", "Stews", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Stews", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 5) {
@@ -2107,7 +2232,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "3.Add some cheese to the pizza", -1, 7);
 			menuLine("", "4.Cook the pizza by using it with a stove", -1, 8);
 			menuLine("", "5.Add your choice of topping to the pizza", -1, 9);
-			optionTab("Cooking", "Pizzas", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Pizzas", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 6) {
@@ -2119,7 +2245,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "2.Cook the cake by using it with a stove", -1, 4);
 			menuLine("", "3.Optional:Buy some chocolate and add", -1, 5);
 			menuLine("", "it to the cake to make a chocolate cake", -1, 6);
-			optionTab("Cooking", "Cakes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Cakes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 7) {
@@ -2131,7 +2258,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "3.Wait until the wine ferments", -1, 4);
 			menuLine("", "4.The wine will ferment while left in your", -1, 5);
 			menuLine("", "inventory or the bank", -1, 6);
-			optionTab("Cooking", "Wine", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Wine", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 8) {
@@ -2143,7 +2271,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "3.Boil the nettle-water by using it with a range", -1, 4);
 			menuLine("", "4.Use the bowl of nettle tea with a cup", -1, 5);
 			menuLine("", "5.If you take milk, use some milk on the tea", -1, 6);
-			optionTab("Cooking", "Hot Drinks", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Hot Drinks", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 9) {
@@ -2158,7 +2287,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("49", "Axeman's Folly(1 Oak Root)", 5751, 7);
 			menuLine("54", "Chef's Delight(4 Portions of Chocolate Dust)", 5755, 8);
 			menuLine("59", "Slayer's Respite(4 Wildblood Hops)", 5759, 9);
-			optionTab("Cooking", "Brewing", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Brewing", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 10) {
@@ -2189,7 +2319,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "2.Egg and tomato: Scrambled egg & tomato", -1, 23);
 			menuLine("", "3.Mushroom and onion: Fried mushroom & onion", -1, 24);
 			menuLine("", "4.Tuna and sweetcorn: Tuna & cooked sweetcorn", -1, 25);
-			optionTab("Cooking", "Potatoes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Potatoes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 11) {
@@ -2203,7 +2334,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "2.Use the milk, cream or butter in a churn", -1, 6);
 			menuLine("", "3.Milk can be churned into cream, ", -1, 7);
 			menuLine("", "then into butter, then into cheese", -1, 8);
-			optionTab("Cooking", "Dairy", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Dairy", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 12) {
@@ -2228,14 +2360,16 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("37", "Blurberry Special", 2028, 17);
 			menuLine("40", "Tangled Toads' Legs", 2187, 18);
 			menuLine("42", "Chocolate Bomb", 2185, 19);
-			optionTab("Cooking", "Gnome", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Gnome", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 13) {
 			clearMenu();
 			menuLine("32", "Chefs' Guild", 1949, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Cooking", "Milestones", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+			optionTab("Cooking", "Milestones", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 	}
 
@@ -2273,19 +2407,22 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("65", "Yew Pyre Logs", 3446, 24);
 			menuLine("75", "Magic Logs", 1513, 25);
 			menuLine("80", "Magic Pyre Logs", 3448, 26);
-			optionTab("Firemaking", "Firemaking", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Firemaking", "Firemaking", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 2) {
 			clearMenu();
 			menuLine("1", "Tinderbox", 590, 0);
-			optionTab("Firemaking", "Equipment", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Firemaking", "Equipment", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Firemaking", "Milestones", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			optionTab("Firemaking", "Milestones", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+					"", "", "");
 		}
 	}
 
@@ -2309,7 +2446,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("50", "Mahogany Tree", 6332, 10);
 			menuLine("60", "Yew Tree", 1515, 11);
 			menuLine("75", "Magic Tree", 1513, 12);
-			optionTab("Woodcutting", "Trees", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Woodcutting", "Trees", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 2) {
@@ -2322,7 +2460,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("31", "Adamant Axe", 1357, 5);
 			menuLine("41", "Rune Axe", 1359, 6);
 			menuLine("61", "Dragon Axe", 6739, 7);
-			optionTab("Woodcutting", "Axes", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Woodcutting", "Axes", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 3) {
@@ -2331,13 +2470,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("27", "Dugout Canoe", 7414, 1);
 			menuLine("42", "Stable Dugout Canoe", 7414, 2);
 			menuLine("57", "Waka Canoe", 7414, 3);
-			optionTab("Woodcutting", "Canoes", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Woodcutting", "Canoes", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "",
+					"");
 		}
 
 		else if (screen == 4) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Woodcutting", "Milestones", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "", "", "");
+			optionTab("Woodcutting", "Milestones", "Trees", "Axes", "Canoes", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 	}
 
@@ -2355,7 +2496,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("20", "Sweetcorn", 5986, 4);
 			menuLine("31", "Strawberry", 5504, 5);
 			menuLine("47", "Watermelon", 5982, 6);
-			optionTab("Farming", "Allotments", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Allotments", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 2) {
@@ -2367,7 +2509,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("16", "Yanillian Hop", 5998, 4);
 			menuLine("21", "Krandorian Hop", 6000, 5);
 			menuLine("28", "Wildblood Hop", 6002, 6);
-			optionTab("Farming", "Hops", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Hops", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 3) {
@@ -2377,7 +2520,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("45", "Maple Tree", 1517, 2);
 			menuLine("60", "Yew Tree", 1515, 3);
 			menuLine("75", "Magic Tree", 1513, 4);
-			optionTab("Farming", "Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 4) {
@@ -2389,7 +2533,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("51", "Pineapple Plant", 2114, 4);
 			menuLine("57", "Papaya Tree", 5972, 5);
 			menuLine("68", "Palm Tree", 5974, 6);
-			optionTab("Farming", "Fruit Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Fruit Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 5) {
@@ -2400,7 +2545,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("48", "Jangerberry Bush", 247, 3);
 			menuLine("59", "White Berry Bush", 239, 4);
 			menuLine("70", "Poison Ivy Bush", 6018, 5);
-			optionTab("Farming", "Bushes", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Bushes", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 6) {
@@ -2410,7 +2556,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("24", "Nasturtium(Protects Watermelons from Disease)", 6012, 2);
 			menuLine("25", "Woad", 1793, 3);
 			menuLine("26", "Limpwurt", 225, 4);
-			optionTab("Farming", "Flowers", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Flowers", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 7) {
@@ -2429,7 +2576,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("73", "Lantadyme", 2481, 11);
 			menuLine("79", "Dwarf Weed", 267, 12);
 			menuLine("85", "Torstol", 269, 13);
-			optionTab("Farming", "Herbs", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Herbs", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 8) {
@@ -2438,7 +2586,8 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("63", "Belladonna", 5281, 1);
 			menuLine("72", "Calquat Tree", 5980, 2);
 			menuLine("83", "Spirit Tree", 6063, 3);
-			optionTab("Farming", "Special", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Special", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 9) {
@@ -2455,13 +2604,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "2.Drive a hay sack onto a bronze spear", -1, 9);
 			menuLine("", "3.Place a watermelon at the top as a head", -1, 10);
 			menuLine("", "4.Stand the scarecrow in a flower patch", -1, 11);
-			optionTab("Farming", "Scarecrows", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Scarecrows", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
 		}
 
 		else if (screen == 10) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Farming", "Milestones", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+			optionTab("Farming", "Milestones", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
 		}
 	}
 

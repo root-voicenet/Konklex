@@ -1,8 +1,7 @@
 package org.apollo.net.codec.game;
 
 /**
- * An enumeration which holds the mode a {@link GamePacketBuilder} or
- * {@link GamePacketReader} can be in.
+ * An enumeration which holds the mode a {@link GamePacketBuilder} or {@link GamePacketReader} can be in.
  * @author Graham
  */
 public enum AccessMode {

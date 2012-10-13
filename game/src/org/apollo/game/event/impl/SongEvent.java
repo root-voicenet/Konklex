@@ -17,12 +17,12 @@ public final class SongEvent extends Event {
 	 * The delay.
 	 */
 	private int delay = 0;
-	
+
 	/**
 	 * The type.
 	 */
 	private final int type;
-	
+
 	/**
 	 * The sound type.
 	 */
@@ -47,7 +47,7 @@ public final class SongEvent extends Event {
 		this.delay = delay;
 		this.type = 3; // packet 121
 	}
-	
+
 	/**
 	 * Creates a sound.
 	 * @param sound The sound.
@@ -58,8 +58,9 @@ public final class SongEvent extends Event {
 		this.sound = sound;
 		this.soundType = soundType;
 		this.delay = delay;
-		this.type = 2; //packet 174
+		this.type = 2; // packet 174
 	}
+
 	/**
 	 * Gets the current sound id.
 	 * @return The sound id.
@@ -83,7 +84,7 @@ public final class SongEvent extends Event {
 	public int getDelay() {
 		return delay;
 	}
-	
+
 	/**
 	 * Gets the sound type.
 	 * @return The sound type.

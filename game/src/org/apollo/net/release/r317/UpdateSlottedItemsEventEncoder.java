@@ -11,22 +11,18 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link UpdateSlottedItemsEvent}.
- * 
  * @author Graham
  */
-public final class UpdateSlottedItemsEventEncoder extends
-EventEncoder<UpdateSlottedItemsEvent> {
+public final class UpdateSlottedItemsEventEncoder extends EventEncoder<UpdateSlottedItemsEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(UpdateSlottedItemsEvent event) {
-		final GamePacketBuilder builder = new GamePacketBuilder(34,
-				PacketType.VARIABLE_SHORT);
+		final GamePacketBuilder builder = new GamePacketBuilder(34, PacketType.VARIABLE_SHORT);
 		final SlottedItem[] items = event.getSlottedItems();
 		builder.put(DataType.SHORT, event.getInterfaceId());
 		for (final SlottedItem slottedItem : items) {
@@ -38,7 +34,8 @@ EventEncoder<UpdateSlottedItemsEvent> {
 			if (amount > 254) {
 				builder.put(DataType.BYTE, 255);
 				builder.put(DataType.INT, amount);
-			} else
+			}
+			else
 				builder.put(DataType.BYTE, amount);
 		}
 		return builder.toGamePacket();

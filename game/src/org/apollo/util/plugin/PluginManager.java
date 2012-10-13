@@ -83,7 +83,8 @@ public final class PluginManager {
 						for (final String author : meta.getAuthors())
 							authors.add(author);
 						plugins.add(meta);
-					} finally {
+					}
+					finally {
 						is.close();
 					}
 				}
@@ -123,7 +124,8 @@ public final class PluginManager {
 	 * @throws DependencyException if a dependency error occurs.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	private void start(PluginEnvironment env, PluginMetaData plugin, Map<String, PluginMetaData> plugins, Set<PluginMetaData> started) throws DependencyException, IOException {
+	private void start(PluginEnvironment env, PluginMetaData plugin, Map<String, PluginMetaData> plugins,
+			Set<PluginMetaData> started) throws DependencyException, IOException {
 		if (started.contains(plugin))
 			return;
 		started.add(plugin);

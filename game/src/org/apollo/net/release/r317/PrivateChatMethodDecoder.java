@@ -17,9 +17,9 @@ public final class PrivateChatMethodDecoder extends MethodDecoder<PrivateChatMet
 	@Override
 	public PrivateChatMethod decode(GamePacket packet) {
 		final GamePacketReader reader = new GamePacketReader(packet);
-		final long friend = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE); //8
-		final long sender = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE); //8
-		final int rights = (int) reader.getUnsigned(DataType.BYTE); //1
+		final long friend = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE); // 8
+		final long sender = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE); // 8
+		final int rights = (int) reader.getUnsigned(DataType.BYTE); // 1
 		final int length = (byte) (packet.getLength() - 17);
 		final byte[] originalCompressed = new byte[length];
 		reader.getBytes(originalCompressed);

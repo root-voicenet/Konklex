@@ -17,14 +17,12 @@ public final class ThirdNpcOptionEventDecoder extends EventDecoder<ThirdNpcOptio
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public ThirdNpcOptionEvent decode(GamePacket packet) {
 		final GamePacketReader reader = new GamePacketReader(packet);
-		final int slot = (int) reader.getUnsigned(DataType.SHORT,DataOrder.LITTLE, DataTransformation.ADD);
+		final int slot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
 		return new ThirdNpcOptionEvent(slot);
 	}
 }

@@ -61,14 +61,16 @@ public enum Direction {
 				return Direction.NORTH;
 			else
 				return Direction.NORTH_WEST;
-		} else if (deltaY == -1) {
+		}
+		else if (deltaY == -1) {
 			if (deltaX == 1)
 				return Direction.SOUTH_EAST;
 			else if (deltaX == 0)
 				return Direction.SOUTH;
 			else
 				return Direction.SOUTH_WEST;
-		} else if (deltaX == 1)
+		}
+		else if (deltaX == 1)
 			return Direction.EAST;
 		else if (deltaX == -1)
 			return Direction.WEST;
@@ -76,8 +78,8 @@ public enum Direction {
 	}
 
 	/**
-	 * Checks if the direction represented by the two delta values can connect
-	 * two points together in a single direction.
+	 * Checks if the direction represented by the two delta values can connect two points together in a single
+	 * direction.
 	 * @param deltaX The difference in X coordinates.
 	 * @param deltaY The difference in X coordinates.
 	 * @return {@code true} if so, {@code false} if not.

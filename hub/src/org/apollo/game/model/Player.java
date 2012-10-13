@@ -5,12 +5,12 @@ package org.apollo.game.model;
  * @author Steve
  */
 public final class Player {
-	
+
 	/**
 	 * The rights.
 	 */
 	private final int rights;
-	
+
 	/**
 	 * Creates the player.
 	 * @param rights The rigts.
@@ -18,7 +18,7 @@ public final class Player {
 	public Player(int rights) {
 		this.rights = rights;
 	}
-	
+
 	/**
 	 * Gets the rights.
 	 * @return The rights.

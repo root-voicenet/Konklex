@@ -21,9 +21,8 @@ import org.apollo.net.release.EventEncoder;
 import org.apollo.net.release.Release;
 
 /**
- * The {@link PluginContext} contains methods a plugin can use to interface with
- * the server, for example, by adding {@link EventHandler}s to
- * {@link EventHandlerChain}s.
+ * The {@link PluginContext} contains methods a plugin can use to interface with the server, for example, by adding
+ * {@link EventHandler}s to {@link EventHandlerChain}s.
  * @author Graham
  */
 public final class PluginContext {

@@ -9,7 +9,6 @@ import org.apollo.net.session.GameSession;
 
 /**
  * A class which processes a single save request.
- * 
  * @author Graham
  */
 public final class PlayerSaverWorker implements Runnable {
@@ -17,8 +16,7 @@ public final class PlayerSaverWorker implements Runnable {
 	/**
 	 * The logger for this class.
 	 */
-	private static final Logger logger = Logger
-			.getLogger(PlayerSaverWorker.class.getName());
+	private static final Logger logger = Logger.getLogger(PlayerSaverWorker.class.getName());
 
 	/**
 	 * The player saver.
@@ -37,16 +35,11 @@ public final class PlayerSaverWorker implements Runnable {
 
 	/**
 	 * Creates the player saver worker.
-	 * 
-	 * @param saver
-	 *            The player saver.
-	 * @param session
-	 *            The game session.
-	 * @param player
-	 *            The player to save.
+	 * @param saver The player saver.
+	 * @param session The game session.
+	 * @param player The player to save.
 	 */
-	public PlayerSaverWorker(PlayerSaver saver, GameSession session,
-			Player player) {
+	public PlayerSaverWorker(PlayerSaver saver, GameSession session, Player player) {
 		this.saver = saver;
 		this.session = session;
 		this.player = player;
@@ -62,7 +55,8 @@ public final class PlayerSaverWorker implements Runnable {
 		try {
 			saver.savePlayer(player);
 			session.handlePlayerSaverResponse(true);
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 			logger.log(Level.SEVERE, "Unable to save player's game.", e);
 			session.handlePlayerSaverResponse(false);
 		}

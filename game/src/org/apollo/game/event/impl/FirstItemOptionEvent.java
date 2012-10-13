@@ -1,8 +1,7 @@
 package org.apollo.game.event.impl;
 
 /**
- * The first {@link ItemOptionEvent}, used for eating food or identifying herbs
- * (amongst others).
+ * The first {@link ItemOptionEvent}, used for eating food or identifying herbs (amongst others).
  * @author Chris Fletcher
  */
 public final class FirstItemOptionEvent extends ItemOptionEvent {

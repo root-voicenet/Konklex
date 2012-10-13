@@ -5,7 +5,6 @@ import org.apollo.game.model.Position;
 
 /**
  * Item used on object event.
- * 
  * @author Steve
  */
 public class ItemUsedOnObjectEvent extends Event {
@@ -37,17 +36,11 @@ public class ItemUsedOnObjectEvent extends Event {
 
 	/**
 	 * Create a new item used on object event.
-	 * 
-	 * @param object
-	 *            the object
-	 * @param slot
-	 *            the slot
-	 * @param id
-	 *            the id
-	 * @param x
-	 *            the x
-	 * @param y
-	 *            the y
+	 * @param object the object
+	 * @param slot the slot
+	 * @param id the id
+	 * @param x the x
+	 * @param y the y
 	 */
 	public ItemUsedOnObjectEvent(int object, int slot, int id, int x, int y) {
 		this.object = object;
@@ -59,7 +52,6 @@ public class ItemUsedOnObjectEvent extends Event {
 
 	/**
 	 * The item id.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getId() {
@@ -68,7 +60,6 @@ public class ItemUsedOnObjectEvent extends Event {
 
 	/**
 	 * The object.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getObject() {
@@ -77,7 +68,6 @@ public class ItemUsedOnObjectEvent extends Event {
 
 	/**
 	 * The object position.
-	 * 
 	 * @return {@link Position}
 	 */
 	public Position getPosition() {
@@ -86,7 +76,6 @@ public class ItemUsedOnObjectEvent extends Event {
 
 	/**
 	 * The item slot.
-	 * 
 	 * @return {@link Integer}
 	 */
 	public int getSlot() {

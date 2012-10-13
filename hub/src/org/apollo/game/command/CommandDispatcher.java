@@ -27,7 +27,7 @@ import org.jboss.netty.channel.Channel;
  * @author Graham
  */
 public final class CommandDispatcher {
-	
+
 	/**
 	 * The instance.
 	 */
@@ -69,10 +69,12 @@ public final class CommandDispatcher {
 		if (listener != null)
 			try {
 				listener.execute(channel, command, context);
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				Logger.getGlobal().log(Level.WARNING, "Error executing command", e.getCause());
 			}
-		else channel.write("-bash: " + command.getName().toLowerCase()+": command not found" + "\r\n");
+		else
+			channel.write("-bash: " + command.getName().toLowerCase() + ": command not found" + "\r\n");
 	}
 
 	/**
@@ -84,7 +86,7 @@ public final class CommandDispatcher {
 		for (String cmd : command)
 			listeners.put(cmd.toLowerCase(), listener);
 	}
-	
+
 	/**
 	 * Gets the instance.
 	 * @return The instance.

@@ -12,9 +12,8 @@ public final class KeepAliveEventDecoder extends EventDecoder<KeepAliveEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public KeepAliveEvent decode(GamePacket packet) {

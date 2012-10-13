@@ -22,13 +22,13 @@ public final class ReceivePlayerMethodHandler extends MethodHandler<ReceivePlaye
 		if (context.getServerChannelGroup().contains(method.getWorld())) {
 			final World world = context.getServerChannelGroup().getWorld(method.getWorld());
 			final String name = NameUtil.decodeBase37(method.getPlayer());
-			switch(method.getStatus()) {
-				case 1:
-					world.getPlayers().put(name, new Player(method.getRights()));
-					break;
-				case 0:
-					world.getPlayers().remove(name);
-					break;
+			switch (method.getStatus()) {
+			case 1:
+				world.getPlayers().put(name, new Player(method.getRights()));
+				break;
+			case 0:
+				world.getPlayers().remove(name);
+				break;
 			}
 			Server.getContext().getServerChannelGroup().write(method, method.getWorld(), false);
 		}

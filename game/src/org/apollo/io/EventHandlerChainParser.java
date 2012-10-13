@@ -16,8 +16,7 @@ import org.apollo.util.xml.XmlParser;
 import org.xml.sax.SAXException;
 
 /**
- * A class which parses the {@code events.xml} file to produce
- * {@link EventHandlerChainGroup}s.
+ * A class which parses the {@code events.xml} file to produce {@link EventHandlerChainGroup}s.
  * @author Graham
  */
 public final class EventHandlerChainParser {
@@ -52,7 +51,8 @@ public final class EventHandlerChainParser {
 	 * @throws IllegalAccessException if a class was accessed illegally.
 	 */
 	@SuppressWarnings("unchecked")
-	public EventHandlerChainGroup parse() throws IOException, SAXException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+	public EventHandlerChainGroup parse() throws IOException, SAXException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException {
 		final XmlNode rootNode = parser.parse(is);
 		if (!rootNode.getName().equals("events"))
 			throw new IOException("root node name is not 'events'");

@@ -36,8 +36,7 @@ public final class PlayerLoaderWorker implements Runnable {
 	private final LoginRequest request;
 
 	/**
-	 * Creates a {@link PlayerLoaderWorker} which will do the work for a single
-	 * player load request.
+	 * Creates a {@link PlayerLoaderWorker} which will do the work for a single player load request.
 	 * @param loader The current player loader.
 	 * @param session The {@link LoginSession} which initiated the request.
 	 * @param request The {@link LoginRequest} object.
@@ -50,6 +49,7 @@ public final class PlayerLoaderWorker implements Runnable {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Runnable#run()
 	 */
 	@Override
@@ -57,7 +57,8 @@ public final class PlayerLoaderWorker implements Runnable {
 		try {
 			final PlayerLoaderResponse response = loader.loadPlayer(request.getCredentials());
 			session.handlePlayerLoaderResponse(request, response);
-		} catch (final Exception e) {
+		}
+		catch (final Exception e) {
 			logger.log(Level.SEVERE, "Unable to load player's game.", e);
 			session.handlePlayerLoaderResponse(request, new PlayerLoaderResponse(
 					LoginConstants.STATUS_COULD_NOT_COMPLETE));

@@ -18,8 +18,8 @@ public final class UpdateItemsEventEncoder extends EventEncoder<UpdateItemsEvent
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(UpdateItemsEvent event) {
@@ -34,7 +34,8 @@ public final class UpdateItemsEventEncoder extends EventEncoder<UpdateItemsEvent
 			if (amount > 254) {
 				builder.put(DataType.BYTE, DataTransformation.NEGATE, 255);
 				builder.put(DataType.INT, DataOrder.LITTLE, amount);
-			} else
+			}
+			else
 				builder.put(DataType.BYTE, DataTransformation.NEGATE, amount);
 		}
 		return builder.toGamePacket();

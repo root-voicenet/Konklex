@@ -8,12 +8,12 @@ import org.apollo.util.NameUtil;
  * @author Steve
  */
 public class ReceiveFriendMethod extends Method {
-	
+
 	/**
 	 * The sender.
 	 */
 	private final long sender;
-	
+
 	/**
 	 * The friend.
 	 */
@@ -27,7 +27,7 @@ public class ReceiveFriendMethod extends Method {
 	public ReceiveFriendMethod(String sender, String friend) {
 		this(NameUtil.encodeBase37(sender), NameUtil.encodeBase37(friend));
 	}
-	
+
 	/**
 	 * Creates the send friend method.
 	 * @param sender The sender.

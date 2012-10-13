@@ -9,11 +9,9 @@ import org.apollo.game.model.Position;
 import org.apollo.game.sync.seg.SynchronizationSegment;
 
 /**
- * A synchronization block is part of a {@link SynchronizationSegment}. A
- * segment can have up to one block of each type.
+ * A synchronization block is part of a {@link SynchronizationSegment}. A segment can have up to one block of each type.
  * <p>
- * This class also has static factory methods for creating
- * {@link SynchronizationBlock}s.
+ * This class also has static factory methods for creating {@link SynchronizationBlock}s.
  * </p>
  * @author Graham
  */
@@ -66,7 +64,8 @@ public abstract class SynchronizationBlock {
 	 * @param direction The direction.
 	 * @return The force movement block.
 	 */
-	public static SynchronizationBlock createForceMovementBlock(Position currentPosition, Position position, int firstSpeed, int secondSpeed, int direction) {
+	public static SynchronizationBlock createForceMovementBlock(Position currentPosition, Position position,
+			int firstSpeed, int secondSpeed, int direction) {
 		return new ForceMovementBlock(currentPosition, position, firstSpeed, secondSpeed, direction);
 	}
 

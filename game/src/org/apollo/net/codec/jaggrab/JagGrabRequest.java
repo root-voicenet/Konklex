@@ -2,7 +2,6 @@ package org.apollo.net.codec.jaggrab;
 
 /**
  * Represents the request for a single file using the JAGGRAB protocol.
- * 
  * @author Graham
  */
 public final class JagGrabRequest {
@@ -14,9 +13,7 @@ public final class JagGrabRequest {
 
 	/**
 	 * Creates the request.
-	 * 
-	 * @param filePath
-	 *            The file path.
+	 * @param filePath The file path.
 	 */
 	public JagGrabRequest(String filePath) {
 		this.filePath = filePath;
@@ -24,7 +21,6 @@ public final class JagGrabRequest {
 
 	/**
 	 * Gets the file path.
-	 * 
 	 * @return The file path.
 	 */
 	public String getFilePath() {

@@ -5,17 +5,17 @@ package org.apollo.net.codec.api;
  * @author Steve
  */
 public final class ApiRequest {
-	
+
 	/**
 	 * The nodes.
 	 */
 	private final int nodes;
-	
+
 	/**
 	 * The worlds.
 	 */
 	private final int[][] worlds;
-	
+
 	/**
 	 * Creates a api request.
 	 * @param nodes The nodes.
@@ -25,7 +25,7 @@ public final class ApiRequest {
 		this.nodes = nodes;
 		this.worlds = worlds;
 	}
-	
+
 	/**
 	 * Gets the worlds.
 	 * @return The worlds.
@@ -33,7 +33,7 @@ public final class ApiRequest {
 	public int[][] getWorlds() {
 		return worlds;
 	}
-	
+
 	/**
 	 * Gets the nodes.
 	 * @return The nodes.

@@ -4,8 +4,7 @@ import org.apollo.game.event.Event;
 import org.apollo.net.codec.game.GamePacket;
 
 /**
- * An {@link EventEncoder} encodes {@link Event} objects into {@link GamePacket}
- * s which can be sent over the network.
+ * An {@link EventEncoder} encodes {@link Event} objects into {@link GamePacket} s which can be sent over the network.
  * @param <E> The type of {@link Event}.
  * @author Graham
  */

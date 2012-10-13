@@ -35,7 +35,8 @@ public final class DepositBoxUtils {
 			box.stopFiringEvents();
 		try {
 			removed = box.remove(id, amount);
-		} finally {
+		}
+		finally {
 			if (amount > 1)
 				box.startFiringEvents();
 		}
@@ -87,7 +88,8 @@ public final class DepositBoxUtils {
 			inventory.stopFiringEvents();
 		try {
 			removed = inventory.remove(id, amount);
-		} finally {
+		}
+		finally {
 			if (amount > 1)
 				inventory.startFiringEvents();
 		}
@@ -113,7 +115,8 @@ public final class DepositBoxUtils {
 				if (item != null)
 					inventory.add(item);
 			box.clear();
-		} finally {
+		}
+		finally {
 			if (amount > 1)
 				inventory.startFiringEvents();
 		}

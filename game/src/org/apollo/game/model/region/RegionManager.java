@@ -142,7 +142,7 @@ public final class RegionManager {
 	public Region getRegionByLocation(Position location) {
 		return getRegion(location.getX() / REGION_SIZE, location.getY() / REGION_SIZE);
 	}
-	
+
 	/**
 	 * Gets the size of the regions.
 	 * @return The size.
@@ -150,7 +150,7 @@ public final class RegionManager {
 	public int size() {
 		return activeRegions.size();
 	}
-	
+
 	/**
 	 * Gets the ground item.
 	 * @param player The player.
@@ -160,14 +160,16 @@ public final class RegionManager {
 	 */
 	public GroundItem getGroundItem(Player player, Position position, int item) {
 		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
-			for (final GroundItem groundItem : collection)
-				if (groundItem.getPosition().equals(position))
-					if (groundItem.getItem().getId() == item)
-						if (groundItem.getControllerName().equals("null") || groundItem.getControllerName().equalsIgnoreCase(player.getName()) || groundItem.getPulses() == 0)
-							return groundItem;
+		for (final GroundItem groundItem : collection)
+			if (groundItem.getPosition().equals(position))
+				if (groundItem.getItem().getId() == item)
+					if (groundItem.getControllerName().equals("null")
+							|| groundItem.getControllerName().equalsIgnoreCase(player.getName())
+							|| groundItem.getPulses() == 0)
+						return groundItem;
 		return null;
 	}
-	
+
 	/**
 	 * Gets the game object.
 	 * @param player The player.

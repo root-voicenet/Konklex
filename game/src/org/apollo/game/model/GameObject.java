@@ -4,7 +4,6 @@ import org.apollo.game.model.def.ObjectDefinition;
 
 /**
  * Represents a single game object.
- * 
  * @author Graham Edgecombe
  */
 public final class GameObject {
@@ -31,18 +30,12 @@ public final class GameObject {
 
 	/**
 	 * Creates the game object.
-	 * 
-	 * @param definition
-	 *            The definition.
-	 * @param location
-	 *            The location.
-	 * @param type
-	 *            The type.
-	 * @param rotation
-	 *            The rotation.
+	 * @param definition The definition.
+	 * @param location The location.
+	 * @param type The type.
+	 * @param rotation The rotation.
 	 */
-	public GameObject(ObjectDefinition definition, Position location, int type,
-			int rotation) {
+	public GameObject(ObjectDefinition definition, Position location, int type, int rotation) {
 		this.definition = definition;
 		this.location = location;
 		this.type = type;
@@ -51,7 +44,6 @@ public final class GameObject {
 
 	/**
 	 * Gets the definition.
-	 * 
 	 * @return The definition.
 	 */
 	public ObjectDefinition getDefinition() {
@@ -60,7 +52,6 @@ public final class GameObject {
 
 	/**
 	 * Gets the location.
-	 * 
 	 * @return The location.
 	 */
 	public Position getLocation() {
@@ -69,7 +60,6 @@ public final class GameObject {
 
 	/**
 	 * Gets the rotation.
-	 * 
 	 * @return The rotation.
 	 */
 	public int getRotation() {
@@ -78,7 +68,6 @@ public final class GameObject {
 
 	/**
 	 * Gets the type.
-	 * 
 	 * @return The type.
 	 */
 	public int getType() {

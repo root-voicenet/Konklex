@@ -6,17 +6,14 @@ import java.util.Set;
 import org.apollo.game.model.Position;
 
 /**
- * An implementation of a <code>PathFinder</code> which uses the A* search
- * algorithm. Unlike the <code>DumbPathFinder</code>, this will attempt to find
- * a possible path and is more suited for player following.
- * 
+ * An implementation of a <code>PathFinder</code> which uses the A* search algorithm. Unlike the
+ * <code>DumbPathFinder</code>, this will attempt to find a possible path and is more suited for player following.
  * @author Graham Edgecombe
  */
 public class AStarPathFinder implements PathFinder {
 
 	/**
 	 * Represents a node used by the A* algorithm.
-	 * 
 	 * @author Graham Edgecombe
 	 */
 	private static class Node implements Comparable<Node> {
@@ -53,11 +50,8 @@ public class AStarPathFinder implements PathFinder {
 
 		/**
 		 * Creates a node.
-		 * 
-		 * @param x
-		 *            The x coordinate.
-		 * @param y
-		 *            The y coordinate.
+		 * @param x The x coordinate.
+		 * @param y The y coordinate.
 		 */
 		public Node(int x, int y) {
 			this.x = x;
@@ -87,7 +81,8 @@ public class AStarPathFinder implements PathFinder {
 			if (parent == null) {
 				if (other.parent != null)
 					return false;
-			} else if (!parent.equals(other.parent))
+			}
+			else if (!parent.equals(other.parent))
 				return false;
 			if (x != other.x)
 				return false;
@@ -102,7 +97,6 @@ public class AStarPathFinder implements PathFinder {
 
 		/**
 		 * Gets the parent node.
-		 * 
 		 * @return The parent node.
 		 */
 		public Node getParent() {
@@ -111,7 +105,6 @@ public class AStarPathFinder implements PathFinder {
 
 		/**
 		 * Gets the X coordinate.
-		 * 
 		 * @return The X coordinate.
 		 */
 		public int getX() {
@@ -120,7 +113,6 @@ public class AStarPathFinder implements PathFinder {
 
 		/**
 		 * Gets the Y coordinate.
-		 * 
 		 * @return The Y coordinate.
 		 */
 		public int getY() {
@@ -146,9 +138,7 @@ public class AStarPathFinder implements PathFinder {
 
 		/**
 		 * Sets the parent.
-		 * 
-		 * @param parent
-		 *            The parent.
+		 * @param parent The parent.
 		 */
 		public void setParent(Node parent) {
 			this.parent = parent;
@@ -162,17 +152,17 @@ public class AStarPathFinder implements PathFinder {
 	private static final int COST_STRAIGHT = 10;
 
 	private Node current;
+
 	private Node[][] nodes;
+
 	private final Set<Node> closed = new HashSet<Node>();
+
 	private final Set<Node> open = new HashSet<Node>();
 
 	/**
 	 * Estimates a distance between the two points.
-	 * 
-	 * @param src
-	 *            The source node.
-	 * @param dst
-	 *            The distance node.
+	 * @param src The source node.
+	 * @param dst The distance node.
 	 * @return The distance.
 	 */
 	public int estimateDistance(Node src, Node dst) {
@@ -196,10 +186,8 @@ public class AStarPathFinder implements PathFinder {
 	}
 
 	@Override
-	public Path findPath(Position location, int radius, TileMap map, int srcX,
-			int srcY, int dstX, int dstY) {
-		if (dstX < 0 || dstY < 0 || dstX >= map.getWidth()
-				|| dstY >= map.getHeight())
+	public Path findPath(Position location, int radius, TileMap map, int srcX, int srcY, int dstX, int dstY) {
+		if (dstX < 0 || dstY < 0 || dstX >= map.getWidth() || dstY >= map.getHeight())
 			return null; // out of range
 
 		nodes = new Node[map.getWidth()][map.getHeight()];
@@ -221,18 +209,15 @@ public class AStarPathFinder implements PathFinder {
 			// north west
 			if (x > 0 && map.getTile(x - 1, y).isEasternTraversalPermitted()
 					&& map.getTile(x, y).isWesternTraversalPermitted())
-				if (y < map.getHeight() - 1
-						&& map.getTile(x, y + 1).isSouthernTraversalPermitted()
+				if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 						&& map.getTile(x, y).isNorthernTraversalPermitted()) {
 					final Node n = nodes[x - 1][y + 1];
 					examineNode(n);
 				}
 			// north east
-			if (x < map.getWidth() - 1
-					&& map.getTile(x + 1, y).isWesternTraversalPermitted()
+			if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
 					&& map.getTile(x, y).isEasternTraversalPermitted())
-				if (y < map.getHeight() - 1
-						&& map.getTile(x, y + 1).isSouthernTraversalPermitted()
+				if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 						&& map.getTile(x, y).isNorthernTraversalPermitted()) {
 					final Node n = nodes[x + 1][y + 1];
 					examineNode(n);
@@ -240,8 +225,7 @@ public class AStarPathFinder implements PathFinder {
 			// south west
 			if (y > 0 && map.getTile(x, y - 1).isNorthernTraversalPermitted()
 					&& map.getTile(x, y).isSouthernTraversalPermitted())
-				if (x > 0
-						&& map.getTile(x - 1, y).isEasternTraversalPermitted()
+				if (x > 0 && map.getTile(x - 1, y).isEasternTraversalPermitted()
 						&& map.getTile(x, y).isWesternTraversalPermitted()) {
 					final Node n = nodes[x - 1][y - 1];
 					examineNode(n);
@@ -249,8 +233,7 @@ public class AStarPathFinder implements PathFinder {
 			// south east
 			if (y > 0 && map.getTile(x, y - 1).isNorthernTraversalPermitted()
 					&& map.getTile(x, y).isSouthernTraversalPermitted())
-				if (x < map.getWidth() - 1
-						&& map.getTile(x + 1, y).isWesternTraversalPermitted()
+				if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
 						&& map.getTile(x, y).isEasternTraversalPermitted()) {
 					final Node n = nodes[x + 1][y - 1];
 					examineNode(n);
@@ -262,8 +245,7 @@ public class AStarPathFinder implements PathFinder {
 				examineNode(n);
 			}
 			// east
-			if (x < map.getWidth() - 1
-					&& map.getTile(x + 1, y).isWesternTraversalPermitted()
+			if (x < map.getWidth() - 1 && map.getTile(x + 1, y).isWesternTraversalPermitted()
 					&& map.getTile(x, y).isEasternTraversalPermitted()) {
 				final Node n = nodes[x + 1][y];
 				examineNode(n);
@@ -275,8 +257,7 @@ public class AStarPathFinder implements PathFinder {
 				examineNode(n);
 			}
 			// north
-			if (y < map.getHeight() - 1
-					&& map.getTile(x, y + 1).isSouthernTraversalPermitted()
+			if (y < map.getHeight() - 1 && map.getTile(x, y + 1).isSouthernTraversalPermitted()
 					&& map.getTile(x, y).isNorthernTraversalPermitted()) {
 				final Node n = nodes[x][y + 1];
 				examineNode(n);
@@ -289,12 +270,11 @@ public class AStarPathFinder implements PathFinder {
 		final Path p = new Path();
 		Node n = nodes[dstX][dstY];
 		while (n != nodes[srcX][srcY]) {
-			p.addPoint(new Point(n.getX() + location.getLocalX(location)
-					- radius, n.getY() + location.getLocalY(location) - radius));
+			p.addPoint(new Point(n.getX() + location.getLocalX(location) - radius, n.getY()
+					+ location.getLocalY(location) - radius));
 			n = n.getParent();
 		}
-		p.addPoint(new Point(srcX + location.getLocalX(location) - radius, srcY
-				+ location.getLocalY(location) - radius));
+		p.addPoint(new Point(srcX + location.getLocalX(location) - radius, srcY + location.getLocalY(location) - radius));
 
 		return p;
 	}

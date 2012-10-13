@@ -2,7 +2,6 @@ package org.apollo.game.pf;
 
 /**
  * Represents a point on a <code>Path</code>.
- * 
  * @author Graham Edgecombe
  */
 public class Point {
@@ -19,11 +18,8 @@ public class Point {
 
 	/**
 	 * Creates a point.
-	 * 
-	 * @param x
-	 *            The x coordinate of the point.
-	 * @param y
-	 *            The y coordinate of the point.
+	 * @param x The x coordinate of the point.
+	 * @param y The y coordinate of the point.
 	 */
 	public Point(int x, int y) {
 		this.x = x;
@@ -48,7 +44,6 @@ public class Point {
 
 	/**
 	 * Gets the x.
-	 * 
 	 * @return The x.
 	 */
 	public int getX() {
@@ -57,7 +52,6 @@ public class Point {
 
 	/**
 	 * Gets the y.
-	 * 
 	 * @return The y.
 	 */
 	public int getY() {

@@ -13,7 +13,8 @@ public final class ReceiveFriendMethodHandler extends MethodHandler<ReceiveFrien
 
 	@Override
 	public void handle(MethodHandlerContext ctx, ProxyApiSession session, ReceiveFriendMethod method) {
-		// final boolean online = Server.getContext().getServerChannelGroup().isPlayerOnline(NameUtil.decodeBase37(method.getFriend()));
+		// final boolean online =
+		// Server.getContext().getServerChannelGroup().isPlayerOnline(NameUtil.decodeBase37(method.getFriend()));
 		// session.send(new SendFriendMethod(method.getSender(), method.getFriend(), online ? 1 : 0));
 	}
 

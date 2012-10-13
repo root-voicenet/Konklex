@@ -16,10 +16,9 @@ public final class RemoveEventHandler extends EventHandler<ItemActionEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, ItemActionEvent event) {
@@ -44,7 +43,8 @@ public final class RemoveEventHandler extends EventHandler<ItemActionEvent> {
 					removed = false;
 					equipment.set(slot, tmp);
 				}
-			} finally {
+			}
+			finally {
 				inventory.startFiringEvents();
 				equipment.startFiringEvents();
 			}
@@ -52,7 +52,8 @@ public final class RemoveEventHandler extends EventHandler<ItemActionEvent> {
 				inventory.forceRefresh(); // TODO find out the specific slot
 				// that got used?
 				equipment.forceRefresh();
-			} else
+			}
+			else
 				inventory.forceCapacityExceeded();
 		}
 	}

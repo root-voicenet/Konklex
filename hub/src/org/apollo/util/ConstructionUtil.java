@@ -13,7 +13,8 @@ public final class ConstructionUtil {
 		try {
 			if (iView == null) {
 				return Class.forName(className).newInstance();
-			} else {
+			}
+			else {
 				Class iViewClass = iView[0].getClass();
 				Class clazz = Class.forName(className);
 				try {
@@ -21,7 +22,8 @@ public final class ConstructionUtil {
 					ctor.setAccessible(true);
 					return ctor.newInstance(iView[0]);
 
-				} catch (NoSuchMethodException e) {
+				}
+				catch (NoSuchMethodException e) {
 					e.printStackTrace();
 					Constructor[] constructors = clazz.getDeclaredConstructors();
 					for (Constructor c : constructors) {
@@ -37,9 +39,10 @@ public final class ConstructionUtil {
 				}
 				return null;
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-} 
+}

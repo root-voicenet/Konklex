@@ -11,9 +11,8 @@ public abstract class InventoryAdapter implements InventoryListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryListener#capacityExceeded(org.apollo
-	 * .game.model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryListener#capacityExceeded(org.apollo .game.model.Inventory)
 	 */
 	@Override
 	public void capacityExceeded(Inventory inventory) {
@@ -22,9 +21,8 @@ public abstract class InventoryAdapter implements InventoryListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryListener#itemsUpdated(org.apollo.game
-	 * .model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryListener#itemsUpdated(org.apollo.game .model.Inventory)
 	 */
 	@Override
 	public void itemsUpdated(Inventory inventory) {
@@ -33,9 +31,9 @@ public abstract class InventoryAdapter implements InventoryListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryListener#itemUpdated(org.apollo.game
-	 * .model.Inventory, int, org.apollo.game.model.Item)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryListener#itemUpdated(org.apollo.game .model.Inventory, int,
+	 * org.apollo.game.model.Item)
 	 */
 	@Override
 	public void itemUpdated(Inventory inventory, int slot, Item item) {

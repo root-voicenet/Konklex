@@ -27,8 +27,8 @@ public final class BinaryPlayerSaver implements PlayerSaver {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
+	 * 
+	 * @see org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
 	 */
 	@Override
 	public void savePlayer(Player player) throws Exception {
@@ -82,7 +82,8 @@ public final class BinaryPlayerSaver implements PlayerSaver {
 				out.writeLong(NameUtil.encodeBase37(entry.getKey()));
 				out.writeByte(friends.getValue(entry.getValue()));
 			}
-		} finally {
+		}
+		finally {
 			out.close();
 		}
 	}
@@ -101,7 +102,8 @@ public final class BinaryPlayerSaver implements PlayerSaver {
 			if (item != null) {
 				out.writeShort(item.getId() + 1);
 				out.writeInt(item.getAmount());
-			} else {
+			}
+			else {
 				out.writeShort(0);
 				out.writeInt(0);
 			}

@@ -856,10 +856,12 @@ public final class EquipmentUpdater {
 						}
 					}
 				}
-			} finally {
+			}
+			finally {
 				fs.close();
 			}
-		} finally {
+		}
+		finally {
 			os.close();
 		}
 	}

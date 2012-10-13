@@ -6,8 +6,7 @@ import org.apollo.game.model.Skill;
 import org.apollo.game.model.SkillSet;
 
 /**
- * A {@link SkillListener} which sends config values when a player levels up
- * prayer.
+ * A {@link SkillListener} which sends config values when a player levels up prayer.
  * @author Steve
  */
 public final class PrayerSkillListener extends SkillAdapter {

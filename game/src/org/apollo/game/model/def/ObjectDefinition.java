@@ -4,7 +4,6 @@ import org.apollo.game.model.Position;
 
 /**
  * Represents a type of object.
- * 
  * @author Steve
  */
 public final class ObjectDefinition {
@@ -16,7 +15,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the total number of objects.
-	 * 
 	 * @return The total number of objects.
 	 */
 	public static int count() {
@@ -25,12 +23,9 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object definition for the specified id.
-	 * 
-	 * @param id
-	 *            The id.
+	 * @param id The id.
 	 * @return The definition.
-	 * @throws IndexOutOfBoundsException
-	 *             if the id is out of bounds.
+	 * @throws IndexOutOfBoundsException if the id is out of bounds.
 	 */
 	public static ObjectDefinition forId(int id) {
 		if (id < 0 || id >= definitions.length)
@@ -40,11 +35,8 @@ public final class ObjectDefinition {
 
 	/**
 	 * Initialises the class with the specified set of definitions.
-	 * 
-	 * @param definitions
-	 *            The definitions.
-	 * @throws RuntimeException
-	 *             if there is an id mismatch.
+	 * @param definitions The definitions.
+	 * @throws RuntimeException if there is an id mismatch.
 	 */
 	public static void init(ObjectDefinition[] definitions) {
 		ObjectDefinition.definitions = definitions;
@@ -137,9 +129,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Creates a new object definition.
-	 * 
-	 * @param id
-	 *            The object id.
+	 * @param id The object id.
 	 */
 	public ObjectDefinition(int id) {
 		this.id = id;
@@ -147,11 +137,8 @@ public final class ObjectDefinition {
 
 	/**
 	 * Adds a action to the actions array.
-	 * 
-	 * @param code
-	 *            The position to add the action.
-	 * @param action
-	 *            The action to add.
+	 * @param code The position to add the action.
+	 * @param action The action to add.
 	 */
 	public void addAction(int code, String action) {
 		if (!action.equalsIgnoreCase("hidden"))
@@ -160,7 +147,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the actions.
-	 * 
 	 * @return The actions.
 	 */
 	public String[] getActions() {
@@ -169,7 +155,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the description.
-	 * 
 	 * @return The description.
 	 */
 	public String getDescription() {
@@ -178,7 +163,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object id.
-	 * 
 	 * @return The object id.
 	 */
 	public int getId() {
@@ -187,7 +171,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the map scene id.
-	 * 
 	 * @return The map scene id.
 	 */
 	public int getMapSceneId() {
@@ -196,7 +179,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the name.
-	 * 
 	 * @return The name.
 	 */
 	public String getName() {
@@ -206,7 +188,6 @@ public final class ObjectDefinition {
 	// XXX: use single instances for offset and scale positions?
 	/**
 	 * Gets the offset.
-	 * 
 	 * @return The offset.
 	 */
 	public Position getOffset() {
@@ -215,7 +196,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the scale.
-	 * 
 	 * @return The scale.
 	 */
 	public Position getScale() {
@@ -224,7 +204,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object's horizontal X size.
-	 * 
 	 * @return The X size.
 	 */
 	public int getSizeX() {
@@ -233,7 +212,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object's horizontal Y size.
-	 * 
 	 * @return The Y size.
 	 */
 	public int getSizeY() {
@@ -242,7 +220,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object's interactibility flag.
-	 * 
 	 * @return {@code true} if the object has actions, {@code false} otherwise.
 	 */
 	public boolean isInteractable() {
@@ -251,7 +228,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object's solid flag.
-	 * 
 	 * @return The solid flag.
 	 */
 	public boolean isSolid() {
@@ -260,7 +236,6 @@ public final class ObjectDefinition {
 
 	/**
 	 * Gets the object's walkable flag.
-	 * 
 	 * @return The walkable flag.
 	 */
 	public boolean isWalkable() {
@@ -269,9 +244,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the description.
-	 * 
-	 * @param description
-	 *            The description.
+	 * @param description The description.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -279,9 +252,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the object's interactability flag.
-	 * 
-	 * @param interactable
-	 *            The interactability flag.
+	 * @param interactable The interactability flag.
 	 */
 	public void setInteractable(boolean interactable) {
 		this.interactable = interactable;
@@ -289,9 +260,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the map scene id.
-	 * 
-	 * @param mapSceneId
-	 *            The map scene id.
+	 * @param mapSceneId The map scene id.
 	 */
 	public void setMapSceneId(int mapSceneId) {
 		this.mapSceneId = mapSceneId;
@@ -299,9 +268,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the name.
-	 * 
-	 * @param name
-	 *            The name to set.
+	 * @param name The name to set.
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -309,9 +276,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the offset x.
-	 * 
-	 * @param offsetX
-	 *            The offset x.
+	 * @param offsetX The offset x.
 	 */
 	public void setOffsetX(int offsetX) {
 		this.offsetX = offsetX;
@@ -319,9 +284,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the offset y.
-	 * 
-	 * @param offsetY
-	 *            The offset y.
+	 * @param offsetY The offset y.
 	 */
 	public void setOffsetY(int offsetY) {
 		this.offsetY = offsetY;
@@ -329,9 +292,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the offset z.
-	 * 
-	 * @param offsetZ
-	 *            The offset z.
+	 * @param offsetZ The offset z.
 	 */
 	public void setOffsetZ(int offsetZ) {
 		this.offsetZ = offsetZ;
@@ -339,9 +300,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the scale x.
-	 * 
-	 * @param scaleX
-	 *            The scale x.
+	 * @param scaleX The scale x.
 	 */
 	public void setScaleX(int scaleX) {
 		this.scaleX = scaleX;
@@ -349,9 +308,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the scale y.
-	 * 
-	 * @param scaleY
-	 *            The scale y.
+	 * @param scaleY The scale y.
 	 */
 	public void setScaleY(int scaleY) {
 		this.scaleY = scaleY;
@@ -359,9 +316,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the scale z.
-	 * 
-	 * @param scaleZ
-	 *            The scale z.
+	 * @param scaleZ The scale z.
 	 */
 	public void setScaleZ(int scaleZ) {
 		this.scaleZ = scaleZ;
@@ -369,9 +324,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the horizontal X size.
-	 * 
-	 * @param sizeX
-	 *            The horizontal size to be set.
+	 * @param sizeX The horizontal size to be set.
 	 */
 	public void setSizeX(int sizeX) {
 		this.sizeX = sizeX;
@@ -379,9 +332,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the vertical Y size.
-	 * 
-	 * @param sizeY
-	 *            The vertical size to be set.
+	 * @param sizeY The vertical size to be set.
 	 */
 	public void setSizeY(int sizeY) {
 		this.sizeX = sizeY;
@@ -389,9 +340,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the object's solid flag.
-	 * 
-	 * @param solid
-	 *            The solid flag.
+	 * @param solid The solid flag.
 	 */
 	public void setSolid(boolean solid) {
 		this.solid = solid;
@@ -399,9 +348,7 @@ public final class ObjectDefinition {
 
 	/**
 	 * Sets the object's walkable flag.
-	 * 
-	 * @param walkable
-	 *            The walkable flag.
+	 * @param walkable The walkable flag.
 	 */
 	public void setWalkable(boolean walkable) {
 		this.walkable = walkable;

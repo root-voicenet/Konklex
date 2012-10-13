@@ -22,6 +22,7 @@ public final class RemoveCharacterSegment extends SynchronizationSegment {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.sync.seg.SynchronizationSegment#getType()
 	 */
 	@Override

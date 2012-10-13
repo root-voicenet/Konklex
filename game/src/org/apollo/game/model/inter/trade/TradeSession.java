@@ -66,13 +66,16 @@ public final class TradeSession {
 		if (as.state == State.AWAITING_ACCEPTANCE) {
 			constructComformationWindow();
 			as.constructComformationWindow();
-		} else if (as.state == State.AWAITING_COMFORMATION) {
+		}
+		else if (as.state == State.AWAITING_COMFORMATION) {
 			finalizeTrade();
-		} else if (state == State.TRADING) {
+		}
+		else if (state == State.TRADING) {
 			state = State.AWAITING_ACCEPTANCE;
 			player.send(new SetInterfaceTextEvent(3431, "Waiting for other player."));
 			acquaintance.send(new SetInterfaceTextEvent(3431, "Other player has accepted."));
-		} else if (state == State.CONFIRMING_TRADE) {
+		}
+		else if (state == State.CONFIRMING_TRADE) {
 			state = State.AWAITING_COMFORMATION;
 			player.send(new SetInterfaceTextEvent(3535, "Waiting for other player."));
 			acquaintance.send(new SetInterfaceTextEvent(3535, "Other player has accepted."));
@@ -101,9 +104,11 @@ public final class TradeSession {
 						sb.append(" x ");
 						if (item.getAmount() > 9_999_999) {
 							sb.append("@gre@" + TextUtil.formatValue(amount) + "@whi@");
-						} else if (item.getAmount() > 99_999) {
+						}
+						else if (item.getAmount() > 99_999) {
 							sb.append("@cya@" + TextUtil.formatValue(amount) + "@whi@");
-						} else {
+						}
+						else {
 							sb.append(TextUtil.commify(amount));
 						}
 						sb.append(" (" + TextUtil.commify(amount) + ")");
@@ -129,9 +134,11 @@ public final class TradeSession {
 						sb.append(" x ");
 						if (item.getAmount() > 9_999_999) {
 							sb.append("@gre@" + TextUtil.formatValue(amount) + "@whi@");
-						} else if (item.getAmount() > 99_999) {
+						}
+						else if (item.getAmount() > 99_999) {
 							sb.append("@cya@" + TextUtil.formatValue(amount) + "@whi@");
-						} else {
+						}
+						else {
 							sb.append(TextUtil.commify(amount));
 						}
 						sb.append(" (" + TextUtil.commify(amount) + ")");
@@ -184,7 +191,8 @@ public final class TradeSession {
 					ai.add(item);
 				}
 			}
-		} else if (!ai.hasRoomFor(offeredItems.getItems())) {
+		}
+		else if (!ai.hasRoomFor(offeredItems.getItems())) {
 			acquaintance.sendMessage("You do not have enough for room.");
 			player.sendMessage("The other player does not have enough room.");
 			for (final Item item : offeredItems.getItems()) {
@@ -197,7 +205,8 @@ public final class TradeSession {
 					ai.add(item);
 				}
 			}
-		} else {
+		}
+		else {
 			for (final Item item : offeredItems.getItems()) {
 				if (item != null) {
 					ai.add(item);

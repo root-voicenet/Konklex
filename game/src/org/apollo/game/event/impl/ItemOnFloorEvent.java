@@ -3,8 +3,7 @@ package org.apollo.game.event.impl;
 import org.apollo.game.model.Position;
 
 /**
- * An {@link Event} that is sent when a player uses an item on another item
- * thats on the floor.
+ * An {@link Event} that is sent when a player uses an item on another item thats on the floor.
  * @author Steve
  */
 public final class ItemOnFloorEvent extends InventoryItemEvent {

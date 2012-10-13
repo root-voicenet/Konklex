@@ -21,9 +21,11 @@ public final class SendCommandListener implements CommandListener {
 			String message = arguments[1].replaceAll("_", " ");
 			if (context.getServerChannelGroup().isPlayerOnline(friend)) {
 				final int world = context.getServerChannelGroup().get(friend);
-				Server.getContext().getServerChannelGroup().get(world).write(new PrivateChatMethod(friend, "Server", 2, message));
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": player not found" + "\r\n");
+				Server.getContext().getServerChannelGroup().get(world)
+						.write(new PrivateChatMethod(friend, "Server", 2, message));
+			}
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": player not found" + "\r\n");
 			}
 		}
 	}

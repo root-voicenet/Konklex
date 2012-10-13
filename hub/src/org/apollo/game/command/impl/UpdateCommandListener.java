@@ -22,8 +22,10 @@ public final class UpdateCommandListener implements CommandListener {
 		if (world != -1)
 			if (context.getServerChannelGroup().contains(world))
 				context.getServerChannelGroup().get(world).write(method);
-			else channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
-		else context.getServerChannelGroup().write(method);
+			else
+				channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
+		else
+			context.getServerChannelGroup().write(method);
 	}
 
 }

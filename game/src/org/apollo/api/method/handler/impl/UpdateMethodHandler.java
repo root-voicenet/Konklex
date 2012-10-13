@@ -16,5 +16,5 @@ public final class UpdateMethodHandler extends MethodHandler<UpdateMethod> {
 	public void handle(MethodHandlerContext ctx, ProxyApiSession session, UpdateMethod method) {
 		SystemUpdateTask.start(method.getTime());
 	}
-	
+
 }

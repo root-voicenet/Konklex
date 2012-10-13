@@ -2,7 +2,6 @@ package org.apollo.game.sync.block;
 
 /**
  * The transform {@link SynchronizationBlock}.
- * 
  * @author Steve
  */
 public final class TransformBlock extends SynchronizationBlock {
@@ -14,9 +13,7 @@ public final class TransformBlock extends SynchronizationBlock {
 
 	/**
 	 * Creates the transform block.
-	 * 
-	 * @param npcId
-	 *            The transform npc id.
+	 * @param npcId The transform npc id.
 	 */
 	TransformBlock(int npcId) {
 		this.npcId = npcId;
@@ -24,7 +21,6 @@ public final class TransformBlock extends SynchronizationBlock {
 
 	/**
 	 * Gets the transform npc id.
-	 * 
 	 * @return The npc transform id.
 	 */
 	public int getId() {

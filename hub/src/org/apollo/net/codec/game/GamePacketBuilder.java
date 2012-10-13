@@ -6,7 +6,6 @@ import org.jboss.netty.buffer.ChannelBuffers;
 
 /**
  * A class which assists in creating a {@link GamePacket}.
- * 
  * @author Graham
  */
 public final class GamePacketBuilder {
@@ -45,24 +44,17 @@ public final class GamePacketBuilder {
 	}
 
 	/**
-	 * Creates the {@link GamePacketBuilder} for a {@link PacketType#FIXED}
-	 * packet with the specified opcode.
-	 * 
-	 * @param opcode
-	 *            The opcode.
+	 * Creates the {@link GamePacketBuilder} for a {@link PacketType#FIXED} packet with the specified opcode.
+	 * @param opcode The opcode.
 	 */
 	public GamePacketBuilder(int opcode) {
 		this(opcode, PacketType.FIXED);
 	}
 
 	/**
-	 * Creates the {@link GamePacketBuilder} for the specified packet type and
-	 * opcode.
-	 * 
-	 * @param opcode
-	 *            The opcode.
-	 * @param type
-	 *            The packet type.
+	 * Creates the {@link GamePacketBuilder} for the specified packet type and opcode.
+	 * @param opcode The opcode.
+	 * @param type The packet type.
 	 */
 	public GamePacketBuilder(int opcode, PacketType type) {
 		this.opcode = opcode;
@@ -74,8 +66,7 @@ public final class GamePacketBuilder {
 	 */
 	private void checkBitAccess() {
 		if (mode != AccessMode.BIT_ACCESS)
-			throw new IllegalStateException(
-					"For bit-based calls to work, the mode must be bit access");
+			throw new IllegalStateException("For bit-based calls to work, the mode must be bit access");
 	}
 
 	/**
@@ -83,13 +74,11 @@ public final class GamePacketBuilder {
 	 */
 	private void checkByteAccess() {
 		if (mode != AccessMode.BYTE_ACCESS)
-			throw new IllegalStateException(
-					"For byte-based calls to work, the mode must be byte access");
+			throw new IllegalStateException("For byte-based calls to work, the mode must be byte access");
 	}
 
 	/**
 	 * Gets the current length of the builder's buffer.
-	 * 
 	 * @return The length of the buffer.
 	 */
 	public int getLength() {
@@ -98,26 +87,18 @@ public final class GamePacketBuilder {
 	}
 
 	/**
-	 * Puts a standard data type with the specified value, byte order and
-	 * transformation.
-	 * 
-	 * @param type
-	 *            The data type.
-	 * @param order
-	 *            The byte order.
-	 * @param transformation
-	 *            The transformation.
-	 * @param value
-	 *            The value.
+	 * Puts a standard data type with the specified value, byte order and transformation.
+	 * @param type The data type.
+	 * @param order The byte order.
+	 * @param transformation The transformation.
+	 * @param value The value.
 	 */
-	public void put(DataType type, DataOrder order,
-			DataTransformation transformation, Number value) {
+	public void put(DataType type, DataOrder order, DataTransformation transformation, Number value) {
 		checkByteAccess();
 		final long longValue = value.longValue();
 		final int length = type.getBytes();
 		if (order == DataOrder.BIG) {
-			if (type == DataType.LONG
-					&& transformation == DataTransformation.QUADRUPLE)
+			if (type == DataType.LONG && transformation == DataTransformation.QUADRUPLE)
 				buffer.writeLong((Long) value);
 			else
 				for (int i = length - 1; i >= 0; i--)
@@ -129,11 +110,12 @@ public final class GamePacketBuilder {
 						else if (transformation == DataTransformation.SUBTRACT)
 							buffer.writeByte((byte) (128 - longValue));
 						else
-							throw new IllegalArgumentException(
-									"unknown transformation");
-					} else
+							throw new IllegalArgumentException("unknown transformation");
+					}
+					else
 						buffer.writeByte((byte) (longValue >> i * 8));
-		} else if (order == DataOrder.LITTLE) {
+		}
+		else if (order == DataOrder.LITTLE) {
 			for (int i = 0; i < length; i++)
 				if (i == 0 && transformation != DataTransformation.NONE) {
 					if (transformation == DataTransformation.ADD)
@@ -143,45 +125,40 @@ public final class GamePacketBuilder {
 					else if (transformation == DataTransformation.SUBTRACT)
 						buffer.writeByte((byte) (128 - longValue));
 					else
-						throw new IllegalArgumentException(
-								"unknown transformation");
-				} else
+						throw new IllegalArgumentException("unknown transformation");
+				}
+				else
 					buffer.writeByte((byte) (longValue >> i * 8));
-		} else if (order == DataOrder.MIDDLE) {
+		}
+		else if (order == DataOrder.MIDDLE) {
 			if (transformation != DataTransformation.NONE)
-				throw new IllegalArgumentException(
-						"middle endian cannot be transformed");
+				throw new IllegalArgumentException("middle endian cannot be transformed");
 			if (type != DataType.INT)
-				throw new IllegalArgumentException(
-						"middle endian can only be used with an integer");
+				throw new IllegalArgumentException("middle endian can only be used with an integer");
 			buffer.writeByte((byte) (longValue >> 8));
 			buffer.writeByte((byte) longValue);
 			buffer.writeByte((byte) (longValue >> 24));
 			buffer.writeByte((byte) (longValue >> 16));
-		} else if (order == DataOrder.INVERSED_MIDDLE) {
+		}
+		else if (order == DataOrder.INVERSED_MIDDLE) {
 			if (transformation != DataTransformation.NONE)
-				throw new IllegalArgumentException(
-						"inversed middle endian cannot be transformed");
+				throw new IllegalArgumentException("inversed middle endian cannot be transformed");
 			if (type != DataType.INT)
-				throw new IllegalArgumentException(
-						"inversed middle endian can only be used with an integer");
+				throw new IllegalArgumentException("inversed middle endian can only be used with an integer");
 			buffer.writeByte((byte) (longValue >> 16));
 			buffer.writeByte((byte) (longValue >> 24));
 			buffer.writeByte((byte) longValue);
 			buffer.writeByte((byte) (longValue >> 8));
-		} else
+		}
+		else
 			throw new IllegalArgumentException("unknown order");
 	}
 
 	/**
 	 * Puts a standard data type with the specified value and byte order.
-	 * 
-	 * @param type
-	 *            The data type.
-	 * @param order
-	 *            The byte order.
-	 * @param value
-	 *            The value.
+	 * @param type The data type.
+	 * @param order The byte order.
+	 * @param value The value.
 	 */
 	public void put(DataType type, DataOrder order, Number value) {
 		put(type, order, DataTransformation.NONE, value);
@@ -189,38 +166,27 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts a standard data type with the specified value and transformation.
-	 * 
-	 * @param type
-	 *            The type.
-	 * @param transformation
-	 *            The transformation.
-	 * @param value
-	 *            The value.
+	 * @param type The type.
+	 * @param transformation The transformation.
+	 * @param value The value.
 	 */
-	public void put(DataType type, DataTransformation transformation,
-			Number value) {
+	public void put(DataType type, DataTransformation transformation, Number value) {
 		put(type, DataOrder.BIG, transformation, value);
 	}
 
 	/**
 	 * Puts a standard data type with the specified value.
-	 * 
-	 * @param type
-	 *            The data type.
-	 * @param value
-	 *            The value.
+	 * @param type The data type.
+	 * @param value The value.
 	 */
 	public void put(DataType type, Number value) {
 		put(type, DataOrder.BIG, DataTransformation.NONE, value);
 	}
 
 	/**
-	 * Puts a single bit into the buffer. If {@code flag} is {@code true}, the
-	 * value of the bit is {@code 1}. If {@code flag} is {@code false}, the
-	 * value of the bit is {@code 0}.
-	 * 
-	 * @param flag
-	 *            The flag.
+	 * Puts a single bit into the buffer. If {@code flag} is {@code true}, the value of the bit is {@code 1}. If
+	 * {@code flag} is {@code false}, the value of the bit is {@code 0}.
+	 * @param flag The flag.
 	 */
 	public void putBit(boolean flag) {
 		putBit(flag ? 1 : 0);
@@ -228,9 +194,7 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts a single bit into the buffer with the value {@code value}.
-	 * 
-	 * @param value
-	 *            The value.
+	 * @param value The value.
 	 */
 	public void putBit(int value) {
 		putBits(1, value);
@@ -238,16 +202,12 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts {@code numBits} into the buffer with the value {@code value}.
-	 * 
-	 * @param numBits
-	 *            The number of bits to put into the buffer.
-	 * @param value
-	 *            The value.
+	 * @param numBits The number of bits to put into the buffer.
+	 * @param value The value.
 	 */
 	public void putBits(int numBits, int value) {
 		if (numBits < 0 || numBits > 32)
-			throw new IllegalArgumentException(
-					"Number of bits must be between 1 and 32 inclusive");
+			throw new IllegalArgumentException("Number of bits must be between 1 and 32 inclusive");
 		checkBitAccess();
 		int bytePos = bitIndex >> 3;
 		int bitOffset = 8 - (bitIndex & 7);
@@ -258,8 +218,7 @@ public final class GamePacketBuilder {
 		for (; numBits > bitOffset; bitOffset = 8) {
 			int tmp = buffer.getByte(bytePos);
 			tmp &= ~DataConstants.BIT_MASK[bitOffset];
-			tmp |= value >> numBits - bitOffset
-					& DataConstants.BIT_MASK[bitOffset];
+			tmp |= value >> numBits - bitOffset & DataConstants.BIT_MASK[bitOffset];
 			buffer.setByte(bytePos++, tmp);
 			numBits -= bitOffset;
 		}
@@ -268,20 +227,18 @@ public final class GamePacketBuilder {
 			tmp &= ~DataConstants.BIT_MASK[bitOffset];
 			tmp |= value & DataConstants.BIT_MASK[bitOffset];
 			buffer.setByte(bytePos, tmp);
-		} else {
+		}
+		else {
 			int tmp = buffer.getByte(bytePos);
 			tmp &= ~(DataConstants.BIT_MASK[numBits] << bitOffset - numBits);
-			tmp |= (value & DataConstants.BIT_MASK[numBits]) << bitOffset
-					- numBits;
+			tmp |= (value & DataConstants.BIT_MASK[numBits]) << bitOffset - numBits;
 			buffer.setByte(bytePos, tmp);
 		}
 	}
 
 	/**
 	 * Puts the specified byte array into the buffer.
-	 * 
-	 * @param bytes
-	 *            The byte array.
+	 * @param bytes The byte array.
 	 */
 	public void putBytes(byte[] bytes) {
 		buffer.writeBytes(bytes);
@@ -289,16 +246,15 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts the bytes from the specified buffer into this packet's buffer.
-	 * 
-	 * @param buffer
-	 *            The source {@link ChannelBuffer}.
+	 * @param buffer The source {@link ChannelBuffer}.
 	 */
 	public void putBytes(ChannelBuffer buffer) {
 		final byte[] bytes = new byte[buffer.readableBytes()];
 		buffer.markReaderIndex();
 		try {
 			buffer.readBytes(bytes);
-		} finally {
+		}
+		finally {
 			buffer.resetReaderIndex();
 		}
 		putBytes(bytes);
@@ -306,11 +262,8 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts the bytes into the buffer with the specified transformation.
-	 * 
-	 * @param transformation
-	 *            The transformation.
-	 * @param bytes
-	 *            The byte array.
+	 * @param transformation The transformation.
+	 * @param bytes The byte array.
 	 */
 	public void putBytes(DataTransformation transformation, byte[] bytes) {
 		if (transformation == DataTransformation.NONE)
@@ -322,9 +275,7 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts the specified byte array into the buffer in reverse.
-	 * 
-	 * @param bytes
-	 *            The byte array.
+	 * @param bytes The byte array.
 	 */
 	public void putBytesReverse(byte[] bytes) {
 		checkByteAccess();
@@ -333,31 +284,25 @@ public final class GamePacketBuilder {
 	}
 
 	/**
-	 * Puts the bytes from the specified buffer into this packet's buffer, in
-	 * reverse.
-	 * 
-	 * @param buffer
-	 *            The source {@link ChannelBuffer}.
+	 * Puts the bytes from the specified buffer into this packet's buffer, in reverse.
+	 * @param buffer The source {@link ChannelBuffer}.
 	 */
 	public void putBytesReverse(ChannelBuffer buffer) {
 		final byte[] bytes = new byte[buffer.readableBytes()];
 		buffer.markReaderIndex();
 		try {
 			buffer.readBytes(bytes);
-		} finally {
+		}
+		finally {
 			buffer.resetReaderIndex();
 		}
 		putBytesReverse(bytes);
 	}
 
 	/**
-	 * Puts the specified byte array into the buffer in reverse with the
-	 * specified transformation.
-	 * 
-	 * @param transformation
-	 *            The transformation.
-	 * @param bytes
-	 *            The byte array.
+	 * Puts the specified byte array into the buffer in reverse with the specified transformation.
+	 * @param transformation The transformation.
+	 * @param bytes The byte array.
 	 */
 	public void putBytesReverse(DataTransformation transformation, byte[] bytes) {
 		if (transformation == DataTransformation.NONE)
@@ -369,20 +314,15 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts a single long into the buffer with the value {@code value}
-	 * 
-	 * @param value
-	 *            The value.
+	 * @param value The value.
 	 */
 	public void putLong(long value) {
 		buffer.writeLong(value);
 	}
 
 	/**
-	 * Puts a raw builder. Both builders (this and parameter) must be in byte
-	 * access mode.
-	 * 
-	 * @param builder
-	 *            The builder.
+	 * Puts a raw builder. Both builders (this and parameter) must be in byte access mode.
+	 * @param builder The builder.
 	 */
 	public void putRawBuilder(GamePacketBuilder builder) {
 		checkByteAccess();
@@ -393,11 +333,8 @@ public final class GamePacketBuilder {
 	}
 
 	/**
-	 * Puts a raw builder in reverse. Both builders (this and parameter) must be
-	 * in byte access mode.
-	 * 
-	 * @param builder
-	 *            The builder.
+	 * Puts a raw builder in reverse. Both builders (this and parameter) must be in byte access mode.
+	 * @param builder The builder.
 	 */
 	public void putRawBuilderReverse(GamePacketBuilder builder) {
 		checkByteAccess();
@@ -409,9 +346,7 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts a smart into the buffer.
-	 * 
-	 * @param value
-	 *            The value.
+	 * @param value The value.
 	 */
 	public void putSmart(int value) {
 		checkByteAccess();
@@ -423,9 +358,7 @@ public final class GamePacketBuilder {
 
 	/**
 	 * Puts a string into the buffer.
-	 * 
-	 * @param str
-	 *            The string.
+	 * @param str The string.
 	 */
 	public void putString(String str) {
 		checkByteAccess();
@@ -456,18 +389,14 @@ public final class GamePacketBuilder {
 	}
 
 	/**
-	 * Creates a {@link GamePacket} based on the current contents of this
-	 * builder.
-	 * 
+	 * Creates a {@link GamePacket} based on the current contents of this builder.
 	 * @return The {@link GamePacket}.
 	 */
 	public GamePacket toGamePacket() {
 		if (type == PacketType.RAW)
-			throw new IllegalStateException(
-					"Raw packets cannot be converted to a game packet");
+			throw new IllegalStateException("Raw packets cannot be converted to a game packet");
 		if (mode != AccessMode.BYTE_ACCESS)
-			throw new IllegalStateException(
-					"Must be in byte access mode to convert to a packet");
+			throw new IllegalStateException("Must be in byte access mode to convert to a packet");
 		return new GamePacket(opcode, type, buffer);
 	}
 }

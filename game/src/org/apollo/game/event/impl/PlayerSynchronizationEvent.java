@@ -51,7 +51,8 @@ public final class PlayerSynchronizationEvent extends Event {
 	 * @param localPlayers The number of local players.
 	 * @param segments A list of segments.
 	 */
-	public PlayerSynchronizationEvent(Position lastKnownRegion, Position position, boolean regionChanged, SynchronizationSegment segment, int localPlayers, List<SynchronizationSegment> segments) {
+	public PlayerSynchronizationEvent(Position lastKnownRegion, Position position, boolean regionChanged,
+			SynchronizationSegment segment, int localPlayers, List<SynchronizationSegment> segments) {
 		this.lastKnownRegion = lastKnownRegion;
 		this.position = position;
 		this.regionChanged = regionChanged;

@@ -7,7 +7,6 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link LogoutEvent}.
- * 
  * @author Graham
  */
 public final class LogoutEventEncoder extends EventEncoder<LogoutEvent> {
@@ -15,8 +14,7 @@ public final class LogoutEventEncoder extends EventEncoder<LogoutEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(LogoutEvent event) {

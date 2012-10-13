@@ -10,19 +10,15 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link PlayerReportEvent}
- * 
  * @author Steve
  */
-public final class PlayerReportEventDecoder extends
-EventDecoder<PlayerReportEvent> {
+public final class PlayerReportEventDecoder extends EventDecoder<PlayerReportEvent> {
 
 	@Override
 	public PlayerReportEvent decode(GamePacket packet) {
 		final GamePacketReader reader = new GamePacketReader(packet);
-		final long player = reader.getSigned(DataType.LONG,
-				DataTransformation.QUADRUPLE);
-		final int rule = (int) reader
-				.getUnsigned(DataType.SHORT, DataOrder.BIG);
+		final long player = reader.getSigned(DataType.LONG, DataTransformation.QUADRUPLE);
+		final int rule = (int) reader.getUnsigned(DataType.SHORT, DataOrder.BIG);
 		return new PlayerReportEvent(player, rule);
 	}
 }

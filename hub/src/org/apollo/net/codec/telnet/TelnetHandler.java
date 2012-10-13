@@ -11,42 +11,42 @@ import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
  * @author Steve
  */
 public final class TelnetHandler extends SimpleChannelUpstreamHandler {
-	
+
 	/**
 	 * The state.
 	 */
 	private int state;
-	
+
 	/**
 	 * The pass.
 	 */
 	private String pass;
-	
+
 	/**
 	 * The user.
 	 */
 	private String user;
-	
+
 	/**
 	 * The context.
 	 */
 	private ServerContext context;
-	
-	/** 
+
+	/**
 	 * Creates the telnet handler.
 	 * @param context The context.
 	 */
 	public TelnetHandler(ServerContext context) {
 		this.context = context;
 	}
-	
+
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
 		if (ctx.getAttachment() == null) {
 			final Object mesg = e.getMessage();
 			if (mesg instanceof String) {
 				final String msg = (String) mesg;
-				switch(state) {
+				switch (state) {
 				case 0:
 					user = msg;
 					e.getChannel().write("\r" + user + "@helos.3xgaming.com's password: ");
@@ -64,9 +64,10 @@ public final class TelnetHandler extends SimpleChannelUpstreamHandler {
 						e.getChannel().write("\r" + "helos ~ # ");
 						e.getChannel().getPipeline().remove("telnetHandler");
 						ctx.setAttachment(new TelnetSession(ctx.getChannel(), context));
-					} else {
+					}
+					else {
 						state = 1;
-						e.getChannel().write("\r" + "Access denied"  + "\r\n");
+						e.getChannel().write("\r" + "Access denied" + "\r\n");
 						e.getChannel().write("\r" + user + "@helos.3xgaming.com's password: ");
 					}
 				}

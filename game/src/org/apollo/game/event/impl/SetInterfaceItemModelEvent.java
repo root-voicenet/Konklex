@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An event sent to the client to change an interface's item model.
- * 
  * @author Chris Fletcher
  */
 public final class SetInterfaceItemModelEvent extends Event {
@@ -26,13 +25,9 @@ public final class SetInterfaceItemModelEvent extends Event {
 
 	/**
 	 * Creates a new set interface item model event.
-	 * 
-	 * @param interfaceId
-	 *            The interface's id.
-	 * @param modelId
-	 *            The model's (item) id.
-	 * @param zoom
-	 *            The zoom level.
+	 * @param interfaceId The interface's id.
+	 * @param modelId The model's (item) id.
+	 * @param zoom The zoom level.
 	 */
 	public SetInterfaceItemModelEvent(int interfaceId, int modelId, int zoom) {
 		this.interfaceId = interfaceId;
@@ -42,7 +37,6 @@ public final class SetInterfaceItemModelEvent extends Event {
 
 	/**
 	 * Gets the interface's id.
-	 * 
 	 * @return The id.
 	 */
 	public int getInterfaceId() {
@@ -51,7 +45,6 @@ public final class SetInterfaceItemModelEvent extends Event {
 
 	/**
 	 * Gets the model's (item) id.
-	 * 
 	 * @return The id.
 	 */
 	public int getModelId() {
@@ -60,7 +53,6 @@ public final class SetInterfaceItemModelEvent extends Event {
 
 	/**
 	 * Gets the zoom level.
-	 * 
 	 * @return The zoom.
 	 */
 	public int getZoom() {

@@ -7,7 +7,6 @@ import com.google.common.collect.HashBiMap;
 
 /**
  * Represents a type of {@link Item}.
- * 
  * @author Graham
  */
 public final class ItemDefinition {
@@ -29,7 +28,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the total number of items.
-	 * 
 	 * @return The total number of items.
 	 */
 	public static int count() {
@@ -38,9 +36,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the item definition for the specified id.
-	 * 
-	 * @param id
-	 *            The id.
+	 * @param id The id.
 	 * @return The definition.
 	 */
 	public static ItemDefinition forId(int id) {
@@ -51,9 +47,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Initialises the class with the specified set of definitions.
-	 * 
-	 * @param definitions
-	 *            The definitions.
+	 * @param definitions The definitions.
 	 */
 	public static void init(ItemDefinition[] definitions) {
 		ItemDefinition.definitions = definitions;
@@ -70,9 +64,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Converts an item id to a noted id.
-	 * 
-	 * @param id
-	 *            The item id.
+	 * @param id The item id.
 	 * @return The noted id.
 	 */
 	public static int itemToNote(int id) {
@@ -84,9 +76,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Converts a noted id to the normal item id.
-	 * 
-	 * @param id
-	 *            The note id.
+	 * @param id The note id.
 	 * @return The item id.
 	 */
 	public static int noteToItem(int id) {
@@ -148,9 +138,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Creates an item definition with the default values.
-	 * 
-	 * @param id
-	 *            The item's id.
+	 * @param id The item's id.
 	 */
 	public ItemDefinition(int id) {
 		this.id = id;
@@ -158,7 +146,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the description of this item.
-	 * 
 	 * @return The item's description.
 	 */
 	public String getDescription() {
@@ -167,9 +154,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets a ground action.
-	 * 
-	 * @param id
-	 *            The id.
+	 * @param id The id.
 	 * @return The action.
 	 */
 	public String getGroundAction(int id) {
@@ -180,7 +165,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the item's id.
-	 * 
 	 * @return The item's id.
 	 */
 	public int getId() {
@@ -189,9 +173,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets an inventory action.
-	 * 
-	 * @param id
-	 *            The id.
+	 * @param id The id.
 	 * @return The action.
 	 */
 	public String getInventoryAction(int id) {
@@ -202,7 +184,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the name of this item.
-	 * 
 	 * @return The name of this item, or {@code null} if it has no name.
 	 */
 	public String getName() {
@@ -211,7 +192,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the note graphic id.
-	 * 
 	 * @return The note graphic id.
 	 */
 	public int getNoteGraphicId() {
@@ -220,7 +200,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the note info id.
-	 * 
 	 * @return The note info id.
 	 */
 	public int getNoteInfoId() {
@@ -229,7 +208,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Gets the value of this item.
-	 * 
 	 * @return The value of this item.
 	 */
 	public int getValue() {
@@ -238,7 +216,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Checks if this item is members only.
-	 * 
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isMembersOnly() {
@@ -247,7 +224,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Checks if this item is a note.
-	 * 
 	 * @return {@code true} if so, {@code false} otherwise.
 	 */
 	public boolean isNote() {
@@ -256,7 +232,6 @@ public final class ItemDefinition {
 
 	/**
 	 * Checks if the item specified by this definition is stackable.
-	 * 
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isStackable() {
@@ -265,9 +240,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the description of this item.
-	 * 
-	 * @param description
-	 *            The item's description.
+	 * @param description The item's description.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -275,11 +248,8 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets a ground action.
-	 * 
-	 * @param id
-	 *            The id.
-	 * @param action
-	 *            The action.
+	 * @param id The id.
+	 * @param action The action.
 	 */
 	public void setGroundAction(int id, String action) {
 		if (id < 0 || id >= groundActions.length)
@@ -289,11 +259,8 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets an inventory action.
-	 * 
-	 * @param id
-	 *            The id.
-	 * @param action
-	 *            The action.
+	 * @param id The id.
+	 * @param action The action.
 	 */
 	public void setInventoryAction(int id, String action) {
 		if (id < 0 || id >= inventoryActions.length)
@@ -303,9 +270,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the members only flag.
-	 * 
-	 * @param members
-	 *            The members only flag.
+	 * @param members The members only flag.
 	 */
 	public void setMembersOnly(boolean members) {
 		this.members = members;
@@ -313,9 +278,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the name of this item.
-	 * 
-	 * @param name
-	 *            The item's name.
+	 * @param name The item's name.
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -323,9 +286,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the note graphic id.
-	 * 
-	 * @param noteGraphicId
-	 *            The note graphic id.
+	 * @param noteGraphicId The note graphic id.
 	 */
 	public void setNoteGraphicId(int noteGraphicId) {
 		this.noteGraphicId = noteGraphicId;
@@ -333,9 +294,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the note info id.
-	 * 
-	 * @param noteInfoId
-	 *            The note info id.
+	 * @param noteInfoId The note info id.
 	 */
 	public void setNoteInfoId(int noteInfoId) {
 		this.noteInfoId = noteInfoId;
@@ -343,9 +302,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the stackable flag.
-	 * 
-	 * @param stackable
-	 *            The stackable flag.
+	 * @param stackable The stackable flag.
 	 */
 	public void setStackable(boolean stackable) {
 		this.stackable = stackable;
@@ -353,9 +310,7 @@ public final class ItemDefinition {
 
 	/**
 	 * Sets the value of this item.
-	 * 
-	 * @param value
-	 *            The value of this item.
+	 * @param value The value of this item.
 	 */
 	public void setValue(int value) {
 		this.value = value;
@@ -366,9 +321,7 @@ public final class ItemDefinition {
 	 */
 	public void toNote() {
 		if (isNote()) {
-			if (description != null
-					&& description
-					.startsWith("Swap this note at any bank for "))
+			if (description != null && description.startsWith("Swap this note at any bank for "))
 				return; // already converted TODO better way of checking?
 			if (noteInfoId > count())
 				return; // quick fix for reading cache
@@ -378,13 +331,12 @@ public final class ItemDefinition {
 			value = infoDef.value;
 			String prefix = "a";
 			final char firstChar = name == null ? 'n' : name.charAt(0);
-			if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I'
-					|| firstChar == 'O' || firstChar == 'U')
+			if (firstChar == 'A' || firstChar == 'E' || firstChar == 'I' || firstChar == 'O' || firstChar == 'U')
 				prefix = "an";
-			description = "Swap this note at any bank for " + prefix + " "
-					+ name + ".";
+			description = "Swap this note at any bank for " + prefix + " " + name + ".";
 			stackable = true;
-		} else
+		}
+		else
 			throw new IllegalStateException();
 	}
 }

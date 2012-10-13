@@ -11,9 +11,9 @@ public abstract class SkillAdapter implements SkillListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.skill.SkillListener#levelledUp(org.apollo.game.
-	 * model.SkillSet, int, org.apollo.game.model.Skill)
+	 * 
+	 * @see org.apollo.game.model.skill.SkillListener#levelledUp(org.apollo.game. model.SkillSet, int,
+	 * org.apollo.game.model.Skill)
 	 */
 	@Override
 	public void levelledUp(SkillSet set, int id, Skill skill) {
@@ -22,9 +22,8 @@ public abstract class SkillAdapter implements SkillListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.skill.SkillListener#skillsUpdated(org.apollo.game
-	 * .model.SkillSet)
+	 * 
+	 * @see org.apollo.game.model.skill.SkillListener#skillsUpdated(org.apollo.game .model.SkillSet)
 	 */
 	@Override
 	public void skillsUpdated(SkillSet set) {
@@ -33,9 +32,9 @@ public abstract class SkillAdapter implements SkillListener {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.skill.SkillListener#skillUpdated(org.apollo.game
-	 * .model.SkillSet, int, org.apollo.game.model.Skill)
+	 * 
+	 * @see org.apollo.game.model.skill.SkillListener#skillUpdated(org.apollo.game .model.SkillSet, int,
+	 * org.apollo.game.model.Skill)
 	 */
 	@Override
 	public void skillUpdated(SkillSet set, int id, Skill skill) {

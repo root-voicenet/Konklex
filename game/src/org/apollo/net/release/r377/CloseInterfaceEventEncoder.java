@@ -13,8 +13,8 @@ public final class CloseInterfaceEventEncoder extends EventEncoder<CloseInterfac
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(CloseInterfaceEvent event) {

@@ -8,18 +8,14 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link EnteredAmountEvent}.
- * 
  * @author Graham
  */
-public final class EnteredAmountEventDecoder extends
-EventDecoder<EnteredAmountEvent> {
+public final class EnteredAmountEventDecoder extends EventDecoder<EnteredAmountEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public EnteredAmountEvent decode(GamePacket packet) {

@@ -41,7 +41,8 @@ public final class OpenWelcomeScreenEvent extends Event {
 	 * @param lastLoggedIp The last logged in ip address.
 	 * @param lastLoggedIn The last time the player has successfully logged in.
 	 */
-	public OpenWelcomeScreenEvent(int daysSinceLastRecovery, int unreadMessages, boolean isMember, long lastLoggedIp, long lastLoggedIn) {
+	public OpenWelcomeScreenEvent(int daysSinceLastRecovery, int unreadMessages, boolean isMember, long lastLoggedIp,
+			long lastLoggedIn) {
 		this.daysSinceLastRecovery = daysSinceLastRecovery;
 		this.unreadMessages = unreadMessages;
 		this.isMember = isMember;

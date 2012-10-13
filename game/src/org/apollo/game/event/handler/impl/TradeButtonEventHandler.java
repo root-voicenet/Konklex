@@ -6,8 +6,7 @@ import org.apollo.game.event.impl.ButtonEvent;
 import org.apollo.game.model.Player;
 
 /**
- * An {@link EventHandler} which responds to {@link ButtonEvent}s for trade
- * requests.
+ * An {@link EventHandler} which responds to {@link ButtonEvent}s for trade requests.
  * @author Steve
  */
 public final class TradeButtonEventHandler extends EventHandler<ButtonEvent> {

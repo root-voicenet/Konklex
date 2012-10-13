@@ -4,8 +4,7 @@ import org.apollo.game.event.Event;
 import org.apollo.game.model.World;
 
 /**
- * An {@link Event} that sends a private message to another player on the
- * {@link World}
+ * An {@link Event} that sends a private message to another player on the {@link World}
  * @author Steve
  */
 public final class SendPrivateChatEvent extends Event {

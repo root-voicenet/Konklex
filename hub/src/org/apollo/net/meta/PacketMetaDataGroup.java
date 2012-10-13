@@ -37,8 +37,7 @@ public final class PacketMetaDataGroup {
 	private final PacketMetaData[] packets = new PacketMetaData[256];
 
 	/**
-	 * This constructor should not be called directly. Use the
-	 * {@link #createFromArray(int[])} method instead.
+	 * This constructor should not be called directly. Use the {@link #createFromArray(int[])} method instead.
 	 */
 	private PacketMetaDataGroup() {
 	}
@@ -46,8 +45,7 @@ public final class PacketMetaDataGroup {
 	/**
 	 * Gets the meta data for the specified packet.
 	 * @param opcode The opcode of the packet.
-	 * @return The {@link PacketMetaData}, or {@code null} if the packet does
-	 * not exist.
+	 * @return The {@link PacketMetaData}, or {@code null} if the packet does not exist.
 	 */
 	public PacketMetaData getMetaData(int opcode) {
 		if (opcode < 0 || opcode >= packets.length)

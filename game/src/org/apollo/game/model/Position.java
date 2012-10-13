@@ -2,7 +2,6 @@ package org.apollo.game.model;
 
 /**
  * Represents a position in the world.
- * 
  * @author Graham
  */
 public final class Position {
@@ -19,13 +18,9 @@ public final class Position {
 
 	/**
 	 * Creates a location.
-	 * 
-	 * @param x
-	 *            The x coordinate.
-	 * @param y
-	 *            The y coordinate.
-	 * @param z
-	 *            The z coordinate.
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
+	 * @param z The z coordinate.
 	 * @return The location.
 	 */
 	public static Position create(int x, int y, int z) {
@@ -49,11 +44,8 @@ public final class Position {
 
 	/**
 	 * Creates a position at the default height.
-	 * 
-	 * @param x
-	 *            The x coordinate.
-	 * @param y
-	 *            The y coordinate.
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
 	 */
 	public Position(int x, int y) {
 		this(x, y, 0);
@@ -61,13 +53,9 @@ public final class Position {
 
 	/**
 	 * Creates a position with the specified height.
-	 * 
-	 * @param x
-	 *            The x coordinate.
-	 * @param y
-	 *            The y coordinate.
-	 * @param height
-	 *            The height.
+	 * @param x The x coordinate.
+	 * @param y The y coordinate.
+	 * @param height The height.
 	 */
 	public Position(int x, int y, int height) {
 		if (height < 0)
@@ -102,7 +90,6 @@ public final class Position {
 
 	/**
 	 * Gets the x coordinate of the central region.
-	 * 
 	 * @return The x coordinate of the central region.
 	 */
 	public int getCentralRegionX() {
@@ -111,7 +98,6 @@ public final class Position {
 
 	/**
 	 * Gets the y coordinate of the central region.
-	 * 
 	 * @return The y coordinate of the central region.
 	 */
 	public int getCentralRegionY() {
@@ -119,11 +105,8 @@ public final class Position {
 	}
 
 	/**
-	 * Gets the distance between this position and another position. Only X and
-	 * Y are considered (i.e. 2 dimensions).
-	 * 
-	 * @param other
-	 *            The other position.
+	 * Gets the distance between this position and another position. Only X and Y are considered (i.e. 2 dimensions).
+	 * @param other The other position.
 	 * @return The distance.
 	 */
 	public int getDistance(Position other) {
@@ -135,7 +118,6 @@ public final class Position {
 
 	/**
 	 * Gets the height level.
-	 * 
 	 * @return The height level.
 	 */
 	public int getHeight() {
@@ -144,7 +126,6 @@ public final class Position {
 
 	/**
 	 * Gets the x coordinate inside the region of this position.
-	 * 
 	 * @return The local x coordinate.
 	 */
 	public int getLocalX() {
@@ -152,11 +133,8 @@ public final class Position {
 	}
 
 	/**
-	 * Gets the local x coordinate inside the region of the {@code base}
-	 * position.
-	 * 
-	 * @param base
-	 *            The base position.
+	 * Gets the local x coordinate inside the region of the {@code base} position.
+	 * @param base The base position.
 	 * @return The local x coordinate.
 	 */
 	public int getLocalX(Position base) {
@@ -165,7 +143,6 @@ public final class Position {
 
 	/**
 	 * Gets the y coordinate inside the region of this position.
-	 * 
 	 * @return The local y coordinate.
 	 */
 	public int getLocalY() {
@@ -173,11 +150,8 @@ public final class Position {
 	}
 
 	/**
-	 * Gets the local y coordinate inside the region of the {@code base}
-	 * position.
-	 * 
-	 * @param base
-	 *            The base position.
+	 * Gets the local y coordinate inside the region of the {@code base} position.
+	 * @param base The base position.
 	 * @return The local y coordinate.
 	 */
 	public int getLocalY(Position base) {
@@ -186,9 +160,7 @@ public final class Position {
 
 	/**
 	 * Gets the longest horizontal or vertical delta between the two positions.
-	 * 
-	 * @param other
-	 *            The other position.
+	 * @param other The other position.
 	 * @return The longest horizontal or vertical delta.
 	 */
 	public int getLongestDelta(Position other) {
@@ -199,7 +171,6 @@ public final class Position {
 
 	/**
 	 * Gets the X coordinate of the region containing this Position.
-	 * 
 	 * @return The region X coordinate
 	 */
 	public int getRegionX() {
@@ -208,7 +179,6 @@ public final class Position {
 
 	/**
 	 * Gets the Y coordinate of the region containing this Position.
-	 * 
 	 * @return The region Y coordinate
 	 */
 	public int getRegionY() {
@@ -217,7 +187,6 @@ public final class Position {
 
 	/**
 	 * Gets the x coordinate of the region.
-	 * 
 	 * @return The region x coordinate.
 	 */
 	public int getTopLeftRegionX() {
@@ -226,7 +195,6 @@ public final class Position {
 
 	/**
 	 * Gets the y coordinate of the region.
-	 * 
 	 * @return The region y coordinate.
 	 */
 	public int getTopLeftRegionY() {
@@ -235,7 +203,6 @@ public final class Position {
 
 	/**
 	 * Gets the x coordinate.
-	 * 
 	 * @return The x coordinate.
 	 */
 	public int getX() {
@@ -244,7 +211,6 @@ public final class Position {
 
 	/**
 	 * Gets the y coordinate.
-	 * 
 	 * @return The y coordinate.
 	 */
 	public int getY() {
@@ -263,11 +229,8 @@ public final class Position {
 
 	/**
 	 * Checks if the position is within distance of another.
-	 * 
-	 * @param other
-	 *            The other position.
-	 * @param distance
-	 *            The distance.
+	 * @param other The other position.
+	 * @param distance The distance.
 	 * @return {@code true} if so, {@code false} if not.
 	 */
 	public boolean isWithinDistance(Position other, int distance) {
@@ -283,19 +246,14 @@ public final class Position {
 	 */
 	@Override
 	public String toString() {
-		return Position.class.getName() + " [x=" + x + ", y=" + y + ", height="
-				+ height + "]";
+		return Position.class.getName() + " [x=" + x + ", y=" + y + ", height=" + height + "]";
 	}
 
 	/**
 	 * Creates a new location based on this location.
-	 * 
-	 * @param diffX
-	 *            X difference.
-	 * @param diffY
-	 *            Y difference.
-	 * @param diffZ
-	 *            Z difference.
+	 * @param diffX X difference.
+	 * @param diffY Y difference.
+	 * @param diffZ Z difference.
 	 * @return The new location.
 	 */
 	public Position transform(int diffX, int diffY, int diffZ) {

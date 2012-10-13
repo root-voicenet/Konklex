@@ -8,7 +8,6 @@ import org.jboss.netty.handler.codec.oneone.OneToOneEncoder;
 
 /**
  * A class which encodes login response messsages.
- * 
  * @author Graham
  */
 public final class LoginEncoder extends OneToOneEncoder {
@@ -16,14 +15,11 @@ public final class LoginEncoder extends OneToOneEncoder {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
-	 * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * java.lang.Object)
+	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss .netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
-	protected Object encode(ChannelHandlerContext ctx, Channel channel,
-			Object message) throws Exception {
+	protected Object encode(ChannelHandlerContext ctx, Channel channel, Object message) throws Exception {
 		if (!(message instanceof LoginResponse))
 			return message;
 		final LoginResponse response = (LoginResponse) message;

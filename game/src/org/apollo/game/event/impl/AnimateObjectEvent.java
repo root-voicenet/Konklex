@@ -13,7 +13,7 @@ public final class AnimateObjectEvent extends MapEvent {
 	 * The object to animate.
 	 */
 	private final GameObject object;
-	
+
 	/**
 	 * The animation.
 	 */
@@ -29,7 +29,7 @@ public final class AnimateObjectEvent extends MapEvent {
 		this.object = object;
 		this.animation = animation;
 	}
-	
+
 	/**
 	 * Gets the object to animate.
 	 * @return The object to animate.
@@ -37,7 +37,7 @@ public final class AnimateObjectEvent extends MapEvent {
 	public GameObject getObject() {
 		return object;
 	}
-	
+
 	/**
 	 * Gets the animation.
 	 * @return The animation.

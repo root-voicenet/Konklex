@@ -9,8 +9,7 @@ import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 
 /**
- * An shop that holds all the {@link World}'s store that a {@link Player} can
- * purchase items in.
+ * An shop that holds all the {@link World}'s store that a {@link Player} can purchase items in.
  * @author Steve
  */
 public final class WorldStore {
@@ -30,7 +29,8 @@ public final class WorldStore {
 		if (shops.get(id) == null) {
 			shops.put(id, shop);
 			return true;
-		} else
+		}
+		else
 			return false;
 	}
 

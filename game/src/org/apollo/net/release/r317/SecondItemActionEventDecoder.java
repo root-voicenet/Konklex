@@ -10,28 +10,21 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link SecondItemActionEvent}.
- * 
  * @author Graham
  */
-public final class SecondItemActionEventDecoder extends
-EventDecoder<SecondItemActionEvent> {
+public final class SecondItemActionEventDecoder extends EventDecoder<SecondItemActionEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public SecondItemActionEvent decode(GamePacket packet) {
 		final GamePacketReader reader = new GamePacketReader(packet);
-		final int interfaceId = (int) reader.getUnsigned(DataType.SHORT,
-				DataOrder.LITTLE, DataTransformation.ADD);
-		final int id = (int) reader.getUnsigned(DataType.SHORT,
-				DataOrder.LITTLE, DataTransformation.ADD);
-		final int slot = (int) reader.getUnsigned(DataType.SHORT,
-				DataOrder.LITTLE);
+		final int interfaceId = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+		final int id = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD);
+		final int slot = (int) reader.getUnsigned(DataType.SHORT, DataOrder.LITTLE);
 		return new SecondItemActionEvent(interfaceId, id, slot);
 	}
 }

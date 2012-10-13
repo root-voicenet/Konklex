@@ -117,8 +117,7 @@ public final class NpcDefinition {
 	/**
 	 * Gets an interaction option.
 	 * @param slot The slot of the option.
-	 * @return The option, or {@code null} if there isn't any at the specified
-	 * slot.
+	 * @return The option, or {@code null} if there isn't any at the specified slot.
 	 * @throws IndexOutOfBoundsException if the slot is out of bounds.
 	 */
 	public String getInteraction(int slot) {

@@ -9,17 +9,14 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link IdAssignmentEvent}.
- * 
  * @author Graham
  */
-public final class IdAssignmentEventEncoder extends
-EventEncoder<IdAssignmentEvent> {
+public final class IdAssignmentEventEncoder extends EventEncoder<IdAssignmentEvent> {
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(IdAssignmentEvent event) {

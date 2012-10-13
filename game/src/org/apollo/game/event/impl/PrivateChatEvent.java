@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An {@link Event} for the {@link PrivateChatEventEncoder}.
- * 
  * @author Steve
  */
 public final class PrivateChatEvent extends Event {
@@ -21,11 +20,8 @@ public final class PrivateChatEvent extends Event {
 
 	/**
 	 * Create a new private chat event.
-	 * 
-	 * @param friend
-	 *            The friend to send this message too.
-	 * @param message
-	 *            The decoded message.
+	 * @param friend The friend to send this message too.
+	 * @param message The decoded message.
 	 */
 	public PrivateChatEvent(long friend, byte[] message) {
 		this.friend = friend;
@@ -34,7 +30,6 @@ public final class PrivateChatEvent extends Event {
 
 	/**
 	 * Gets the friend.
-	 * 
 	 * @return The friend.
 	 */
 	public long getFriend() {
@@ -43,7 +38,6 @@ public final class PrivateChatEvent extends Event {
 
 	/**
 	 * Gets the message.
-	 * 
 	 * @return The message.
 	 */
 	public byte[] getMessage() {

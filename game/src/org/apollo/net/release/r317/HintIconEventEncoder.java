@@ -8,7 +8,6 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link HintIconEvent}.
- * 
  * @author Solid Snake
  */
 public final class HintIconEventEncoder extends EventEncoder<HintIconEvent> {
@@ -20,7 +19,8 @@ public final class HintIconEventEncoder extends EventEncoder<HintIconEvent> {
 			builder.put(DataType.BYTE, event.getType());
 			builder.put(DataType.SHORT, event.getId());
 			builder.put(DataType.TRI_BYTE, 0);
-		} else if (event.getVal() == 1) {
+		}
+		else if (event.getVal() == 1) {
 			builder.put(DataType.BYTE, event.getOrient());
 			builder.put(DataType.SHORT, event.getPos().getX());
 			builder.put(DataType.SHORT, event.getPos().getY());

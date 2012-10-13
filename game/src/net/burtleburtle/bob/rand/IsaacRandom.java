@@ -2,9 +2,8 @@ package net.burtleburtle.bob.rand;
 
 /**
  * <p>
- * An implementation of the <a
- * href="http://www.burtleburtle.net/bob/rand/isaacafa.html">ISAAC</a>
- * psuedorandom number generator.
+ * An implementation of the <a href="http://www.burtleburtle.net/bob/rand/isaacafa.html">ISAAC</a> psuedorandom number
+ * generator.
  * </p>
  * 
  * <pre>
@@ -13,8 +12,7 @@ package net.burtleburtle.bob.rand;
  * ------------------------------------------------------------------------------
  * </pre>
  * <p>
- * This class has been changed to be more conformant to Java and javadoc
- * conventions.
+ * This class has been changed to be more conformant to Java and javadoc conventions.
  * </p>
  * @author Bob Jenkins
  */

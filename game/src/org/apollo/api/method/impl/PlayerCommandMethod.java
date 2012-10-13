@@ -8,17 +8,17 @@ import org.apollo.util.NameUtil;
  * @author Steve
  */
 public final class PlayerCommandMethod extends Method {
-	
+
 	/**
 	 * The player.
 	 */
 	private final String player;
-	
+
 	/**
 	 * The command.
 	 */
 	private final String command;
-	
+
 	/**
 	 * Creates a player command method.
 	 * @param player The player.
@@ -28,7 +28,7 @@ public final class PlayerCommandMethod extends Method {
 		this.player = NameUtil.decodeBase37(player);
 		this.command = command;
 	}
-	
+
 	/**
 	 * Gets the player.
 	 * @return The player.
@@ -36,7 +36,7 @@ public final class PlayerCommandMethod extends Method {
 	public String getPlayer() {
 		return player;
 	}
-	
+
 	/**
 	 * Gets the message.
 	 * @return The message.

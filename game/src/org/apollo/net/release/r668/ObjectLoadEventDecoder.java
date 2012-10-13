@@ -6,7 +6,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * A {@link EventDecoder} for the {@link RegionLoadEvent}.
- * 
  * @author Steve
  */
 public class ObjectLoadEventDecoder extends EventDecoder<RegionLoadEvent> {
@@ -14,9 +13,7 @@ public class ObjectLoadEventDecoder extends EventDecoder<RegionLoadEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public RegionLoadEvent decode(GamePacket packet) {

@@ -21,12 +21,13 @@ public final class TelnetDecoder extends StatefulFrameDecoder<TelnetDecoderState
 
 	/*
 	 * (non-Javadoc)
-	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel.
-	 * ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
+	 * 
+	 * @see org.apollo.util.StatefulFrameDecoder#decode(org.jboss.netty.channel. ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, org.jboss.netty.buffer.ChannelBuffer, java.lang.Enum)
 	 */
 	@Override
-	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, TelnetDecoderState state) throws Exception {
+	protected Object decode(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer, TelnetDecoderState state)
+			throws Exception {
 		switch (state) {
 		case USER:
 			return decodeUsername(ctx, channel, buffer);

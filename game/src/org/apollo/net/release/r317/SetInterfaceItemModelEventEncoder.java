@@ -9,11 +9,9 @@ import org.apollo.net.release.EventEncoder;
 
 /**
  * An {@link EventEncoder} for the {@link SetInterfaceItemModelEvent}.
- * 
  * @author Chris Fletcher
  */
-public final class SetInterfaceItemModelEventEncoder extends
-EventEncoder<SetInterfaceItemModelEvent> {
+public final class SetInterfaceItemModelEventEncoder extends EventEncoder<SetInterfaceItemModelEvent> {
 
 	@Override
 	public GamePacket encode(SetInterfaceItemModelEvent event) {

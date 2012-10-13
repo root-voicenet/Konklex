@@ -17,9 +17,8 @@ public final class FifthItemActionEventDecoder extends EventDecoder<FifthItemAct
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public FifthItemActionEvent decode(GamePacket packet) {

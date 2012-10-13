@@ -6,11 +6,8 @@ import org.jboss.netty.channel.Channel;
 
 /**
  * The base class for request workers.
- * 
- * @param <T>
- *            The type of request.
- * @param <P>
- *            The type of provider.
+ * @param <T> The type of request.
+ * @param <P> The type of provider.
  * @author Graham
  */
 public abstract class RequestWorker<T, P> implements Runnable {
@@ -32,11 +29,8 @@ public abstract class RequestWorker<T, P> implements Runnable {
 
 	/**
 	 * Creates the request worker with the specified file system.
-	 * 
-	 * @param dispatcher
-	 *            The update dispatcher.
-	 * @param provider
-	 *            The resource provider.
+	 * @param dispatcher The update dispatcher.
+	 * @param provider The resource provider.
 	 */
 	public RequestWorker(UpdateDispatcher dispatcher, P provider) {
 		this.provider = provider;
@@ -45,15 +39,11 @@ public abstract class RequestWorker<T, P> implements Runnable {
 
 	/**
 	 * Gets the next request.
-	 * 
-	 * @param dispatcher
-	 *            The dispatcher.
+	 * @param dispatcher The dispatcher.
 	 * @return The next request.
-	 * @throws InterruptedException
-	 *             if the thread is interrupted.
+	 * @throws InterruptedException if the thread is interrupted.
 	 */
-	protected abstract ChannelRequest<T> nextRequest(UpdateDispatcher dispatcher)
-			throws InterruptedException;
+	protected abstract ChannelRequest<T> nextRequest(UpdateDispatcher dispatcher) throws InterruptedException;
 
 	/*
 	 * (non-Javadoc)
@@ -70,13 +60,15 @@ public abstract class RequestWorker<T, P> implements Runnable {
 			ChannelRequest<T> request;
 			try {
 				request = nextRequest(dispatcher);
-			} catch (final InterruptedException e) {
+			}
+			catch (final InterruptedException e) {
 				continue;
 			}
 			final Channel channel = request.getChannel();
 			try {
 				service(provider, channel, request.getRequest());
-			} catch (final IOException e) {
+			}
+			catch (final IOException e) {
 				e.printStackTrace();
 				channel.close();
 			}
@@ -85,18 +77,12 @@ public abstract class RequestWorker<T, P> implements Runnable {
 
 	/**
 	 * Services a request.
-	 * 
-	 * @param provider
-	 *            The resource provider.
-	 * @param channel
-	 *            The channel.
-	 * @param request
-	 *            The request to service.
-	 * @throws IOException
-	 *             if an I/O error occurs.
+	 * @param provider The resource provider.
+	 * @param channel The channel.
+	 * @param request The request to service.
+	 * @throws IOException if an I/O error occurs.
 	 */
-	protected abstract void service(P provider, Channel channel, T request)
-			throws IOException;
+	protected abstract void service(P provider, Channel channel, T request) throws IOException;
 
 	/**
 	 * Stops this worker. The worker's thread may need to be interrupted.

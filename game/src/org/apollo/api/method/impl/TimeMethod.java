@@ -7,12 +7,12 @@ import org.apollo.api.method.Method;
  * @author Steve
  */
 public final class TimeMethod extends Method {
-	
+
 	/**
 	 * The time.
 	 */
 	private final long time;
-	
+
 	/**
 	 * Creates the time method.
 	 * @param time The time.
@@ -20,7 +20,7 @@ public final class TimeMethod extends Method {
 	public TimeMethod(long time) {
 		this.time = time;
 	}
-	
+
 	/**
 	 * Gets the time.
 	 * @return The time.

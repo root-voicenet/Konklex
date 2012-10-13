@@ -14,8 +14,8 @@ public final class EnterAmountEventEncoder extends EventEncoder<EnterAmountEvent
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(EnterAmountEvent event) {

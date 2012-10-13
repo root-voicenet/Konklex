@@ -4,7 +4,6 @@ import org.apollo.game.event.Event;
 
 /**
  * An {@link Event} that sends the chat privacy settings.
- * 
  * @author Steve
  */
 public final class ChatPrivacySettingsEvent extends Event {
@@ -26,13 +25,9 @@ public final class ChatPrivacySettingsEvent extends Event {
 
 	/**
 	 * Create a new chat privacy settings event.
-	 * 
-	 * @param publicChat
-	 *            The public chat value.
-	 * @param privateChat
-	 *            The private chat value.
-	 * @param trade
-	 *            The trade value.
+	 * @param publicChat The public chat value.
+	 * @param privateChat The private chat value.
+	 * @param trade The trade value.
 	 */
 	public ChatPrivacySettingsEvent(int publicChat, int privateChat, int trade) {
 		this.publicChat = publicChat;
@@ -42,7 +37,6 @@ public final class ChatPrivacySettingsEvent extends Event {
 
 	/**
 	 * Gets the private chat value.
-	 * 
 	 * @return The private chat value.
 	 */
 	public int getPrivateChat() {
@@ -51,7 +45,6 @@ public final class ChatPrivacySettingsEvent extends Event {
 
 	/**
 	 * Gets the public chat value.
-	 * 
 	 * @return The public chat value.
 	 */
 	public int getPublicChat() {
@@ -60,7 +53,6 @@ public final class ChatPrivacySettingsEvent extends Event {
 
 	/**
 	 * Gets the trade value.
-	 * 
 	 * @return The trade value.
 	 */
 	public int getTrade() {

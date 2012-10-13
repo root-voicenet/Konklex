@@ -25,7 +25,8 @@ public final class PlayerVerificationEventHandler extends EventHandler<PlayerOpt
 				if (event.getOption() == 1) {
 					player.sendMessage("Sorry, but Developers are protected from your attacks.");
 					ctx.breakHandlerChain();
-				} else if (event.getOption() == 3) {
+				}
+				else if (event.getOption() == 3) {
 					player.sendMessage("Sorry, but you can't trade with Konklex Developers.");
 					ctx.breakHandlerChain();
 				}

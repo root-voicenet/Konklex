@@ -9,7 +9,6 @@ import org.apollo.game.model.World;
 
 /**
  * An {@link EventHandler} which dispatches {@link CommandEvent}s.
- * 
  * @author Graham
  */
 public final class CommandEventHandler extends EventHandler<CommandEvent> {
@@ -17,14 +16,11 @@ public final class CommandEventHandler extends EventHandler<CommandEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
-	public void handle(EventHandlerContext ctx, Player player,
-			CommandEvent event) {
+	public void handle(EventHandlerContext ctx, Player player, CommandEvent event) {
 		final String str = event.getCommand();
 		final String[] components = str.split(" ");
 		final String name = components[0];

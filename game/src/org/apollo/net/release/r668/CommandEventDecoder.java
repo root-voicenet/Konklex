@@ -8,7 +8,6 @@ import org.apollo.net.release.EventDecoder;
 
 /**
  * An {@link EventDecoder} for the {@link CommandEvent}.
- * 
  * @author Steve
  */
 public final class CommandEventDecoder extends EventDecoder<CommandEvent> {
@@ -16,9 +15,7 @@ public final class CommandEventDecoder extends EventDecoder<CommandEvent> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@SuppressWarnings("unused")
 	@Override

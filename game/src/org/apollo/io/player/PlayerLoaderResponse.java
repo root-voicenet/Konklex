@@ -4,8 +4,7 @@ import org.apollo.game.model.Player;
 import org.apollo.net.codec.login.LoginConstants;
 
 /**
- * A response for the
- * {@link PlayerLoader#loadPlayer(org.apollo.security.PlayerCredentials)} call.
+ * A response for the {@link PlayerLoader#loadPlayer(org.apollo.security.PlayerCredentials)} call.
  * @author Graham
  */
 public final class PlayerLoaderResponse {
@@ -45,8 +44,7 @@ public final class PlayerLoaderResponse {
 
 	/**
 	 * Gets the player.
-	 * @return The player, or {@code null} if there is no player in this
-	 * response.
+	 * @return The player, or {@code null} if there is no player in this response.
 	 */
 	public Player getPlayer() {
 		return player;

@@ -15,8 +15,8 @@ public final class OpenInterfaceSidebarEventEncoder extends EventEncoder<OpenInt
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.net.release.EventEncoder#encode(org.apollo.game.event.Event)
 	 */
 	@Override
 	public GamePacket encode(OpenInterfaceSidebarEvent event) {

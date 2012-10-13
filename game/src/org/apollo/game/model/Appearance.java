@@ -5,10 +5,10 @@ package org.apollo.game.model;
  * @author Graham
  */
 public final class Appearance {
-	
-    /**
-     * The npc id.
-     */
+
+	/**
+	 * The npc id.
+	 */
 	private int npcId = -1;
 
 	/**
@@ -41,12 +41,12 @@ public final class Appearance {
 	 * The run animation.
 	 */
 	private int runAnimation = -1;
-	
+
 	/**
 	 * The walk animation.
 	 */
 	private int walkAnimation = -1;
-	
+
 	/**
 	 * The stand animation.
 	 */
@@ -69,7 +69,7 @@ public final class Appearance {
 		this.style = style;
 		this.colors = colors;
 	}
-	
+
 	/**
 	 * Gets the player's colors.
 	 * @return The player's colors.
@@ -77,7 +77,7 @@ public final class Appearance {
 	public int[] getColors() {
 		return colors;
 	}
-	
+
 	/**
 	 * Gets the gender of the player.
 	 * @return The gender of the player.
@@ -85,7 +85,7 @@ public final class Appearance {
 	public Gender getGender() {
 		return gender;
 	}
-	
+
 	/**
 	 * Gets the npc id.
 	 * @return The npc id.
@@ -124,8 +124,8 @@ public final class Appearance {
 	 */
 	public int[] getStyle() {
 		/*
-		 * Info on the elements of the array itself: 0 = head 1 = chin/beard 2 =
-		 * chest 3 = arms 4 = hands 5 = legs 6 = feet
+		 * Info on the elements of the array itself: 0 = head 1 = chin/beard 2 = chest 3 = arms 4 = hands 5 = legs 6 =
+		 * feet
 		 */
 		return style;
 	}
@@ -145,7 +145,7 @@ public final class Appearance {
 	public boolean isFemale() {
 		return gender == Gender.FEMALE;
 	}
-	
+
 	/**
 	 * Checks if the player is male.
 	 * @return {@code true} if so, {@code false} if not.
@@ -153,7 +153,7 @@ public final class Appearance {
 	public boolean isMale() {
 		return gender == Gender.MALE;
 	}
-	
+
 	/**
 	 * Sets the npc id.
 	 * @param npcId The npc id.
@@ -161,7 +161,7 @@ public final class Appearance {
 	public void setNpcId(int npcId) {
 		this.npcId = npcId;
 	}
-	
+
 	/**
 	 * Sets the run animation.
 	 * @param runAnimation The run animation.
@@ -185,7 +185,7 @@ public final class Appearance {
 	public void setStandAnimation(int standAnimation) {
 		this.standAnimation = standAnimation;
 	}
-	
+
 	/**
 	 * Sets the walk animation.
 	 * @param walkAnimation The walk animation.

@@ -10,8 +10,7 @@ import org.apollo.game.model.inter.bank.BankUtils;
 import org.apollo.game.model.inter.bank.BankWithdrawEnterAmountListener;
 
 /**
- * An event handler which handles withdrawing and depositing items from/to a
- * player's bank.
+ * An event handler which handles withdrawing and depositing items from/to a player's bank.
  * @author Graham
  */
 public final class BankEventHandler extends EventHandler<ItemActionEvent> {
@@ -54,10 +53,9 @@ public final class BankEventHandler extends EventHandler<ItemActionEvent> {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event
-	 * .handler.EventHandlerContext, org.apollo.game.model.Player,
-	 * org.apollo.game.event.Event)
+	 * 
+	 * @see org.apollo.game.event.handler.EventHandler#handle(org.apollo.game.event .handler.EventHandlerContext,
+	 * org.apollo.game.model.Player, org.apollo.game.event.Event)
 	 */
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, ItemActionEvent event) {

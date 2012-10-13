@@ -110,7 +110,8 @@ public final class Shop {
 				if (!type.equals(ShopType.UNLIMITED_BUY_ONLY))
 					items.remove(item.getItem());
 			}
-		} else
+		}
+		else
 			player.getInventory().forceCapacityExceeded();
 	}
 
@@ -187,7 +188,8 @@ public final class Shop {
 					player.send(new UpdateItemsEvent(3823, player.getInventory().getItems()));
 					items.add(item);
 				}
-		} else
+		}
+		else
 			player.sendMessage("You cannot sell items in this shop.");
 	}
 

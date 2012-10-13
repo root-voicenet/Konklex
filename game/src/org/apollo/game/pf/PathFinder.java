@@ -17,8 +17,7 @@ public interface PathFinder {
 	 * @param srcY Source point, y coordinate.
 	 * @param dstX Destination point, x coordinate.
 	 * @param dstY Destination point, y coordinate.
-	 * @return A path between two points if such a path exists, or
-	 * <code>null</code> if no path exists.
+	 * @return A path between two points if such a path exists, or <code>null</code> if no path exists.
 	 */
 	public Path findPath(Position location, int radius, TileMap map, int srcX, int srcY, int dstX, int dstY);
 

@@ -15,10 +15,9 @@ public final class UpdateEncoder extends OneToOneEncoder {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss
-	 * .netty.channel.ChannelHandlerContext, org.jboss.netty.channel.Channel,
-	 * java.lang.Object)
+	 * 
+	 * @see org.jboss.netty.handler.codec.oneone.OneToOneEncoder#encode(org.jboss .netty.channel.ChannelHandlerContext,
+	 * org.jboss.netty.channel.Channel, java.lang.Object)
 	 */
 	@Override
 	protected Object encode(ChannelHandlerContext ctx, Channel c, Object msg) throws Exception {

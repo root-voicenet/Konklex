@@ -16,9 +16,8 @@ public final class FourthItemActionEventDecoder extends EventDecoder<FourthItemA
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public FourthItemActionEvent decode(GamePacket packet) {

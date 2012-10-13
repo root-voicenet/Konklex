@@ -1,9 +1,7 @@
 package org.apollo.game.event.impl;
 
 /**
- * An {@link InventoryItemEvent} that is sent when a player uses an item on
- * another player.
- * 
+ * An {@link InventoryItemEvent} that is sent when a player uses an item on another player.
  * @author Steve
  */
 public final class ItemOnPlayerEvent extends InventoryItemEvent {
@@ -15,15 +13,10 @@ public final class ItemOnPlayerEvent extends InventoryItemEvent {
 
 	/**
 	 * Creates the item on player event.
-	 * 
-	 * @param interfaceId
-	 *            The interface id.
-	 * @param playerIndex
-	 *            The player index.
-	 * @param id
-	 *            The item id.
-	 * @param slot
-	 *            The item slot.
+	 * @param interfaceId The interface id.
+	 * @param playerIndex The player index.
+	 * @param id The item id.
+	 * @param slot The item slot.
 	 */
 	public ItemOnPlayerEvent(int interfaceId, int playerIndex, int id, int slot) {
 		super(1, interfaceId, id, slot);
@@ -32,7 +25,6 @@ public final class ItemOnPlayerEvent extends InventoryItemEvent {
 
 	/**
 	 * Gets the player index.
-	 * 
 	 * @return The player index.
 	 */
 	public int getPlayerIndex() {

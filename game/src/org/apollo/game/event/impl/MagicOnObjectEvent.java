@@ -8,17 +8,17 @@ import org.apollo.game.model.Position;
  * @author Steve
  */
 public final class MagicOnObjectEvent extends Event {
-	
+
 	/**
 	 * The position of the object.
 	 */
 	private final Position position;
-	
+
 	/**
 	 * The spell being casted.
 	 */
 	private final int magicId;
-	
+
 	/**
 	 * The object being casted upon.
 	 */
@@ -36,7 +36,7 @@ public final class MagicOnObjectEvent extends Event {
 		this.magicId = magicId;
 		this.objectId = objectId;
 	}
-	
+
 	/**
 	 * Gets the position of the object.
 	 * @return The position of the object.
@@ -44,7 +44,7 @@ public final class MagicOnObjectEvent extends Event {
 	public Position getPosition() {
 		return position;
 	}
-	
+
 	/**
 	 * Gets the spell being casted.
 	 * @return The spell being casted.
@@ -52,7 +52,7 @@ public final class MagicOnObjectEvent extends Event {
 	public int getMagicId() {
 		return magicId;
 	}
-	
+
 	/**
 	 * Gets the object being casted upon.
 	 * @return The object being casted upon.

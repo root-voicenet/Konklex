@@ -44,7 +44,8 @@ public final class ShopItemActionHandler extends EventHandler<ItemActionEvent> {
 			final int value = player.getShop().buyValue(item.getId());
 			player.sendMessage((item.getDefinition().getName() != null ? item.getDefinition().getName() : "That")
 					+ ": currently costs " + value + " " + name + ".");
-		} else
+		}
+		else
 			player.getShop().buyItem(player, new SlottedItem(event.getSlot(), item));
 	}
 
@@ -79,7 +80,8 @@ public final class ShopItemActionHandler extends EventHandler<ItemActionEvent> {
 			else
 				player.sendMessage((item.getDefinition().getName() != null ? item.getDefinition().getName() : "That")
 						+ ": shop will buy that for " + value + " " + name + ".");
-		} else
+		}
+		else
 			player.getShop().sellItem(player, item);
 	}
 }

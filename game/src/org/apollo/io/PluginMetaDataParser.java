@@ -9,9 +9,7 @@ import org.apollo.util.xml.XmlParser;
 import org.xml.sax.SAXException;
 
 /**
- * A class which parses {@code plugin.xml} files into {@link PluginMetaData}
- * objects.
- * 
+ * A class which parses {@code plugin.xml} files into {@link PluginMetaData} objects.
  * @author Graham
  */
 public final class PluginMetaDataParser {
@@ -33,11 +31,8 @@ public final class PluginMetaDataParser {
 
 	/**
 	 * Creates the plugin meta data parser.
-	 * 
-	 * @param is
-	 *            The input stream.
-	 * @throws SAXException
-	 *             if a SAX error occurs.
+	 * @param is The input stream.
+	 * @throws SAXException if a SAX error occurs.
 	 */
 	public PluginMetaDataParser(InputStream is) throws SAXException {
 		this.parser = new XmlParser();
@@ -46,14 +41,10 @@ public final class PluginMetaDataParser {
 
 	/**
 	 * Gets the specified child element, if it exists.
-	 * 
-	 * @param node
-	 *            The root node.
-	 * @param name
-	 *            The element name.
+	 * @param node The root node.
+	 * @param name The element name.
 	 * @return The node object.
-	 * @throws IOException
-	 *             if the element does not exist.
+	 * @throws IOException if the element does not exist.
 	 */
 	private XmlNode getElement(XmlNode node, String name) throws IOException {
 		final XmlNode child = node.getChild(name);
@@ -64,12 +55,9 @@ public final class PluginMetaDataParser {
 
 	/**
 	 * Parses the XML and creates a meta data object.
-	 * 
 	 * @return The meta data object.
-	 * @throws IOException
-	 *             if an I/O error occurs.
-	 * @throws SAXException
-	 *             if a SAX error occurs.
+	 * @throws IOException if an I/O error occurs.
+	 * @throws SAXException if a SAX error occurs.
 	 */
 	public PluginMetaData parse() throws IOException, SAXException {
 		final XmlNode rootNode = parser.parse(is);
@@ -88,12 +76,9 @@ public final class PluginMetaDataParser {
 		final int version = Integer.parseInt(versionNode.getValue());
 		if (id == null || name == null || description == null)
 			throw new IOException("id, name and description must have values");
-		final XmlNode[] authorNodes = authorsNode.getChildren().toArray(
-				EMPTY_NODE_ARRAY);
-		final XmlNode[] scriptNodes = scriptsNode.getChildren().toArray(
-				EMPTY_NODE_ARRAY);
-		final XmlNode[] dependencyNodes = dependenciesNode.getChildren()
-				.toArray(EMPTY_NODE_ARRAY);
+		final XmlNode[] authorNodes = authorsNode.getChildren().toArray(EMPTY_NODE_ARRAY);
+		final XmlNode[] scriptNodes = scriptsNode.getChildren().toArray(EMPTY_NODE_ARRAY);
+		final XmlNode[] dependencyNodes = dependenciesNode.getChildren().toArray(EMPTY_NODE_ARRAY);
 		final String[] authors = new String[authorNodes.length];
 		final String[] scripts = new String[scriptNodes.length];
 		final String[] dependencies = new String[dependencyNodes.length];
@@ -112,7 +97,6 @@ public final class PluginMetaDataParser {
 			if (dependencies[i] == null)
 				throw new IOException("dependency elements must have values");
 		}
-		return new PluginMetaData(id, name, description, authors, scripts,
-				dependencies, version);
+		return new PluginMetaData(id, name, description, authors, scripts, dependencies, version);
 	}
 }

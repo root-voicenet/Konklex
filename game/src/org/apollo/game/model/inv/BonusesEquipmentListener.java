@@ -25,9 +25,8 @@ public final class BonusesEquipmentListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game
-	 * .model.Inventory)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemsUpdated(org.apollo.game .model.Inventory)
 	 */
 	@Override
 	public void itemsUpdated(Inventory inventory) {
@@ -36,9 +35,9 @@ public final class BonusesEquipmentListener extends InventoryAdapter {
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game
-	 * .model.Inventory, int, org.apollo.game.model.Item)
+	 * 
+	 * @see org.apollo.game.model.inv.InventoryAdapter#itemUpdated(org.apollo.game .model.Inventory, int,
+	 * org.apollo.game.model.Item)
 	 */
 	@Override
 	public void itemUpdated(Inventory inventory, int slot, Item item) {

@@ -27,8 +27,7 @@ public abstract class DistancedAction<T extends Character> extends Action<T> {
 	private final int delay;
 
 	/**
-	 * A flag indicating if this action fires immediately after the threshold is
-	 * reached.
+	 * A flag indicating if this action fires immediately after the threshold is reached.
 	 */
 	private final boolean immediate;
 
@@ -39,10 +38,8 @@ public abstract class DistancedAction<T extends Character> extends Action<T> {
 
 	/**
 	 * Creates a new DistancedAction.
-	 * @param delay The delay between executions once the distance threshold is
-	 * reached.
-	 * @param immediate Whether or not this action fires immediately after the
-	 * distance threshold is reached.
+	 * @param delay The delay between executions once the distance threshold is reached.
+	 * @param immediate Whether or not this action fires immediately after the distance threshold is reached.
 	 * @param character The character.
 	 * @param position The position.
 	 * @param distance The distance.
@@ -57,6 +54,7 @@ public abstract class DistancedAction<T extends Character> extends Action<T> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.game.scheduling.ScheduledTask#execute()
 	 */
 	@Override

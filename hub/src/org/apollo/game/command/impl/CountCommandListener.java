@@ -21,10 +21,12 @@ public final class CountCommandListener implements CommandListener {
 				final int players = context.getServerChannelGroup().getPlayers(worldn).size();
 				builder.append(players + "\r\n");
 				channel.write(builder.toString());
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": world not connected" + "\r\n");
 			}
-		} else {
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": world not connected" + "\r\n");
+			}
+		}
+		else {
 			if (context.getServerChannelGroup().size() > 0) {
 				int total = 0;
 				final StringBuilder builder = new StringBuilder();
@@ -35,8 +37,9 @@ public final class CountCommandListener implements CommandListener {
 				}
 				builder.append("\r\n").append("Total: ").append(total).append(" players.");
 				channel.write(builder.toString());
-			} else {
-				channel.write("-bash: " + command.getName().toLowerCase()+": no worlds connected" + "\r\n");
+			}
+			else {
+				channel.write("-bash: " + command.getName().toLowerCase() + ": no worlds connected" + "\r\n");
 			}
 		}
 	}

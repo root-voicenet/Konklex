@@ -12,9 +12,8 @@ public final class ClosedInterfaceEventDecoder extends EventDecoder<ClosedInterf
 
 	/*
 	 * (non-Javadoc)
-	 * @see
-	 * org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game.
-	 * GamePacket)
+	 * 
+	 * @see org.apollo.net.release.EventDecoder#decode(org.apollo.net.codec.game. GamePacket)
 	 */
 	@Override
 	public ClosedInterfaceEvent decode(GamePacket packet) {

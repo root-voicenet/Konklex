@@ -9,13 +9,13 @@ import org.apollo.io.player.PlayerSaver;
  */
 public final class JdbcPlayerSaver implements PlayerSaver {
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
-     */
-    @Override
-    public void savePlayer(Player player) throws Exception {
-	// MysqlUtil.query("");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.apollo.io.player.PlayerSaver#savePlayer(org.apollo.game.model.Player)
+	 */
+	@Override
+	public void savePlayer(Player player) throws Exception {
+		// MysqlUtil.query("");
+	}
 }

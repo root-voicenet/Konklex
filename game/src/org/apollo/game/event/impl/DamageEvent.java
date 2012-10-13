@@ -4,14 +4,12 @@ import org.apollo.game.event.Event;
 
 /**
  * An {@link Event} for damaging entitys.
- * 
  * @author Steve
  */
 public class DamageEvent extends Event {
 
 	/**
 	 * The combat style.
-	 * 
 	 * @author Steve
 	 */
 	public enum CombatStyle {
@@ -39,9 +37,7 @@ public class DamageEvent extends Event {
 
 		/**
 		 * Create a new combat style.
-		 * 
-		 * @param type
-		 *            The combat style.
+		 * @param type The combat style.
 		 */
 		private CombatStyle(int type) {
 			this.type = type;
@@ -49,7 +45,6 @@ public class DamageEvent extends Event {
 
 		/**
 		 * Gets the combat style.
-		 * 
 		 * @return The combat style.
 		 */
 		public int toInteger() {
@@ -79,13 +74,9 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Create a new damage event.
-	 * 
-	 * @param damageDone
-	 *            the damage done
-	 * @param currentHp
-	 *            the current hp
-	 * @param maxHp
-	 *            the max hp
+	 * @param damageDone the damage done
+	 * @param currentHp the current hp
+	 * @param maxHp the max hp
 	 */
 	public DamageEvent(int damageDone, int currentHp, int maxHp) {
 		this.damageDone = damageDone;
@@ -96,15 +87,10 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Create a new damage event.
-	 * 
-	 * @param damageDone
-	 *            the damage done.
-	 * @param currentHp
-	 *            the current hp.
-	 * @param maxHp
-	 *            the max hp.
-	 * @param hitType
-	 *            The hit type.
+	 * @param damageDone the damage done.
+	 * @param currentHp the current hp.
+	 * @param maxHp the max hp.
+	 * @param hitType The hit type.
 	 */
 	public DamageEvent(int damageDone, int currentHp, int maxHp, int hitType) {
 		this.damageDone = damageDone;
@@ -115,7 +101,6 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Get the damage done.
-	 * 
 	 * @return The damage done.
 	 */
 	public int getDamageDone() {
@@ -124,7 +109,6 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Get the hit type.
-	 * 
 	 * @return The hit type.
 	 */
 	public int getHitType() {
@@ -133,7 +117,6 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Get the current hp.
-	 * 
 	 * @return The current hp.
 	 */
 	public int getHp() {
@@ -142,7 +125,6 @@ public class DamageEvent extends Event {
 
 	/**
 	 * Get the max hp.
-	 * 
 	 * @return The max hp.
 	 */
 	public int getMaxHp() {

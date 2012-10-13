@@ -3,9 +3,8 @@ package org.apollo.security;
 import net.burtleburtle.bob.rand.IsaacRandom;
 
 /**
- * A pair of two {@link IsaacRandom} random number generators used as a stream
- * cipher. One takes the role of an encoder for this endpoint, the other takes
- * the role of a decoder for this endpoint.
+ * A pair of two {@link IsaacRandom} random number generators used as a stream cipher. One takes the role of an encoder
+ * for this endpoint, the other takes the role of a decoder for this endpoint.
  * @author Graham
  */
 public final class IsaacRandomPair {

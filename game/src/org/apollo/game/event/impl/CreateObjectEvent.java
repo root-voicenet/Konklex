@@ -4,16 +4,13 @@ import org.apollo.game.model.GameObject;
 
 /**
  * An {@link ObjectEvent} which creates a object.
- * 
  * @author Steve
  */
 public final class CreateObjectEvent extends ObjectEvent {
 
 	/**
 	 * Creates a new create object action event.
-	 * 
-	 * @param object
-	 *            The object to create.
+	 * @param object The object to create.
 	 */
 	public CreateObjectEvent(GameObject object) {
 		super(object.getLocation(), object);

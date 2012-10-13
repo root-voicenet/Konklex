@@ -13,20 +13,15 @@ import org.apollo.game.model.inv.SynchronizationInventoryListener;
 
 /**
  * An {@link EventHandler} which verifies {@link ItemActionEvent}s.
- * 
  * @author Chris Fletcher
  */
-public final class ItemVerificationHandler extends
-EventHandler<InventoryItemEvent> {
+public final class ItemVerificationHandler extends EventHandler<InventoryItemEvent> {
 
 	/**
 	 * Gets the inventory based on the interface id.
-	 * 
-	 * @param interfaceId
-	 *            The interface id.
+	 * @param interfaceId The interface id.
 	 * @return The proper inventory.
-	 * @throws IllegalArgumentException
-	 *             if the interface id is not legal.
+	 * @throws IllegalArgumentException if the interface id is not legal.
 	 */
 	private static Inventory interfaceToInventory(Player player, int interfaceId) {
 		switch (interfaceId) {
@@ -47,16 +42,13 @@ EventHandler<InventoryItemEvent> {
 		case 3900:
 			return player.getShop().getItems();
 		default:
-			throw new IllegalArgumentException("unknown interface id: "
-					+ interfaceId);
+			throw new IllegalArgumentException("unknown interface id: " + interfaceId);
 		}
 	}
 
 	@Override
-	public void handle(EventHandlerContext ctx, Player player,
-			InventoryItemEvent event) {
-		final Inventory inventory = interfaceToInventory(player,
-				event.getInterfaceId());
+	public void handle(EventHandlerContext ctx, Player player, InventoryItemEvent event) {
+		final Inventory inventory = interfaceToInventory(player, event.getInterfaceId());
 		if (inventory == null) {
 			ctx.breakHandlerChain();
 			return;

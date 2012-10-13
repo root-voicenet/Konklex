@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * A class which represents a single node in the DOM tree, maintaining
- * information about its children, attributes, value and name.
+ * A class which represents a single node in the DOM tree, maintaining information about its children, attributes, value
+ * and name.
  * @author Graham
  */
 public final class XmlNode implements Iterable<XmlNode> {
@@ -55,8 +55,7 @@ public final class XmlNode implements Iterable<XmlNode> {
 	/**
 	 * Checks if an attribute with the specified name exists.
 	 * @param name The attribute's name.
-	 * @return {@code true} if an attribute with that name exists, {@code false}
-	 * otherwise.
+	 * @return {@code true} if an attribute with that name exists, {@code false} otherwise.
 	 */
 	public boolean containsAttribute(String name) {
 		return attributes.containsKey(name);
@@ -98,8 +97,7 @@ public final class XmlNode implements Iterable<XmlNode> {
 	/**
 	 * Gets the first child with the specified name.
 	 * @param name The name of the child.
-	 * @return The {@link XmlNode} if a child was found with a matching name,
-	 * {@code null} otherwise.
+	 * @return The {@link XmlNode} if a child was found with a matching name, {@code null} otherwise.
 	 */
 	public XmlNode getChild(String name) {
 		for (final XmlNode child : children)
@@ -150,6 +148,7 @@ public final class XmlNode implements Iterable<XmlNode> {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Iterable#iterator()
 	 */
 	@Override

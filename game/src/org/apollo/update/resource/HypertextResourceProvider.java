@@ -22,8 +22,7 @@ public final class HypertextResourceProvider extends ResourceProvider {
 	private final File base;
 
 	/**
-	 * Creates a new hypertext resource provider with the specified base
-	 * directory.
+	 * Creates a new hypertext resource provider with the specified base directory.
 	 * @param base The base directory.
 	 */
 	public HypertextResourceProvider(File base) {
@@ -32,6 +31,7 @@ public final class HypertextResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#accept(java.lang.String)
 	 */
 	@Override
@@ -48,6 +48,7 @@ public final class HypertextResourceProvider extends ResourceProvider {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
 	 */
 	@Override
@@ -61,7 +62,8 @@ public final class HypertextResourceProvider extends ResourceProvider {
 		ByteBuffer buf;
 		try {
 			buf = raf.getChannel().map(MapMode.READ_ONLY, 0, raf.length());
-		} finally {
+		}
+		finally {
 			raf.close();
 		}
 		return buf;
