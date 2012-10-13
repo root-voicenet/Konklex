@@ -1,4 +1,0 @@
-<synchronizer>
-  <player>org.apollo.game.sync.ParallelClientSynchronizer</player>
-  <npc>org.apollo.game.sync.ParallelNpcSynchronizer</npc>
-</synchronizer>

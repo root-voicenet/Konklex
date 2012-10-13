@@ -1,0 +1,26 @@
+<methods>
+  <method>
+    <type>org.apollo.api.method.impl.ReceiveFriendMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.ReceiveFriendMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
+    <type>org.apollo.api.method.impl.ReceivePlayerMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.ReceivePlayerMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
+    <type>org.apollo.api.method.impl.PrivateChatMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.PrivateChatMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
+    <type>org.apollo.api.method.impl.TimeMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.TimeMethodHandler</handler>
+    </chain>
+  </method>
+</methods>
