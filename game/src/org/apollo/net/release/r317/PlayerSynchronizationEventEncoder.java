@@ -296,7 +296,7 @@ public final class PlayerSynchronizationEventEncoder extends EventEncoder<Player
 	private void putGraphicBlock(GraphicBlock block, GamePacketBuilder blockBuilder) {
 		final Graphic graphic = block.getGraphic();
 		blockBuilder.put(DataType.SHORT, DataOrder.LITTLE, graphic.getId());
-		blockBuilder.put(DataType.INT, graphic.getHeight() >> 16 & 0x0000FFFF | graphic.getDelay() & 0xFFFF);
+		blockBuilder.put(DataType.INT, ((graphic.getHeight() << 16) & 0xFFFF0000) | (graphic.getDelay() & 0x0000FFFF));
 	}
 
 	/**

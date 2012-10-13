@@ -14,6 +14,7 @@ import org.apollo.game.model.Position;
 import org.apollo.game.model.Skill;
 import org.apollo.game.model.World;
 import org.apollo.game.model.inter.melee.MagicConstants.Mage;
+import org.apollo.game.model.inter.melee.RangeConstants.Range;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.CombatUtil;
 import org.apollo.util.TextUtil;
@@ -103,10 +104,7 @@ public final class Combat {
 			int time = source.getMeleeSet().getAttackTimer();
 			if (time > 0) {
 				source.getMeleeSet().setAttackTimer(time - 1);
-				ScheduledTask task = source.getMeleeSet().getTask(); // comes
-																		// after
-																		// we
-																		// attack.
+				ScheduledTask task = source.getMeleeSet().getTask();
 				if (task != null) {
 					World.getWorld().schedule(task);
 					source.getMeleeSet().setTask(null);
@@ -132,16 +130,92 @@ public final class Combat {
 	 * @param source The source.
 	 * @param victim The victim.
 	 * @param damage The damage done.
+	 * @param damage The second (not required) damage.
 	 */
 	private static void appendSpecial(int type, Character source, Character victim, int damage) {
-		switch (type) {
-		case MAGIC:
-			break;
-		default:
-			damage *= 1.25;
-			break;
+		Item weapon = source.getEquipment().get(EquipmentConstants.WEAPON);
+		int drain = 0;
+		int special = source.getMeleeSet().getSpecial();
+		if (weapon != null) {
+			switch(weapon.getId()) {
+			case 1305:
+				drain = 25;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1058));
+					source.playGraphic(new Graphic(248, 0, 100));
+					victim.playGraphic(new Graphic(254, 0, 100));
+				}
+				break;
+			case 1304:
+				drain = 30;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1203));
+					source.playGraphic(new Graphic(285, 0, 100));
+				}
+				break;
+			case 4151:
+				drain = 50;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1658));
+					victim.playGraphic(new Graphic(341, 0, 100));
+				}
+				break;
+			case 1249:
+				drain = 25;
+				if (special >= drain) {
+					source.playAnimation(new Animation(405));
+					victim.playGraphic(new Graphic(254, 0, 100));
+				}
+				break;
+			case 4577:
+				drain = 55;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1872));
+					source.playGraphic(new Graphic(347, 0, 100));
+				}
+				break;
+			case 1434:
+				drain = 25;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1060));
+					source.playGraphic(new Graphic(251, 0, 100));
+				}
+				break;
+			case 5698:
+				drain = 25;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1062, 0));
+					source.playGraphic(new Graphic(252, 0, 100));
+					victim.damage2(damage / 2);
+				}
+				break;
+			case 4153:
+				drain = 50;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1677));
+					source.playGraphic(new Graphic(340, 0, 100));
+				}
+				break;
+			case 1377:
+				drain = 100;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1056));
+					source.playGraphic(new Graphic(256, 0, 100));
+				}
+				break;
+			case 861:
+				drain = 60;
+				if (special >= drain) {
+					source.playAnimation(new Animation(1074));
+					source.playGraphic(new Graphic(256, 0, 100));
+				}
+				break;
+			}
+			if (special >= drain) {
+				source.getMeleeSet().setSpecial(source.getMeleeSet().getSpecial() - drain);
+				source.getMeleeSet().setUsingSpecial(false);
+			}
 		}
-		source.getMeleeSet().setSpecial(source.getMeleeSet().getSpecial() - 25);
 	}
 
 	/**
@@ -196,7 +270,7 @@ public final class Combat {
 			victim.playGraphic(spell.getGraphics().get(0));
 			ProjectileEvent mageProjectile = new ProjectileEvent(source.getPosition(), 0,
 					victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
-					(byte) offsetY, spell.getProjectile(), 51, 90, 43, 31, 16);
+							(byte) offsetY, spell.getProjectile(), 51, 90, 43, 31, 16);
 			source.getRegion().sendEvent(mageProjectile);
 			victim.playGraphic(spell.getGraphics().get(1));
 			victim.getWalkingQueue().stop(15);
@@ -209,7 +283,7 @@ public final class Combat {
 					int hit = TextUtil.random(16);
 					for (Character character : characters) {
 						if (!character.equals(source) && !character.equals(victim)) {
-							if (character.getPosition().isWithinDistance(victim.getPosition(), 4)) {
+							if (character.getPosition().isWithinDistance(victim.getPosition(), 1)) {
 								if (hit > 18)
 									break;
 								offsetX = (source.getPosition().getX() - character.getPosition().getX()) * -1;
@@ -219,7 +293,7 @@ public final class Combat {
 								ProjectileEvent projectile = new ProjectileEvent(source.getPosition(), 0,
 										character.isControlling() ? -character.getIndex() - 1
 												: character.getIndex() + 1, (byte) offsetX, (byte) offsetY,
-										spell.getProjectile(), 51, 90, 43, 31, 16);
+												spell.getProjectile(), 51, 90, 43, 31, 16);
 								source.getRegion().sendEvent(projectile);
 								character.playGraphic(spell.getGraphics().get(1));
 								character.damage(TextUtil.random(damage));
@@ -245,26 +319,31 @@ public final class Combat {
 		int offsetX = (source.getPosition().getX() - victim.getPosition().getX()) * -1;
 		int offsetY = (source.getPosition().getY() - victim.getPosition().getY()) * -1;
 		Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
-		if (item != null) {
-			if (item.getAmount() > 0) {
-				int projectile = RangeConstants.Range.forArrow(item.getId());
-				if (projectile != -1) {
+		Item bow = source.getEquipment().get(EquipmentConstants.WEAPON);
+		boolean knife = (bow != null && bow.getDefinition().getName().toLowerCase().contains("knife")) ? true : false;
+		if (item != null || knife) {
+			if ((knife && bow.getAmount() > 0) || (item != null && item.getAmount() > 0)) {
+				Range range = RangeConstants.Range.forArrow(knife ? bow.getId() : item.getId());
+				if (range != null) {
+					source.playGraphic(range.getDrawback());
 					ProjectileEvent rangeProjectile = new ProjectileEvent(source.getPosition(), 0,
 							victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
-							(byte) offsetY, projectile, 51, // Delay, Default:
-															// 51
-							70, // Duration, Default: 70
-							43, 31, 16);
+									(byte) offsetY, range.getProjectile(), 51, // Delay, Default:
+									// 51
+									70, // Duration, Default: 70
+									43, 31, 16);
 					source.getRegion().sendEvent(rangeProjectile);
-					source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
+					if (!knife) source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
+					else source.getEquipment().set(EquipmentConstants.WEAPON, new Item(bow.getId(), bow.getAmount() - 1));
 					if (TextUtil.random(2) == 1) {
 						if (source.isControlling()) {
 							String name = ((Player) source).getName();
-							World.getWorld().register(
-									new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
+							if (!knife) World.getWorld().register(new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
+							else World.getWorld().register(new GroundItem(name, new Item(bow.getId(), 1), victim.getPosition()));
 						}
 						else {
-							World.getWorld().register(new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
+							if (!knife) World.getWorld().register(new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
+							else World.getWorld().register(new GroundItem(new Item(bow.getId(), 1), victim.getPosition()));
 						}
 					}
 				}
@@ -280,8 +359,7 @@ public final class Combat {
 		else {
 			return false;
 		}
-		source.playAnimation(new Animation(426));
-		victim.playAnimation(new Animation(404));
+		source.playAnimation(new Animation(MeleeConstants.getAttackAnim(source)));
 		return true;
 	}
 
@@ -293,7 +371,7 @@ public final class Combat {
 	 * @return True if successfully hit, false if otherwise.
 	 */
 	private static boolean appendMelee(Character source, Character victim, int damage) {
-		source.playAnimation(new Animation(422));
+		source.playAnimation(new Animation(MeleeConstants.getAttackAnim(source)));
 		victim.playAnimation(new Animation(404));
 		return true;
 	}
@@ -473,14 +551,12 @@ public final class Combat {
 				return MELEE;
 			}
 			String strn = str.getDefinition().getName();
-			// TODO knife & darts
-			if (strn.contains("bow")) {
+			if (strn.contains("bow") || strn.contains("knife")) {
 				return RANGED;
 			}
 		}
 		else if (!character.isControlling()) {
-			// return ((NPC)Character).getAttacktype().getId();
-			return MELEE;
+			return MELEE; // every character is melee for now
 		}
 		return MELEE;
 	}

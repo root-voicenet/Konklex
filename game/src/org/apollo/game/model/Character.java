@@ -138,8 +138,7 @@ public abstract class Character {
 
 	/**
 	 * Damages the character.
-	 * @param hit The damage to deal.
-	 * @param type The damage type.
+	 * @param hit The damage(s) to deal.
 	 */
 	public void damage(int... hit) {
 		DamageEvent damage = new DamageEvent(hit[0] > getHealth() ? getHealth() : hit[0], getHealth(), getHealthMax());
@@ -152,6 +151,17 @@ public abstract class Character {
 			setHealth(health);
 			blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
 		}
+	}
+	
+	/**
+	 * Damages the character.
+	 * @param hit The damage to deal.
+	 */
+	public void damage2(int hit) {
+		DamageEvent damage = new DamageEvent(hit > getHealth() ? getHealth() : hit, getHealth(), getHealthMax());
+		int health = getHealth() - damage.getDamageDone();
+		setHealth(health);
+		blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
 	}
 
 	/**
