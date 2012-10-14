@@ -732,9 +732,7 @@ public final class Player extends Character {
 		getBank().forceRefresh();
 		// force skills to update
 		getSkillSet().forceRefresh();
-		// updates the bonuses
-		getBonuses().forceRefresh();
-		// send the context menu
+		// send context menues
 		send(new BuildPlayerMenuEvent(3, true, "Attack"));
 		send(new BuildPlayerMenuEvent(4, false, "Follow"));
 		send(new BuildPlayerMenuEvent(5, false, "Trade with"));
