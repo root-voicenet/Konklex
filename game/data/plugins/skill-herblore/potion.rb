@@ -70,7 +70,7 @@ class MixingDialogueListener < DialogueAdapter
   end
 
   # Called when a button has been clicked whilst the dialogue was opened.
-  def buttonClicked(button)
+  def buttonClicked(player, button)
 	amount = get_amount button
 	if amount == 0
 	  return false

@@ -7,7 +7,9 @@ import java.util.concurrent.ThreadFactory;
 
 import org.apollo.game.GameService;
 import org.apollo.game.model.Npc;
+import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
+import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.sync.task.PhasedSynchronizationTask;
 import org.apollo.game.sync.task.PostNpcSynchronizationTask;
 import org.apollo.game.sync.task.SynchronizationTask;
@@ -47,11 +49,39 @@ public final class ParallelNpcSynchronizer extends ClientSynchronizer {
 	@Override
 	public void synchronize() {
 		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
+		final CharacterRepository<Player> players = World.getWorld().getPlayerRepository();
 		final int npcCount = npcs.size();
+		final int playerCount = players.size();
+		final int all = npcCount + playerCount;
 
 		phaser.bulkRegister(npcCount);
 		for (final Npc npc : npcs) {
 			final SynchronizationTask task = new PostNpcSynchronizationTask(npc);
+			executor.submit(new PhasedSynchronizationTask(phaser, task));
+		}
+		phaser.arriveAndAwaitAdvance();
+		
+		phaser.bulkRegister(all);
+		for (final Npc npc : npcs) {
+			final SynchronizationTask task = new SynchronizationTask() {
+
+				@Override
+				public void run() {
+					Combat.process(npc);
+				}
+				
+			};
+			executor.submit(new PhasedSynchronizationTask(phaser, task));
+		}
+		for (final Player player : players) {
+			final SynchronizationTask task = new SynchronizationTask() {
+
+				@Override
+				public void run() {
+					Combat.process(player);
+				}
+				
+			};
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
 		phaser.arriveAndAwaitAdvance();

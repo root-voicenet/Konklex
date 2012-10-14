@@ -3,8 +3,11 @@ package org.apollo.game.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.ProjectileEvent;
+import org.apollo.game.event.impl.DamageEvent.CombatStyle;
 import org.apollo.game.scheduling.ScheduledTask;
+import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
  * A class representing characters attacking eachother.
@@ -40,7 +43,7 @@ public final class MeleeSet {
 	/**
 	 * The auto retaliating flag.
 	 */
-	private boolean autoRetaliating;
+	private boolean autoRetaliating = true;
 
 	/**
 	 * Gets the auto retaliating flag.
@@ -76,7 +79,6 @@ public final class MeleeSet {
 	/**
 	 * The character.
 	 */
-	@SuppressWarnings("unused")
 	private final Character character;
 
 	/**
@@ -98,6 +100,16 @@ public final class MeleeSet {
 	 * The task.
 	 */
 	private ScheduledTask task;
+	
+	/**
+	 * The poison.
+	 */
+	private int poison;
+
+	/**
+	 * The last poison.
+	 */
+	private long lastPoison;
 
 	/**
 	 * Start a new melee class for the specified character.
@@ -289,5 +301,81 @@ public final class MeleeSet {
 	 */
 	public ScheduledTask getTask() {
 		return task;
+	}
+
+	/**
+	 * Gets the poison.
+	 * @return The poison.
+	 */
+	public int getPoison() {
+		return poison;
+	}
+
+	/**
+	 * Sets the poison.
+	 * @param poison The poison.
+	 */
+	public void setPoison(int poison) {
+		this.poison = poison;
+	}
+
+	/**
+	 * Gets the last poison.
+	 * @param lastPoison The last poison.
+	 */
+	public void setLastPoison(long lastPoison) {
+		this.lastPoison = lastPoison;
+	}
+	
+	/**
+	 * Gets the last poison.
+	 * @return The last poison.
+	 */
+	public long getLastPoison() {
+		return lastPoison;
+	}
+	
+	/**
+	 * Poisons the character.
+	 * @param hit The damage to deal.
+	 */
+	public void poison(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax(), CombatStyle.POISON.toInteger());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
+	}
+	
+	/**
+	 * Damages the character.
+	 * @param hit The damage to deal.
+	 */
+	public void damage2(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
+	}
+	
+	/**
+	 * Damages the character.
+	 * @param hit The damage to deal.
+	 */
+	public void damage(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
+	}
+	
+	/**
+	 * Diseases the character.
+	 * @param hit The damage to deal.
+	 */
+	public void disease(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax(), CombatStyle.DISEASE.toInteger());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
 	}
 }

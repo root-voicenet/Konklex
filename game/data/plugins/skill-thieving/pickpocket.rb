@@ -106,7 +106,8 @@ class PickpocketAction < DistancedAction
         npc.turn_to character.get_position
         npc.send_message "What do you think you're doing?"
         character.play_graphic PICKPOCKET_GRAPHIC
-        character.damage_entity rand(3)
+        character.get_walking_queue.stop 8
+        character.get_melee_set.damage rand(3)
         character.send_message "You fail to pick the man's pocket."
       end
       stop

@@ -73,6 +73,15 @@ public final class Combat {
 	 * @param source Character to process.
 	 */
 	public static void process(Character source) {
+		// TODO Service this maybe?
+		// Checks
+		int poison = source.getMeleeSet().getPoison();
+		if (poison > 0 && (System.currentTimeMillis() - source.getMeleeSet().getLastPoison()) >= 10000) {
+			source.getMeleeSet().poison(TextUtil.random(3));
+			source.getMeleeSet().setPoison(poison-1);
+			source.getMeleeSet().setLastPoison(System.currentTimeMillis());
+		}
+		// Melee process
 		if (source.getMeleeSet().getInteractingCharacter() != null && source.getMeleeSet().isUnderAttack()
 				&& System.currentTimeMillis() - source.getMeleeSet().getLastAttack() >= 10000) {
 			if (!source.getMeleeSet().isAttacking())
@@ -116,9 +125,9 @@ public final class Combat {
 					if (source.getMeleeSet().isUsingSpecial()) {
 						appendSpecial(type, source, victim, damage);
 					}
-					victim.damage(damage);
+					victim.getMeleeSet().damage(damage);
 				}
-				source.getMeleeSet().setAttackTimer(2);
+				source.getMeleeSet().setAttackTimer(4);
 				victim.getMeleeSet().setLastAttack(System.currentTimeMillis());
 			}
 		}
@@ -132,7 +141,7 @@ public final class Combat {
 	 * @param damage The damage done.
 	 * @param damage The second (not required) damage.
 	 */
-	private static void appendSpecial(int type, Character source, Character victim, int damage) {
+	private static void appendSpecial(int type, Character source, final Character victim, int damage) {
 		Item weapon = source.getEquipment().get(EquipmentConstants.WEAPON);
 		int drain = 0;
 		int special = source.getMeleeSet().getSpecial();
@@ -186,7 +195,10 @@ public final class Combat {
 				if (special >= drain) {
 					source.playAnimation(new Animation(1062, 0));
 					source.playGraphic(new Graphic(252, 0, 100));
-					victim.damage2(damage / 2);
+					if (TextUtil.random(2) == 1) {
+						victim.getMeleeSet().setPoison(5); // Ticks
+					}
+					victim.getMeleeSet().damage2(damage / 2);
 				}
 				break;
 			case 4153:
@@ -212,6 +224,7 @@ public final class Combat {
 				break;
 			}
 			if (special >= drain) {
+				damage += TextUtil.random(damage / 2);
 				source.getMeleeSet().setSpecial(source.getMeleeSet().getSpecial() - drain);
 				source.getMeleeSet().setUsingSpecial(false);
 			}
@@ -296,7 +309,7 @@ public final class Combat {
 												spell.getProjectile(), 51, 90, 43, 31, 16);
 								source.getRegion().sendEvent(projectile);
 								character.playGraphic(spell.getGraphics().get(1));
-								character.damage(TextUtil.random(damage));
+								character.getMeleeSet().damage(TextUtil.random(damage));
 								hit++;
 							}
 						}
@@ -378,8 +391,8 @@ public final class Combat {
 
 	/**
 	 * Creates the death amongst the player.
-	 * @param source
-	 * @param victim
+	 * @param source The source.
+	 * @param victim The victim.
 	 */
 	public static void appendDeath(final Character source, final Character victim) {
 		if (victim.isControlling())

@@ -62,7 +62,6 @@ class CookingAction < DistancedAction
     end
     has_gauntlets
     character.turn_to event.position
-    character.play_sound 240, true
     character.play_animation event.get_object == 2732 ? COOK_FIRE : COOK_ANIMATION
     character.inventory.remove item.uncook
   end

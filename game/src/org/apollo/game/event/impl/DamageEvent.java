@@ -79,10 +79,7 @@ public class DamageEvent extends Event {
 	 * @param maxHp the max hp
 	 */
 	public DamageEvent(int damageDone, int currentHp, int maxHp) {
-		this.damageDone = damageDone;
-		this.hitType = damageDone == 0 ? 0 : 1;
-		this.currentHp = currentHp;
-		this.maxHp = maxHp;
+		this(damageDone, currentHp, maxHp, damageDone == 0 ? 0 : 1);
 	}
 
 	/**

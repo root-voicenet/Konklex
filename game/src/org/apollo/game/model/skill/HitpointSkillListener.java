@@ -6,7 +6,6 @@ import org.apollo.game.model.Skill;
 import org.apollo.game.model.SkillSet;
 import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.model.Character;
-import org.apollo.game.sync.block.SynchronizationBlock;
 
 /**
  * A {@link SkillListener} which sends config values when a player levels up their health.
@@ -42,19 +41,12 @@ public final class HitpointSkillListener extends SkillAdapter {
 				((Player) character).send(new SetInterfaceTextEvent(4016, Integer.toString(skill.getCurrentLevel())));
 			}
 			if (skill.getCurrentLevel() <= 0 && !character.getMeleeSet().isDying()) {
-				Character victim = character.getMeleeSet().getInteractingCharacter();
-				if (victim != null) {
-					if (victim.getHealth() <= 0 && !victim.getMeleeSet().isDying()) {
-						victim.resetMeleeSet();
-						victim.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-						character.resetMeleeSet();
-						character.getBlockSet().add(SynchronizationBlock.createTurnToEntityBlock(-1));
-					}
-				}
-				Combat.appendDeath(victim, character); // actually, we are the
-														// victim. the victim is
-														// the source who killed
-														// us.
+				Character victim = character.getMeleeSet().getInteractingCharacter(); // we killed character
+				Combat.appendDeath(victim, character);
+				character.resetMeleeSet();
+				if (victim != null) victim.resetMeleeSet();
+				
+				// TODO add a listener for dying like barrows, etc
 			}
 		}
 	}

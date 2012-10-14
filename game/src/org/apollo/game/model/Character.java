@@ -5,13 +5,10 @@ import java.util.List;
 
 import org.apollo.game.action.Action;
 import org.apollo.game.event.Event;
-import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.Inventory.StackMode;
-import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.model.region.Region;
 import org.apollo.game.model.skill.HitpointSkillListener;
-import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.game.sync.block.SynchronizationBlockSet;
@@ -134,34 +131,6 @@ public abstract class Character {
 	public void addHealth(int health) {
 		final int temp = health + getHealth() > getHealthMax() ? getHealthMax() : health + getHealth();
 		setHealth(temp);
-	}
-
-	/**
-	 * Damages the character.
-	 * @param hit The damage(s) to deal.
-	 */
-	public void damage(int... hit) {
-		DamageEvent damage = new DamageEvent(hit[0] > getHealth() ? getHealth() : hit[0], getHealth(), getHealthMax());
-		int health = getHealth() - damage.getDamageDone();
-		setHealth(health);
-		blockSet.add(SynchronizationBlock.createHitUpdateBlock(damage));
-		if (hit.length == 2) {
-			damage = new DamageEvent(hit[1] > getHealth() ? getHealth() : hit[1], getHealth(), getHealthMax());
-			health = getHealth() - damage.getDamageDone();
-			setHealth(health);
-			blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
-		}
-	}
-	
-	/**
-	 * Damages the character.
-	 * @param hit The damage to deal.
-	 */
-	public void damage2(int hit) {
-		DamageEvent damage = new DamageEvent(hit > getHealth() ? getHealth() : hit, getHealth(), getHealthMax());
-		int health = getHealth() - damage.getDamageDone();
-		setHealth(health);
-		blockSet.add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
 	}
 
 	/**
@@ -338,17 +307,6 @@ public abstract class Character {
 	private void init() {
 		skillSet.addListener(new HitpointSkillListener(this));
 		World.getWorld().schedule(new SkillNormalizationTask(this));
-
-		final Character me = this;
-		World.getWorld().schedule(new ScheduledTask(1, false) {
-			@Override
-			public void execute() {
-				if (isActive())
-					Combat.process(me);
-				else
-					stop();
-			}
-		});
 	}
 
 	/**

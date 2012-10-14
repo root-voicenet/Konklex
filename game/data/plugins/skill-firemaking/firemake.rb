@@ -46,7 +46,6 @@ class FiremakingAction < Action
 
     # start some player stuff
     if not started
-      character.play_sound 240, true
       character.play_animation FIREMAKING_ANIMATION
       character.send_message "You attempt to light a fire..."
       character.inventory.remove item.log

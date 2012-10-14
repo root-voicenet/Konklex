@@ -56,7 +56,7 @@ public final class RangeConstants {
 		 * @return The drawback graphic.
 		 */
 		public Graphic getDrawback() {
-			return new Graphic(drawback, 0, 6553600);
+			return new Graphic(drawback, 0, 100);
 		}
 
 		/**
