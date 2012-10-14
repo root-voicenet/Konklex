@@ -11,6 +11,7 @@ import org.apollo.game.model.Item;
  * A class which contains useful magic constants.
  * @author Steve
  */
+@SuppressWarnings("javadoc")
 public final class MagicConstants {
 
 	/**

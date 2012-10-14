@@ -27,6 +27,7 @@ public class SystemUpdateTask extends ScheduledTask {
 
 	/**
 	 * Starts the system update task.
+	 * @param time The time to update.
 	 * @return True if started, false if already started.
 	 */
 	public static boolean start(int time) {

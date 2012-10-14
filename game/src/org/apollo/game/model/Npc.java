@@ -86,7 +86,7 @@ public final class Npc extends Character {
 	 * Initializes this npc.
 	 */
 	public void init() {
-		getMeleeSet().setAutoRetaliating(true); //agressive
+		getMeleeSet().setAutoRetaliating(true); // agressive
 	}
 
 	/**

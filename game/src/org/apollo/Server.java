@@ -117,7 +117,7 @@ public final class Server {
 	 * @param serviceAddress The service address to bind to.
 	 * @param httpAddress The HTTP address to bind to.
 	 * @param jagGrabAddress The JAGGRAB address to bind to.
-	 * @param api
+	 * @param apiAddress The API address to bind to.
 	 */
 	public void bind(SocketAddress serviceAddress, SocketAddress httpAddress, SocketAddress jagGrabAddress,
 			SocketAddress apiAddress) {

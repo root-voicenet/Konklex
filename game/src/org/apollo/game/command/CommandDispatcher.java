@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apollo.game.command.impl.CreditsCommandListener;
 import org.apollo.game.command.impl.LoginServerCommandListener;
-import org.apollo.game.command.impl.MoveCommandListener;
 import org.apollo.game.command.impl.ObjectCommandListener;
 import org.apollo.game.command.impl.RestartCommandListener;
 import org.apollo.game.command.impl.ShopCommandListener;
@@ -31,7 +30,6 @@ public final class CommandDispatcher {
 		register("credits", new CreditsCommandListener());
 		register("shop", new ShopCommandListener());
 		register("object", new ObjectCommandListener());
-		register("move", new MoveCommandListener());
 		register("ls", new LoginServerCommandListener());
 		register("restart", new RestartCommandListener());
 		register("spec", new SpecialCommandListener());

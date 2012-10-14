@@ -248,7 +248,6 @@ public final class Release317 extends Release {
 		// TODO pkt var 84 => change ground item amount
 		// TODO pkt var 146 => player transform
 		// TODO pkt var 156 => remove ground item
-		// TODO pkt var 160 => objects & animations
 		// register api decoders
 		register(new PrivateChatMethodDecoder(), 1);
 		register(new ReceiveFriendMethodDecoder(), 2);

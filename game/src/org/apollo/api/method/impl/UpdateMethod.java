@@ -21,6 +21,10 @@ public final class UpdateMethod extends Method {
 		this.time = time;
 	}
 
+	/**
+	 * Gets the time.
+	 * @return The time.
+	 */
 	public int getTime() {
 		return time;
 	}

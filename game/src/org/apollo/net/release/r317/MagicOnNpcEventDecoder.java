@@ -8,6 +8,10 @@ import org.apollo.net.codec.game.GamePacket;
 import org.apollo.net.codec.game.GamePacketReader;
 import org.apollo.net.release.EventDecoder;
 
+/**
+ * An {@link EventDecoder} for the {@link MagicOnNpcEvent}
+ * @author Steve
+ */
 public final class MagicOnNpcEventDecoder extends EventDecoder<MagicOnNpcEvent> {
 
 	@Override

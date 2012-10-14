@@ -18,6 +18,7 @@ public final class GraphicEvent extends MapEvent {
 	/**
 	 * Creates the new graphic event.
 	 * @param graphic The graphic.
+	 * @param position The position of the graphic.
 	 */
 	public GraphicEvent(Graphic graphic, Position position) {
 		super(position);

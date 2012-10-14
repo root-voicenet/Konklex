@@ -78,8 +78,7 @@ public final class Combat {
 		int poison = source.getMeleeSet().getPoison();
 		if (poison > 0 && (System.currentTimeMillis() - source.getMeleeSet().getLastPoison()) >= 10000) {
 			source.getMeleeSet().poison(TextUtil.random(3));
-			source.getMeleeSet().setPoison(poison-1);
-			source.getMeleeSet().setLastPoison(System.currentTimeMillis());
+			source.getMeleeSet().setPoison(poison - 1);
 		}
 		// Melee process
 		if (source.getMeleeSet().getInteractingCharacter() != null && source.getMeleeSet().isUnderAttack()
@@ -113,11 +112,6 @@ public final class Combat {
 			int time = source.getMeleeSet().getAttackTimer();
 			if (time > 0) {
 				source.getMeleeSet().setAttackTimer(time - 1);
-				ScheduledTask task = source.getMeleeSet().getTask();
-				if (task != null) {
-					World.getWorld().schedule(task);
-					source.getMeleeSet().setTask(null);
-				}
 			}
 			else {
 				int damage = TextUtil.random(grabMaxHit(type, source, victim));
@@ -128,6 +122,7 @@ public final class Combat {
 					victim.getMeleeSet().damage(damage);
 				}
 				source.getMeleeSet().setAttackTimer(4);
+				// TODO Set correct timers
 				victim.getMeleeSet().setLastAttack(System.currentTimeMillis());
 			}
 		}
@@ -146,7 +141,7 @@ public final class Combat {
 		int drain = 0;
 		int special = source.getMeleeSet().getSpecial();
 		if (weapon != null) {
-			switch(weapon.getId()) {
+			switch (weapon.getId()) {
 			case 1305:
 				drain = 25;
 				if (special >= drain) {
@@ -283,7 +278,7 @@ public final class Combat {
 			victim.playGraphic(spell.getGraphics().get(0));
 			ProjectileEvent mageProjectile = new ProjectileEvent(source.getPosition(), 0,
 					victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
-							(byte) offsetY, spell.getProjectile(), 51, 90, 43, 31, 16);
+					(byte) offsetY, spell.getProjectile(), 51, 90, 43, 31, 16);
 			source.getRegion().sendEvent(mageProjectile);
 			victim.playGraphic(spell.getGraphics().get(1));
 			victim.getWalkingQueue().stop(15);
@@ -306,7 +301,7 @@ public final class Combat {
 								ProjectileEvent projectile = new ProjectileEvent(source.getPosition(), 0,
 										character.isControlling() ? -character.getIndex() - 1
 												: character.getIndex() + 1, (byte) offsetX, (byte) offsetY,
-												spell.getProjectile(), 51, 90, 43, 31, 16);
+										spell.getProjectile(), 51, 90, 43, 31, 16);
 								source.getRegion().sendEvent(projectile);
 								character.playGraphic(spell.getGraphics().get(1));
 								character.getMeleeSet().damage(TextUtil.random(damage));
@@ -341,22 +336,34 @@ public final class Combat {
 					source.playGraphic(range.getDrawback());
 					ProjectileEvent rangeProjectile = new ProjectileEvent(source.getPosition(), 0,
 							victim.isControlling() ? -victim.getIndex() - 1 : victim.getIndex() + 1, (byte) offsetX,
-									(byte) offsetY, range.getProjectile(), 51, // Delay, Default:
-									// 51
-									70, // Duration, Default: 70
-									43, 31, 16);
+							(byte) offsetY, range.getProjectile(), 51, // Delay, Default:
+							// 51
+							70, // Duration, Default: 70
+							43, 31, 16);
 					source.getRegion().sendEvent(rangeProjectile);
-					if (!knife) source.getEquipment().set(EquipmentConstants.ARROWS, new Item(item.getId(), item.getAmount() - 1));
-					else source.getEquipment().set(EquipmentConstants.WEAPON, new Item(bow.getId(), bow.getAmount() - 1));
+					if (!knife)
+						source.getEquipment().set(EquipmentConstants.ARROWS,
+								new Item(item.getId(), item.getAmount() - 1));
+					else
+						source.getEquipment()
+								.set(EquipmentConstants.WEAPON, new Item(bow.getId(), bow.getAmount() - 1));
 					if (TextUtil.random(2) == 1) {
 						if (source.isControlling()) {
 							String name = ((Player) source).getName();
-							if (!knife) World.getWorld().register(new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
-							else World.getWorld().register(new GroundItem(name, new Item(bow.getId(), 1), victim.getPosition()));
+							if (!knife)
+								World.getWorld().register(
+										new GroundItem(name, new Item(item.getId(), 1), victim.getPosition()));
+							else
+								World.getWorld().register(
+										new GroundItem(name, new Item(bow.getId(), 1), victim.getPosition()));
 						}
 						else {
-							if (!knife) World.getWorld().register(new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
-							else World.getWorld().register(new GroundItem(new Item(bow.getId(), 1), victim.getPosition()));
+							if (!knife)
+								World.getWorld().register(
+										new GroundItem(new Item(item.getId(), 1), victim.getPosition()));
+							else
+								World.getWorld().register(
+										new GroundItem(new Item(bow.getId(), 1), victim.getPosition()));
 						}
 					}
 				}

@@ -60,7 +60,7 @@ public final class ParallelNpcSynchronizer extends ClientSynchronizer {
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
 		phaser.arriveAndAwaitAdvance();
-		
+
 		phaser.bulkRegister(all);
 		for (final Npc npc : npcs) {
 			final SynchronizationTask task = new SynchronizationTask() {
@@ -69,7 +69,7 @@ public final class ParallelNpcSynchronizer extends ClientSynchronizer {
 				public void run() {
 					Combat.process(npc);
 				}
-				
+
 			};
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
@@ -80,7 +80,7 @@ public final class ParallelNpcSynchronizer extends ClientSynchronizer {
 				public void run() {
 					Combat.process(player);
 				}
-				
+
 			};
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}

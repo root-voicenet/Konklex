@@ -103,64 +103,30 @@ public final class MeleeConstants {
 	}
 
 	/*
-	public static int getAttackSpeed(Appearance appearance, int weaponId) {
-		if (entity instanceof NPC) {
-			return 3000;
-		}
-		Player p = (Player) entity;
-
-		try {
-			int id = p.getEquipment().get(Equipment.SLOT_WEAPON).getId();
-			String name = p.getEquipment().get(Equipment.SLOT_WEAPON).getDefinition().getName().toLowerCase();
-
-			if (name.contains("dart") || name.contains("knife")) {
-				return 1000;
-			}
-
-			if (name.contains("dagger") || name.contains("dagger")
-					|| (name.endsWith("sword") && name.endsWith("longsword")) || name.endsWith("whip")
-					|| name.contains("slayer staff") || name.contains("ancient staff") || name.endsWith("scimitar")
-					|| name.endsWith("claws") || name.endsWith("shortbow") || name.contains("karil")) {
-				return 2200;
-			}
-
-			if (name.endsWith("battleaxe") || name.endsWith("warmhammer") || name.startsWith("ahrim")
-					|| name.contains("javelin")) {
-				return 3600;
-			}
-
-			if (name.contains("2h") || name.endsWith("halberd") || name.endsWith("maul") || name.startsWith("dharok")
-					|| name.startsWith("staff")) {
-				return 4200;
-			}
-
-			switch (id) {
-			case 4212:
-				return 3000;
-			case 2415:
-			case 2416:
-			case 2417:
-			case 6522:
-				return 2200;
-			case 6526:
-			case 6538:
-				return 3600;
-			case 6528:
-			case 6540:
-				return 4200;
-			case 2883:
-				return 4800;
-			case 11235:
-				return 5400;
-			}
-
-		}
-		catch (Exception e) {
-			return 3000;
-		}
-		return 3000;
-	}
-	*/
+	 * public static int getAttackSpeed(Appearance appearance, int weaponId) { if (entity instanceof NPC) { return 3000;
+	 * } Player p = (Player) entity;
+	 * 
+	 * try { int id = p.getEquipment().get(Equipment.SLOT_WEAPON).getId(); String name =
+	 * p.getEquipment().get(Equipment.SLOT_WEAPON).getDefinition().getName().toLowerCase();
+	 * 
+	 * if (name.contains("dart") || name.contains("knife")) { return 1000; }
+	 * 
+	 * if (name.contains("dagger") || name.contains("dagger") || (name.endsWith("sword") && name.endsWith("longsword"))
+	 * || name.endsWith("whip") || name.contains("slayer staff") || name.contains("ancient staff") ||
+	 * name.endsWith("scimitar") || name.endsWith("claws") || name.endsWith("shortbow") || name.contains("karil")) {
+	 * return 2200; }
+	 * 
+	 * if (name.endsWith("battleaxe") || name.endsWith("warmhammer") || name.startsWith("ahrim") ||
+	 * name.contains("javelin")) { return 3600; }
+	 * 
+	 * if (name.contains("2h") || name.endsWith("halberd") || name.endsWith("maul") || name.startsWith("dharok") ||
+	 * name.startsWith("staff")) { return 4200; }
+	 * 
+	 * switch (id) { case 4212: return 3000; case 2415: case 2416: case 2417: case 6522: return 2200; case 6526: case
+	 * 6538: return 3600; case 6528: case 6540: return 4200; case 2883: return 4800; case 11235: return 5400; }
+	 * 
+	 * } catch (Exception e) { return 3000; } return 3000; }
+	 */
 
 	/**
 	 * Gets the attack animation.

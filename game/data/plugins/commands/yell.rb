@@ -11,7 +11,6 @@ on :command, :yell do |player, command|
       World.get_world.get_player_repository.each do |players|
         players.send_message(build(player) << message)
       end
-      World.push_notification "yell", "#{player.name}: #{message}"
     end
   else
     player.send_message "Syntax: ::yell [message]"

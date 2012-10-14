@@ -610,12 +610,9 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 		}
 	}
 
-	/*
-	 * Skill ID: 2
-	 * 
-	 * @param screen
-	 * 
-	 * @return
+	/**
+	 * Opens the defence complex.
+	 * @param screen The screen number.
 	 */
 	public void defenceComplex(int screen) {
 		if (screen == 1) {

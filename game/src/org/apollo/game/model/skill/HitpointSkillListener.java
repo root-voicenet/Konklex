@@ -44,8 +44,9 @@ public final class HitpointSkillListener extends SkillAdapter {
 				Character victim = character.getMeleeSet().getInteractingCharacter(); // we killed character
 				Combat.appendDeath(victim, character);
 				character.resetMeleeSet();
-				if (victim != null) victim.resetMeleeSet();
-				
+				if (victim != null)
+					victim.resetMeleeSet();
+
 				// TODO add a listener for dying like barrows, etc
 			}
 		}

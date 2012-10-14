@@ -100,7 +100,7 @@ public final class MeleeSet {
 	 * The task.
 	 */
 	private ScheduledTask task;
-	
+
 	/**
 	 * The poison.
 	 */
@@ -326,7 +326,7 @@ public final class MeleeSet {
 	public void setLastPoison(long lastPoison) {
 		this.lastPoison = lastPoison;
 	}
-	
+
 	/**
 	 * Gets the last poison.
 	 * @return The last poison.
@@ -334,46 +334,51 @@ public final class MeleeSet {
 	public long getLastPoison() {
 		return lastPoison;
 	}
-	
+
 	/**
 	 * Poisons the character.
 	 * @param hit The damage to deal.
 	 */
 	public void poison(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax(), CombatStyle.POISON.toInteger());
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax(), CombatStyle.POISON.toInteger());
 		int health = character.getHealth() - damage.getDamageDone();
 		character.setHealth(health);
 		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
+		lastPoison = System.currentTimeMillis();
 	}
-	
+
 	/**
 	 * Damages the character.
 	 * @param hit The damage to deal.
 	 */
 	public void damage2(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax());
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax());
 		int health = character.getHealth() - damage.getDamageDone();
 		character.setHealth(health);
 		character.getBlockSet().add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
 	}
-	
+
 	/**
 	 * Damages the character.
 	 * @param hit The damage to deal.
 	 */
 	public void damage(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax());
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax());
 		int health = character.getHealth() - damage.getDamageDone();
 		character.setHealth(health);
 		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
 	}
-	
+
 	/**
 	 * Diseases the character.
 	 * @param hit The damage to deal.
 	 */
 	public void disease(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit, character.getHealth(), character.getHealthMax(), CombatStyle.DISEASE.toInteger());
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax(), CombatStyle.DISEASE.toInteger());
 		int health = character.getHealth() - damage.getDamageDone();
 		character.setHealth(health);
 		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));

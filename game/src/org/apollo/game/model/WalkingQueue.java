@@ -292,7 +292,8 @@ public final class WalkingQueue {
 	}
 
 	/**
-	 * Call this when they cannot move.
+	 * Disables the movement queue.
+	 * @param stop The time to stop the movement queue.
 	 */
 	public void stop(int stop) {
 		this.stop = stop;

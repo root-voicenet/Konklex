@@ -138,6 +138,7 @@ public final class CharacterRepository<T extends Character> implements Iterable<
 
 	/**
 	 * Checks if the character is in the list.
+	 * @param character The character to look for.
 	 * @return True if listed, false if otherwise.
 	 */
 	public boolean contains(Character character) {

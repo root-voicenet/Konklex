@@ -27,7 +27,7 @@ public class MagicEvent extends Event {
 
 	/**
 	 * Creates the magic on player event.
-	 * @param charactedId The character that was being casted on.
+	 * @param characterId The character that was being casted on.
 	 * @param spellId The spell id that was used.
 	 * @param option The option.
 	 */
