@@ -177,7 +177,7 @@ public final class Release317 extends Release {
 		register(new FriendsListEventDecoder(), 215, 188, 133, 74);
 		register(new PrivateChatEventDecoder(), 126);
 		register(new ItemUsedOnObjectDecoder(), 192);
-		register(new RegionLoadEventDecoder(), 121);
+		register(new RegionLoadEventDecoder(), 121); // 210
 		register(new MagicOnItemEventDecoder(), 237);
 		register(new ChatPrivacySettingsEventDecoder(), 95);
 		register(new DialogueContinueEventDecoder(), 40);
@@ -245,6 +245,10 @@ public final class Release317 extends Release {
 		register(GraphicEvent.class, new GraphicEventEncoder());
 		register(SpecialEvent.class, new SpecialEventEncoder());
 		register(AnimateObjectEvent.class, new AnimateObjectEventEncoder());
+		// TODO pkt var 84 => change ground item amount
+		// TODO pkt var 146 => player transform
+		// TODO pkt var 156 => remove ground item
+		// TODO pkt var 160 => objects & animations
 		// register api decoders
 		register(new PrivateChatMethodDecoder(), 1);
 		register(new ReceiveFriendMethodDecoder(), 2);
