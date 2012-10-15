@@ -21,7 +21,7 @@ public final class CreateGroundEventEncoder extends EventEncoder<CreateGroundEve
 		final GroundItem item = event.getGroundItem();
 		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, item.getItem().getId());
 		builder.put(DataType.SHORT, item.getItem().getAmount());
-		builder.put(DataType.BYTE, 0);
+		builder.put(DataType.BYTE, 0); // implement this accordingly
 		return builder.toGamePacket();
 	}
 
