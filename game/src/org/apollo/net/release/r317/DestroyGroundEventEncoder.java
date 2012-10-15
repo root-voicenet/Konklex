@@ -16,7 +16,7 @@ public final class DestroyGroundEventEncoder extends EventEncoder<DestroyGroundE
 	@Override
 	public GamePacket encode(DestroyGroundEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(156);
-		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, 0);
+		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, 0); // implement this accordingly
 		builder.put(DataType.SHORT, event.getGroundItem().getItem().getId());
 		return builder.toGamePacket();
 	}
