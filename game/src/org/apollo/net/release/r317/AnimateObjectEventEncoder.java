@@ -20,7 +20,7 @@ public final class AnimateObjectEventEncoder extends EventEncoder<AnimateObjectE
 		final GamePacketBuilder builder = new GamePacketBuilder(160);
 		final GameObject object = event.getObject();
 		final Animation animation = event.getAnimation();
-		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, 0);
+		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, 0); // implement this accordingly
 		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, (object.getType() << 2) + (object.getRotation() & 3));
 		builder.put(DataType.SHORT, DataTransformation.ADD, animation.getId());
 		return builder.toGamePacket();
