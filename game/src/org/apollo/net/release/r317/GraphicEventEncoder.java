@@ -17,7 +17,7 @@ public final class GraphicEventEncoder extends EventEncoder<GraphicEvent> {
 	public GamePacket encode(GraphicEvent event) {
 		GamePacketBuilder builder = new GamePacketBuilder(4);
 		Graphic graphic = event.getGraphic();
-		builder.put(DataType.BYTE, 0);
+		builder.put(DataType.BYTE, 0); // implement this accordingly
 		builder.put(DataType.SHORT, graphic.getId());
 		builder.put(DataType.BYTE, graphic.getHeight());
 		builder.put(DataType.SHORT, graphic.getDelay());
