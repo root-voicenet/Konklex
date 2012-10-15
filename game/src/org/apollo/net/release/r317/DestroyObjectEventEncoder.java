@@ -19,7 +19,7 @@ public final class DestroyObjectEventEncoder extends EventEncoder<DestroyObjectE
 		final GameObject object = event.getObject();
 		final GamePacketBuilder builder = new GamePacketBuilder(101);
 		builder.put(DataType.BYTE, DataTransformation.NEGATE, (object.getType() << 2) + (object.getRotation() & 3));
-		builder.put(DataType.BYTE, 0);
+		builder.put(DataType.BYTE, 0); // implement this accordingly
 		return builder.toGamePacket();
 	}
 
