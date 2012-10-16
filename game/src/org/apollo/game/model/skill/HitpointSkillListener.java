@@ -1,11 +1,13 @@
 package org.apollo.game.model.skill;
 
 import org.apollo.game.event.impl.SetInterfaceTextEvent;
+import org.apollo.game.minigame.MinigameService;
+import org.apollo.game.model.Character;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Skill;
 import org.apollo.game.model.SkillSet;
+import org.apollo.game.model.World;
 import org.apollo.game.model.inter.melee.Combat;
-import org.apollo.game.model.Character;
 
 /**
  * A {@link SkillListener} which sends config values when a player levels up their health.
@@ -34,6 +36,7 @@ public final class HitpointSkillListener extends SkillAdapter {
 			}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void skillUpdated(SkillSet set, int id, Skill skill) {
 		if (id == Skill.HITPOINTS) {
@@ -42,10 +45,19 @@ public final class HitpointSkillListener extends SkillAdapter {
 			}
 			if (skill.getCurrentLevel() <= 0 && !character.getMeleeSet().isDying()) {
 				Character victim = character.getMeleeSet().getInteractingCharacter(); // we killed character
+				if (character.isControlling()) {
+					Player player = (Player) character;
+					MinigameService service = World.getWorld().getContext().getService(MinigameService.class);
+					if (service.isPlayerOnline(player)) {
+						service.playerDied(player, victim);
+						return;
+					}
+				}
 				Combat.appendDeath(victim, character);
 				character.resetMeleeSet();
-				if (victim != null)
+				if (victim != null) {
 					victim.resetMeleeSet();
+				}
 
 				// TODO add a listener for dying like barrows, etc
 			}

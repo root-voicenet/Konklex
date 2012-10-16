@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apollo.game.event.impl.DamageEvent;
-import org.apollo.game.event.impl.ProjectileEvent;
 import org.apollo.game.event.impl.DamageEvent.CombatStyle;
+import org.apollo.game.event.impl.ProjectileEvent;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
@@ -46,22 +46,6 @@ public final class MeleeSet {
 	private boolean autoRetaliating = true;
 
 	/**
-	 * Gets the auto retaliating flag.
-	 * @return True if retaliating, false if not.
-	 */
-	public boolean isAutoRetaliating() {
-		return autoRetaliating;
-	}
-
-	/**
-	 * Sets the auto retaliating flag.
-	 * @param autoRetaliating The auto retaliating flag.
-	 */
-	public void setAutoRetaliating(boolean autoRetaliating) {
-		this.autoRetaliating = autoRetaliating;
-	}
-
-	/**
 	 * The attack timer.
 	 */
 	private int attackTimer = 4;
@@ -74,7 +58,7 @@ public final class MeleeSet {
 	/**
 	 * The under attack flag.
 	 */
-	private boolean underAttack;
+	private boolean underAttack = false;
 
 	/**
 	 * The character.
@@ -120,107 +104,39 @@ public final class MeleeSet {
 	}
 
 	/**
-	 * Sets the task.
-	 * @param task The task.
+	 * Damages the character.
+	 * @param hit The damage to deal.
 	 */
-	public void setTask(ScheduledTask task) {
-		this.task = task;
+	public void damage(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
 	}
 
 	/**
-	 * Gets the interacting character.
-	 * @return The interacting character.
+	 * Damages the character.
+	 * @param hit The damage to deal.
 	 */
-	public Character getInteractingCharacter() {
-		return interacter;
+	public void damage2(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
 	}
 
 	/**
-	 * Sets the special.
-	 * @param special The special.
+	 * Diseases the character.
+	 * @param hit The damage to deal.
 	 */
-	public void setSpecial(int special) {
-		this.special = special;
-	}
-
-	/**
-	 * Sets the interacting character.
-	 * @param interacter The interacting character.
-	 */
-	public void setInteractingCharacter(Character interacter) {
-		this.interacter = interacter;
-	}
-
-	/**
-	 * Gets the using special flag.
-	 * @return True if using special, false if not.
-	 */
-	public boolean isUsingSpecial() {
-		return usingSpecial;
-	}
-
-	/**
-	 * Sets the using special flag.
-	 * @param usingSpecial the using special flag
-	 */
-	public void setUsingSpecial(boolean usingSpecial) {
-		this.usingSpecial = usingSpecial;
-	}
-
-	/**
-	 * Gets the magic flag.
-	 * @return True if using magic, false if not.
-	 */
-	public boolean isUsingMagic() {
-		return usingMagic;
-	}
-
-	/**
-	 * Sets the using magic flag.
-	 * @param usingMagic the using magic flag.
-	 */
-	public void setUsingMagic(boolean usingMagic) {
-		this.usingMagic = usingMagic;
-	}
-
-	/**
-	 * Gets the magic spell id.
-	 * @return The magic spell id.
-	 */
-	public int getMagicSpellId() {
-		return magicSpellId;
-	}
-
-	/**
-	 * Gets the list of projectiles.
-	 * @return The list of projectiles.
-	 */
-	public List<ProjectileEvent> getProjectiles() {
-		return projectiles;
-	}
-
-	/**
-	 * Sets the magic spell id.
-	 * @param magicSpellId The magic spell id.
-	 */
-	public void setMagicSpellId(int magicSpellId) {
-		this.magicSpellId = magicSpellId;
-	}
-
-	/**
-	 * Gets the last attack.
-	 * @return The last attack.
-	 */
-	public long getLastAttack() {
-		return lastAttack;
-	}
-
-	/**
-	 * Sets the last attack.
-	 * @param lastAttack The last attack.
-	 */
-	public void setLastAttack(long lastAttack) {
-		this.lastAttack = lastAttack;
+	public void disease(int hit) {
+		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
+				character.getHealth(), character.getHealthMax(), CombatStyle.DISEASE.toInteger());
+		int health = character.getHealth() - damage.getDamageDone();
+		character.setHealth(health);
+		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
 	}
 
 	/**
@@ -232,59 +148,51 @@ public final class MeleeSet {
 	}
 
 	/**
-	 * Sets the attack timer.
-	 * @param attackTimer The attack timer.
+	 * Gets the interacting character.
+	 * @return The interacting character.
 	 */
-	public void setAttackTimer(int attackTimer) {
-		this.attackTimer = attackTimer;
+	public Character getInteractingCharacter() {
+		return interacter;
 	}
 
 	/**
-	 * Gets the attacking flag.
-	 * @return True if attacking, false if not.
+	 * Gets the last attack.
+	 * @return The last attack.
 	 */
-	public boolean isAttacking() {
-		return attacking;
+	public long getLastAttack() {
+		return lastAttack;
 	}
 
 	/**
-	 * Sets the attacking flag.
-	 * @param attacking The attacking flag.
+	 * Gets the last poison.
+	 * @return The last poison.
 	 */
-	public void setAttacking(boolean attacking) {
-		this.attacking = attacking;
+	public long getLastPoison() {
+		return lastPoison;
 	}
 
 	/**
-	 * Gets the under attack flag.
-	 * @return True if under attack, false if not.
+	 * Gets the magic spell id.
+	 * @return The magic spell id.
 	 */
-	public boolean isUnderAttack() {
-		return underAttack;
+	public int getMagicSpellId() {
+		return magicSpellId;
 	}
 
 	/**
-	 * Sets the under attack flag.
-	 * @param underAttack The under attack flag.
+	 * Gets the poison.
+	 * @return The poison.
 	 */
-	public void setUnderAttack(boolean underAttack) {
-		this.underAttack = underAttack;
+	public int getPoison() {
+		return poison;
 	}
 
 	/**
-	 * Gets the dying flag.
-	 * @return True if dying, false if not.
+	 * Gets the list of projectiles.
+	 * @return The list of projectiles.
 	 */
-	public boolean isDying() {
-		return dying;
-	}
-
-	/**
-	 * Sets the dying flag.
-	 * @param dying The dying flag.
-	 */
-	public void setDying(boolean dying) {
-		this.dying = dying;
+	public List<ProjectileEvent> getProjectiles() {
+		return projectiles;
 	}
 
 	/**
@@ -304,35 +212,51 @@ public final class MeleeSet {
 	}
 
 	/**
-	 * Gets the poison.
-	 * @return The poison.
+	 * Gets the attacking flag.
+	 * @return True if attacking, false if not.
 	 */
-	public int getPoison() {
-		return poison;
+	public boolean isAttacking() {
+		return attacking;
 	}
 
 	/**
-	 * Sets the poison.
-	 * @param poison The poison.
+	 * Gets the auto retaliating flag.
+	 * @return True if retaliating, false if not.
 	 */
-	public void setPoison(int poison) {
-		this.poison = poison;
+	public boolean isAutoRetaliating() {
+		return autoRetaliating;
 	}
 
 	/**
-	 * Gets the last poison.
-	 * @param lastPoison The last poison.
+	 * Gets the dying flag.
+	 * @return True if dying, false if not.
 	 */
-	public void setLastPoison(long lastPoison) {
-		this.lastPoison = lastPoison;
+	public boolean isDying() {
+		return dying;
 	}
 
 	/**
-	 * Gets the last poison.
-	 * @return The last poison.
+	 * Gets the under attack flag.
+	 * @return True if under attack, false if not.
 	 */
-	public long getLastPoison() {
-		return lastPoison;
+	public boolean isUnderAttack() {
+		return underAttack;
+	}
+
+	/**
+	 * Gets the magic flag.
+	 * @return True if using magic, false if not.
+	 */
+	public boolean isUsingMagic() {
+		return usingMagic;
+	}
+
+	/**
+	 * Gets the using special flag.
+	 * @return True if using special, false if not.
+	 */
+	public boolean isUsingSpecial() {
+		return usingSpecial;
 	}
 
 	/**
@@ -349,38 +273,114 @@ public final class MeleeSet {
 	}
 
 	/**
-	 * Damages the character.
-	 * @param hit The damage to deal.
+	 * Sets the attacking flag.
+	 * @param attacking The attacking flag.
 	 */
-	public void damage2(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
-				character.getHealth(), character.getHealthMax());
-		int health = character.getHealth() - damage.getDamageDone();
-		character.setHealth(health);
-		character.getBlockSet().add(SynchronizationBlock.createSecondHitUpdateBlock(damage));
+	public void setAttacking(boolean attacking) {
+		this.attacking = attacking;
 	}
 
 	/**
-	 * Damages the character.
-	 * @param hit The damage to deal.
+	 * Sets the attack timer.
+	 * @param attackTimer The attack timer.
 	 */
-	public void damage(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
-				character.getHealth(), character.getHealthMax());
-		int health = character.getHealth() - damage.getDamageDone();
-		character.setHealth(health);
-		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
+	public void setAttackTimer(int attackTimer) {
+		this.attackTimer = attackTimer;
 	}
 
 	/**
-	 * Diseases the character.
-	 * @param hit The damage to deal.
+	 * Sets the auto retaliating flag.
+	 * @param autoRetaliating The auto retaliating flag.
 	 */
-	public void disease(int hit) {
-		DamageEvent damage = new DamageEvent(hit > character.getHealth() ? character.getHealth() : hit,
-				character.getHealth(), character.getHealthMax(), CombatStyle.DISEASE.toInteger());
-		int health = character.getHealth() - damage.getDamageDone();
-		character.setHealth(health);
-		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
+	public void setAutoRetaliating(boolean autoRetaliating) {
+		this.autoRetaliating = autoRetaliating;
+	}
+
+	/**
+	 * Sets the dying flag.
+	 * @param dying The dying flag.
+	 */
+	public void setDying(boolean dying) {
+		this.dying = dying;
+	}
+
+	/**
+	 * Sets the interacting character.
+	 * @param interacter The interacting character.
+	 */
+	public void setInteractingCharacter(Character interacter) {
+		this.interacter = interacter;
+	}
+
+	/**
+	 * Sets the last attack.
+	 * @param lastAttack The last attack.
+	 */
+	public void setLastAttack(long lastAttack) {
+		this.lastAttack = lastAttack;
+	}
+
+	/**
+	 * Gets the last poison.
+	 * @param lastPoison The last poison.
+	 */
+	public void setLastPoison(long lastPoison) {
+		this.lastPoison = lastPoison;
+	}
+
+	/**
+	 * Sets the magic spell id.
+	 * @param magicSpellId The magic spell id.
+	 */
+	public void setMagicSpellId(int magicSpellId) {
+		this.magicSpellId = magicSpellId;
+	}
+
+	/**
+	 * Sets the poison.
+	 * @param poison The poison.
+	 */
+	public void setPoison(int poison) {
+		this.poison = poison;
+	}
+
+	/**
+	 * Sets the special.
+	 * @param special The special.
+	 */
+	public void setSpecial(int special) {
+		this.special = special;
+	}
+
+	/**
+	 * Sets the task.
+	 * @param task The task.
+	 */
+	public void setTask(ScheduledTask task) {
+		this.task = task;
+	}
+
+	/**
+	 * Sets the under attack flag.
+	 * @param underAttack The under attack flag.
+	 */
+	public void setUnderAttack(boolean underAttack) {
+		this.underAttack = underAttack;
+	}
+
+	/**
+	 * Sets the using magic flag.
+	 * @param usingMagic the using magic flag.
+	 */
+	public void setUsingMagic(boolean usingMagic) {
+		this.usingMagic = usingMagic;
+	}
+
+	/**
+	 * Sets the using special flag.
+	 * @param usingSpecial the using special flag
+	 */
+	public void setUsingSpecial(boolean usingSpecial) {
+		this.usingSpecial = usingSpecial;
 	}
 }

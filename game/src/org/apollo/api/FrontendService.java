@@ -82,10 +82,12 @@ public final class FrontendService extends Service {
 	public void pulse() {
 		synchronized (this) {
 			for (final ApiSession session : sessions)
-				if (session != null)
+				if (session != null) {
 					session.handlePendingEvents(chainGroup);
-				else
+				}
+				else {
 					removeSession(session);
+				}
 		}
 	}
 

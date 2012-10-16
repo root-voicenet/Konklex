@@ -4,9 +4,9 @@ import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.WalkEvent;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.Player.PrivilegeLevel;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.WalkingQueue;
-import org.apollo.game.model.Player.PrivilegeLevel;
 
 /**
  * A handler for the {@link WalkEvent}.
@@ -34,14 +34,16 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 					if (!queue.addFirstStep(step))
 						return; /* ignore packet */
 				}
-				else
+				else {
 					queue.addStep(step);
+				}
 			}
-			if (!player.getWalkingQueue().getRunning())
+			if (!player.getWalkingQueue().getRunning()) {
 				queue.setRunning(event.isRunning());
+			}
 		}
 		if (queue.size() > 0) {
-			player.getMeleeSet().setInteractingCharacter(null);
+			player.getMeleeSet().setUnderAttack(false);
 			player.stopAction();
 			player.stopFacing();
 			player.getInterfaceSet().close();

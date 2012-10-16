@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apollo.Service;
 import org.apollo.game.GameConstants;
+import org.apollo.game.model.Character;
 import org.apollo.game.model.Player;
 import org.apollo.util.NamedThreadFactory;
 
@@ -37,6 +38,46 @@ public final class MinigameService extends Service {
 	}
 
 	/**
+	 * Checks if the specified player is playing any minigame.
+	 * @param player The player that is being looked for.
+	 * @return True if player is online, false if otherwise.
+	 */
+	public boolean isPlayerOnline(Player player) {
+		synchronized (this) {
+			for (final Minigame minigame : minigames)
+				if (minigame != null) {
+					if (minigame.getTeam(player) != -1)
+						return true;
+				}
+				else {
+					removeMinigame(minigame);
+				}
+			return false;
+		}
+	}
+
+	/**
+	 * Called when a player dies.
+	 * @param player The player that is dying.
+	 * @param source The source that killed this player.
+	 * @deprecated Only allow hitpoints listener to access this.
+	 */
+	@Deprecated
+	public void playerDied(Player player, Character source) {
+		synchronized (this) {
+			for (final Minigame minigame : minigames)
+				if (minigame != null) {
+					if (minigame.getTeam(player) != -1) {
+						minigame.playerDied(player, source);
+					}
+				}
+				else {
+					removeMinigame(minigame);
+				}
+		}
+	}
+
+	/**
 	 * Called when a player disconnects.
 	 * @param player The player that is disconnecting.
 	 * @deprecated Only allow exitInitialEvents() to access this.
@@ -46,11 +87,13 @@ public final class MinigameService extends Service {
 		synchronized (this) {
 			for (final Minigame minigame : minigames)
 				if (minigame != null) {
-					if (minigame.getTeam(player) != -1)
+					if (minigame.getTeam(player) != -1) {
 						minigame.playerDisconnected(player);
+					}
 				}
-				else
+				else {
 					removeMinigame(minigame);
+				}
 		}
 	}
 
@@ -60,10 +103,12 @@ public final class MinigameService extends Service {
 	public void pulse() {
 		synchronized (this) {
 			for (final Minigame minigame : minigames)
-				if (minigame != null)
+				if (minigame != null) {
 					minigame.pulse();
-				else
+				}
+				else {
 					removeMinigame(minigame);
+				}
 		}
 	}
 

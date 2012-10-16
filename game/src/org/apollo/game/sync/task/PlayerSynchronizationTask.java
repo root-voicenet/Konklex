@@ -75,14 +75,14 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 		for (final Iterator<Player> it = localPlayers.iterator(); it.hasNext();) {
 			final Player p = it.next();
 			final boolean check = p.getPosition().getHeight() == player.getPosition().getHeight();
-			if (!p.isHidden()) {
-				if (!p.isActive() || p.isTeleporting() || !check
-						|| p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
-					it.remove();
-					segments.add(new RemoveCharacterSegment());
-				}
-				else
-					segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
+			if (!p.isActive() || p.isTeleporting() || !check
+					|| p.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()
+					|| p.isHidden()) {
+				it.remove();
+				segments.add(new RemoveCharacterSegment());
+			}
+			else {
+				segments.add(new MovementSegment(p.getBlockSet(), p.getDirections()));
 			}
 		}
 
@@ -91,14 +91,11 @@ public final class PlayerSynchronizationTask extends SynchronizationTask {
 				player.flagExcessivePlayers();
 				break;
 			}
-			else if (added >= NEW_PLAYERS_PER_CYCLE)
+			else if (added >= NEW_PLAYERS_PER_CYCLE) {
 				break;
+			}
 			if (p != player && !localPlayers.contains(p)) {
-				if (p.isHidden()) {
-					// do nothing, they want to be hidden.
-				}
-				else {
-					localPlayers.add(p);
+				if (!p.isHidden() && localPlayers.add(p)) {
 					added++;
 					blockSet = p.getBlockSet();
 					if (!blockSet.contains(AppearanceBlock.class)) {

@@ -50,4 +50,8 @@ class Listener < MinigameListener
     $cwars.remove_player player
   end
 
+  def playerDied(player, source)
+    player.teleport
+  end
+
 end

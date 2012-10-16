@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apollo.game.minigame.event.JoinEvent;
 import org.apollo.game.minigame.event.LeaveEvent;
+import org.apollo.game.model.Character;
 import org.apollo.game.model.Player;
 
 /**
@@ -51,8 +52,9 @@ public abstract class Minigame {
 	 */
 	public Minigame(String game, int teams) {
 		this.game = game;
-		for (int i = 0; i - 1 < teams; i++)
+		for (int i = 0; i - 1 < teams; i++) {
 			players.put(i, new ArrayList<Player>());
+		}
 	}
 
 	/**
@@ -72,8 +74,9 @@ public abstract class Minigame {
 	public boolean addPlayer(int team, Player player) {
 		if (!players.get(team).contains(player)) {
 			players.get(team).add(player);
-			for (final MinigameListener listener : listeners)
+			for (final MinigameListener listener : listeners) {
 				listener.playerAdded(new JoinEvent(player, team));
+			}
 			return true;
 		}
 		return false;
@@ -120,8 +123,9 @@ public abstract class Minigame {
 	 */
 	public ArrayList<Player> getPlayers(int... teams) {
 		final ArrayList<Player> players = new ArrayList<Player>();
-		for (final int team : teams)
+		for (final int team : teams) {
 			players.addAll(this.players.get(team));
+		}
 		return players;
 	}
 
@@ -138,12 +142,24 @@ public abstract class Minigame {
 	}
 
 	/**
+	 * Called when a player from this minigame dies.
+	 * @param player The player that is dying.
+	 * @param source The source that killed this player.
+	 */
+	protected void playerDied(Player player, Character source) {
+		for (final MinigameListener listener : listeners) {
+			listener.playerDied(player, source);
+		}
+	}
+
+	/**
 	 * Called when a player from this minigame disconnects.
 	 * @param player The player that is disconnecting.
 	 */
 	protected void playerDisconnected(Player player) {
-		for (final MinigameListener listener : listeners)
+		for (final MinigameListener listener : listeners) {
 			listener.playerDisconnected(player);
+		}
 	}
 
 	/**
@@ -160,8 +176,9 @@ public abstract class Minigame {
 	public boolean removePlayer(int team, Player player) {
 		if (players.get(team).contains(player)) {
 			players.get(team).remove(player);
-			for (final MinigameListener listener : listeners)
+			for (final MinigameListener listener : listeners) {
 				listener.playerRemoved(new LeaveEvent(player, team));
+			}
 			return true;
 		}
 		return false;
@@ -177,8 +194,9 @@ public abstract class Minigame {
 		if (team != -1)
 			if (players.get(team).contains(player)) {
 				players.get(team).remove(player);
-				for (final MinigameListener listener : listeners)
+				for (final MinigameListener listener : listeners) {
 					listener.playerRemoved(new LeaveEvent(player, team));
+				}
 				return true;
 			}
 		return false;

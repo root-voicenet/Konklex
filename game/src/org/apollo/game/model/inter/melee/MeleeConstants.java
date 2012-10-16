@@ -12,6 +12,70 @@ import org.apollo.game.model.def.ItemDefinition;
 public final class MeleeConstants {
 
 	/**
+	 * Gets the attack animation.
+	 * @param character The character.
+	 * @return The attack animation
+	 */
+	public static int getAttackAnim(Character character) {
+		if (!character.isControlling())
+			return 422;
+		try {
+			int id = character.getEquipment().get(EquipmentConstants.WEAPON).getId();
+			String name = ItemDefinition.forId(id).getName().toLowerCase();
+
+			if (name.contains("dharok"))
+				return 2067;
+			if (name.contains("whip"))
+				return 1658;
+			if (name.contains("shortbow") || name.contains("Shortbow") || name.contains("longbow")
+					|| name.contains("crystal"))
+				return 426;
+			if (name.contains("crossbow") || name.contains("c'bow"))
+				return 4230;
+			if (name.contains("granite"))
+				return 1665;
+			if (name.contains("godsword"))
+				return 7041;
+			if (name.contains("knife") || name.contains("dart") || name.contains("javelin")
+					|| name.contains("thrownaxe"))
+				return 806;
+			if (name.contains("halberd"))
+				return 440;
+			if (name.startsWith("dragon dagger"))
+				return 402;
+			if (name.endsWith("dagger") || name.contains("dagger"))
+				return 412;
+			if (name.contains("2h sword"))
+				return 406;
+			if (name.contains("sword") || name.contains("scim"))
+				return 451;
+			switch (id) {
+			case 6522:
+				return 2614;
+
+			case 4726: // guthan
+				return 2080;
+			case 4747: // torag
+				return 0x814;
+			case 4710: // ahrim
+				return 406;
+			case 4755: // verac
+				return 2062;
+			case 4734: // karil
+				return 2075;
+			case 4151:
+				return 1658;
+			}
+			return 422;
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return 422;
+		}
+	}
+
+	/**
 	 * Returns the run animation for the player's weapon id.
 	 * @param appearance The players appearance.
 	 * @param weaponId The weapon id.
@@ -81,27 +145,6 @@ public final class MeleeConstants {
 		}
 	}
 
-	/**
-	 * Returns the walk animation for the player's weapon id.
-	 * @param appearance The players appearance.
-	 * @param weaponId The weapon id.
-	 * @return The walk animation.
-	 */
-	public static int getWalkAnimation(Appearance appearance, int weaponId) {
-		switch (weaponId) {
-		case 3565:
-			return 1836;
-		case 4153:
-			return 1663;
-		case 4755:
-			return 824;
-		case 1419:
-			return 9738;
-		default:
-			return appearance.getWalkAnimation();
-		}
-	}
-
 	/*
 	 * public static int getAttackSpeed(Appearance appearance, int weaponId) { if (entity instanceof NPC) { return 3000;
 	 * } Player p = (Player) entity;
@@ -129,78 +172,23 @@ public final class MeleeConstants {
 	 */
 
 	/**
-	 * Gets the attack animation.
-	 * @param character The character.
-	 * @return The attack animation
+	 * Returns the walk animation for the player's weapon id.
+	 * @param appearance The players appearance.
+	 * @param weaponId The weapon id.
+	 * @return The walk animation.
 	 */
-	public static int getAttackAnim(Character character) {
-		if (!character.isControlling()) {
-			return 422;
-		}
-		try {
-			int id = character.getEquipment().get(EquipmentConstants.WEAPON).getId();
-			String name = ItemDefinition.forId(id).getName();
-
-			if (name.contains("dharok")) {
-				return 2067;
-			}
-			if (name.contains("whip")) {
-				return 1658;
-			}
-			if (name.contains("shortbow") || name.contains("Shortbow") || name.contains("longbow")
-					|| name.contains("crystal")) {
-				return 426;
-			}
-			if (name.contains("crossbow") || name.contains("c'bow")) {
-				return 4230;
-			}
-			if (name.contains("granite")) {
-				return 1665;
-			}
-			if (name.contains("godsword")) {
-				return 7041;
-			}
-			if (name.contains("knife") || name.contains("dart") || name.contains("javelin")
-					|| name.contains("thrownaxe")) {
-				return 806;
-			}
-			if (name.contains("halberd")) {
-				return 440;
-			}
-			if (name.startsWith("dragon dagger")) {
-				return 402;
-			}
-			if (name.endsWith("dagger") || name.contains("dagger")) {
-				return 412;
-			}
-			if (name.contains("2h sword")) {
-				return 406;
-			}
-			if (name.contains("sword") || name.contains("scim")) {
-				return 451;
-			}
-			switch (id) {
-			case 6522:
-				return 2614;
-
-			case 4726: // guthan
-				return 2080;
-			case 4747: // torag
-				return 0x814;
-			case 4710: // ahrim
-				return 406;
-			case 4755: // verac
-				return 2062;
-			case 4734: // karil
-				return 2075;
-			case 4151:
-				return 1658;
-			}
-			return 422;
-
-		}
-		catch (Exception e) {
-			return 422;
+	public static int getWalkAnimation(Appearance appearance, int weaponId) {
+		switch (weaponId) {
+		case 3565:
+			return 1836;
+		case 4153:
+			return 1663;
+		case 4755:
+			return 824;
+		case 1419:
+			return 9738;
+		default:
+			return appearance.getWalkAnimation();
 		}
 	}
 
