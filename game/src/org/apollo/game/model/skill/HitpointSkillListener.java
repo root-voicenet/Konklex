@@ -45,21 +45,16 @@ public final class HitpointSkillListener extends SkillAdapter {
 			}
 			if (skill.getCurrentLevel() <= 0 && !character.getMeleeSet().isDying()) {
 				Character victim = character.getMeleeSet().getInteractingCharacter(); // we killed character
-				if (character.isControlling()) {
-					Player player = (Player) character;
-					MinigameService service = World.getWorld().getContext().getService(MinigameService.class);
-					if (service.isPlayerOnline(player)) {
-						service.playerDied(player, victim);
-						return;
-					}
+				MinigameService service = World.getWorld().getContext().getService(MinigameService.class);
+				if (service.isPlayerOnline(character)) {
+					service.playerDied(character, victim);
+					return;
 				}
 				Combat.appendDeath(victim, character);
 				character.resetMeleeSet();
 				if (victim != null) {
 					victim.resetMeleeSet();
 				}
-
-				// TODO add a listener for dying like barrows, etc
 			}
 		}
 	}

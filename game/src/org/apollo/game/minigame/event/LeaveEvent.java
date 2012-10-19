@@ -1,6 +1,6 @@
 package org.apollo.game.minigame.event;
 
-import org.apollo.game.model.Player;
+import org.apollo.game.model.Character;
 
 /**
  * An event that is called when a player leaves a team.
@@ -13,7 +13,7 @@ public final class LeaveEvent extends JoinEvent {
 	 * @param player The player.
 	 * @param team The team.
 	 */
-	public LeaveEvent(Player player, int team) {
+	public LeaveEvent(Character player, int team) {
 		super(player, team);
 	}
 

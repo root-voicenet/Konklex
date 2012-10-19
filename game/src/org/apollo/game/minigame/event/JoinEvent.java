@@ -1,6 +1,6 @@
 package org.apollo.game.minigame.event;
 
-import org.apollo.game.model.Player;
+import org.apollo.game.model.Character;
 
 /**
  * An event that is called when a player joins a minigame.
@@ -11,7 +11,7 @@ public class JoinEvent {
 	/**
 	 * The player.
 	 */
-	private final Player player;
+	private final Character player;
 
 	/**
 	 * The team.
@@ -23,7 +23,7 @@ public class JoinEvent {
 	 * @param player The player.
 	 * @param team The team.
 	 */
-	public JoinEvent(Player player, int team) {
+	public JoinEvent(Character player, int team) {
 		this.player = player;
 		this.team = team;
 	}
@@ -32,7 +32,7 @@ public class JoinEvent {
 	 * Gets the player.
 	 * @return The player.
 	 */
-	public Player getPlayer() {
+	public Character getCharacter() {
 		return player;
 	}
 

@@ -103,6 +103,11 @@ public final class MeleeSet {
 	private int specialBar;
 
 	/**
+	 * The attackable flag.
+	 */
+	private boolean attackable = true;
+
+	/**
 	 * Start a new melee class for the specified character.
 	 * @param character The character.
 	 */
@@ -227,6 +232,14 @@ public final class MeleeSet {
 	}
 
 	/**
+	 * Gets the attackable flag.
+	 * @return The attackable flag.
+	 */
+	public boolean isAttackable() {
+		return attackable;
+	}
+
+	/**
 	 * Gets the attacking flag.
 	 * @return True if attacking, false if not.
 	 */
@@ -285,6 +298,14 @@ public final class MeleeSet {
 		character.setHealth(health);
 		character.getBlockSet().add(SynchronizationBlock.createHitUpdateBlock(damage));
 		lastPoison = System.currentTimeMillis();
+	}
+
+	/**
+	 * Sets the attackable flag.
+	 * @param attackable The attackable flag.
+	 */
+	public void setAttackable(boolean attackable) {
+		this.attackable = attackable;
 	}
 
 	/**

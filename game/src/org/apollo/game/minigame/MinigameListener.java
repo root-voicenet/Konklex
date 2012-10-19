@@ -2,7 +2,7 @@ package org.apollo.game.minigame;
 
 import org.apollo.game.minigame.event.JoinEvent;
 import org.apollo.game.minigame.event.LeaveEvent;
-import org.apollo.game.model.Character;
+import org.apollo.game.minigame.impl.DeathEvent;
 import org.apollo.game.model.Player;
 
 /**
@@ -21,10 +21,9 @@ public abstract class MinigameListener {
 
 	/**
 	 * Called when a player was killed.
-	 * @param player The player that was killed.
-	 * @param source The source that killed her, or null if none.
+	 * @param event The event that contains character variables.
 	 */
-	public void playerDied(Player player, Character source) {
+	public void playerDied(DeathEvent event) {
 
 	}
 

@@ -55,6 +55,13 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 
 		phaser.bulkRegister(playerCount);
 		for (final Player player : players) {
+			final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
+			executor.submit(new PhasedSynchronizationTask(phaser, task));
+		}
+		phaser.arriveAndAwaitAdvance();
+
+		phaser.bulkRegister(playerCount);
+		for (final Player player : players) {
 			final SynchronizationTask task = new PrePlayerSynchronizationTask(player);
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
@@ -77,13 +84,6 @@ public final class ParallelClientSynchronizer extends ClientSynchronizer {
 		phaser.bulkRegister(playerCount);
 		for (final Player player : players) {
 			final SynchronizationTask task = new NpcSynchronizationTask(player);
-			executor.submit(new PhasedSynchronizationTask(phaser, task));
-		}
-		phaser.arriveAndAwaitAdvance();
-
-		phaser.bulkRegister(playerCount);
-		for (final Player player : players) {
-			final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
 			executor.submit(new PhasedSynchronizationTask(phaser, task));
 		}
 		phaser.arriveAndAwaitAdvance();

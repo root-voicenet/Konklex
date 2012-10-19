@@ -39,14 +39,14 @@ public final class MinigameService extends Service {
 
 	/**
 	 * Checks if the specified player is playing any minigame.
-	 * @param player The player that is being looked for.
+	 * @param character The player that is being looked for.
 	 * @return True if player is online, false if otherwise.
 	 */
-	public boolean isPlayerOnline(Player player) {
+	public boolean isPlayerOnline(Character character) {
 		synchronized (this) {
 			for (final Minigame minigame : minigames)
 				if (minigame != null) {
-					if (minigame.getTeam(player) != -1)
+					if (minigame.getTeam(character) != -1)
 						return true;
 				}
 				else {
@@ -63,7 +63,7 @@ public final class MinigameService extends Service {
 	 * @deprecated Only allow hitpoints listener to access this.
 	 */
 	@Deprecated
-	public void playerDied(Player player, Character source) {
+	public void playerDied(Character player, Character source) {
 		synchronized (this) {
 			for (final Minigame minigame : minigames)
 				if (minigame != null) {

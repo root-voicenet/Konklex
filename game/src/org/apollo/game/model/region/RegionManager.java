@@ -48,7 +48,7 @@ public final class RegionManager {
 	public GameObject getGameObject(Player player, Position position) {
 		final Collection<GameObject> collection = World.getWorld().getRegionManager().getLocalObjects(player);
 		for (final GameObject gameObject : collection)
-			if (gameObject.getLocation().equals(position))
+			if (gameObject.getLocation().equals(position) && player.getPosition().equals(gameObject.getLocation()))
 				return gameObject;
 		return null;
 	}
@@ -63,7 +63,7 @@ public final class RegionManager {
 	public GroundItem getGroundItem(Player player, Position position, int item) {
 		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
 		for (final GroundItem groundItem : collection)
-			if (groundItem.getPosition().equals(position))
+			if (groundItem.getPosition().equals(position) && player.getPosition().equals(groundItem.getPosition()))
 				if (groundItem.getItem().getId() == item)
 					if (groundItem.getControllerName().equals("null")
 							|| groundItem.getControllerName().equalsIgnoreCase(player.getName())

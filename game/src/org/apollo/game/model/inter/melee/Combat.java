@@ -225,7 +225,8 @@ public final class Combat {
 					List<Character> characters = victim.getRegion().getCharacters();
 					int hit = TextUtil.random(16);
 					for (Character character : characters) {
-						if (!character.equals(source) && !character.equals(victim)) {
+						if (!character.equals(source) && !character.equals(victim)
+								&& character.getMeleeSet().isAttackable()) {
 							if (character.getPosition().isWithinDistance(victim.getPosition(), 1)) {
 								if (hit > (spell.name().toLowerCase().contains("barrage") ? 18 : 9)) {
 									break;
@@ -664,7 +665,7 @@ public final class Combat {
 		}
 		if (source.getMeleeSet().getInteractingCharacter() != null) {
 			Character victim = source.getMeleeSet().getInteractingCharacter();
-			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying()) {
+			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying() || !victim.getMeleeSet().isAttackable()) {
 				source.resetMeleeSet();
 			}
 			final int type = grabHitType(source);
@@ -699,7 +700,7 @@ public final class Combat {
 	 * @param initAttack Check if it's the first time attack is being initialized.
 	 */
 	private static void walkToVictim(final Character source, final Character victim, final boolean initAttack) {
-		World.getWorld().schedule(new ScheduledTask(0, true) {
+		World.getWorld().schedule(new ScheduledTask(1, true) {
 			@Override
 			public void execute() {
 				if (!source.getPosition().isWithinDistance(victim.getPosition(), 1)) {

@@ -46,11 +46,6 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 		final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
 		final List<Event> regionEvents = new ArrayList<Event>();
 
-		for (final Event event : localEvents)
-			if (!events.contains(event)) {
-				localEvents.remove(event);
-			}
-
 		for (final Event event : events) {
 			if (added >= EVENTS_PER_CYCLE) {
 				break;

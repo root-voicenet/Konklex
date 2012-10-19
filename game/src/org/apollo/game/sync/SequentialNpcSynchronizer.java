@@ -2,7 +2,9 @@ package org.apollo.game.sync;
 
 import org.apollo.game.GameService;
 import org.apollo.game.model.Npc;
+import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
+import org.apollo.game.model.inter.melee.Combat;
 import org.apollo.game.sync.task.PostNpcSynchronizationTask;
 import org.apollo.game.sync.task.SynchronizationTask;
 import org.apollo.util.CharacterRepository;
@@ -19,9 +21,33 @@ public final class SequentialNpcSynchronizer extends ClientSynchronizer {
 	@Override
 	public void synchronize() {
 		final CharacterRepository<Npc> npcs = World.getWorld().getNpcRepository();
+		final CharacterRepository<Player> players = World.getWorld().getPlayerRepository();
 
 		for (final Npc npc : npcs) {
 			final SynchronizationTask task = new PostNpcSynchronizationTask(npc);
+			task.run();
+		}
+
+		for (final Npc npc : npcs) {
+			final SynchronizationTask task = new SynchronizationTask() {
+
+				@Override
+				public void run() {
+					Combat.process(npc);
+				}
+
+			};
+			task.run();
+		}
+		for (final Player player : players) {
+			final SynchronizationTask task = new SynchronizationTask() {
+
+				@Override
+				public void run() {
+					Combat.process(player);
+				}
+
+			};
 			task.run();
 		}
 	}

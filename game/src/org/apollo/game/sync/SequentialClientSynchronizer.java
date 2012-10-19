@@ -25,6 +25,11 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 		final CharacterRepository<Player> players = World.getWorld().getPlayerRepository();
 
 		for (final Player player : players) {
+			final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
+			task.run();
+		}
+
+		for (final Player player : players) {
 			final SynchronizationTask task = new PrePlayerSynchronizationTask(player);
 			task.run();
 		}
@@ -41,11 +46,6 @@ public final class SequentialClientSynchronizer extends ClientSynchronizer {
 
 		for (final Player player : players) {
 			final SynchronizationTask task = new NpcSynchronizationTask(player);
-			task.run();
-		}
-
-		for (final Player player : players) {
-			final SynchronizationTask task = new PlayerRegionSynchronizationTask(player);
 			task.run();
 		}
 	}

@@ -37,6 +37,7 @@ import org.apollo.game.model.skill.farming.Seedling;
 import org.apollo.game.model.skill.farming.SpecialPlantOne;
 import org.apollo.game.model.skill.farming.SpecialPlantTwo;
 import org.apollo.game.scheduling.impl.NormalizeEnergyTask;
+import org.apollo.game.scheduling.impl.UpdateSpecialTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.net.session.GameSession;
 import org.apollo.security.PlayerCredentials;
@@ -84,9 +85,8 @@ public final class Player extends Character {
 		 */
 		public static PrivilegeLevel valueOf(int numericalLevel) {
 			for (final PrivilegeLevel level : values()) {
-				if (level.numericalLevel == numericalLevel) {
+				if (level.numericalLevel == numericalLevel)
 					return level;
-				}
 			}
 			throw new IllegalArgumentException("invalid numerical level");
 		}
@@ -257,52 +257,52 @@ public final class Player extends Character {
 	/**
 	 * The allotment.
 	 */
-	private Allotments allotment = new Allotments(this);
+	private final Allotments allotment = new Allotments(this);
 
 	/**
 	 * The flowers.
 	 */
-	private Flowers flowers = new Flowers(this);
+	private final Flowers flowers = new Flowers(this);
 
 	/**
 	 * The compost.
 	 */
-	private Compost compost = new Compost(this);
+	private final Compost compost = new Compost(this);
 
 	/**
 	 * The herbs.
 	 */
-	private Herbs herbs = new Herbs(this);
+	private final Herbs herbs = new Herbs(this);
 
 	/**
 	 * The hops.
 	 */
-	private Hops hops = new Hops(this);
+	private final Hops hops = new Hops(this);
 
 	/**
 	 * The bushes.
 	 */
-	private Bushes bushes = new Bushes(this);
+	private final Bushes bushes = new Bushes(this);
 
 	/**
 	 * The special plant one.
 	 */
-	private SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
+	private final SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
 
 	/**
 	 * The special plant two.
 	 */
-	private SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
+	private final SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
 
 	/**
 	 * The seedling.
 	 */
-	private Seedling seedling = new Seedling(this);
+	private final Seedling seedling = new Seedling(this);
 
 	/**
 	 * The fruit tree.
 	 */
-	private FruitTree fruitTree = new FruitTree(this);
+	private final FruitTree fruitTree = new FruitTree(this);
 
 	/**
 	 * Creates the {@link Player}.
@@ -325,54 +325,6 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Sets the hide boolean flag.
-	 * @param hide The hide flag.
-	 */
-	public void setHide(boolean hide) {
-		this.hide = hide;
-	}
-
-	/**
-	 * Sets the skill guide selected id.
-	 * @param selected The skill guide selected id.
-	 */
-	public void setSelected(int selected) {
-		this.selected = selected;
-	}
-
-	/**
-	 * Sets the skill guide selected items.
-	 * @param item The skill guide selected items.
-	 */
-	public void setItem(int[] item) {
-		this.item = item;
-	}
-
-	/**
-	 * Gets the skill guide selected items.
-	 * @return The skill guide selected items.
-	 */
-	public int[] getItem() {
-		return item;
-	}
-
-	/**
-	 * Gets the selected skill guide id.
-	 * @return The selected skill guide id.
-	 */
-	public int getSelected() {
-		return selected;
-	}
-
-	/**
-	 * Gets the hide boolean flag.
-	 * @return True if hidden, false if otherwise.
-	 */
-	public boolean isHidden() {
-		return hide && privilegeLevel.equals(PrivilegeLevel.DEVELOPER);
-	}
-
-	/**
 	 * Sends the exit player events.
 	 */
 	@SuppressWarnings("deprecation")
@@ -390,11 +342,43 @@ public final class Player extends Character {
 	}
 
 	/**
+	 * Gets the allotment.
+	 * @return The allotment.
+	 */
+	public Allotments getAllotment() {
+		return allotment;
+	}
+
+	/**
 	 * Gets the player's appearance.
 	 * @return The appearance.
 	 */
 	public Appearance getAppearance() {
 		return appearance;
+	}
+
+	/**
+	 * Gets the players equipment bonuses.
+	 * @return The players equipment bonuses.
+	 */
+	public PlayerBonuses getBonuses() {
+		return bonuses;
+	}
+
+	/**
+	 * Gets the bushes.
+	 * @return The bushes.
+	 */
+	public Bushes getBushes() {
+		return bushes;
+	}
+
+	/**
+	 * Gets the compost.
+	 * @return The compost.
+	 */
+	public Compost getCompost() {
+		return compost;
 	}
 
 	/**
@@ -430,11 +414,51 @@ public final class Player extends Character {
 	}
 
 	/**
+	 * Gets the flowers.
+	 * @return The flowers.
+	 */
+	public Flowers getFlowers() {
+		return flowers;
+	}
+
+	/**
+	 * Gets the fruit tree.
+	 * @return The fruit tree.
+	 */
+	public FruitTree getFruitTrees() {
+		return fruitTree;
+	}
+
+	/**
+	 * Gets the herbs.
+	 * @return The herbs.
+	 */
+	public Herbs getHerbs() {
+		return herbs;
+	}
+
+	/**
+	 * Gets the hops.
+	 * @return The hops.
+	 */
+	public Hops getHops() {
+		return hops;
+	}
+
+	/**
 	 * Gets this player's interface set.
 	 * @return The interface set for this player.
 	 */
 	public InterfaceSet getInterfaceSet() {
 		return interfaceSet;
+	}
+
+	/**
+	 * Gets the skill guide selected items.
+	 * @return The skill guide selected items.
+	 */
+	public int[] getItem() {
+		return item;
 	}
 
 	/**
@@ -502,6 +526,22 @@ public final class Player extends Character {
 	}
 
 	/**
+	 * Gets the seedling.
+	 * @return The seedling.
+	 */
+	public Seedling getSeedling() {
+		return seedling;
+	}
+
+	/**
+	 * Gets the selected skill guide id.
+	 * @return The selected skill guide id.
+	 */
+	public int getSelected() {
+		return selected;
+	}
+
+	/**
 	 * Gets the game session.
 	 * @return The game session.
 	 */
@@ -515,6 +555,22 @@ public final class Player extends Character {
 	 */
 	public Shop getShop() {
 		return shop;
+	}
+
+	/**
+	 * Gets the special plant one.
+	 * @return The special plant one.
+	 */
+	public SpecialPlantOne getSpecialPlantOne() {
+		return specialPlantOne;
+	}
+
+	/**
+	 * Gets the special plant two.
+	 * @return The special plant two.
+	 */
+	public SpecialPlantTwo getSpecialPlantTwo() {
+		return specialPlantTwo;
 	}
 
 	/**
@@ -620,7 +676,7 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Initialises the player's skills.
+	 * Initializes the player's skills.
 	 */
 	private void initSkills() {
 		final SkillSet skills = getSkillSet();
@@ -640,9 +696,13 @@ public final class Player extends Character {
 	 * Starts player tasks.
 	 */
 	private void initTasks() {
-		// Fix this later
-		// World.getWorld().schedule(new UpdateSpecialTask(this));
+		World.getWorld().schedule(new UpdateSpecialTask(this));
 		World.getWorld().schedule(new NormalizeEnergyTask(this));
+	}
+
+	@Override
+	public boolean isControlling() {
+		return true;
 	}
 
 	/**
@@ -651,6 +711,14 @@ public final class Player extends Character {
 	 */
 	public boolean isExcessivePlayersSet() {
 		return excessivePlayers;
+	}
+
+	/**
+	 * Gets the hide boolean flag.
+	 * @return True if hidden, false if otherwise.
+	 */
+	public boolean isHidden() {
+		return hide && privilegeLevel.equals(PrivilegeLevel.DEVELOPER);
 	}
 
 	/**
@@ -674,6 +742,17 @@ public final class Player extends Character {
 	 */
 	public void logout() {
 		send(new LogoutEvent());
+	}
+
+	/**
+	 * Plays a song.
+	 * @param song The song.
+	 */
+	public void playSong(int song) {
+		if (song != currentSong) {
+			currentSong = song;
+			send(new SongEvent(song));
+		}
 	}
 
 	/**
@@ -742,15 +821,9 @@ public final class Player extends Character {
 		send(new UpdateRunEnergyEvent(getRunEnergy()));
 		// send private chat
 		World.getWorld().getMessaging().register(this);
+		// allow the players to attack
+		getMeleeSet().setAttackable(true);
 		send(new ResetClientEvent());
-	}
-
-	/**
-	 * Gets the players equipment bonuses.
-	 * @return The players equipment bonuses.
-	 */
-	public PlayerBonuses getBonuses() {
-		return bonuses;
 	}
 
 	/**
@@ -776,6 +849,22 @@ public final class Player extends Character {
 	 */
 	public void setDialogueId(int dialogueId) {
 		this.dialogueId = dialogueId;
+	}
+
+	/**
+	 * Sets the hide boolean flag.
+	 * @param hide The hide flag.
+	 */
+	public void setHide(boolean hide) {
+		this.hide = hide;
+	}
+
+	/**
+	 * Sets the skill guide selected items.
+	 * @param item The skill guide selected items.
+	 */
+	public void setItem(int[] item) {
+		this.item = item;
 	}
 
 	/**
@@ -848,6 +937,14 @@ public final class Player extends Character {
 	}
 
 	/**
+	 * Sets the skill guide selected id.
+	 * @param selected The skill guide selected id.
+	 */
+	public void setSelected(int selected) {
+		this.selected = selected;
+	}
+
+	/**
 	 * Sets the player's {@link GameSession}.
 	 * @param session The player's {@link GameSession}.
 	 * @param reconnecting The reconnecting flag.
@@ -903,101 +1000,5 @@ public final class Player extends Character {
 	public String toString() {
 		return Player.class.getName() + " [username=" + credentials.getUsername() + ", privilegeLevel="
 				+ privilegeLevel + "]";
-	}
-
-	/**
-	 * Plays a song.
-	 * @param song The song.
-	 */
-	public void playSong(int song) {
-		if (song != currentSong) {
-			currentSong = song;
-			send(new SongEvent(song));
-		}
-	}
-
-	/**
-	 * Gets the allotment.
-	 * @return The allotment.
-	 */
-	public Allotments getAllotment() {
-		return allotment;
-	}
-
-	/**
-	 * Gets the flowers.
-	 * @return The flowers.
-	 */
-	public Flowers getFlowers() {
-		return flowers;
-	}
-
-	/**
-	 * Gets the compost.
-	 * @return The compost.
-	 */
-	public Compost getCompost() {
-		return compost;
-	}
-
-	/**
-	 * Gets the herbs.
-	 * @return The herbs.
-	 */
-	public Herbs getHerbs() {
-		return herbs;
-	}
-
-	/**
-	 * Gets the hops.
-	 * @return The hops.
-	 */
-	public Hops getHops() {
-		return hops;
-	}
-
-	/**
-	 * Gets the bushes.
-	 * @return The bushes.
-	 */
-	public Bushes getBushes() {
-		return bushes;
-	}
-
-	/**
-	 * Gets the special plant one.
-	 * @return The special plant one.
-	 */
-	public SpecialPlantOne getSpecialPlantOne() {
-		return specialPlantOne;
-	}
-
-	/**
-	 * Gets the special plant two.
-	 * @return The special plant two.
-	 */
-	public SpecialPlantTwo getSpecialPlantTwo() {
-		return specialPlantTwo;
-	}
-
-	/**
-	 * Gets the fruit tree.
-	 * @return The fruit tree.
-	 */
-	public FruitTree getFruitTrees() {
-		return fruitTree;
-	}
-
-	/**
-	 * Gets the seedling.
-	 * @return The seedling.
-	 */
-	public Seedling getSeedling() {
-		return seedling;
-	}
-
-	@Override
-	public boolean isControlling() {
-		return true;
 	}
 }

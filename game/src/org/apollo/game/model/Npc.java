@@ -59,14 +59,6 @@ public final class Npc extends Character {
 	}
 
 	/**
-	 * Sets the face.
-	 * @param face The face.
-	 */
-	public void setFace(int face) {
-		this.face = face;
-	}
-
-	/**
 	 * Gets the face.
 	 * @return The face.
 	 */
@@ -87,6 +79,12 @@ public final class Npc extends Character {
 	 */
 	public void init() {
 		getMeleeSet().setAutoRetaliating(true); // agressive
+		getMeleeSet().setAttackable(true); // can attack
+	}
+
+	@Override
+	public boolean isControlling() {
+		return false;
 	}
 
 	/**
@@ -106,6 +104,14 @@ public final class Npc extends Character {
 	}
 
 	/**
+	 * Sets the face.
+	 * @param face The face.
+	 */
+	public void setFace(int face) {
+		this.face = face;
+	}
+
+	/**
 	 * Sets the random walking flag.
 	 * @param randomWalking The random walking flag.
 	 */
@@ -116,11 +122,6 @@ public final class Npc extends Character {
 	@Override
 	public String toString() {
 		return Npc.class.getName() + " [id=" + id + "]";
-	}
-
-	@Override
-	public boolean isControlling() {
-		return false;
 	}
 
 }

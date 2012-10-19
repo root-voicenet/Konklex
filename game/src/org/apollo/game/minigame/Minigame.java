@@ -8,11 +8,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.apollo.game.minigame.event.JoinEvent;
 import org.apollo.game.minigame.event.LeaveEvent;
+import org.apollo.game.minigame.impl.DeathEvent;
 import org.apollo.game.model.Character;
 import org.apollo.game.model.Player;
 
 /**
- * Represents some kind of {@code game} that consists of players.
+ * Represents some kind of {@code game} that consists of characters.
  * @author Steve
  */
 public abstract class Minigame {
@@ -23,9 +24,9 @@ public abstract class Minigame {
 	private final String game;
 
 	/**
-	 * The list of players.
+	 * The list of characters.
 	 */
-	private final Map<Integer, ArrayList<Player>> players = new ConcurrentHashMap<Integer, ArrayList<Player>>();
+	private final Map<Integer, ArrayList<Character>> characters = new ConcurrentHashMap<Integer, ArrayList<Character>>();
 
 	/**
 	 * The minigame listeners.
@@ -53,16 +54,8 @@ public abstract class Minigame {
 	public Minigame(String game, int teams) {
 		this.game = game;
 		for (int i = 0; i - 1 < teams; i++) {
-			players.put(i, new ArrayList<Player>());
+			characters.put(i, new ArrayList<Character>());
 		}
-	}
-
-	/**
-	 * Adds a minigame listener.
-	 * @param listener The minigame listener.
-	 */
-	public void addListener(MinigameListener listener) {
-		listeners.add(listener);
 	}
 
 	/**
@@ -71,15 +64,23 @@ public abstract class Minigame {
 	 * @param player The player to add.
 	 * @return True if the player was added, false if otherwise.
 	 */
-	public boolean addPlayer(int team, Player player) {
-		if (!players.get(team).contains(player)) {
-			players.get(team).add(player);
+	public boolean addCharacter(int team, Character player) {
+		if (!characters.get(team).contains(player)) {
+			characters.get(team).add(player);
 			for (final MinigameListener listener : listeners) {
 				listener.playerAdded(new JoinEvent(player, team));
 			}
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Adds a minigame listener.
+	 * @param listener The minigame listener.
+	 */
+	public void addListener(MinigameListener listener) {
+		listeners.add(listener);
 	}
 
 	/**
@@ -92,6 +93,36 @@ public abstract class Minigame {
 	}
 
 	/**
+	 * Gets the list of current characters.
+	 * @return The list of current characters.
+	 */
+	public Map<Integer, ArrayList<Character>> getCharacters() {
+		return characters;
+	}
+
+	/**
+	 * Gets the list of current characters.
+	 * @param team The team.
+	 * @return The list of current characters.
+	 */
+	public ArrayList<Character> getCharacters(int team) {
+		return characters.get(team);
+	}
+
+	/**
+	 * Gets a list of teams.
+	 * @param teams The teams to get.
+	 * @return The list of teams.
+	 */
+	public ArrayList<Character> getCharacters(int... teams) {
+		final ArrayList<Character> characters = new ArrayList<Character>();
+		for (final int team : teams) {
+			characters.addAll(this.characters.get(team));
+		}
+		return characters;
+	}
+
+	/**
 	 * Gets the game's name.
 	 * @return The game's name.
 	 */
@@ -100,42 +131,14 @@ public abstract class Minigame {
 	}
 
 	/**
-	 * Gets the list of current players.
-	 * @return The list of current players.
-	 */
-	public Map<Integer, ArrayList<Player>> getPlayers() {
-		return players;
-	}
-
-	/**
-	 * Gets the list of current players.
-	 * @param team The team.
-	 * @return The list of current players.
-	 */
-	public ArrayList<Player> getPlayers(int team) {
-		return players.get(team);
-	}
-
-	/**
-	 * Gets a list of teams.
-	 * @param teams The teams to get.
-	 * @return The list of teams.
-	 */
-	public ArrayList<Player> getPlayers(int... teams) {
-		final ArrayList<Player> players = new ArrayList<Player>();
-		for (final int team : teams) {
-			players.addAll(this.players.get(team));
-		}
-		return players;
-	}
-
-	/**
 	 * Gets the team for the specified player.
 	 * @param player The player.
 	 * @return The team if found, -1 otherwise.
 	 */
-	public int getTeam(Player player) {
-		for (final Entry<Integer, ArrayList<Player>> kv : players.entrySet())
+	public int getTeam(Character player) {
+		if (player == null)
+			return -1;
+		for (final Entry<Integer, ArrayList<Character>> kv : characters.entrySet())
 			if (kv.getValue().contains(player))
 				return kv.getKey();
 		return -1;
@@ -146,9 +149,13 @@ public abstract class Minigame {
 	 * @param player The player that is dying.
 	 * @param source The source that killed this player.
 	 */
-	protected void playerDied(Player player, Character source) {
-		for (final MinigameListener listener : listeners) {
-			listener.playerDied(player, source);
+	protected void playerDied(Character player, Character source) {
+		final int playerTeam = getTeam(player);
+		final int sourceTeam = getTeam(source);
+		if (playerTeam != -1 && sourceTeam != -1) {
+			for (final MinigameListener listener : listeners) {
+				listener.playerDied(new DeathEvent(player, source, playerTeam, sourceTeam));
+			}
 		}
 	}
 
@@ -156,9 +163,11 @@ public abstract class Minigame {
 	 * Called when a player from this minigame disconnects.
 	 * @param player The player that is disconnecting.
 	 */
-	protected void playerDisconnected(Player player) {
+	protected void playerDisconnected(Character player) {
 		for (final MinigameListener listener : listeners) {
-			listener.playerDisconnected(player);
+			if (player.isControlling()) {
+				listener.playerDisconnected((Player) player);
+			}
 		}
 	}
 
@@ -168,37 +177,37 @@ public abstract class Minigame {
 	protected abstract void pulse();
 
 	/**
-	 * Removes a player from the specified team.
-	 * @param team The team.
-	 * @param player The player to remove.
-	 * @return True if the player was removed, false if otherwise.
-	 */
-	public boolean removePlayer(int team, Player player) {
-		if (players.get(team).contains(player)) {
-			players.get(team).remove(player);
-			for (final MinigameListener listener : listeners) {
-				listener.playerRemoved(new LeaveEvent(player, team));
-			}
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * Removes a player from the game.
 	 * @param player The player to remove.
 	 * @return True if the player was removed, false if otherwise.
 	 */
-	public boolean removePlayer(Player player) {
+	public boolean removeCharacter(Character player) {
 		final int team = getTeam(player);
 		if (team != -1)
-			if (players.get(team).contains(player)) {
-				players.get(team).remove(player);
+			if (characters.get(team).contains(player)) {
+				characters.get(team).remove(player);
 				for (final MinigameListener listener : listeners) {
 					listener.playerRemoved(new LeaveEvent(player, team));
 				}
 				return true;
 			}
+		return false;
+	}
+
+	/**
+	 * Removes a player from the specified team.
+	 * @param team The team.
+	 * @param player The player to remove.
+	 * @return True if the player was removed, false if otherwise.
+	 */
+	public boolean removeCharacter(int team, Character player) {
+		if (characters.get(team).contains(player)) {
+			characters.get(team).remove(player);
+			for (final MinigameListener listener : listeners) {
+				listener.playerRemoved(new LeaveEvent(player, team));
+			}
+			return true;
+		}
 		return false;
 	}
 
@@ -217,10 +226,10 @@ public abstract class Minigame {
 	 * @param team The team to transfer into.
 	 * @return True if successful, false if otherwise.
 	 */
-	public boolean transferTeam(Player player, int team) {
+	public boolean transferTeam(Character player, int team) {
 		final int current = getTeam(player);
 		if (current != -1)
-			return removePlayer(current, player) == addPlayer(team, player);
+			return removeCharacter(current, player) == addCharacter(team, player);
 		return false;
 	}
 
