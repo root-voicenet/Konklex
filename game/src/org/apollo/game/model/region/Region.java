@@ -21,6 +21,7 @@ import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
+import org.apollo.game.model.obj.StaticObject;
 
 /**
  * Represents a single region.
@@ -57,6 +58,11 @@ public final class Region {
 	 * A list of ground items in this region.
 	 */
 	private final List<GroundItem> items = new LinkedList<GroundItem>();
+
+	/**
+	 * A list of static objects in this region.
+	 */
+	private final List<StaticObject> staticObjects = new LinkedList<StaticObject>();
 
 	/**
 	 * Creates a region.
@@ -128,6 +134,18 @@ public final class Region {
 	public void addPlayer(Player player) {
 		synchronized (this) {
 			players.add(player);
+		}
+	}
+
+	/**
+	 * Adds a static object to this region.
+	 * @param object The object to add.
+	 */
+	public void addStaticObject(StaticObject object) {
+		if (object == null)
+			return;
+		synchronized (this) {
+			staticObjects.add(object);
 		}
 	}
 
@@ -239,6 +257,16 @@ public final class Region {
 	public Collection<Player> getPlayers() {
 		synchronized (this) {
 			return Collections.unmodifiableCollection(new LinkedList<Player>(players));
+		}
+	}
+
+	/**
+	 * Gets the list of static objects.
+	 * @return The list of statuc objects.
+	 */
+	public Collection<StaticObject> getStaticObjects() {
+		synchronized (this) {
+			return Collections.unmodifiableCollection(new LinkedList<StaticObject>(staticObjects));
 		}
 	}
 

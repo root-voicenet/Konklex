@@ -49,6 +49,15 @@ public final class LadderObjectActionEventHandler extends EventHandler<ObjectAct
 			this.option = option;
 		}
 
+		/**
+		 * Climbs the ladder.
+		 * @param position The position to climb to.
+		 */
+		private void climb(Position position) {
+			player.turnTo(position);
+			player.teleport(position);
+		}
+
 		@Override
 		public void executeAction() {
 			String actionName = definition.getActions()[option - 1];
@@ -69,15 +78,6 @@ public final class LadderObjectActionEventHandler extends EventHandler<ObjectAct
 					climb(new Position(playerPosition.getX(), playerPosition.getY(), playerPosition.getHeight() + 1));
 				}
 			}
-		}
-
-		/**
-		 * Climbs the ladder.
-		 * @param position The position to climb to.
-		 */
-		private void climb(Position position) {
-			player.turnTo(position);
-			player.teleport(position, false);
 		}
 
 	}

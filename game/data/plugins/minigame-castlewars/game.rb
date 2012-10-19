@@ -28,10 +28,10 @@ class Game < Minigame
     if get_attribute 0
       if tick < 0 or tick == 0
         # Clearing active game
-        get_players(ZAMM_TEAM_GAME).each do |player|
+        get_characters(ZAMM_TEAM_GAME).each do |player|
           remove_player ZAMM_TEAM_GAME, player
         end
-        get_players(SARA_TEAM_GAME).each do |player|
+        get_characters(SARA_TEAM_GAME).each do |player|
           remove_player SARA_TEAM_GAME, player
         end
         set_attribute 0, false
@@ -43,7 +43,7 @@ class Game < Minigame
         end
         if get_attribute 2
           time = tick / 60 == 0 ? 1 : tick / 60
-          get_players(SARA_TEAM_LOBBY, SARA_TEAM_GAME, ZAMM_TEAM_LOBBY, ZAMM_TEAM_GAME).each do |player|
+          get_characters(SARA_TEAM_LOBBY, SARA_TEAM_GAME, ZAMM_TEAM_LOBBY, ZAMM_TEAM_GAME).each do |player|
             player.send ConfigEvent.new(380, time)
           end
           set_attribute 2, false
@@ -59,10 +59,10 @@ class Game < Minigame
         @tick = tick - 1
       end
     elsif tick < 0 or tick == 0
-      get_players(SARA_TEAM_LOBBY).each do |player|
+      get_characters(SARA_TEAM_LOBBY).each do |player|
         transfer_team player, SARA_TEAM_GAME
       end
-      get_players(ZAMM_TEAM_LOBBY).each do |player|
+      get_characters(ZAMM_TEAM_LOBBY).each do |player|
         transfer_team player, ZAMM_TEAM_GAME
       end
       set_attribute 0, true
@@ -70,7 +70,7 @@ class Game < Minigame
     else
       if get_attribute 2
         time = tick / 60 == 0 ? 1 : tick / 60
-        get_players(SARA_TEAM_LOBBY, ZAMM_TEAM_LOBBY).each do |player|
+        get_characters(SARA_TEAM_LOBBY, ZAMM_TEAM_LOBBY).each do |player|
           player.send ConfigEvent.new(380, time)
         end
         set_attribute 2, false

@@ -79,6 +79,7 @@
   <event>
     <type>org.apollo.game.event.impl.ObjectActionEvent</type>
     <chain>
+      <handler>org.apollo.game.event.handler.impl.ObjectVerificationHandler</handler>
       <handler>org.apollo.game.event.handler.impl.LadderObjectActionEventHandler</handler>
     </chain>
   </event>

@@ -11,6 +11,19 @@ import org.apollo.net.NetworkConstants;
 public final class ByteBufferUtil {
 
 	/**
+	 * Reads a 'smart' (either a {@code byte} or {@code short} depending on the value) from the specified
+	 * buffer.
+	 * @param buffer The buffer.
+	 * @return The 'smart'.
+	 */
+	public static int readSmart(ByteBuffer buffer) {
+		int peek = buffer.get(buffer.position()) & 0xFF;
+		if (peek < 128)
+			return buffer.get() & 0xFF;
+		return (buffer.getShort() & 0xFFFF) - 32768;
+	}
+
+	/**
 	 * Reads a string from the specified buffer.
 	 * @param buffer The buffer.
 	 * @return The string.
@@ -18,8 +31,9 @@ public final class ByteBufferUtil {
 	public static String readString(ByteBuffer buffer) {
 		final StringBuilder bldr = new StringBuilder();
 		char c;
-		while ((c = (char) buffer.get()) != NetworkConstants.STRING_TERMINATOR)
+		while ((c = (char) buffer.get()) != NetworkConstants.STRING_TERMINATOR) {
 			bldr.append(c);
+		}
 		return bldr.toString();
 	}
 

@@ -16,6 +16,7 @@ import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
+import org.apollo.game.model.obj.StaticObject;
 
 /**
  * Manages the world regions.
@@ -156,6 +157,25 @@ public final class RegionManager {
 					}
 		}
 		return Collections.unmodifiableCollection(localPlayers);
+	}
+
+	/**
+	 * Gets the local {@link StaticObject}'s around an character.
+	 * @param character The character.
+	 * @return The collection of local {@link StaticObject}'s.
+	 */
+	public Collection<StaticObject> getLocalStaticObjects(Character character) {
+		final List<StaticObject> localStaticObjects = new ArrayList<StaticObject>();
+		final Region[] regions = getSurroundingRegions(character.getPosition());
+		final int distance = Position.MAX_DISTANCE;
+		for (final Region region : regions) {
+			for (final StaticObject object : region.getStaticObjects())
+				if (object.getPosition().getHeight() == character.getPosition().getHeight())
+					if (object.getPosition().getDistance(character.getPosition()) <= distance) {
+						localStaticObjects.add(object);
+					}
+		}
+		return Collections.unmodifiableCollection(localStaticObjects);
 	}
 
 	/**

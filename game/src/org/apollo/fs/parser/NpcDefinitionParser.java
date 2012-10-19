@@ -61,9 +61,8 @@ public final class NpcDefinitionParser {
 		NpcDefinition def = new NpcDefinition(id);
 		while (true) {
 			int code = buffer.get() & 0xFF;
-			if (code == 0) {
+			if (code == 0)
 				return def;
-			}
 			else if (code == 1) {
 				int length = buffer.get() & 0xFF;
 				int[] unknown = new int[length];
@@ -95,6 +94,9 @@ public final class NpcDefinitionParser {
 					str = null;
 				}
 				def.setInteraction(code - 30, str);
+				if (str != null && str.toLowerCase().contains("attack")) {
+					def.setAttackable(true);
+				}
 			}
 			else if (code == 40) {
 				int length = buffer.get() & 0xFF;

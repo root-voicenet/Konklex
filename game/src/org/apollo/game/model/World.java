@@ -19,6 +19,7 @@ import org.apollo.fs.IndexedFileSystem;
 import org.apollo.fs.parser.ItemDefinitionParser;
 import org.apollo.fs.parser.NpcDefinitionParser;
 import org.apollo.fs.parser.ObjectDefinitionParser;
+import org.apollo.fs.parser.StaticObjectDefinitionParser;
 import org.apollo.game.command.CommandDispatcher;
 import org.apollo.game.minigame.Minigame;
 import org.apollo.game.minigame.MinigameService;
@@ -28,6 +29,7 @@ import org.apollo.game.model.def.NpcDefinition;
 import org.apollo.game.model.def.ObjectDefinition;
 import org.apollo.game.model.inter.store.WorldStore;
 import org.apollo.game.model.messaging.WorldMessaging;
+import org.apollo.game.model.obj.StaticObject;
 import org.apollo.game.model.region.RegionManager;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.scheduling.Scheduler;
@@ -333,6 +335,11 @@ public final class World {
 		ObjectDefinition.init(objectDefs);
 		logger.info("Done (loaded " + objectDefs.length + " object definitions).");
 
+		logger.info("Loading static object definitions...");
+		final StaticObjectDefinitionParser staticObjectParser = new StaticObjectDefinitionParser(fs);
+		final StaticObject[] staticObjectDefs = staticObjectParser.parse();
+		logger.info("Done (loaded " + staticObjectDefs.length + " static object definitions).");
+
 		logger.info("Loading NPC definitions...");
 		final NpcDefinitionParser npcDefParser = new NpcDefinitionParser(fs);
 		final NpcDefinition[] npcDefs = npcDefParser.parse();
@@ -413,7 +420,6 @@ public final class World {
 	public void register(final Npc npc) {
 		if (npcRepository.add(npc)) {
 			regionManager.getRegionByLocation(npc.getPosition()).addNpc(npc);
-			logger.info("Registered npc: " + npc + " [online=" + npcRepository.size() + "]");
 		}
 		else {
 			logger.info("Failed to register npc (server full): " + npc + " [online=" + npcRepository.size() + "]");
@@ -522,7 +528,6 @@ public final class World {
 	public void unregister(Npc npc) {
 		if (npcRepository.remove(npc)) {
 			regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
-			logger.info("Unregistered npc: " + npc + " [online=" + npcRepository.size() + "]");
 		}
 		else {
 			logger.warning("Could not find npc to unregister: " + npc + "!");

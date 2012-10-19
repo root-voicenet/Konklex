@@ -83,6 +83,11 @@ public final class NpcDefinition {
 	private int combatLevel = -1;
 
 	/**
+	 * The attackable flag.
+	 */
+	private boolean attackable = false;
+
+	/**
 	 * Creates a new NPC definition.
 	 * @param id The NPC id.
 	 */
@@ -248,6 +253,22 @@ public final class NpcDefinition {
 	 */
 	public boolean hasWalkRightAnimation() {
 		return walkRightAnim != -1;
+	}
+
+	/**
+	 * Gets the attackable flag.
+	 * @return The attackable flag.
+	 */
+	public boolean isAttackable() {
+		return attackable;
+	}
+
+	/**
+	 * Sets the attackable flag.
+	 * @param attackable The attackable flag.
+	 */
+	public void setAttackable(boolean attackable) {
+		this.attackable = attackable;
 	}
 
 	/**

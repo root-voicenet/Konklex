@@ -72,17 +72,10 @@ public final class ObjectDefinitionParser {
 					break outer_loop;
 				}
 				else if (code == 1) {
-					final int len = buffer.get();
-					if (len > 0) {
-						modelIds = new int[len];
-						objectTypes = new int[len];
-						for (int k1 = 0; k1 < len; k1++) {
-							modelIds[k1] = buffer.getShort();
-							objectTypes[k1] = buffer.get();
-						}
-					}
-					else {
-						buffer.position(buffer.position() + (len * 3));
+					int amount = buffer.get() & 0xFF;
+					for (int i = 0; i < amount; i++) {
+						buffer.getShort();
+						buffer.get();
 					}
 				}
 				else if (code == 2) {
@@ -100,7 +93,7 @@ public final class ObjectDefinitionParser {
 						}
 					}
 					else {
-						buffer.position(buffer.position() + (len * 3));
+						buffer.position(buffer.position() + len * 3);
 					}
 				}
 				else if (code == 14) {

@@ -10,6 +10,7 @@ import org.apollo.game.model.Graphic;
 import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Inventory;
 import org.apollo.game.model.Item;
+import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
 import org.apollo.game.model.Skill;
@@ -225,8 +226,12 @@ public final class Combat {
 					List<Character> characters = victim.getRegion().getCharacters();
 					int hit = TextUtil.random(16);
 					for (Character character : characters) {
-						if (!character.equals(source) && !character.equals(victim)
-								&& character.getMeleeSet().isAttackable()) {
+						if (!character.equals(source) && !character.equals(victim)) {
+							if (!character.isControlling()) {
+								if (!((Npc) character).getDefinition().isAttackable()) {
+									continue;
+								}
+							}
 							if (character.getPosition().isWithinDistance(victim.getPosition(), 1)) {
 								if (hit > (spell.name().toLowerCase().contains("barrage") ? 18 : 9)) {
 									break;
@@ -511,6 +516,14 @@ public final class Combat {
 			}
 			return;
 		}
+		if (!victim.isControlling()) {
+			if (!((Npc) victim).getDefinition().isAttackable()) {
+				if (source.isControlling()) {
+					((Player) source).sendMessage("This npc is not attackable!");
+				}
+				return;
+			}
+		}
 		if (victim.getMeleeSet().isUnderAttack()) {
 			if (!victim.getMeleeSet().getInteractingCharacter().equals(source)) {
 				if (source.isControlling()) {
@@ -665,7 +678,7 @@ public final class Combat {
 		}
 		if (source.getMeleeSet().getInteractingCharacter() != null) {
 			Character victim = source.getMeleeSet().getInteractingCharacter();
-			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying() || !victim.getMeleeSet().isAttackable()) {
+			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying()) {
 				source.resetMeleeSet();
 			}
 			final int type = grabHitType(source);
