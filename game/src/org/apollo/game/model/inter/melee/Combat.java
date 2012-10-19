@@ -314,7 +314,7 @@ public final class Combat {
 										// 51
 										70, // Duration, Default: 70
 										43, 31, 16);
-						victim.getRegion().sendEvent(rangeProjectile);
+						source.getRegion().sendEvent(rangeProjectile);
 					}
 					else {
 						source.playGraphic(range.getDrawback());
@@ -324,7 +324,7 @@ public final class Combat {
 										// 51
 										70, // Duration, Default: 70
 										43, 31, 16);
-						victim.getRegion().sendEvent(rangeProjectile);
+						source.getRegion().sendEvent(rangeProjectile);
 					}
 					if (knife) {
 						source.getEquipment()

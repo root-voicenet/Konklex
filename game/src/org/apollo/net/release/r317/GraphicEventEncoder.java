@@ -19,7 +19,8 @@ public final class GraphicEventEncoder extends EventEncoder<GraphicEvent> {
 		GamePacketBuilder builder = new GamePacketBuilder(4);
 		Graphic graphic = event.getGraphic();
 		final Position position = event.getPosition();
-		builder.put(DataType.BYTE, position.getLocalX() << 4 | position.getLocalY()); // implement this accordingly
+		final int offset = position.getLocalSectorX() << 4 | position.getLocalSectorY();
+		builder.put(DataType.BYTE, offset); // implement this accordingly
 		builder.put(DataType.SHORT, graphic.getId());
 		builder.put(DataType.BYTE, graphic.getHeight());
 		builder.put(DataType.SHORT, graphic.getDelay());
