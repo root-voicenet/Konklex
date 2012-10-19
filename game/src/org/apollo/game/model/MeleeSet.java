@@ -3,9 +3,11 @@ package org.apollo.game.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apollo.game.event.impl.ConfigEvent;
 import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.DamageEvent.CombatStyle;
 import org.apollo.game.event.impl.ProjectileEvent;
+import org.apollo.game.event.impl.SpecialEvent;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
@@ -94,6 +96,11 @@ public final class MeleeSet {
 	 * The last poison.
 	 */
 	private long lastPoison;
+
+	/**
+	 * The special bar id.
+	 */
+	private int specialBar;
 
 	/**
 	 * Start a new melee class for the specified character.
@@ -201,6 +208,14 @@ public final class MeleeSet {
 	 */
 	public int getSpecial() {
 		return special;
+	}
+
+	/**
+	 * Gets the special bar id.
+	 * @return The special bar id.
+	 */
+	public int getSpecialBar() {
+		return specialBar;
 	}
 
 	/**
@@ -350,6 +365,16 @@ public final class MeleeSet {
 	 */
 	public void setSpecial(int special) {
 		this.special = special;
+		character.send(new ConfigEvent(300, special));
+	}
+
+	/**
+	 * Sets the special bar id.
+	 * @param specialBar The special bar id.
+	 */
+	public void setSpecialBar(int specialBar) {
+		this.specialBar = specialBar;
+		character.send(new SpecialEvent(true, specialBar));
 	}
 
 	/**
@@ -382,5 +407,6 @@ public final class MeleeSet {
 	 */
 	public void setUsingSpecial(boolean usingSpecial) {
 		this.usingSpecial = usingSpecial;
+		character.send(new ConfigEvent(301, usingSpecial ? 1 : 0));
 	}
 }

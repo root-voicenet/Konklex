@@ -19,6 +19,7 @@
     <script>sound.rb</script>
     <script>teleport.rb</script>
     <script>yell.rb</script>
+    <script>test.rb</script>
   </scripts>
   <dependencies />
 </plugin>

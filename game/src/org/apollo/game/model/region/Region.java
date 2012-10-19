@@ -14,13 +14,13 @@ import org.apollo.game.event.impl.CreateObjectEvent;
 import org.apollo.game.event.impl.DestroyGroundEvent;
 import org.apollo.game.event.impl.DestroyObjectEvent;
 import org.apollo.game.event.impl.MapEvent;
-import org.apollo.game.event.impl.PositionEvent;
+import org.apollo.game.event.impl.RegionUpdateEvent;
+import org.apollo.game.model.Character;
 import org.apollo.game.model.GameObject;
 import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
-import org.apollo.game.model.Character;
 
 /**
  * Represents a single region.
@@ -64,6 +64,19 @@ public final class Region {
 	 */
 	public Region(RegionCoordinates coordinate) {
 		this.coordinate = coordinate;
+	}
+
+	/**
+	 * Adds a new character.
+	 * @param character The new character.
+	 */
+	public void addCharacter(Character character) {
+		if (character instanceof Player) {
+			addPlayer((Player) character);
+		}
+		else if (character instanceof Npc) {
+			addNpc((Npc) character);
+		}
 	}
 
 	/**
@@ -119,23 +132,23 @@ public final class Region {
 	}
 
 	/**
-	 * Adds a new character.
-	 * @param character The new character.
-	 */
-	public void addCharacter(Character character) {
-		if (character instanceof Player) {
-			addPlayer((Player) character);
-		}
-		else if (character instanceof Npc) {
-			addNpc((Npc) character);
-		}
-	}
-
-	/**
 	 * Clears the events.
 	 */
 	public void clearEvents() {
 		events.clear();
+	}
+
+	/**
+	 * Gets the list of characters.
+	 * @return The list of characters.
+	 */
+	public List<Character> getCharacters() {
+		List<Character> characters = new ArrayList<Character>(players.size() + npcs.size());
+		synchronized (this) {
+			characters.addAll(players);
+			characters.addAll(npcs);
+			return Collections.unmodifiableList(characters);
+		}
 	}
 
 	/**
@@ -157,8 +170,9 @@ public final class Region {
 			for (final Event n_event : events)
 				if (n_event instanceof MapEvent) {
 					final MapEvent map = (MapEvent) n_event;
-					if (map.getPosition().equals(position))
+					if (map.getPosition().equals(position)) {
 						event = n_event;
+					}
 				}
 		}
 		return event;
@@ -212,8 +226,9 @@ public final class Region {
 	private GameObject getObject(Position position) {
 		GameObject returnz = null;
 		for (final GameObject object : objects)
-			if (object.getLocation().equals(position))
+			if (object.getLocation().equals(position)) {
 				returnz = object;
+			}
 		return returnz;
 	}
 
@@ -228,15 +243,15 @@ public final class Region {
 	}
 
 	/**
-	 * Gets the list of characters.
-	 * @return The list of characters.
+	 * Removes a old character.
+	 * @param character The character to remove.
 	 */
-	public List<Character> getCharacters() {
-		List<Character> characters = new ArrayList<Character>(players.size() + npcs.size());
-		synchronized (this) {
-			characters.addAll(players);
-			characters.addAll(npcs);
-			return Collections.unmodifiableList(characters);
+	public void removeCharacter(Character character) {
+		if (character instanceof Player) {
+			removePlayer((Player) character);
+		}
+		else if (character instanceof Npc) {
+			removeNpc((Npc) character);
 		}
 	}
 
@@ -274,19 +289,6 @@ public final class Region {
 	}
 
 	/**
-	 * Removes a old character.
-	 * @param character The character to remove.
-	 */
-	public void removeCharacter(Character character) {
-		if (character instanceof Player) {
-			removePlayer((Player) character);
-		}
-		else if (character instanceof Npc) {
-			removeNpc((Npc) character);
-		}
-	}
-
-	/**
 	 * Removes an old object.
 	 * @param object The object to remove.
 	 */
@@ -316,27 +318,27 @@ public final class Region {
 	 */
 	public void replaceObject(Position position, GameObject object) {
 		final GameObject replace = getObject(position);
-		if (replace != null)
+		if (replace != null) {
 			synchronized (this) {
 				removeObject(replace);
 				addObject(object);
 			}
-		else
+		}
+		else {
 			addObject(object);
+		}
 	}
 
 	/**
-	 * Sends a event to the players.
+	 * Sends an event.
 	 * @param event The event to send.
 	 */
 	public void sendEvent(Event event) {
-		for (final Player player : players) {
-			if (event instanceof MapEvent) {
-				final MapEvent map = (MapEvent) event;
-				player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(), map
-						.getOffsetY()));
-			}
-			player.send(event);
+		for (Player player : players) {
+			final int REGION_SIZE = RegionManager.REGION_SIZE;
+			final RegionCoordinates coordinates = player.getRegion().getCoordinates();
+			final Position position = new Position(coordinates.getX() * REGION_SIZE, coordinates.getY() * REGION_SIZE);
+			player.send(new RegionUpdateEvent(player.getLastKnownRegion(), position, event));
 		}
 	}
 

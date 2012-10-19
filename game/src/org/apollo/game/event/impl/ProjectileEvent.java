@@ -60,35 +60,6 @@ public final class ProjectileEvent extends MapEvent {
 	private final int curve;
 
 	/**
-	 * Creates a new projectile event.
-	 * @param start The starting position.
-	 * @param size The size.
-	 * @param lockOn The target.
-	 * @param offsetX The offset x.
-	 * @param offsetY The offset y.
-	 * @param projectileId The projectile id.
-	 * @param delay The delay.
-	 * @param duration The duration.
-	 * @param startHeight The start height.
-	 * @param endHeight The ending height.
-	 * @param curve The angle of the projectile.
-	 */
-	public ProjectileEvent(Position start, int size, int lockOn, byte offsetX, byte offsetY, int projectileId,
-			int delay, int duration, int startHeight, int endHeight, int curve) {
-		super(start, 3, 2);
-		this.size = size;
-		this.lockOn = lockOn;
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
-		this.projectileId = projectileId;
-		this.delay = delay;
-		this.duration = duration;
-		this.startHeight = startHeight;
-		this.endHeight = endHeight;
-		this.curve = curve;
-	}
-
-	/**
 	 * Create a new projectile event.
 	 * @param start The starting position.
 	 * @param offsetX The offset x.
@@ -106,11 +77,64 @@ public final class ProjectileEvent extends MapEvent {
 	}
 
 	/**
-	 * Gets the size.
-	 * @return The size.
+	 * Creates a new projectile event.
+	 * @param start The starting position.
+	 * @param size The size.
+	 * @param lockOn The target.
+	 * @param offsetX The offset x.
+	 * @param offsetY The offset y.
+	 * @param projectileId The projectile id.
+	 * @param delay The delay.
+	 * @param duration The duration.
+	 * @param startHeight The start height.
+	 * @param endHeight The ending height.
+	 * @param curve The angle of the projectile.
 	 */
-	public int getSize() {
-		return size;
+	public ProjectileEvent(Position start, int size, int lockOn, byte offsetX, byte offsetY, int projectileId,
+			int delay, int duration, int startHeight, int endHeight, int curve) {
+		super(start);
+		this.size = size;
+		this.lockOn = lockOn;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.projectileId = projectileId;
+		this.delay = delay;
+		this.duration = duration;
+		this.startHeight = startHeight;
+		this.endHeight = endHeight;
+		this.curve = curve;
+	}
+
+	/**
+	 * Gets the curve.
+	 * @return The curve.
+	 */
+	public int getCurve() {
+		return curve;
+	}
+
+	/**
+	 * Gets the delay.
+	 * @return The delay.
+	 */
+	public int getDelay() {
+		return delay;
+	}
+
+	/**
+	 * Gets the duration.
+	 * @return The duration.
+	 */
+	public int getDuration() {
+		return duration;
+	}
+
+	/**
+	 * Gets the end height.
+	 * @return The end height.
+	 */
+	public int getEndHeight() {
+		return endHeight;
 	}
 
 	/**
@@ -146,19 +170,11 @@ public final class ProjectileEvent extends MapEvent {
 	}
 
 	/**
-	 * Gets the delay.
-	 * @return The delay.
+	 * Gets the size.
+	 * @return The size.
 	 */
-	public int getDelay() {
-		return delay;
-	}
-
-	/**
-	 * Gets the duration.
-	 * @return The duration.
-	 */
-	public int getDuration() {
-		return duration;
+	public int getSize() {
+		return size;
 	}
 
 	/**
@@ -167,22 +183,6 @@ public final class ProjectileEvent extends MapEvent {
 	 */
 	public int getStartHeight() {
 		return startHeight;
-	}
-
-	/**
-	 * Gets the end height.
-	 * @return The end height.
-	 */
-	public int getEndHeight() {
-		return endHeight;
-	}
-
-	/**
-	 * Gets the curve.
-	 * @return The curve.
-	 */
-	public int getCurve() {
-		return curve;
 	}
 
 }

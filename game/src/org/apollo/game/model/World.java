@@ -165,22 +165,6 @@ public final class World {
 	}
 
 	/**
-	 * Gets the id.
-	 * @return The id.
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Sets the id.
-	 * @param id The id.
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	/**
 	 * Gets the command dispatcher. TODO should this be here?
 	 * @return The command dispatcher.
 	 */
@@ -194,6 +178,14 @@ public final class World {
 	 */
 	public ServerContext getContext() {
 		return context;
+	}
+
+	/**
+	 * Gets the id.
+	 * @return The id.
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -230,8 +222,9 @@ public final class World {
 	private GameObject getObject(Position position) {
 		GameObject returnz = null;
 		for (final GameObject object : objects)
-			if (object.getLocation().equals(position))
+			if (object.getLocation().equals(position)) {
 				returnz = object;
+			}
 		return returnz;
 	}
 
@@ -295,6 +288,14 @@ public final class World {
 	}
 
 	/**
+	 * Gets the uptime.
+	 * @return The uptime.
+	 */
+	public long getUptime() {
+		return uptime;
+	}
+
+	/**
 	 * Initialises the world by loading definitions from the specified file system.
 	 * @param release The release number.
 	 * @param fs The file system.
@@ -316,8 +317,9 @@ public final class World {
 			final EquipmentDefinitionParser equipParser = new EquipmentDefinitionParser(is);
 			final EquipmentDefinition[] equipDefs = equipParser.parse();
 			for (final EquipmentDefinition def : equipDefs)
-				if (def != null)
+				if (def != null) {
 					nonNull++;
+				}
 			EquipmentDefinition.init(equipDefs);
 		}
 		finally {
@@ -378,8 +380,9 @@ public final class World {
 	 */
 	public void register(final GameObject object) {
 		synchronized (this) {
-			if (objects.add(object))
-				World.getWorld().getRegionManager().getRegionByLocation(object.getLocation()).addObject(object);
+			if (objects.add(object)) {
+				regionManager.getRegionByLocation(object.getLocation()).addObject(object);
+			}
 		}
 	}
 
@@ -389,8 +392,9 @@ public final class World {
 	 */
 	public void register(final GroundItem item) {
 		synchronized (this) {
-			if (items.add(item))
-				World.getWorld().getRegionManager().getRegionByLocation(item.getPosition()).addItem(item);
+			if (items.add(item)) {
+				regionManager.getRegionByLocation(item.getPosition()).addItem(item);
+			}
 		}
 	}
 
@@ -411,8 +415,9 @@ public final class World {
 			regionManager.getRegionByLocation(npc.getPosition()).addNpc(npc);
 			logger.info("Registered npc: " + npc + " [online=" + npcRepository.size() + "]");
 		}
-		else
+		else {
 			logger.info("Failed to register npc (server full): " + npc + " [online=" + npcRepository.size() + "]");
+		}
 	}
 
 	/**
@@ -471,13 +476,30 @@ public final class World {
 	}
 
 	/**
+	 * Sets the id.
+	 * @param id The id.
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Sets the uptime.
+	 * @param uptime The uptime to set.
+	 */
+	public void setUptime(int uptime) {
+		this.uptime = uptime;
+	}
+
+	/**
 	 * Unregisters an game object.
 	 * @param object The game object.
 	 */
 	public void unregister(GameObject object) {
 		synchronized (this) {
-			if (objects.remove(object))
+			if (objects.remove(object)) {
 				regionManager.getRegionByLocation(object.getLocation()).removeObject(object);
+			}
 		}
 	}
 
@@ -487,8 +509,9 @@ public final class World {
 	 */
 	public void unregister(GroundItem item) {
 		synchronized (this) {
-			if (items.remove(item))
+			if (items.remove(item)) {
 				regionManager.getRegionByLocation(item.getPosition()).removeItem(item);
+			}
 		}
 	}
 
@@ -501,8 +524,9 @@ public final class World {
 			regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
 			logger.info("Unregistered npc: " + npc + " [online=" + npcRepository.size() + "]");
 		}
-		else
+		else {
 			logger.warning("Could not find npc to unregister: " + npc + "!");
+		}
 	}
 
 	/**
@@ -515,23 +539,8 @@ public final class World {
 			regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
 		}
-		else
+		else {
 			logger.warning("Could not find player to unregister: " + player + "!");
-	}
-
-	/**
-	 * Sets the uptime.
-	 * @param uptime The uptime to set.
-	 */
-	public void setUptime(int uptime) {
-		this.uptime = uptime;
-	}
-
-	/**
-	 * Gets the uptime.
-	 * @return The uptime.
-	 */
-	public long getUptime() {
-		return (long) uptime;
+		}
 	}
 }

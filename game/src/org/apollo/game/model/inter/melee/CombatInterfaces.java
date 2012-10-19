@@ -29,6 +29,7 @@ public final class CombatInterfaces {
 			player.send(new SwitchTabInterfaceEvent(0, 12290));
 			player.send(new SetInterfaceItemModelEvent(12291, id, 200));
 			player.send(new SetInterfaceTextEvent(12293, genericName));
+			player.getMeleeSet().setSpecialBar(12325);
 		}
 		else if (name.endsWith("Scythe")) {
 			player.send(new SwitchTabInterfaceEvent(0, 776));
@@ -39,6 +40,7 @@ public final class CombatInterfaces {
 			player.send(new SwitchTabInterfaceEvent(0, 1764));
 			player.send(new SetInterfaceItemModelEvent(1765, id, 200));
 			player.send(new SetInterfaceTextEvent(1767, genericName));
+			player.getMeleeSet().setSpecialBar(7551);
 		}
 		else if (name.endsWith("maul")) {
 			player.send(new SwitchTabInterfaceEvent(0, 425));
@@ -69,6 +71,7 @@ public final class CombatInterfaces {
 			player.send(new SwitchTabInterfaceEvent(0, 1698));
 			player.send(new SetInterfaceItemModelEvent(1699, id, 200));
 			player.send(new SetInterfaceTextEvent(1701, genericName));
+			player.getMeleeSet().setSpecialBar(7501);
 		}
 		else if (name.endsWith("halberd")) {
 			player.send(new SwitchTabInterfaceEvent(0, 8460));
@@ -79,6 +82,7 @@ public final class CombatInterfaces {
 			player.send(new SwitchTabInterfaceEvent(0, 2423));
 			player.send(new SetInterfaceItemModelEvent(2424, id, 200));
 			player.send(new SetInterfaceTextEvent(2426, genericName));
+			player.getMeleeSet().setSpecialBar(7601);
 		}
 	}
 

@@ -14,18 +14,18 @@ public final class SpecialEvent extends Event {
 	private final int bar;
 
 	/**
-	 * The amount.
+	 * The enabled flag.
 	 */
-	private final int amount;
+	private final boolean enabled;
 
 	/**
 	 * Creates the special event.
-	 * @param bar The bar.
-	 * @param amount The amount.
+	 * @param enabled The enabled flag.
+	 * @param bar The bar id.
 	 */
-	public SpecialEvent(int bar, int amount) {
+	public SpecialEvent(boolean enabled, int bar) {
+		this.enabled = enabled;
 		this.bar = bar;
-		this.amount = amount;
 	}
 
 	/**
@@ -37,11 +37,11 @@ public final class SpecialEvent extends Event {
 	}
 
 	/**
-	 * Gets the amount.
-	 * @return The amount.
+	 * Gets the enabled flag.
+	 * @return The enabled flag.
 	 */
-	public int getAmount() {
-		return amount;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
 }

@@ -2,6 +2,7 @@ package org.apollo.net.release.r317;
 
 import org.apollo.game.event.impl.CreateGroundEvent;
 import org.apollo.game.model.GroundItem;
+import org.apollo.game.model.Position;
 import org.apollo.net.codec.game.DataOrder;
 import org.apollo.net.codec.game.DataTransformation;
 import org.apollo.net.codec.game.DataType;
@@ -19,9 +20,11 @@ public final class CreateGroundEventEncoder extends EventEncoder<CreateGroundEve
 	public GamePacket encode(CreateGroundEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(44);
 		final GroundItem item = event.getGroundItem();
+		final Position position = event.getPosition();
+		final int offset = position.getLocalSectorX() << 4 | position.getLocalSectorY();
 		builder.put(DataType.SHORT, DataOrder.LITTLE, DataTransformation.ADD, item.getItem().getId());
 		builder.put(DataType.SHORT, item.getItem().getAmount());
-		builder.put(DataType.BYTE, 0); // implement this accordingly
+		builder.put(DataType.BYTE, offset);
 		return builder.toGamePacket();
 	}
 

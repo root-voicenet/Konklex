@@ -314,7 +314,7 @@ public final class Combat {
 										// 51
 										70, // Duration, Default: 70
 										43, 31, 16);
-						source.getRegion().sendEvent(rangeProjectile);
+						victim.getRegion().sendEvent(rangeProjectile);
 					}
 					else {
 						source.playGraphic(range.getDrawback());
@@ -324,7 +324,7 @@ public final class Combat {
 										// 51
 										70, // Duration, Default: 70
 										43, 31, 16);
-						source.getRegion().sendEvent(rangeProjectile);
+						victim.getRegion().sendEvent(rangeProjectile);
 					}
 					if (knife) {
 						source.getEquipment()
@@ -407,6 +407,7 @@ public final class Combat {
 					source.playAnimation(new Animation(1058));
 					source.playGraphic(new Graphic(248, 0, 100));
 					victim.playGraphic(new Graphic(254, 0, 100));
+					source.getMeleeSet().setSpecialBar(15);
 				}
 				break;
 			case 1304:

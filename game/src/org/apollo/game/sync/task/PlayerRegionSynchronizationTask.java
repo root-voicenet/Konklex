@@ -1,15 +1,18 @@
 package org.apollo.game.sync.task;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.CreateGroundEvent;
-import org.apollo.game.event.impl.MapEvent;
-import org.apollo.game.event.impl.PositionEvent;
+import org.apollo.game.event.impl.RegionUpdateEvent;
 import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.Position;
 import org.apollo.game.model.World;
+import org.apollo.game.model.region.RegionCoordinates;
+import org.apollo.game.model.region.RegionManager;
 
 /**
  * An {@link SynchronizationTask} that sends the player region events.
@@ -41,14 +44,17 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 		int added = 0;
 		final List<Event> localEvents = player.getLocalEventList();
 		final Collection<Event> events = World.getWorld().getRegionManager().getLocalEvents(player);
+		final List<Event> regionEvents = new ArrayList<Event>();
 
 		for (final Event event : localEvents)
-			if (!events.contains(event))
+			if (!events.contains(event)) {
 				localEvents.remove(event);
+			}
 
 		for (final Event event : events) {
-			if (added >= EVENTS_PER_CYCLE)
+			if (added >= EVENTS_PER_CYCLE) {
 				break;
+			}
 			if (!localEvents.contains(event))
 				if (event instanceof CreateGroundEvent) {
 					final CreateGroundEvent ground = (CreateGroundEvent) event;
@@ -56,20 +62,21 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 					if (item.getControllerName().equals("null") || item.getControllerName().equals(player.getName())
 							|| item.getPulses() == 0) {
 						localEvents.add(event);
-						player.send(new PositionEvent(player.getLastKnownRegion(), ground.getPosition()));
-						player.send(event);
+						regionEvents.add(event);
 						added++;
 					}
 				}
 				else if (localEvents.add(event)) {
-					if (event instanceof MapEvent) {
-						final MapEvent map = (MapEvent) event;
-						player.send(new PositionEvent(player.getLastKnownRegion(), map.getPosition(), map.getOffsetX(),
-								map.getOffsetY()));
-					}
-					player.send(event);
+					regionEvents.add(event);
 					added++;
 				}
+		}
+
+		if (added > 0) {
+			final int REGION_SIZE = RegionManager.REGION_SIZE;
+			final RegionCoordinates coordinates = player.getRegion().getCoordinates();
+			final Position position = new Position(coordinates.getX() * REGION_SIZE, coordinates.getY() * REGION_SIZE);
+			player.send(new RegionUpdateEvent(player.getLastKnownRegion(), position, regionEvents));
 		}
 	}
 

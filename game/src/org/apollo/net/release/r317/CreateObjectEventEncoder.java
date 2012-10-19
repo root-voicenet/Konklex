@@ -2,6 +2,7 @@ package org.apollo.net.release.r317;
 
 import org.apollo.game.event.impl.CreateObjectEvent;
 import org.apollo.game.model.GameObject;
+import org.apollo.game.model.Position;
 import org.apollo.net.codec.game.DataOrder;
 import org.apollo.net.codec.game.DataTransformation;
 import org.apollo.net.codec.game.DataType;
@@ -17,9 +18,11 @@ public final class CreateObjectEventEncoder extends EventEncoder<CreateObjectEve
 
 	@Override
 	public GamePacket encode(CreateObjectEvent event) {
-		final GameObject object = event.getObject();
 		final GamePacketBuilder builder = new GamePacketBuilder(151);
-		builder.put(DataType.BYTE, DataTransformation.ADD, 0); // implement this accordingly
+		final GameObject object = event.getObject();
+		final Position position = event.getPosition();
+		final int offset = position.getLocalSectorX() << 4 | position.getLocalSectorY();
+		builder.put(DataType.BYTE, DataTransformation.ADD, offset);
 		builder.put(DataType.SHORT, DataOrder.LITTLE, object.getDefinition().getId());
 		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, (object.getType() << 2) + (object.getRotation() & 3));
 		return builder.toGamePacket();

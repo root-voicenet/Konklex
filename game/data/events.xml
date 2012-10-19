@@ -34,6 +34,7 @@
     <type>org.apollo.game.event.impl.RegionLoadEvent</type>
     <chain>
       <handler>org.apollo.game.event.handler.impl.RegionMusicEventHandler</handler>
+      <handler>org.apollo.game.event.handler.impl.RegionLoadEventHandler</handler>
     </chain>
   </event>
   <event>

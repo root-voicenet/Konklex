@@ -45,14 +45,6 @@ public abstract class MapEvent extends Event {
 	}
 
 	/**
-	 * Gets the position of the map event.
-	 * @return The position of the map event.
-	 */
-	public Position getPosition() {
-		return position;
-	}
-
-	/**
 	 * Gets the offset x.
 	 * @return The offset x.
 	 */
@@ -66,6 +58,14 @@ public abstract class MapEvent extends Event {
 	 */
 	public int getOffsetY() {
 		return offsetY;
+	}
+
+	/**
+	 * Gets the position of the map event.
+	 * @return The position of the map event.
+	 */
+	public Position getPosition() {
+		return position;
 	}
 
 }

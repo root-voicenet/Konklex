@@ -125,6 +125,24 @@ public final class Position {
 	}
 
 	/**
+	 * Gets the local sector x coordinate.
+	 * 
+	 * @return  The local sector x coordinate.
+	 */
+	public int getLocalSectorX() {
+		return x - (x >> 3 << 3);
+	}
+
+	/**
+	 * Gets the local sector y coordinate.
+	 * 
+	 * @return  The local sector y coordinate.
+	 */
+	public int getLocalSectorY() {
+		return y - (y >> 3 << 3);
+	}
+
+	/**
 	 * Gets the x coordinate inside the region of this position.
 	 * @return The local x coordinate.
 	 */

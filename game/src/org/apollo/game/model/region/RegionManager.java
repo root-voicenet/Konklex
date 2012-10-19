@@ -26,7 +26,7 @@ public final class RegionManager {
 	/**
 	 * The region size.
 	 */
-	public static final int REGION_SIZE = 32;
+	public static final int REGION_SIZE = 8;
 
 	/**
 	 * The lower bound that splits the region in half.
@@ -38,6 +38,39 @@ public final class RegionManager {
 	 * The active (loaded) region map.
 	 */
 	private final Map<RegionCoordinates, Region> activeRegions = new HashMap<RegionCoordinates, Region>();
+
+	/**
+	 * Gets the game object.
+	 * @param player The player.
+	 * @param position The position.
+	 * @return The game object.
+	 */
+	public GameObject getGameObject(Player player, Position position) {
+		final Collection<GameObject> collection = World.getWorld().getRegionManager().getLocalObjects(player);
+		for (final GameObject gameObject : collection)
+			if (gameObject.getLocation().equals(position))
+				return gameObject;
+		return null;
+	}
+
+	/**
+	 * Gets the ground item.
+	 * @param player The player.
+	 * @param position The position.
+	 * @param item The item.
+	 * @return The ground item.
+	 */
+	public GroundItem getGroundItem(Player player, Position position, int item) {
+		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
+		for (final GroundItem groundItem : collection)
+			if (groundItem.getPosition().equals(position))
+				if (groundItem.getItem().getId() == item)
+					if (groundItem.getControllerName().equals("null")
+							|| groundItem.getControllerName().equalsIgnoreCase(player.getName())
+							|| groundItem.getPulses() == 0)
+						return groundItem;
+		return null;
+	}
 
 	/**
 	 * Gets the local {@link Event}'s around an character.
@@ -58,11 +91,13 @@ public final class RegionManager {
 		final List<GroundItem> localItems = new ArrayList<GroundItem>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
 		final int distance = Position.MAX_DISTANCE;
-		for (final Region region : regions)
+		for (final Region region : regions) {
 			for (final GroundItem item : region.getGroundItems())
 				if (item.getPosition().getHeight() == character.getPosition().getHeight())
-					if (item.getPosition().getDistance(character.getPosition()) <= distance)
+					if (item.getPosition().getDistance(character.getPosition()) <= distance) {
 						localItems.add(item);
+					}
+		}
 		return Collections.unmodifiableCollection(localItems);
 	}
 
@@ -75,11 +110,13 @@ public final class RegionManager {
 		final List<Npc> localPlayers = new LinkedList<Npc>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
 		final int distance = Position.MAX_DISTANCE;
-		for (final Region region : regions)
+		for (final Region region : regions) {
 			for (final Npc npc : region.getNpcs())
 				if (npc.getPosition().getHeight() == character.getPosition().getHeight())
-					if (npc.getPosition().getDistance(character.getPosition()) <= distance)
+					if (npc.getPosition().getDistance(character.getPosition()) <= distance) {
 						localPlayers.add(npc);
+					}
+		}
 		return Collections.unmodifiableCollection(localPlayers);
 	}
 
@@ -92,11 +129,13 @@ public final class RegionManager {
 		final List<GameObject> localObjects = new ArrayList<GameObject>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
 		final int distance = Position.MAX_DISTANCE;
-		for (final Region region : regions)
+		for (final Region region : regions) {
 			for (final GameObject object : region.getGameObjects())
 				if (object.getLocation().getHeight() == character.getPosition().getHeight())
-					if (object.getLocation().getDistance(character.getPosition()) <= distance)
+					if (object.getLocation().getDistance(character.getPosition()) <= distance) {
 						localObjects.add(object);
+					}
+		}
 		return Collections.unmodifiableCollection(localObjects);
 	}
 
@@ -109,11 +148,13 @@ public final class RegionManager {
 		final List<Player> localPlayers = new LinkedList<Player>();
 		final Region[] regions = getSurroundingRegions(character.getPosition());
 		final int distance = Position.MAX_DISTANCE;
-		for (final Region region : regions)
+		for (final Region region : regions) {
 			for (final Player player : region.getPlayers())
 				if (player.getPosition().getHeight() == character.getPosition().getHeight())
-					if (player.getPosition().getDistance(character.getPosition()) <= distance)
+					if (player.getPosition().getDistance(character.getPosition()) <= distance) {
 						localPlayers.add(player);
+					}
+		}
 		return Collections.unmodifiableCollection(localPlayers);
 	}
 
@@ -144,47 +185,6 @@ public final class RegionManager {
 	}
 
 	/**
-	 * Gets the size of the regions.
-	 * @return The size.
-	 */
-	public int size() {
-		return activeRegions.size();
-	}
-
-	/**
-	 * Gets the ground item.
-	 * @param player The player.
-	 * @param position The position.
-	 * @param item The item.
-	 * @return The ground item.
-	 */
-	public GroundItem getGroundItem(Player player, Position position, int item) {
-		final Collection<GroundItem> collection = World.getWorld().getRegionManager().getLocalGroundItems(player);
-		for (final GroundItem groundItem : collection)
-			if (groundItem.getPosition().equals(position))
-				if (groundItem.getItem().getId() == item)
-					if (groundItem.getControllerName().equals("null")
-							|| groundItem.getControllerName().equalsIgnoreCase(player.getName())
-							|| groundItem.getPulses() == 0)
-						return groundItem;
-		return null;
-	}
-
-	/**
-	 * Gets the game object.
-	 * @param player The player.
-	 * @param position The position.
-	 * @return The game object.
-	 */
-	public GameObject getGameObject(Player player, Position position) {
-		final Collection<GameObject> collection = World.getWorld().getRegionManager().getLocalObjects(player);
-		for (final GameObject gameObject : collection)
-			if (gameObject.getLocation().equals(position))
-				return gameObject;
-		return null;
-	}
-
-	/**
 	 * Gets the regions surrounding a location.
 	 * @param location The location.
 	 * @return The regions surrounding the location.
@@ -205,6 +205,14 @@ public final class RegionManager {
 		surrounding[8] = getRegion(regionX + 1, regionY - 1);
 
 		return surrounding;
+	}
+
+	/**
+	 * Gets the size of the regions.
+	 * @return The size.
+	 */
+	public int size() {
+		return activeRegions.size();
 	}
 
 }

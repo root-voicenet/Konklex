@@ -136,8 +136,9 @@ public final class GameService extends Service {
 			}
 			for (final Player p : world.getPlayerRepository()) {
 				final GameSession session = p.getSession();
-				if (session != null)
+				if (session != null) {
 					session.handlePendingEvents(chainGroup);
+				}
 			}
 			world.pulse();
 			clientsynchronizer.synchronize();

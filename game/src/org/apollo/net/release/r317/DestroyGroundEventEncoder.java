@@ -1,6 +1,7 @@
 package org.apollo.net.release.r317;
 
 import org.apollo.game.event.impl.DestroyGroundEvent;
+import org.apollo.game.model.Position;
 import org.apollo.net.codec.game.DataTransformation;
 import org.apollo.net.codec.game.DataType;
 import org.apollo.net.codec.game.GamePacket;
@@ -16,7 +17,9 @@ public final class DestroyGroundEventEncoder extends EventEncoder<DestroyGroundE
 	@Override
 	public GamePacket encode(DestroyGroundEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(156);
-		builder.put(DataType.BYTE, DataTransformation.SUBTRACT, 0); // implement this accordingly
+		final Position position = event.getPosition();
+		final int offset = position.getLocalSectorX() << 4 | position.getLocalSectorY();
+		builder.put(DataType.BYTE, DataTransformation.ADD, offset);
 		builder.put(DataType.SHORT, event.getGroundItem().getItem().getId());
 		return builder.toGamePacket();
 	}
