@@ -43,6 +43,26 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 		this.player = player;
 	}
 
+	/**
+	 * Gets the facing position.
+	 * @param n The npc.
+	 * @return The facing position.
+	 */
+	private Position getPositon(Npc n) {
+		switch (n.getFace()) {
+		case 5:
+			return n.getPosition().transform(-1, 0, 0);
+		case 4:
+			return n.getPosition().transform(1, 0, 0);
+		case 3:
+			return n.getPosition().transform(0, -1, 0);
+		case 2:
+			return n.getPosition().transform(0, 1, 0);
+		default:
+			return n.getPosition();
+		}
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -65,20 +85,21 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 					|| n.getPosition().getLongestDelta(player.getPosition()) > player.getViewingDistance()) {
 				it.remove();
 				segments.add(new RemoveCharacterSegment());
-				// There is something wrong with removing the npcs in this code.
-				// TODO
 			}
-			else
+			else {
 				segments.add(new MovementSegment(n.getBlockSet(), n.getDirections()));
+			}
 		}
 
 		for (final Npc n : repository)
-			if (localNPCs.size() >= 255 || !Config.SERVER_NPCS)
+			if (localNPCs.size() >= 255 || !Config.SERVER_NPCS) {
 				break;
+			}
 			else {
-				if (added >= NEW_NPCS_PER_CYCLE)
+				if (added >= NEW_NPCS_PER_CYCLE) {
 					break;
-				if (!localNPCs.contains(n)) {
+				}
+				if (!localNPCs.contains(n) && n.isActive()) {
 					localNPCs.add(n);
 					added++;
 					blockSet = n.getBlockSet();
@@ -89,28 +110,9 @@ public final class NpcSynchronizationTask extends SynchronizationTask {
 					segments.add(new AddNpcSegment(blockSet, n.getIndex(), n.getPosition(), n.getDefinition().getId()));
 				}
 			}
+
 		final NpcSynchronizationEvent event = new NpcSynchronizationEvent(player.getPosition(), oldLocalPlayers,
 				segments);
 		player.send(event);
-	}
-
-	/**
-	 * Gets the facing position.
-	 * @param n The npc.
-	 * @return The facing position.
-	 */
-	private Position getPositon(Npc n) {
-		switch (n.getFace()) {
-		case 5:
-			return n.getPosition().transform(-1, 0, 0);
-		case 4:
-			return n.getPosition().transform(1, 0, 0);
-		case 3:
-			return n.getPosition().transform(0, -1, 0);
-		case 2:
-			return n.getPosition().transform(0, 1, 0);
-		default:
-			return n.getPosition();
-		}
 	}
 }

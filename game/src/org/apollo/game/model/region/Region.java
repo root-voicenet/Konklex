@@ -21,6 +21,7 @@ import org.apollo.game.model.GroundItem;
 import org.apollo.game.model.Npc;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
+import org.apollo.game.model.def.ObjectDefinition;
 import org.apollo.game.model.obj.StaticObject;
 
 /**
@@ -248,6 +249,23 @@ public final class Region {
 				returnz = object;
 			}
 		return returnz;
+	}
+
+	/**
+	 * Gets the list of objects.
+	 * @return The list of objects.
+	 */
+	public Collection<GameObject> getObjects() {
+		List<GameObject> gameObjects = new ArrayList<GameObject>();
+		synchronized (this) {
+			for (StaticObject object : staticObjects) {
+				ObjectDefinition definition = ObjectDefinition.forId(object.getId());
+				GameObject go = new GameObject(definition, object.getPosition(), object.getType(), object.getRotation());
+				gameObjects.add(go);
+			}
+			gameObjects.addAll(objects);
+			return Collections.unmodifiableCollection(new LinkedList<GameObject>(gameObjects));
+		}
 	}
 
 	/**

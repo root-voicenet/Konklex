@@ -10,7 +10,7 @@ import org.apollo.game.model.Position;
  * <code>DumbPathFinder</code>, this will attempt to find a possible path and is more suited for player following.
  * @author Graham Edgecombe
  */
-public class AStarPathFinder implements PathFinder {
+public class AStarPathFinder extends PathFinder {
 
 	/**
 	 * Represents a node used by the A* algorithm.
@@ -191,16 +191,19 @@ public class AStarPathFinder implements PathFinder {
 			return null; // out of range
 
 		nodes = new Node[map.getWidth()][map.getHeight()];
-		for (int x = 0; x < map.getWidth(); x++)
-			for (int y = 0; y < map.getHeight(); y++)
+		for (int x = 0; x < map.getWidth(); x++) {
+			for (int y = 0; y < map.getHeight(); y++) {
 				nodes[x][y] = new Node(x, y);
+			}
+		}
 
 		open.add(nodes[srcX][srcY]);
 
 		while (open.size() > 0) {
 			current = getLowestCost();
-			if (current == nodes[dstX][dstY])
+			if (current == nodes[dstX][dstY]) {
 				break;
+			}
 			open.remove(current);
 			closed.add(current);
 
@@ -270,11 +273,10 @@ public class AStarPathFinder implements PathFinder {
 		final Path p = new Path();
 		Node n = nodes[dstX][dstY];
 		while (n != nodes[srcX][srcY]) {
-			p.addPoint(new Point(n.getX() + location.getLocalX(location) - radius, n.getY()
-					+ location.getLocalY(location) - radius));
+			p.addPoint(new Point(n.getX() + location.getX() - radius, n.getY() + location.getY() - radius));
 			n = n.getParent();
 		}
-		p.addPoint(new Point(srcX + location.getLocalX(location) - radius, srcY + location.getLocalY(location) - radius));
+		p.addPoint(new Point(srcX + location.getX() - radius, srcY + location.getY() - radius));
 
 		return p;
 	}
@@ -282,10 +284,12 @@ public class AStarPathFinder implements PathFinder {
 	private Node getLowestCost() {
 		Node curLowest = null;
 		for (final Node n : open)
-			if (curLowest == null)
+			if (curLowest == null) {
 				curLowest = n;
-			else if (n.getCost() < curLowest.getCost())
+			}
+			else if (n.getCost() < curLowest.getCost()) {
 				curLowest = n;
+			}
 		return curLowest;
 	}
 

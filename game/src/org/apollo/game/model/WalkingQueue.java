@@ -101,9 +101,8 @@ public final class WalkingQueue {
 	 * @return {@code true} if the queues could be connected correctly, {@code false} if not.
 	 */
 	public boolean addFirstStep(Position clientConnectionPosition) {
-		if (stop > 0) {
+		if (stop > 0)
 			return false;
-		}
 		final Position serverPosition = character.getPosition();
 		int deltaX = clientConnectionPosition.getX() - serverPosition.getX();
 		int deltaY = clientConnectionPosition.getY() - serverPosition.getY();
@@ -123,8 +122,9 @@ public final class WalkingQueue {
 			if (Direction.isConnectable(deltaX, deltaY)) {
 				points.clear();
 				oldPoints.clear();
-				for (final Position travelBackPosition : travelBackQueue)
+				for (final Position travelBackPosition : travelBackQueue) {
 					addStep(travelBackPosition);
+				}
 				addStep(clientConnectionPosition);
 				return true;
 			}
@@ -164,14 +164,18 @@ public final class WalkingQueue {
 		int deltaY = y - last.position.getY();
 		final int max = Math.max(Math.abs(deltaX), Math.abs(deltaY));
 		for (int i = 0; i < max; i++) {
-			if (deltaX < 0)
+			if (deltaX < 0) {
 				deltaX++;
-			else if (deltaX > 0)
+			}
+			else if (deltaX > 0) {
 				deltaX--;
-			if (deltaY < 0)
+			}
+			if (deltaY < 0) {
 				deltaY++;
-			else if (deltaY > 0)
+			}
+			else if (deltaY > 0) {
 				deltaY--;
+			}
 			addStep(x - deltaX, y - deltaY);
 		}
 	}
@@ -228,8 +232,9 @@ public final class WalkingQueue {
 			final RegionManager manager = World.getWorld().getRegionManager();
 			final Collection<GameObject> objects = manager.getRegionByLocation(position).getGameObjects();
 			for (final GameObject object : objects)
-				if (object.getLocation().equals(position))
+				if (object.getLocation().equals(position)) {
 					points.clear();
+				}
 			if (character.getRunEnergy() >= 1) {
 				if (running) {
 					if (character instanceof Player) {
@@ -244,8 +249,9 @@ public final class WalkingQueue {
 					}
 					setRunningQueue(true);
 				}
-				else
+				else {
 					setRunningQueue(false);
+				}
 			}
 			else {
 				setRunningQueue(false);
@@ -254,17 +260,6 @@ public final class WalkingQueue {
 		}
 		character.setDirections(first, second);
 		character.setPosition(position);
-	}
-
-	/**
-	 * Walks to the position.
-	 * @param position The position to walk too.
-	 */
-	public void walkTo(Position position) {
-		if (!getRunning()) {
-			setRunning(getRunningQueue());
-		}
-		addFirstStep(position);
 	}
 
 	/**
@@ -297,5 +292,16 @@ public final class WalkingQueue {
 	 */
 	public void stop(int stop) {
 		this.stop = stop;
+	}
+
+	/**
+	 * Walks to the position.
+	 * @param position The position to walk too.
+	 */
+	public void walkTo(Position position) {
+		if (!getRunning()) {
+			setRunning(getRunningQueue());
+		}
+		addFirstStep(position);
 	}
 }

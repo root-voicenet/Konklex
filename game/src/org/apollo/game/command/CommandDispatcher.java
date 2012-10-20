@@ -27,7 +27,6 @@ public final class CommandDispatcher {
 	 */
 	public CommandDispatcher() {
 		register("credits", new CreditsCommandListener());
-		register("credits", new CreditsCommandListener());
 		register("shop", new ShopCommandListener());
 		register("object", new ObjectCommandListener());
 		register("ls", new LoginServerCommandListener());
@@ -42,8 +41,9 @@ public final class CommandDispatcher {
 	 */
 	public void dispatch(Player player, Command command) {
 		final CommandListener listener = listeners.get(command.getName().toLowerCase());
-		if (listener != null)
+		if (listener != null) {
 			listener.execute(player, command);
+		}
 	}
 
 	/**

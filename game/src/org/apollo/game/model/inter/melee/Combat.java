@@ -67,7 +67,7 @@ public final class Combat {
 
 		final Position position = victim.getPosition();
 
-		World.getWorld().schedule(new ScheduledTask(4, false) {
+		World.getWorld().schedule(new ScheduledTask(5, false) {
 
 			@Override
 			public void execute() {
@@ -115,18 +115,23 @@ public final class Combat {
 					}
 				}
 
+				source.resetMeleeSet();
+
 				if (!victim.isControlling()) {
-					// World.getWorld().unregister((Npc) victim);
+					World.getWorld().unregister((Npc) victim);
 					World.getWorld().schedule(new ScheduledTask(300, false) {
 
 						@Override
 						public void execute() {
-							victim.getMeleeSet().setDying(false);
-							// World.getWorld().register((Npc) victim);
+							victim.resetMeleeSet();
+							World.getWorld().register((Npc) victim);
 							stop();
 						}
 
 					});
+				}
+				else {
+					victim.resetMeleeSet();
 				}
 				stop();
 			}
@@ -215,8 +220,9 @@ public final class Combat {
 			}
 			else if (name.contains("shadow")) {
 				Skill skill = victim.getSkillSet().getSkill(Skill.ATTACK);
-				new Skill(skill.getExperience(), skill.getCurrentLevel() - TextUtil.random(2), skill.getMaximumLevel());
-				victim.getSkillSet().setSkill(Skill.ATTACK, skill);
+				Skill newskill = new Skill(skill.getExperience(), skill.getCurrentLevel() - TextUtil.random(2),
+						skill.getMaximumLevel());
+				victim.getSkillSet().setSkill(Skill.ATTACK, newskill);
 			}
 
 			// Multi barrage
@@ -257,9 +263,10 @@ public final class Combat {
 								}
 								else if (name.contains("shadow")) {
 									Skill skill = victim.getSkillSet().getSkill(Skill.ATTACK);
-									new Skill(skill.getExperience(), skill.getCurrentLevel() - TextUtil.random(2),
+									Skill newskill = new Skill(skill.getExperience(), skill.getCurrentLevel()
+											- TextUtil.random(2),
 											skill.getMaximumLevel());
-									victim.getSkillSet().setSkill(Skill.ATTACK, skill);
+									victim.getSkillSet().setSkill(Skill.ATTACK, newskill);
 								}
 								character.playGraphic(spell.getGraphics().get(0));
 								ProjectileEvent projectile = new ProjectileEvent(source.getPosition(), 0,

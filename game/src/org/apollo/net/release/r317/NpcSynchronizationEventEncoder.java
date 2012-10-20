@@ -46,8 +46,9 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 		builder.putBits(8, event.getLocalNPCs());
 		for (final SynchronizationSegment segment : event.getSegments()) {
 			final SegmentType type = segment.getType();
-			if (type == SegmentType.REMOVE_CHARACTER)
+			if (type == SegmentType.REMOVE_CHARACTER) {
 				putRemoveCharacterUpdate(builder);
+			}
 			else if (type == SegmentType.ADD_CHARACTER) {
 				putAddCharacterUpdate((AddNpcSegment) segment, event, builder);
 				putBlocks(segment, blockBuilder);
@@ -62,8 +63,9 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 			builder.switchToByteAccess();
 			builder.putRawBuilder(blockBuilder);
 		}
-		else
+		else {
 			builder.switchToByteAccess();
+		}
 		return builder.toGamePacket();
 	}
 
@@ -84,7 +86,7 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 		builder.putBits(5, x < 0 ? x += 32 : x);
 		builder.putBits(1, 0);
 		builder.putBits(12, seg.getNpcid()); // TODO 12
-		builder.putBit(updateRequired);
+		builder.putBits(1, updateRequired ? 1 : 0);
 	}
 
 	/**
@@ -107,39 +109,55 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 		final SynchronizationBlockSet blockSet = segment.getBlockSet();
 		if (blockSet.size() > 0) {
 			int mask = 0;
-			if (blockSet.contains(AnimationBlock.class))
+			if (blockSet.contains(AnimationBlock.class)) {
 				mask |= 0x10;
-			if (blockSet.contains(HitUpdateBlock.class))
+			}
+			if (blockSet.contains(HitUpdateBlock.class)) {
 				mask |= 8;
-			if (blockSet.contains(GraphicBlock.class))
+			}
+			if (blockSet.contains(GraphicBlock.class)) {
 				mask |= 0x80;
-			if (blockSet.contains(InteractingEntityBlock.class))
+			}
+			if (blockSet.contains(InteractingEntityBlock.class)) {
 				mask |= 0x20;
-			if (blockSet.contains(ForceChatBlock.class))
+			}
+			if (blockSet.contains(ForceChatBlock.class)) {
 				mask |= 1;
-			if (blockSet.contains(SecondHitUpdateBlock.class))
+			}
+			if (blockSet.contains(SecondHitUpdateBlock.class)) {
 				mask |= 0x40;
-			if (blockSet.contains(TransformBlock.class))
+			}
+			if (blockSet.contains(TransformBlock.class)) {
 				mask |= 2;
-			if (blockSet.contains(TurnToPositionBlock.class))
+			}
+			if (blockSet.contains(TurnToPositionBlock.class)) {
 				mask |= 4;
+			}
 			blockBuilder.put(DataType.BYTE, mask);
-			if (blockSet.contains(AnimationBlock.class))
+			if (blockSet.contains(AnimationBlock.class)) {
 				putAnimationBlock(blockSet.get(AnimationBlock.class), blockBuilder);
-			if (blockSet.contains(HitUpdateBlock.class))
+			}
+			if (blockSet.contains(HitUpdateBlock.class)) {
 				putHitUpdateBlock(blockSet.get(HitUpdateBlock.class), blockBuilder);
-			if (blockSet.contains(GraphicBlock.class))
+			}
+			if (blockSet.contains(GraphicBlock.class)) {
 				putGraphicBlock(blockSet.get(GraphicBlock.class), blockBuilder);
-			if (blockSet.contains(InteractingEntityBlock.class))
+			}
+			if (blockSet.contains(InteractingEntityBlock.class)) {
 				putTurnToEntityBlock(blockSet.get(InteractingEntityBlock.class), blockBuilder);
-			if (blockSet.contains(ForceChatBlock.class))
+			}
+			if (blockSet.contains(ForceChatBlock.class)) {
 				putForceChatBlock(blockSet.get(ForceChatBlock.class), blockBuilder);
-			if (blockSet.contains(SecondHitUpdateBlock.class))
+			}
+			if (blockSet.contains(SecondHitUpdateBlock.class)) {
 				putSecondHitUpdateBlock(blockSet.get(SecondHitUpdateBlock.class), blockBuilder);
-			if (blockSet.contains(TransformBlock.class))
+			}
+			if (blockSet.contains(TransformBlock.class)) {
 				putTransformNPCUpdate(blockSet.get(TransformBlock.class), blockBuilder);
-			if (blockSet.contains(TurnToPositionBlock.class))
+			}
+			if (blockSet.contains(TurnToPositionBlock.class)) {
 				putTurnToPositionBlock(blockSet.get(TurnToPositionBlock.class), blockBuilder);
+			}
 		}
 	}
 
@@ -203,8 +221,9 @@ public final class NpcSynchronizationEventEncoder extends EventEncoder<NpcSynchr
 			builder.putBits(1, 1);
 			builder.putBits(2, 0);
 		}
-		else
+		else {
 			builder.putBits(1, 0);
+		}
 	}
 
 	/**

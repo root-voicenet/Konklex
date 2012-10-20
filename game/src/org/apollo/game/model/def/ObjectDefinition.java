@@ -128,6 +128,11 @@ public final class ObjectDefinition {
 	private final String[] actions = new String[10];
 
 	/**
+	 * The actions flag.
+	 */
+	private boolean hasActions = false;
+
+	/**
 	 * Creates a new object definition.
 	 * @param id The object id.
 	 */
@@ -141,8 +146,12 @@ public final class ObjectDefinition {
 	 * @param action The action to add.
 	 */
 	public void addAction(int code, String action) {
-		if (!action.equalsIgnoreCase("hidden"))
+		if (!action.equalsIgnoreCase("hidden")) {
 			actions[code] = action;
+			if (!action.contains("examine")) {
+				hasActions = true;
+			}
+		}
 	}
 
 	/**
@@ -216,6 +225,14 @@ public final class ObjectDefinition {
 	 */
 	public int getSizeY() {
 		return sizeY;
+	}
+
+	/**
+	 * Gets the actions flag.
+	 * @return The actions flag.
+	 */
+	public boolean hasActions() {
+		return hasActions;
 	}
 
 	/**

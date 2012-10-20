@@ -51,10 +51,6 @@ public final class HitpointSkillListener extends SkillAdapter {
 					return;
 				}
 				Combat.appendDeath(victim, character);
-				character.resetMeleeSet();
-				if (victim != null) {
-					victim.resetMeleeSet();
-				}
 			}
 		}
 	}

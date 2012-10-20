@@ -22,7 +22,7 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 	 * @param acquaintance The acquaintance.
 	 */
 	public PlayerFollowAction(Character character, Character acquaintance) {
-		super(0, true, character, acquaintance.getPosition(), Position.MAX_DISTANCE);
+		super(10, true, character, acquaintance.getPosition(), Position.MAX_DISTANCE);
 		this.acquaintance = acquaintance;
 	}
 
@@ -43,33 +43,34 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 				player.sendMessage("You are too far away!");
 				return;
 			}
-
-			if (acquaintanceY == playerY && acquaintanceX == playerX) {
-				walkTo(0, getMove(playerY, acquaintanceY - 1));
-			}
-			else if (acquaintanceY > playerY && acquaintanceX == playerX) {
-				walkTo(0, getMove(playerY, acquaintanceY - 1));
-			}
-			else if (acquaintanceY < playerY && acquaintanceX == playerX) {
-				walkTo(0, getMove(playerY, acquaintanceY + 1));
-			}
-			else if (acquaintanceX > playerX && acquaintanceY == playerY) {
-				walkTo(getMove(playerX, acquaintanceX - 1), 0);
-			}
-			else if (acquaintanceX < playerX && acquaintanceY == playerX) {
-				walkTo(getMove(playerX, acquaintanceX + 1), 0);
-			}
-			else if (acquaintanceX < playerX && acquaintanceY < playerY) {
-				walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY + 1));
-			}
-			else if (acquaintanceX > playerX && acquaintanceY > playerY) {
-				walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY - 1));
-			}
-			else if (acquaintanceX < playerX && acquaintanceY > playerY) {
-				walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY - 1));
-			}
-			else if (acquaintanceX > playerX && acquaintanceY < playerY) {
-				walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY + 1));
+			else if (!player.getPosition().isWithinDistance(acquaintance.getPosition(), 1)) {
+				if (acquaintanceY == playerY && acquaintanceX == playerX) {
+					walkTo(0, getMove(playerY, acquaintanceY - 1));
+				}
+				else if (acquaintanceY > playerY && acquaintanceX == playerX) {
+					walkTo(0, getMove(playerY, acquaintanceY - 1));
+				}
+				else if (acquaintanceY < playerY && acquaintanceX == playerX) {
+					walkTo(0, getMove(playerY, acquaintanceY + 1));
+				}
+				else if (acquaintanceX > playerX && acquaintanceY == playerY) {
+					walkTo(getMove(playerX, acquaintanceX - 1), 0);
+				}
+				else if (acquaintanceX < playerX && acquaintanceY == playerX) {
+					walkTo(getMove(playerX, acquaintanceX + 1), 0);
+				}
+				else if (acquaintanceX < playerX && acquaintanceY < playerY) {
+					walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY + 1));
+				}
+				else if (acquaintanceX > playerX && acquaintanceY > playerY) {
+					walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY - 1));
+				}
+				else if (acquaintanceX < playerX && acquaintanceY > playerY) {
+					walkTo(getMove(playerX, acquaintanceX + 1), getMove(playerY, acquaintanceY - 1));
+				}
+				else if (acquaintanceX > playerX && acquaintanceY < playerY) {
+					walkTo(getMove(playerX, acquaintanceX - 1), getMove(playerY, acquaintanceY + 1));
+				}
 			}
 		}
 	}
@@ -81,12 +82,10 @@ public final class PlayerFollowAction extends DistancedAction<Character> {
 	 * @return The distance between the specified distances.
 	 */
 	private int getMove(int i, int j) {
-		if (i - j == 0) {
+		if (i - j == 0)
 			return 0;
-		}
-		if (i - j < 0) {
+		if (i - j < 0)
 			return 1;
-		}
 		return i - j <= 0 ? 0 : -1;
 	}
 
