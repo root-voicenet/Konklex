@@ -78,10 +78,10 @@ public final class Region {
 	 * @param character The new character.
 	 */
 	public void addCharacter(Character character) {
-		if (character instanceof Player) {
+		if (character.isControlling()) {
 			addPlayer((Player) character);
 		}
-		else if (character instanceof Npc) {
+		else {
 			addNpc((Npc) character);
 		}
 	}
@@ -293,10 +293,10 @@ public final class Region {
 	 * @param character The character to remove.
 	 */
 	public void removeCharacter(Character character) {
-		if (character instanceof Player) {
+		if (character.isControlling()) {
 			removePlayer((Player) character);
 		}
-		else if (character instanceof Npc) {
+		else {
 			removeNpc((Npc) character);
 		}
 	}

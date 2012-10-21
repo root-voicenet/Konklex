@@ -7,7 +7,6 @@ import org.apollo.game.event.impl.BuildPlayerMenuEvent;
 import org.apollo.game.event.impl.ChatPrivacySettingsEvent;
 import org.apollo.game.event.impl.IdAssignmentEvent;
 import org.apollo.game.event.impl.LogoutEvent;
-import org.apollo.game.event.impl.ResetClientEvent;
 import org.apollo.game.event.impl.SongEvent;
 import org.apollo.game.event.impl.SwitchTabInterfaceEvent;
 import org.apollo.game.event.impl.UpdateRunEnergyEvent;
@@ -823,7 +822,6 @@ public final class Player extends Character {
 		World.getWorld().getMessaging().register(this);
 		// allow the players to attack
 		getMeleeSet().setAttackable(true);
-		send(new ResetClientEvent());
 	}
 
 	/**
