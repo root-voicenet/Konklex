@@ -187,7 +187,7 @@ public final class Region {
 		Event event = null;
 		synchronized (this) {
 			for (final Event n_event : events)
-				if (n_event instanceof MapEvent) {
+				if (n_event.getEventId() == 1 || n_event.getEventId() == 2) {
 					final MapEvent map = (MapEvent) n_event;
 					if (map.getPosition().equals(position)) {
 						event = n_event;

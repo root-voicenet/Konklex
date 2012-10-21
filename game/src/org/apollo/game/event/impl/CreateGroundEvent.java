@@ -16,4 +16,13 @@ public final class CreateGroundEvent extends GroundEvent {
 		super(groundItem.getPosition(), groundItem);
 	}
 
+	/**
+	 * Gets the event id.
+	 * @return The event id.
+	 */
+	@Override
+	public int getEventId() {
+		return 2;
+	}
+
 }

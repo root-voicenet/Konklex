@@ -41,19 +41,17 @@ public final class WorldMessaging {
 	 * Creates empty nodes to put players in.
 	 */
 	public WorldMessaging() {
-		for (int i = 0; i < worlds; i++)
+		for (int i = 0; i < worlds; i++) {
 			players.put(i, new ArrayList<String>());
+		}
 	}
 
 	/**
 	 * Deregisters a player.
 	 * @param player the player
 	 */
-	public void deregister(Object player) {
-		if (player instanceof Player)
-			events.add(((Player) player).getName().toLowerCase());
-		else if (player instanceof String)
-			events.add(((String) player).toLowerCase());
+	public void deregister(Player player) {
+		events.add(player.getName().toLowerCase());
 	}
 
 	/**
@@ -64,8 +62,9 @@ public final class WorldMessaging {
 	public void deregister(String player, int world) {
 		player = player.toLowerCase();
 		if (players.get(world).contains(player))
-			if (players.get(world).remove(player))
-				sendStatus(player);
+			if (players.get(world).remove(player)) {
+				events.add(player);
+			}
 	}
 
 	/**
@@ -73,8 +72,21 @@ public final class WorldMessaging {
 	 */
 	public void dispatch() {
 		final String login = events.poll();
-		if (login != null)
+		if (login != null) {
 			sendStatus(login);
+		}
+	}
+
+	/**
+	 * Gets the world.
+	 * @param player The player.
+	 * @return The world.
+	 */
+	public int getWorld(String player) {
+		for (final Entry<Integer, ArrayList<String>> entry : players.entrySet())
+			if (entry.getValue().contains(player))
+				return entry.getKey();
+		return -1;
 	}
 
 	/**
@@ -86,8 +98,9 @@ public final class WorldMessaging {
 		player = player.toLowerCase();
 		boolean online = World.getWorld().isPlayerOnline(player);
 		for (int i = 0; i < worlds; i++)
-			if (players.get(i).contains(player))
+			if (players.get(i).contains(player)) {
 				online = true;
+			}
 		return online;
 	}
 
@@ -95,20 +108,15 @@ public final class WorldMessaging {
 	 * Registers a player.
 	 * @param player the player
 	 */
-	public void register(Object player) {
-		if (player instanceof Player) {
-			final Player user = (Player) player;
-			user.send(new PrivateChatLoadedEvent(2));
-			try {
-				user.getMessaging().refresh();
-			}
-			catch (final Exception e) {
-				// do nothing
-			}
-			events.add(user.getName().toLowerCase());
+	public void register(Player player) {
+		player.send(new PrivateChatLoadedEvent(2));
+		try {
+			player.getMessaging().refresh();
 		}
-		else if (player instanceof String)
-			events.add(((String) player).toLowerCase());
+		catch (final Exception e) {
+			// do nothing
+		}
+		events.add(player.getName().toLowerCase());
 	}
 
 	/**
@@ -119,8 +127,9 @@ public final class WorldMessaging {
 	public void register(String player, int world) {
 		player = player.toLowerCase();
 		if (!players.get(world).contains(player))
-			if (players.get(world).add(player))
+			if (players.get(world).add(player)) {
 				sendStatus(player);
+			}
 	}
 
 	/**
@@ -131,16 +140,18 @@ public final class WorldMessaging {
 	 */
 	public void sendPrivateMessage(Player sender, long reciever, byte[] message) {
 		final Player friend = World.getWorld().getPlayer(NameUtil.decodeBase37(reciever));
-		if (friend != null)
+		if (friend != null) {
 			friend.send(new SendPrivateChatEvent(sender.getEncodedName(), sender.getPrivilegeLevel().toInteger(),
 					message, friend.getMessaging().getLastId()));
-		else
+		}
+		else {
 			World.getWorld()
-					.getContext()
-					.getService(FrontendService.class)
-					.sendAll(
-							new PrivateChatMethod(reciever, sender.getEncodedName(), sender.getPrivilegeLevel()
-									.toInteger(), message));
+			.getContext()
+			.getService(FrontendService.class)
+			.sendAll(
+					new PrivateChatMethod(reciever, sender.getEncodedName(), sender.getPrivilegeLevel()
+							.toInteger(), message));
+		}
 	}
 
 	/**
@@ -162,20 +173,8 @@ public final class WorldMessaging {
 		}
 		else {
 			World.getWorld().getContext().getService(FrontendService.class)
-					.sendAll(new PrivateChatMethod(reciever, sender, 0, message));
+			.sendAll(new PrivateChatMethod(reciever, sender, 0, message));
 		}
-	}
-
-	/**
-	 * Gets the world.
-	 * @param player The player.
-	 * @return The world.
-	 */
-	public int getWorld(String player) {
-		for (final Entry<Integer, ArrayList<String>> entry : players.entrySet())
-			if (entry.getValue().contains(player))
-				return entry.getKey();
-		return -1;
 	}
 
 	/**
@@ -184,12 +183,13 @@ public final class WorldMessaging {
 	 */
 	private void sendStatus(String player) {
 		player = player.toLowerCase();
-		for (final Player all : World.getWorld().getPlayerRepository())
+		for (final Player all : World.getWorld().getPlayerRepository()) {
 			try {
 				all.getMessaging().refresh(player);
 			}
 			catch (final Exception e) {
 				// do nothing
 			}
+		}
 	}
 }

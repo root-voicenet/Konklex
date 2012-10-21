@@ -22,6 +22,15 @@ public class ServerMessageEvent extends Event {
 	}
 
 	/**
+	 * Gets the event id.
+	 * @return The event id.
+	 */
+	@Override
+	public int getEventId() {
+		return 3;
+	}
+
+	/**
 	 * Gets the message.
 	 * @return The message.
 	 */

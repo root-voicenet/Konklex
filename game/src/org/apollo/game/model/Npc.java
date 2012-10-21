@@ -97,7 +97,7 @@ public final class Npc extends Character {
 
 	@Override
 	public void send(Event event) {
-		if (event instanceof ServerMessageEvent) {
+		if (event.getEventId() == 3) {
 			final String message = ((ServerMessageEvent) event).getMessage();
 			getBlockSet().add(SynchronizationBlock.createForceChatBlock(message));
 		}

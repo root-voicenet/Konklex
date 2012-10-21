@@ -44,6 +44,11 @@ public abstract class MapEvent extends Event {
 		this.offsetY = offsetY;
 	}
 
+	@Override
+	public int getEventId() {
+		return 1;
+	}
+
 	/**
 	 * Gets the offset x.
 	 * @return The offset x.
@@ -67,5 +72,4 @@ public abstract class MapEvent extends Event {
 	public Position getPosition() {
 		return position;
 	}
-
 }

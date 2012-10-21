@@ -51,7 +51,7 @@ public final class PlayerRegionSynchronizationTask extends SynchronizationTask {
 				break;
 			}
 			if (!localEvents.contains(event))
-				if (event instanceof CreateGroundEvent) {
+				if (event.getEventId() == 2) {
 					final CreateGroundEvent ground = (CreateGroundEvent) event;
 					final GroundItem item = ground.getGroundItem();
 					if (item.getControllerName().equals("null") || item.getControllerName().equals(player.getName())

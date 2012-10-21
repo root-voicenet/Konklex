@@ -237,7 +237,7 @@ public final class WalkingQueue {
 				}
 			if (character.getRunEnergy() >= 1) {
 				if (running) {
-					if (character instanceof Player) {
+					if (character.isControlling()) {
 						final Player player = (Player) character;
 						player.setRunEnergy(player.getRunEnergy() - 1);
 						player.send(new UpdateRunEnergyEvent(player.getRunEnergy()));

@@ -37,7 +37,7 @@ public final class TeleportAction extends Action<Character> {
 	@Override
 	public void execute() {
 		if (!attributes.get(0)) {
-			if (getCharacter() instanceof Player) {
+			if (getCharacter().isControlling()) {
 				((Player) getCharacter()).getInterfaceSet().close();
 			}
 			getCharacter().playAnimation(new Animation(714));
