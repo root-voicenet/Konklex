@@ -16,7 +16,6 @@
 /game/bin
 /hub/bin
 /game/.classpath
-/connector/.classpath
 /game/.project
-/connector/.classpath
 !.gitignore
+!.travis.yml
