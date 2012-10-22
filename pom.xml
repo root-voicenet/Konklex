@@ -53,56 +53,56 @@
 			<artifactId>commons-compress</artifactId>
 			<version>1.3</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/commons-compress-1.3.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/commons-compress-1.3.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.apache</groupId>
 			<artifactId>commons-logging-api</artifactId>
 			<version>1.0.4</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/commons-logging-api-1.0.4.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/commons-logging-api-1.0.4.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>javazoom.jl</groupId>
 			<artifactId>jl</artifactId>
 			<version>1.0.1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/jl-1.0.1.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/jl-1.0.1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.jruby</groupId>
 			<artifactId>jruby</artifactId>
 			<version>8</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/jruby-8.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/jruby-8.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>1.6.3</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/jsoup-1.6.3.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/jsoup-1.6.3.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.junit</groupId>
 			<artifactId>junit-dep</artifactId>
 			<version>4.10</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/junit-dep-4.10.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/junit-dep-4.10.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>netty</artifactId>
 			<version>3.5.7.Final</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/netty-3.5.7.Final.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/netty-3.5.7.Final.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>org.hyperic</groupId>
 			<artifactId>sigar</artifactId>
 			<version>1</version>
 			<scope>system</scope>
-			<systemPath>${project.basedir}/deps/sigar-1.jar</systemPath>
+			<systemPath>${project.basedir}/game/deps/sigar-1.jar</systemPath>
 		</dependency>
 	</dependencies>	
 </project>
