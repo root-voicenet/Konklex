@@ -1,8 +1,8 @@
 .*
 *~
 *.swp
-/game/data/fs/**/*
-/game/data/savedGames/*.dat
+/data/fs/**/*
+/data/savedGames/*.dat
 /nbproject
 /manifest.mf
 *.iwr
@@ -13,9 +13,7 @@
 /out
 /doc
 /lib
-/game/bin
-/hub/bin
-/game/.classpath
-/game/.project
+.classpath
+.project
 !.gitignore
 !.travis.yml
