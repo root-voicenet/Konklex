@@ -105,5 +105,19 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/game/deps/sigar-1.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>com.google.common</groupId>
+			<artifactId>juava-gwt</artifactId>
+			<version>11.0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/game/deps/guava-gwt-11.0.1.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.google</groupId>
+			<artifactId>juava</artifactId>
+			<version>11.0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/game/deps/guava-11.0.1.jar</systemPath>
+		</dependency>
 	</dependencies>	
 </project>
