@@ -54,7 +54,7 @@ public final class CommandDispatcher {
 		register(new RestartCommandListener(), "restart");
 		register(new UpdateCommandListener(), "update");
 		register(new FindCommandListener(), "find");
-		register(new HelpCommandListener(), "help");
+		register(new HelpCommandListener(), "help", "?");
 		register(new ExitCommandListener(), "exit");
 	}
 

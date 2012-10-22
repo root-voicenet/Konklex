@@ -53,6 +53,46 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 	}
 
 	/**
+	 * Decodes in the handshake state.
+	 * @param ctx The channel handler context.
+	 * @param channel The channel.
+	 * @param buffer The buffer.
+	 * @return The frame, or {@code null}.
+	 * @throws Exception if an error occurs.
+	 */
+	private Object decodeHandshake(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
+		final ChannelBuffer resp = ChannelBuffers.buffer(9);
+		resp.writeByte(1); // 1
+		resp.writeLong(World.getWorld().getUptime()); // 8
+		channel.write(resp);
+		setState(ApiDecoderState.LOGIN_HEADER);
+		return null;
+	}
+
+	/**
+	 * Decodes in the header state.
+	 * @param ctx The channel handler context.
+	 * @param channel The channel.
+	 * @param buffer The buffer.
+	 * @return The frame, or {@code null}.
+	 * @throws Exception if an error occurs.
+	 */
+	private Object decodeHeader(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
+		if (buffer.readableBytes() >= 8) {
+			buffer.readByte();
+			if (buffer.readLong() == 1234) {
+				ChannelBuffer buf = ChannelBuffers.buffer(1);
+				buf.writeByte(1);
+				channel.write(buf);
+				setState(ApiDecoderState.LOGIN_PAYLOAD);
+			}
+			else
+				throw new Exception("Invalid password");
+		}
+		return null;
+	}
+
+	/**
 	 * Decodes in the payload state.
 	 * @param ctx The channel handler context.
 	 * @param channel The channel.
@@ -78,52 +118,10 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 				final ApiRequest req = new ApiRequest(nodes, worlds);
 				if (buffer.readable())
 					return new Object[] { req, buffer.readBytes(buffer.readableBytes()) };
-				else {
+				else
 					return req;
-				}
 			}
 		}
-		return null;
-	}
-
-	/**
-	 * Decodes in the header state.
-	 * @param ctx The channel handler context.
-	 * @param channel The channel.
-	 * @param buffer The buffer.
-	 * @return The frame, or {@code null}.
-	 * @throws Exception if an error occurs.
-	 */
-	private Object decodeHeader(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) throws Exception {
-		if (buffer.writable() && buffer.readableBytes() >= 8) {
-			buffer.readByte();
-			if (buffer.readLong() == 1234) {
-				ChannelBuffer buf = ChannelBuffers.buffer(1);
-				buf.writeByte(1);
-				channel.write(buf);
-				setState(ApiDecoderState.LOGIN_PAYLOAD);
-			}
-			else {
-				throw new Exception("Invalid password");
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * Decodes in the handshake state.
-	 * @param ctx The channel handler context.
-	 * @param channel The channel.
-	 * @param buffer The buffer.
-	 * @return The frame, or {@code null}.
-	 * @throws Exception if an error occurs.
-	 */
-	private Object decodeHandshake(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
-		final ChannelBuffer resp = ChannelBuffers.buffer(9);
-		resp.writeByte(1); // 1
-		resp.writeLong(World.getWorld().getUptime()); // 8
-		channel.write(resp);
-		setState(ApiDecoderState.LOGIN_HEADER);
 		return null;
 	}
 }

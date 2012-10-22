@@ -41,6 +41,23 @@ public final class Server {
 	private static final Logger logger = Logger.getLogger(Server.class.getName());
 
 	/**
+	 * Gets the file seperator.
+	 * @return The file seperator.
+	 */
+	public static String getSeperator() {
+		return System.getProperty("file.separator");
+	}
+
+	/**
+	 * Check if the filesystem is windows.
+	 * @return True if windows, false if otherwise.
+	 */
+	public static boolean isWindows() {
+		final String os = System.getProperty("os.name").toLowerCase();
+		return os.indexOf("win") >= 0;
+	}
+
+	/**
 	 * The entry point of the Apollo server application.
 	 * @param args The command-line arguments passed to the application.
 	 */
@@ -108,8 +125,8 @@ public final class Server {
 	 */
 	public Server() throws Exception {
 		logger.info("Starting Apollo...");
-		Runtime.getRuntime().addShutdownHook(new ServerHooks());
 		serviceManager = new ServiceManager();
+		Runtime.getRuntime().addShutdownHook(new ServerHooks());
 	}
 
 	/**
@@ -151,7 +168,7 @@ public final class Server {
 	 * @throws IllegalAccessException if the release class could not be accessed.
 	 */
 	public void init(String releaseClassName) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException {
+	IllegalAccessException {
 		final Class<?> clazz = Class.forName(releaseClassName);
 		final Release release = (Release) clazz.newInstance();
 		logger.info("Initialized release #" + release.getReleaseNumber() + ".");
@@ -173,28 +190,20 @@ public final class Server {
 	}
 
 	/**
-	 * Check if the filesystem is windows.
-	 * @return True if windows, false if otherwise.
-	 */
-	private boolean isWindows() {
-		final String os = System.getProperty("os.name").toLowerCase();
-		return os.indexOf("win") >= 0;
-	}
-
-	/**
 	 * Load's the sigar library for the {@link Frontend}.
 	 */
 	private void loadSigar() {
 		try {
 			logger.info("Loading the SIGAR library...");
 			System.setProperty("org.hyperic.sigar.path", "-");
-			final String seperator = System.getProperty("file.separator");
-
+			String seperator = getSeperator();
 			String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
-			if (System.getProperty("os.arch").contains("x86"))
+			if (System.getProperty("os.arch").contains("x86")) {
 				file += "sigar-32.dll";
-			else
+			}
+			else {
 				file += isWindows() ? "sigar.dll" : "sigar.so";
+			}
 			Runtime.getRuntime().load(file);
 		}
 		catch (final Exception e) {

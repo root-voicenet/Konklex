@@ -17,7 +17,7 @@ public final class HelpCommandListener implements CommandListener {
 		final StringBuilder builder = new StringBuilder();
 		if (arguments.length == 0) {
 			builder.append(
-					"Konklex bash, version 1.2-release (" + System.getProperties().getProperty("java.runtime.version")
+					"Konklex bash, version 3.2-release (" + System.getProperties().getProperty("java.runtime.version")
 							+ ")").append("\r\n");
 			builder.append("Type `help name' to find out more about the function `name'.").append("\r\n");
 			builder.append("If a user has a space in their name, replace it with a _").append("\r\n").append("\r\n");
@@ -34,6 +34,7 @@ public final class HelpCommandListener implements CommandListener {
 			builder.append("    count [world]|<all>").append("\r\n");
 			builder.append("    whois [player]").append("\r\n");
 			builder.append("    find [rights]").append("\r\n");
+			builder.append("    help|? [topic]<this>").append("\r\n");
 			builder.append("    exit").append("\r\n");
 		}
 		else if (arguments.length == 1) {

@@ -65,9 +65,9 @@ public final class ApiDecoder extends StatefulFrameDecoder<ApiDecoderState> {
 	private Object decodePayload(ChannelHandlerContext ctx, Channel channel, ChannelBuffer buffer) {
 		if (buffer.readable()) {
 			buffer.readByte();
-			if (buffer.readable())
+			if (buffer.readable()) {
 				return new Object[] { time, buffer.readBytes(buffer.readableBytes()) };
-			else {
+			} else {
 				return time;
 			}
 		}

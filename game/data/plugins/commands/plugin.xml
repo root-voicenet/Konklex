@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <plugin>
   <id>commands</id>
-  <version>1</version>
+  <version>1.1</version>
   <name>Commands</name>
   <description>Adds commands to the world.</description>
   <authors>
@@ -15,6 +15,7 @@
     <script>item.rb</script>
     <script>npc.rb</script>
     <script>pnpc.rb</script>
+    <script>rights.rb</script>
     <script>skill.rb</script>
     <script>sound.rb</script>
     <script>teleport.rb</script>

@@ -1,12 +1,13 @@
 package org.apollo.game.command.impl;
 
-import java.io.IOException;
+import java.io.File;
 
+import org.apollo.Server;
 import org.apollo.game.command.Command;
 import org.apollo.game.command.PrivilegedCommandListener;
 import org.apollo.game.model.Player;
-import org.apollo.game.model.World;
 import org.apollo.game.model.Player.PrivilegeLevel;
+import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
 
 /**
@@ -14,6 +15,25 @@ import org.apollo.game.scheduling.ScheduledTask;
  * @author Steve
  */
 public final class RestartCommandListener extends PrivilegedCommandListener {
+
+	/**
+	 * Restarts this application.
+	 */
+	public static final void restart() {
+		try {
+			final boolean isWindows = Server.isWindows();
+			final String seperator = Server.getSeperator();
+			final File file = new File(".").getCanonicalFile();
+			final String cmd[] = isWindows ? new String[] { "java", "-cp bin;deps" + seperator + "*",
+					"org.apollo.Server" }
+			: new String[] { "sh", "-c", "Run_Game.sh" };
+			Runtime.getRuntime().exec(cmd, null, file);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
+	}
 
 	/**
 	 * Creates the restart command listener.
@@ -38,20 +58,6 @@ public final class RestartCommandListener extends PrivilegedCommandListener {
 		else {
 			restart();
 		}
-	}
-
-	/**
-	 * Restarts this application.
-	 */
-	public static final void restart() {
-		try {
-			String cmd[] = { "sh", "-c", "/home/buroa/konklex/Run_Game.sh" };
-			Runtime.getRuntime().exec(cmd);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.exit(0);
 	}
 
 }

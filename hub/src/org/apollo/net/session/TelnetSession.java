@@ -51,6 +51,6 @@ public final class TelnetSession extends Session {
 		final Command command = new Command(name, arguments);
 		CommandDispatcher.getInstance().dispatch(getChannel(), command, context);
 		if (getChannel().isConnected() && getChannel().isWritable())
-			getChannel().write("helos ~ # ");
+			getChannel().write("konklex> ");
 	}
 }

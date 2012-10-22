@@ -132,7 +132,6 @@ public final class ApolloApiHandler extends IdleStateAwareChannelUpstreamHandler
 				pipeline.remove("apiDecoder");
 				serverContext.getServerChannelGroup().add(channel);
 				final int world = serverContext.getServerChannelGroup().size();
-				System.out.println(world);
 				serverContext.getServerChannelGroup().getWorld(world).setTime((Integer) message);
 				ctx.setAttachment(new ApiSession(channel, serverContext));
 				channel.write(new LabelWorldMethod(world));
