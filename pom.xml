@@ -119,5 +119,5 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/game/deps/guava-11.0.1.jar</systemPath>
 		</dependency>
-	</dependencies>	
+	 </dependencies>	
 </project>
