@@ -12,7 +12,7 @@ class Game < Minigame
   attr_reader :tick
  
   def initialize
-    super("Zombies", 4)
+    super("Zombies", 3)
     @tick = 180
   end
 

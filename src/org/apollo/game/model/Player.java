@@ -19,6 +19,7 @@ import org.apollo.game.model.inv.AppearanceInventoryListener;
 import org.apollo.game.model.inv.BonusesEquipmentListener;
 import org.apollo.game.model.inv.FullInventoryListener;
 import org.apollo.game.model.inv.InventoryListener;
+import org.apollo.game.model.inv.RunecraftingEquipmentListener;
 import org.apollo.game.model.inv.SynchronizationInventoryListener;
 import org.apollo.game.model.messaging.PlayerMessaging;
 import org.apollo.game.model.skill.LevelUpSkillListener;
@@ -639,7 +640,7 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Initialises the player's inventories.
+	 * Initializes the player's inventories.
 	 */
 	private void initInventories() {
 		final Inventory inventory = getInventory();
@@ -663,6 +664,7 @@ public final class Player extends Character {
 		final InventoryListener syncEquipmentListener = new SynchronizationInventoryListener(this,
 				SynchronizationInventoryListener.EQUIPMENT_ID);
 		final InventoryListener equipmentBonusesListener = new BonusesEquipmentListener(this);
+		final InventoryListener runecraftingEquipmentListener = new RunecraftingEquipmentListener(this);
 		// add the listeners
 		inventory.addListener(syncInventoryListener);
 		inventory.addListener(fullInventoryListener);
@@ -672,6 +674,7 @@ public final class Player extends Character {
 		equipment.addListener(appearanceListener);
 		equipment.addListener(fullEquipmentListener);
 		equipment.addListener(equipmentBonusesListener);
+		equipment.addListener(runecraftingEquipmentListener);
 	}
 
 	/**
