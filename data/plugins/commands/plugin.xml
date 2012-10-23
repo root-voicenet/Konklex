@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <plugin>
   <id>commands</id>
-  <version>1.1</version>
+  <version>2</version>
   <name>Commands</name>
   <description>Adds commands to the world.</description>
   <authors>

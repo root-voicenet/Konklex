@@ -17,25 +17,27 @@ class Actions < DistancedAction
   def executeAction
     case object
       when 4387
-        $cwars.add_player SARA_TEAM_LOBBY, character
+        $cwars.add_character SARA_TEAM_LOBBY, character
       when 4389
-        $cwars.remove_player SARA_TEAM_LOBBY, character
+        $cwars.remove_character SARA_TEAM_LOBBY, character
       when 4388
-        $cwars.add_player ZAMM_TEAM_LOBBY, character
+        $cwars.add_character ZAMM_TEAM_LOBBY, character
       when 4390
-        $cwars.remove_player ZAMM_TEAM_LOBBY, character
+        $cwars.remove_character ZAMM_TEAM_LOBBY, character
     end
     stop
   end
 
   def equals(other)
-    return (get_class == other.get_class)
+    return (get_class == other.get_class and other.position == @position and other.object == @object)
   end
 
 end
 
 on :event, :object_action do |ctx, player, event|
   if event.option == 1
-    player.start_action Actions.new(player, event.position, event.id)
+    if event.id == 4397 or event.id == 4389 or event.id == 4388 or event.id == 4390
+      player.start_action Actions.new(player, event.position, event.id)
+    end
   end
 end

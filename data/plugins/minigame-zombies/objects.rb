@@ -4,7 +4,7 @@ require 'java'
 java_import 'org.apollo.game.action.DistancedAction'
 java_import 'org.apollo.game.event.impl.ConfigEvent'
 
-class Actions < DistancedAction
+class ZombieActions < DistancedAction
 
  attr_reader :position, :object
 
@@ -29,13 +29,15 @@ class Actions < DistancedAction
   end
 
   def equals(other)
-    return (get_class == other.get_class)
+    return (get_class == other.get_class and other.position == @position and other.object == @object)
   end
 
 end
 
 on :event, :object_action do |ctx, player, event|
   if event.option == 1
-    player.start_action Actions.new(player, event.position, event.id)
+    if event.id == 4397 or event.id == 4389 or event.id == 4388 or event.id == 4390
+      player.start_action ZombieActions.new(player, event.position, event.id)
+    end
   end
 end

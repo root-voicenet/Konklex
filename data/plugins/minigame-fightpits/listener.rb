@@ -4,16 +4,16 @@ require 'java'
 java_import 'org.apollo.game.minigame.MinigameListener'
 java_import 'org.apollo.game.event.impl.ConfigEvent'
 
-class Listener < MinigameListener
+class PitListener < MinigameListener
 
   def playerAdded(player)
-    character = player.get_player
+    character = player.get_character
     team = player.get_team
     if team == LOBBY
       character.teleport LOBBY_ENTER
-      character.send SetInterfaceTextEvent.new(6664, ""))
-      character.send SetInterfaceTextEvent.new(6570, "..."))
-      character.send SetInterfaceTextEvent.new(6572, "Champion: #{$pits.champion}"))
+      character.send SetInterfaceTextEvent.new(6664, "")
+      character.send SetInterfaceTextEvent.new(6570, "Next Game Begins In : #{$pits.get_tick} seconds.")
+      character.send SetInterfaceTextEvent.new(6572, "Champion: #{$champion}")
       character.get_interface_set.open_walkable 6673
     elsif team == GAME
       character.teleport GAME_ENTER
@@ -22,7 +22,7 @@ class Listener < MinigameListener
   end
 
   def playerRemoved(player)
-    character = player.get_player
+    character = player.get_character
     team = player.get_team
     if team == LOBBY
       character.teleport LOBBY_LEAVE
@@ -34,11 +34,11 @@ class Listener < MinigameListener
 
   def playerDisconnected(player)
     player.teleport LOBBY_LEAVE
-    $pits.remove_player player
+    $pits.remove_character player
   end
 
   def playerDied(player, source)
-    player.teleport LOBBY_ENTER
+    transfer_team player, LOBBY
   end
 
 end

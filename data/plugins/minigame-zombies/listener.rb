@@ -4,7 +4,7 @@ require 'java'
 java_import 'org.apollo.game.minigame.MinigameListener'
 java_import 'org.apollo.game.event.impl.ConfigEvent'
 
-class Listener < MinigameListener
+class ZombieListener < MinigameListener
 
   def playerAdded(player)
     character = player.get_player

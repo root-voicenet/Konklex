@@ -7,7 +7,7 @@ java_import 'org.apollo.game.event.impl.ConfigEvent'
 class Listener < MinigameListener
 
   def playerAdded(player)
-    character = player.get_player
+    character = player.get_character
     team = player.get_team
     time = $cwars.get_tick / 60 == 0 ? 1 : $cwars.get_tick / 60
     if team == SARA_TEAM_LOBBY
@@ -30,7 +30,7 @@ class Listener < MinigameListener
   end
 
   def playerRemoved(player)
-    character = player.get_player
+    character = player.get_character
     team = player.get_team
     time = $cwars.get_tick / 60 == 0 ? 1 : $cwars.get_tick / 60
     if team == SARA_TEAM_LOBBY
@@ -47,7 +47,7 @@ class Listener < MinigameListener
 
   def playerDisconnected(player)
     player.teleport GAME_LOBBY, false
-    $cwars.remove_player player
+    $cwars.remove_character player
   end
 
   def playerDied(player, source)

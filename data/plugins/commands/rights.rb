@@ -13,6 +13,7 @@ on :command, :promote, RIGHTS_OWNER do |player, command|
       end
     else
       player.send_message "Player is offline"
+    end
   else
     player.send_message "Syntax: ::promote [player]"
   end
@@ -30,6 +31,7 @@ on :command, :demote, RIGHTS_OWNER do |player, command|
       end
     else
       player.send_message "Player is offline"
+    end
   else
     player.send_message "Syntax: ::demote [player]"
   end
