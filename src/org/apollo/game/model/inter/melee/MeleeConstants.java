@@ -70,7 +70,6 @@ public final class MeleeConstants {
 
 		}
 		catch (Exception e) {
-			e.printStackTrace();
 			return 422;
 		}
 	}

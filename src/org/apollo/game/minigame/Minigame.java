@@ -105,15 +105,6 @@ public abstract class Minigame {
 	}
 
 	/**
-	 * Gets the list of current characters.
-	 * @param team The team.
-	 * @return The list of current characters.
-	 */
-	public List<Character> getCharacters(int team) {
-		return Collections.unmodifiableList(characters.get(team));
-	}
-
-	/**
 	 * Gets a list of teams.
 	 * @param teams The teams to get.
 	 * @return The list of teams.

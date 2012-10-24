@@ -11,14 +11,15 @@ class PitListener < MinigameListener
     team = player.get_team
     if team == LOBBY
       character.teleport LOBBY_ENTER
-      character.send SetInterfaceTextEvent.new(6664, "")
-      character.send SetInterfaceTextEvent.new(6570, "Next Game Begins In : #{$pits.get_tick} seconds.")
-      character.send SetInterfaceTextEvent.new(6572, "Champion: #{$champion}")
-      character.get_interface_set.open_walkable 6673
+      if $pits.get_time > 0
+        character.send_message "Next round starts in #{$pits.get_time} minute#{$pits.get_time == 1 ? "" : "s"}!"
+      end
     elsif team == GAME
+      $pits.set_attribute 3, true
       character.teleport GAME_ENTER
-      character.get_interface_set.open_walkable -1
     end
+    character.send SetInterfaceTextEvent.new(2805, "Current Champion: #{$pits.get_champion}")
+    character.get_interface_set.open_walkable 2804
   end
 
   def playerRemoved(player)
@@ -27,8 +28,6 @@ class PitListener < MinigameListener
     if team == LOBBY
       character.teleport LOBBY_LEAVE
       character.get_interface_set.open_walkable -1
-    elsif team == GAME
-      character.teleport LOBBY_ENTER
     end
   end
 
@@ -37,8 +36,16 @@ class PitListener < MinigameListener
     $pits.remove_character player
   end
 
-  def playerDied(player, source)
-    transfer_team player, LOBBY
+  def playerDied(event)
+    victim = event.get_player
+    source = event.get_source
+    $pits.transfer_team victim, LOBBY
+    $pits.set_attribute 3, true
+
+    victim.reset_melee_set
+    if source != nil
+      source.reset_melee_set
+    end
   end
 
 end
