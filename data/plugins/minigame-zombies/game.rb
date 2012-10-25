@@ -42,7 +42,7 @@ class Zombies < Minigame
       npc = Npc.new ZOMBIE, PLACE
       npc.skill_set.set_skill Skill::STRENGTH, skill
       World.world.register npc
-      Combat.attack source, victim
+      Combat.attack npc, victim
     end
   end
 
