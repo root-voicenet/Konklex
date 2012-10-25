@@ -78,39 +78,39 @@ public final class Combat {
 				victim.addHealth(victim.getHealthMax());
 				victim.stopAnimation();
 
-				victim.getInventory().startFiringEvents();
-				victim.getInventory().addAll(keep);
-				victim.getInventory().forceRefresh();
+				if (victim.isControlling()) {
+					victim.getInventory().startFiringEvents();
+					victim.getInventory().addAll(keep);
+					victim.getInventory().forceRefresh();
 
-				victim.getEquipment().startFiringEvents();
-				victim.getEquipment().forceRefresh();
+					victim.getEquipment().startFiringEvents();
+					victim.getEquipment().forceRefresh();
 
-				if (source != null) {
-					if (victim.isControlling() && !source.isControlling()) {
-						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
+					if (source != null) {
+						if (victim.isControlling() && !source.isControlling()) {
+							for (Item item : inventory) {
+								World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
+							}
 						}
-					}
-					else if (source.isControlling()) {
-						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
+						else if (!victim.isControlling() && source.isControlling()) {
+							appendNpcDrop((Npc) victim, (Player) source);
+						}
+						else if (source.isControlling()) {
+							for (Item item : inventory) {
+								World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
+							}
 						}
 					}
 					else {
-						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(item, position));
+						if (victim.isControlling()) {
+							for (Item item : inventory) {
+								World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
+							}
 						}
-					}
-				}
-				else {
-					if (victim.isControlling()) {
-						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
-						}
-					}
-					else {
-						for (Item item : inventory) {
-							World.getWorld().register(new GroundItem(item, position));
+						else {
+							for (Item item : inventory) {
+								World.getWorld().register(new GroundItem(item, position));
+							}
 						}
 					}
 				}
@@ -298,6 +298,22 @@ public final class Combat {
 		source.playAnimation(new Animation(MeleeConstants.getAttackAnim(source)));
 		victim.playAnimation(new Animation(404));
 		return true;
+	}
+
+	/**
+	 * Appends drops to the source from the npc.
+	 * @param victim The npc that is dying.
+	 * @param source The player that killed the npc.
+	 */
+	private static void appendNpcDrop(Npc victim, Player source) {
+		final Inventory inventory = victim.getInventory();
+		Inventory drops = CombatUtil.getItemsKeptOnDeath(inventory.size(), inventory);
+		for (Item item : drops) {
+			if (TextUtil.random(drops.size() / 2) <= 1) {
+				break;
+			}
+			World.getWorld().register(new GroundItem(source.getName(), item, victim.getPosition()));
+		}
 	}
 
 	/**

@@ -80,6 +80,7 @@ public final class Npc extends Character {
 	public void init() {
 		getMeleeSet().setAutoRetaliating(true); // agressive
 		getMeleeSet().setAttackable(true); // can attack
+		getInventory().add(526);
 	}
 
 	@Override

@@ -35,4 +35,27 @@ public final class CombatUtil {
 		return keptItems;
 	}
 
+	/**
+	 * Gets the items kept on death.
+	 * @param keep The items to keep.
+	 * @param items The item inventory.
+	 * @return The inventory of kept items.
+	 */
+	public static Inventory getNpcGroundItems(int keep, Inventory items) {
+		PriorityQueue<Item> allItems = new PriorityQueue<Item>(1, new Comparator<Item>() {
+			@Override
+			public int compare(Item a, Item b) {
+				return a.getDefinition().getValue() - b.getDefinition().getValue();
+			}
+		});
+		for (Item item : items) {
+			allItems.add(item);
+		}
+		Inventory keptItems = new Inventory(keep);
+		while (keptItems.size() < keep && allItems.size() > 0) {
+			keptItems.add(allItems.poll());
+		}
+		return keptItems;
+	}
+
 }

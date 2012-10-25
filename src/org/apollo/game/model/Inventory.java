@@ -57,8 +57,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				throw new IllegalStateException();
 			try {
 				Inventory.this.remove(lastRet);
-				if (lastRet < cursor)
+				if (lastRet < cursor) {
 					cursor--;
+				}
 				lastRet = -1;
 			}
 			catch (final IndexOutOfBoundsException e) {
@@ -217,15 +218,17 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				if (items[slot] == null) {
 					remaining--;
 					set(slot, single); // share the instances
-					if (remaining <= 0)
+					if (remaining <= 0) {
 						break;
+					}
 				}
 		}
 		finally {
 			startFiringEvents();
 		}
-		if (remaining != item.getAmount())
+		if (remaining != item.getAmount()) {
 			notifyItemsUpdated();
+		}
 		if (remaining > 0) {
 			notifyCapacityExceeded();
 			return new Item(item.getId(), remaining);
@@ -257,29 +260,6 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
-	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specifed. This
-	 * method has a slight performance benefit over the {@link #addInventory(Inventory)} method, at the cost of not
-	 * knowing what items weren't added.
-	 * @param inventory The inventory of items to remove.
-	 * @return {@code true} if succesfully removed, {@code false} if in any case an item cannot be removed.
-	 */
-	public boolean removeAll(Inventory inventory) {
-		if (inventory.size == 0)
-			return true;
-		final boolean oldFiringEvents = firingEvents;
-		firingEvents = inventory.size == 1;
-		try {
-			for (final Item item : inventory.items)
-				if (item != null && remove(item) != item.getAmount())
-					return false;
-		}
-		finally {
-			firingEvents = oldFiringEvents;
-		}
-		return true;
-	}
-
-	/**
 	 * Attempts to add all items in the specified inventory to this one, without removing any from the specified.
 	 * @param inventory The inventory to add the items of.
 	 * @return An array of items which have not been added ({@code null} if everything was added).
@@ -288,23 +268,8 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		final List<Item> remainder = new ArrayList<Item>(capacity - size);
 		for (final Item item : inventory.items) {
 			final Item remaining = add(item);
-			if (remaining != null)
+			if (remaining != null) {
 				remainder.add(remaining);
-		}
-		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
-	}
-
-	/**
-	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specified.
-	 * @param inventory The inventory of items to remove.
-	 * @return An array of items which have not been removed ({@code null} if everything was removed).
-	 */
-	public Item[] removeInventory(Inventory inventory) {
-		final List<Item> remainder = new ArrayList<Item>(capacity - size);
-		for (final Item item : inventory.items) {
-			final int remaining = remove(item);
-			if (remaining != item.getAmount()) {
-				remainder.add(new Item(item.getId(), remaining));
 			}
 		}
 		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
@@ -376,15 +341,16 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		int ctr = 0;
 		if (id > ItemDefinition.count())
 			return false;
-		if (isStackable(ItemDefinition.forId(id)))
+		if (isStackable(ItemDefinition.forId(id))) {
 			for (int i = 0; i < capacity && ctr <= size; i++) {
 				final Item item = items[i];
 				if (item != null) {
 					if (item.getId() == id)
 						return item.getAmount() >= amount;
-					ctr++;
+						ctr++;
 				}
 			}
+		}
 		else {
 			int count = 0;
 			for (int i = 0; i < capacity && ctr <= size; i++) {
@@ -506,8 +472,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		final int[] slots = new int[count];
 		int ptr = -1;
 		for (int i = 0; i < capacity; i++)
-			if (items[i] == null)
+			if (items[i] == null) {
 				slots[ptr++] = i;
+			}
 		return slots;
 	}
 
@@ -527,8 +494,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		for (int i = 0; i < capacity && ctr <= size; i++) {
 			final Item item = items[i];
 			if (item != null) {
-				if (item.getId() == id)
+				if (item.getId() == id) {
 					amount++;
+				}
 				ctr++;
 			}
 		}
@@ -595,8 +563,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		final Item[] mock = new Item[capacity];
 		System.arraycopy(this.items, 0, mock, 0, capacity);
 		for (final Item item : items) {
-			if (item == null)
+			if (item == null) {
 				continue;
+			}
 			final int id = item.getId();
 			final boolean stackable = item.getDefinition().isStackable();
 			for (int slot = 0; slot < capacity; slot++) {
@@ -646,18 +615,22 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	 * Notifies listeners that the capacity of this inventory has been exceeded.
 	 */
 	private void notifyCapacityExceeded() {
-		if (firingEvents)
-			for (final InventoryListener listener : listeners)
+		if (firingEvents) {
+			for (final InventoryListener listener : listeners) {
 				listener.capacityExceeded(this);
+			}
+		}
 	}
 
 	/**
 	 * Notifies listeners that all the items have been updated.
 	 */
 	private void notifyItemsUpdated() {
-		if (firingEvents)
-			for (final InventoryListener listener : listeners)
+		if (firingEvents) {
+			for (final InventoryListener listener : listeners) {
 				listener.itemsUpdated(this);
+			}
+		}
 	}
 
 	/**
@@ -667,8 +640,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	private void notifyItemUpdated(int slot) {
 		if (firingEvents) {
 			final Item item = items[slot];
-			for (final InventoryListener listener : listeners)
+			for (final InventoryListener listener : listeners) {
 				listener.itemUpdated(this, slot, item);
+			}
 		}
 	}
 
@@ -716,8 +690,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 				set(slot, null);
 				removed++;
 			}
-			if (removed >= amount)
+			if (removed >= amount) {
 				break;
+			}
 		}
 		return removed;
 	}
@@ -732,10 +707,49 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	}
 
 	/**
+	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specifed. This
+	 * method has a slight performance benefit over the {@link #addInventory(Inventory)} method, at the cost of not
+	 * knowing what items weren't added.
+	 * @param inventory The inventory of items to remove.
+	 * @return {@code true} if succesfully removed, {@code false} if in any case an item cannot be removed.
+	 */
+	public boolean removeAll(Inventory inventory) {
+		if (inventory.size == 0)
+			return true;
+		final boolean oldFiringEvents = firingEvents;
+		firingEvents = inventory.size == 1;
+		try {
+			for (final Item item : inventory.items)
+				if (item != null && remove(item) != item.getAmount())
+					return false;
+		}
+		finally {
+			firingEvents = oldFiringEvents;
+		}
+		return true;
+	}
+
+	/**
 	 * Removes all the listeners.
 	 */
 	public void removeAllListeners() {
 		listeners.clear();
+	}
+
+	/**
+	 * Attempts to remove all items in the specified inventory to this one, without removing any from the specified.
+	 * @param inventory The inventory of items to remove.
+	 * @return An array of items which have not been removed ({@code null} if everything was removed).
+	 */
+	public Item[] removeInventory(Inventory inventory) {
+		final List<Item> remainder = new ArrayList<Item>(capacity - size);
+		for (final Item item : inventory.items) {
+			final int remaining = remove(item);
+			if (remaining != item.getAmount()) {
+				remainder.add(new Item(item.getId(), remaining));
+			}
+		}
+		return remainder.isEmpty() ? null : (Item[]) remainder.toArray();
 	}
 
 	/**
@@ -761,8 +775,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		if (item != null) {
 			final int currentAmount = item.getAmount();
 			int removed = currentAmount;
-			if (removed > amount)
+			if (removed > amount) {
 				removed = amount;
+			}
 			final int remainder = currentAmount - removed;
 			set(slot, remainder > 0 ? new Item(item.getId(), remainder) : null);
 			return removed;
@@ -787,8 +802,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		if (item != null && item.getId() == id) {
 			final int currentAmount = item.getAmount();
 			int removed = currentAmount;
-			if (removed > amount)
+			if (removed > amount) {
 				removed = amount;
+			}
 			final int remainder = currentAmount - removed;
 			set(slot, remainder > 0 ? new Item(item.getId(), remainder) : null);
 			return removed;
@@ -838,8 +854,9 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 			return reset(slot);
 		checkBounds(slot);
 		final Item old = items[slot];
-		if (old == null)
+		if (old == null) {
 			size++;
+		}
 		items[slot] = item;
 		notifyItemUpdated(slot);
 		return old;
@@ -852,10 +869,12 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		final Item[] old = items;
 		items = new Item[capacity];
 		for (int i = 0, pos = 0; i < items.length; i++)
-			if (old[i] != null)
+			if (old[i] != null) {
 				items[pos++] = old[i];
-		if (firingEvents)
+			}
+		if (firingEvents) {
 			notifyItemsUpdated();
+		}
 	}
 
 	/**
@@ -891,12 +910,16 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 		checkBounds(oldSlot);
 		checkBounds(newSlot);
 		if (insert) {
-			if (newSlot > oldSlot)
-				for (int slot = oldSlot; slot < newSlot; slot++)
+			if (newSlot > oldSlot) {
+				for (int slot = oldSlot; slot < newSlot; slot++) {
 					swap(slot, slot + 1);
-			else if (oldSlot > newSlot)
-				for (int slot = oldSlot; slot > newSlot; slot--)
+				}
+			}
+			else if (oldSlot > newSlot) {
+				for (int slot = oldSlot; slot > newSlot; slot--) {
 					swap(slot, slot - 1);
+				}
+			}
 			forceRefresh();
 		}
 		else {
@@ -915,5 +938,17 @@ public final class Inventory implements Cloneable, Iterable<Item> {
 	 */
 	public void swap(int oldSlot, int newSlot) {
 		swap(false, oldSlot, newSlot);
+	}
+
+	/**
+	 * Creates a list representing this inventory.
+	 * @return The list.
+	 */
+	public List<Item> toList() {
+		List<Item> list = new ArrayList<Item>(size);
+		for (Item item : items) {
+			list.add(item);
+		}
+		return list;
 	}
 }
