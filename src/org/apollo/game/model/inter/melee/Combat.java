@@ -307,7 +307,7 @@ public final class Combat {
 	 */
 	private static void appendNpcDrop(Npc victim, Player source) {
 		final Inventory inventory = victim.getInventory();
-		Inventory drops = CombatUtil.getItemsKeptOnDeath(inventory.size(), inventory);
+		Inventory drops = CombatUtil.getNpcGroundItems(inventory.size(), inventory);
 		for (Item item : drops) {
 			if (TextUtil.random(drops.size() / 2) <= 1) {
 				break;
@@ -653,10 +653,8 @@ public final class Combat {
 			int Strength = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel(); // Strength
 			int RngBonus = 1; // Ranged Bonus
 			int Range = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel(); // Ranged
-			if (source.isControlling()) {
-				StrBonus = (int) ((Player) source).getBonuses().getBonuses().getStrengthMelee();
-				RngBonus = (int) ((Player) source).getBonuses().getBonuses().getAttackRange();
-			}
+			StrBonus = (int) source.getBonuses().getBonuses().getStrengthMelee();
+			RngBonus = (int) source.getBonuses().getBonuses().getAttackRange();
 			MaxHit += 1.05 + StrBonus * Strength * 0.00175;
 			MaxHit += Strength * 0.1;
 			break;

@@ -20,8 +20,8 @@ public final class RunecraftingEquipmentListener implements InventoryListener {
 	 * @author Steve
 	 */
 	public enum Tiara {
-		AIR(2452, 1), MIND(2453, 2), WATER(2454, 4), EARTH(2455, 8), FIRE(2456, 16), BODY(2457, 32), COSMIC(2432, 64), CHAOS(
-				2487, 128), NATURE(2486, 256), LAW(2485, 512), DEATH(2488, 1024);
+		AIR(7139, 1), MIND(7140, 2), WATER(7137, 4), EARTH(7130, 8), FIRE(7129, 16), BODY(7131, 32), COSMIC(7132, 64), CHAOS(
+				7134, 128), NATURE(7133, 256), LAW(7135, 512), DEATH(7136, 1024);
 
 		/**
 		 * Gets the config value for the item.
@@ -102,7 +102,7 @@ public final class RunecraftingEquipmentListener implements InventoryListener {
 
 	@Override
 	public void itemUpdated(Inventory inventory, int slot, Item item) {
-		if (slot == EquipmentConstants.HAT) {
+		if (slot == EquipmentConstants.HAT && item != null) {
 			final int value = Tiara.getValueForItem(item.getId());
 			if (value != -1) {
 				player.send(new ConfigEvent(491, value));

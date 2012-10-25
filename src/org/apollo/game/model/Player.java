@@ -189,11 +189,6 @@ public final class Player extends Character {
 	private final InterfaceSet interfaceSet = new InterfaceSet(this);
 
 	/**
-	 * The player's equipment bonuses.
-	 */
-	private final PlayerBonuses bonuses = new PlayerBonuses(this);
-
-	/**
 	 * The player's deposit box.
 	 */
 	private final Inventory depositBox = new Inventory(InventoryConstants.INVENTORY_CAPACITY,
@@ -355,14 +350,6 @@ public final class Player extends Character {
 	 */
 	public Appearance getAppearance() {
 		return appearance;
-	}
-
-	/**
-	 * Gets the players equipment bonuses.
-	 * @return The players equipment bonuses.
-	 */
-	public PlayerBonuses getBonuses() {
-		return bonuses;
 	}
 
 	/**

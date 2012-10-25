@@ -7,7 +7,7 @@ import org.apollo.game.event.impl.ConfigEvent;
 import org.apollo.game.event.impl.DamageEvent;
 import org.apollo.game.event.impl.DamageEvent.CombatStyle;
 import org.apollo.game.event.impl.ProjectileEvent;
-import org.apollo.game.event.impl.SpecialEvent;
+import org.apollo.game.event.impl.SetInterfaceComponentEvent;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
@@ -395,7 +395,7 @@ public final class MeleeSet {
 	 */
 	public void setSpecialBar(int specialBar) {
 		this.specialBar = specialBar;
-		character.send(new SpecialEvent(true, specialBar));
+		character.send(new SetInterfaceComponentEvent(specialBar, true));
 	}
 
 	/**

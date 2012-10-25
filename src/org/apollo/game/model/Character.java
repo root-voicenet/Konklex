@@ -31,6 +31,11 @@ public abstract class Character {
 	private boolean teleporting = false;
 
 	/**
+	 * The characters's equipment bonuses.
+	 */
+	private final CharacterBonuses bonuses = new CharacterBonuses(this);
+
+	/**
 	 * The walking queue.
 	 */
 	private final WalkingQueue walkingQueue = new WalkingQueue(this);
@@ -150,6 +155,14 @@ public abstract class Character {
 	}
 
 	/**
+	 * Gets the players equipment bonuses.
+	 * @return The players equipment bonuses.
+	 */
+	public CharacterBonuses getBonuses() {
+		return bonuses;
+	}
+
+	/**
 	 * Gets the directions as an array.
 	 * @return A zero, one or two element array containing the directions (in order).
 	 */
@@ -247,13 +260,6 @@ public abstract class Character {
 	}
 
 	/**
-	 * Resets the melee set.
-	 */
-	public void resetMeleeSet() {
-		meleeSet = new MeleeSet(this);
-	}
-
-	/**
 	 * Gets the position of this character.
 	 * @return The position of this character.
 	 */
@@ -318,6 +324,12 @@ public abstract class Character {
 	}
 
 	/**
+	 * Checks if this user is a controllable player.
+	 * @return True if this character is being controlled, false if otherwise.
+	 */
+	public abstract boolean isControlling();
+
+	/**
 	 * Is the character dead.
 	 * @return {@link Boolean}
 	 */
@@ -338,8 +350,9 @@ public abstract class Character {
 	 * @param animation The animation.
 	 */
 	public void playAnimation(Animation animation) {
-		if (animation != null)
+		if (animation != null) {
 			blockSet.add(SynchronizationBlock.createAnimationBlock(animation));
+		}
 	}
 
 	/**
@@ -347,8 +360,9 @@ public abstract class Character {
 	 * @param graphic The graphic.
 	 */
 	public void playGraphic(Graphic graphic) {
-		if (graphic != null)
+		if (graphic != null) {
 			blockSet.add(SynchronizationBlock.createGraphicBlock(graphic));
+		}
 	}
 
 	/**
@@ -359,10 +373,11 @@ public abstract class Character {
 	}
 
 	/**
-	 * Checks if this user is a controllable player.
-	 * @return True if this character is being controlled, false if otherwise.
+	 * Resets the melee set.
 	 */
-	public abstract boolean isControlling();
+	public void resetMeleeSet() {
+		meleeSet = new MeleeSet(this);
+	}
 
 	/**
 	 * Sends an {@link Event} to either:
@@ -502,8 +517,9 @@ public abstract class Character {
 	 * Stops facing a entity.
 	 */
 	public void stopFacing() {
-		if (facing)
+		if (facing) {
 			startFacing(65535);
+		}
 	}
 
 	/**
@@ -511,6 +527,14 @@ public abstract class Character {
 	 */
 	public void stopGraphic() {
 		playGraphic(Graphic.STOP_GRAPHIC);
+	}
+
+	/**
+	 * Teleports this character to the specified position, setting the appropriate flags and clearing the walking queue.
+	 * @param position The position.
+	 */
+	public void teleport(Position position) {
+		teleport(position, false);
 	}
 
 	/**
@@ -524,14 +548,6 @@ public abstract class Character {
 		this.walkingQueue.clear();
 		this.stopAction(); // TODO do it on any movement is a must.. walking
 		// queue perhaps?
-	}
-
-	/**
-	 * Teleports this character to the specified position, setting the appropriate flags and clearing the walking queue.
-	 * @param position The position.
-	 */
-	public void teleport(Position position) {
-		teleport(position, false);
 	}
 
 	/**

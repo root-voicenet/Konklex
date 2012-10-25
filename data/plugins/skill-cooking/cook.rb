@@ -170,7 +170,7 @@ def copen_window(player, item, event)
 end
 
 on :event, :item_used_on_object do |ctx, player, event|
-  if event.get_object == 2728 or event.get_object == 114 or event.get_object == 2732
+  if event.get_object == 2728 or event.get_object == 114 or event.get_object == 2732 or event.get_object == 9374
     item = FOODS_[event.get_id]
     if item != nil
       copen_window player, item, event

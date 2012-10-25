@@ -7,12 +7,12 @@ import org.apollo.tools.EquipmentConstants;
  * Contains player-related bonuses.
  * @author Steve
  */
-public final class PlayerBonuses {
+public final class CharacterBonuses {
 
 	/**
-	 * The player.
+	 * The character.
 	 */
-	private final Player player;
+	private final Character character;
 
 	/**
 	 * The equipment bonuses.
@@ -20,11 +20,11 @@ public final class PlayerBonuses {
 	private EquipmentBonuses bonuses;
 
 	/**
-	 * Creates player-related bonuses.
-	 * @param player The player.
+	 * Creates the character bonuses.
+	 * @param character The character.
 	 */
-	public PlayerBonuses(Player player) {
-		this.player = player;
+	public CharacterBonuses(Character character) {
+		this.character = character;
 	}
 
 	/**
@@ -43,10 +43,10 @@ public final class PlayerBonuses {
 			id = -1;
 			break;
 		case EquipmentBonuses.STRENGTH_MELEE:
-			id = 10;
+			id = 11;
 			break;
 		case EquipmentBonuses.PRAYER:
-			id = 1;
+			id = 12;
 			break;
 		default:
 			id = bonus;
@@ -59,7 +59,7 @@ public final class PlayerBonuses {
 	 * Refreshes the bonuses for this player.
 	 */
 	public void forceRefresh() {
-		final Inventory equipment = player.getEquipment();
+		final Inventory equipment = character.getEquipment();
 		EquipmentBonuses newBonuses = new EquipmentBonuses(new double[18]);
 
 		for (int i = 0; i < equipment.capacity(); i++) {
@@ -91,7 +91,7 @@ public final class PlayerBonuses {
 			int bonusId = bonusForId(i);
 			if (bonusId != -1) {
 				text = EquipmentConstants.BONUS_NAMES[bonusId] + ": " + Integer.toString((int) bonus);
-				player.send(new SetInterfaceTextEvent(1675 + bonusId, text));
+				character.send(new SetInterfaceTextEvent(1675 + bonusId, text));
 				i++;
 			}
 		}

@@ -114,19 +114,53 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	}
 
 	/**
-	 * Gets the attack stab bonus.
-	 * @return The attack stab bonus.
+	 * Appends more equipment bonuses to the current bonuses.
+	 * @param bonuses The bonuses to append.
+	 * @return The new equipment bonuses.
 	 */
-	public double getAttackStab() {
-		return bonuses[ATTACK_STAB];
+	public EquipmentBonuses append(EquipmentBonuses bonuses) {
+		double[] temp = this.bonuses;
+		int i = 0;
+		for (double bonus : bonuses) {
+			temp[i++] += bonus;
+		}
+		return new EquipmentBonuses(temp);
 	}
 
 	/**
-	 * Gets the attack slash bonus.
-	 * @return The attack slash bonus.
+	 * Appends a bonus to the specified slot.
+	 * @param slot The slot.
+	 * @param bonus The bonus to append.
+	 * @return The new equipment bonuses.
 	 */
-	public double getAttackSlash() {
-		return bonuses[ATTACK_SLASH];
+	public EquipmentBonuses append(int slot, int bonus) {
+		double[] temp = this.bonuses;
+		temp[slot] += bonus;
+		return new EquipmentBonuses(temp);
+	}
+
+	/**
+	 * Gets the absorb magic bonus.
+	 * @return The absorb magic bonus.
+	 */
+	public double getAbsorbMagic() {
+		return bonuses[ABSORB_MAGIC];
+	}
+
+	/**
+	 * Gets the absorb melee bonus.
+	 * @return The absorb melee bonus.
+	 */
+	public double getAbsorbMelee() {
+		return bonuses[ABSORB_MELEE];
+	}
+
+	/**
+	 * Gets the absorb range bonus.
+	 * @return The absorb range bonus.
+	 */
+	public double getAbsorbRange() {
+		return bonuses[ABSORB_RANGE];
 	}
 
 	/**
@@ -154,19 +188,19 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	}
 
 	/**
-	 * Gets the defense stab bonus.
-	 * @return The defense stab bonus.
+	 * Gets the attack slash bonus.
+	 * @return The attack slash bonus.
 	 */
-	public double getDefenseStab() {
-		return bonuses[DEFENSE_STAB];
+	public double getAttackSlash() {
+		return bonuses[ATTACK_SLASH];
 	}
 
 	/**
-	 * Gets the defense slash bonus.
-	 * @return The defense slash bonus.
+	 * Gets the attack stab bonus.
+	 * @return The attack stab bonus.
 	 */
-	public double getDefenseSlash() {
-		return bonuses[DEFENSE_SLASH];
+	public double getAttackStab() {
+		return bonuses[ATTACK_STAB];
 	}
 
 	/**
@@ -194,6 +228,22 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	}
 
 	/**
+	 * Gets the defense slash bonus.
+	 * @return The defense slash bonus.
+	 */
+	public double getDefenseSlash() {
+		return bonuses[DEFENSE_SLASH];
+	}
+
+	/**
+	 * Gets the defense stab bonus.
+	 * @return The defense stab bonus.
+	 */
+	public double getDefenseStab() {
+		return bonuses[DEFENSE_STAB];
+	}
+
+	/**
 	 * Gets the defense summoning bonus.
 	 * @return The defense summoning bonus.
 	 */
@@ -202,27 +252,19 @@ public final class EquipmentBonuses implements Iterable<Double> {
 	}
 
 	/**
-	 * Gets the absorb melee bonus.
-	 * @return The absorb melee bonus.
+	 * Gets the magic bonus.
+	 * @return The magic bonus.
 	 */
-	public double getAbsorbMelee() {
-		return bonuses[ABSORB_MELEE];
+	public double getMagic() {
+		return bonuses[MAGIC];
 	}
 
 	/**
-	 * Gets the absorb magic bonus.
-	 * @return The absorb magic bonus.
+	 * Gets the prayer bonus.
+	 * @return The prayer bonus.
 	 */
-	public double getAbsorbMagic() {
-		return bonuses[ABSORB_MAGIC];
-	}
-
-	/**
-	 * Gets the absorb range bonus.
-	 * @return The absorb range bonus.
-	 */
-	public double getAbsorbRange() {
-		return bonuses[ABSORB_RANGE];
+	public double getPrayer() {
+		return bonuses[PRAYER];
 	}
 
 	/**
@@ -241,36 +283,6 @@ public final class EquipmentBonuses implements Iterable<Double> {
 		return bonuses[STRENGTH_RANGE];
 	}
 
-	/**
-	 * Gets the prayer bonus.
-	 * @return The prayer bonus.
-	 */
-	public double getPrayer() {
-		return bonuses[PRAYER];
-	}
-
-	/**
-	 * Gets the magic bonus.
-	 * @return The magic bonus.
-	 */
-	public double getMagic() {
-		return bonuses[MAGIC];
-	}
-
-	/**
-	 * Appends more equipment bonuses to the current bonuses.
-	 * @param bonuses The bonuses to append.
-	 * @return The new equipment bonuses.
-	 */
-	public EquipmentBonuses append(EquipmentBonuses bonuses) {
-		double[] temp = this.bonuses;
-		int i = 0;
-		for (double bonus : bonuses) {
-			temp[i++] += bonus;
-		}
-		return new EquipmentBonuses(temp);
-	}
-
 	@Override
 	public Iterator<Double> iterator() {
 		List<Double> temp = new ArrayList<Double>();
@@ -278,5 +290,17 @@ public final class EquipmentBonuses implements Iterable<Double> {
 			temp.add(bonus);
 		}
 		return temp.iterator();
+	}
+
+	/**
+	 * Sets the equipment bonus for the specified slot.
+	 * @param slot The slot.
+	 * @param bonus The bonus to set.
+	 * @return The new equipment bonuses.
+	 */
+	public EquipmentBonuses set(int slot, int bonus) {
+		double[] temp = this.bonuses;
+		temp[slot] = bonus;
+		return new EquipmentBonuses(temp);
 	}
 }
