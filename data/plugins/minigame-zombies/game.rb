@@ -107,11 +107,7 @@ class Zombies < Minigame
       npc.skill_set.set_skill Skill::HITPOINTS, health
       add_character ZOMBIE_TEAM, npc
       World.world.register npc
-<<<<<<< HEAD
       Combat.attack npc, player
-=======
-      Combat.attack npc, victim
->>>>>>> 1493bdc937091524b5f197d1851e0c91125ea73c
     end
     @round += 1
     @tick = 21
