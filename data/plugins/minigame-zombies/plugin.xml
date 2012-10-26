@@ -12,6 +12,7 @@
     <script>listener.rb</script>
     <script>game.rb</script>
     <script>objects.rb</script>
+    <script>shop.rb</script>
   </scripts>
   <dependencies />
 </plugin>

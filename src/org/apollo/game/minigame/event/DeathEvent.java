@@ -1,4 +1,4 @@
-package org.apollo.game.minigame.impl;
+package org.apollo.game.minigame.event;
 
 import org.apollo.game.model.Character;
 

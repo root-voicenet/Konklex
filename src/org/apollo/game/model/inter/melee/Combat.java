@@ -586,8 +586,6 @@ public final class Combat {
 			if (strn.contains("bow") || strn.contains("knife"))
 				return RANGED;
 		}
-		else if (!character.isControlling())
-			return MELEE; // every character is melee for now
 		return MELEE;
 	}
 
@@ -682,8 +680,6 @@ public final class Combat {
 	 * @param source Character to process.
 	 */
 	public static void process(Character source) {
-		// TODO Service this maybe?
-		// Checks
 		int poison = source.getMeleeSet().getPoison();
 		if (poison > 0 && System.currentTimeMillis() - source.getMeleeSet().getLastPoison() >= 10000) {
 			source.getMeleeSet().poison(TextUtil.random(3));

@@ -139,6 +139,11 @@ public abstract class Character {
 	}
 
 	/**
+	 * Called when a character is removed from the world.
+	 */
+	public abstract void exit();
+
+	/**
 	 * Gets the character's bank.
 	 * @return The character's bank.
 	 */

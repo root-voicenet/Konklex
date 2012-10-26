@@ -1,9 +1,9 @@
 package org.apollo.game.minigame;
 
+import org.apollo.game.minigame.event.DeathEvent;
 import org.apollo.game.minigame.event.JoinEvent;
 import org.apollo.game.minigame.event.LeaveEvent;
-import org.apollo.game.minigame.impl.DeathEvent;
-import org.apollo.game.model.Player;
+import org.apollo.game.model.Character;
 
 /**
  * An {@link Minigame} listener that can control events from a minigame.
@@ -28,10 +28,10 @@ public abstract class MinigameListener {
 	}
 
 	/**
-	 * Called when a player is disconnected.
-	 * @param player The player that was disconnected.
+	 * Called when a character is disconnected.
+	 * @param character The character that is being disconnected.
 	 */
-	public void playerDisconnected(Player player) {
+	public void playerDisconnected(Character character) {
 
 	}
 

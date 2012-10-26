@@ -130,7 +130,7 @@ public final class GameService extends Service {
 			int unregistered = 0;
 			Player old;
 			while (unregistered < UNREGISTERS_PER_CYCLE && (old = oldPlayers.poll()) != null) {
-				old.exitInitialEvents();
+				old.exit();
 				loginService.submitSaveRequest(old.getSession(), old);
 				unregistered++;
 			}

@@ -2,6 +2,7 @@ package org.apollo.game.model;
 
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
+import org.apollo.game.minigame.MinigameService;
 import org.apollo.game.model.def.NpcDefinition;
 import org.apollo.game.sync.block.SynchronizationBlock;
 
@@ -48,6 +49,12 @@ public final class Npc extends Character {
 		super(position);
 		this.id = id;
 		this.init();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public void exit() {
+		World.getWorld().getContext().getService(MinigameService.class).playerDisconnected(this);
 	}
 
 	/**

@@ -4,7 +4,7 @@ import org.apollo.game.event.impl.SetInterfaceTextEvent;
 import org.apollo.tools.EquipmentConstants;
 
 /**
- * Contains player-related bonuses.
+ * Contains character-related bonuses.
  * @author Steve
  */
 public final class CharacterBonuses {
@@ -17,7 +17,7 @@ public final class CharacterBonuses {
 	/**
 	 * The equipment bonuses.
 	 */
-	private EquipmentBonuses bonuses;
+	private EquipmentBonuses bonuses = new EquipmentBonuses(new double[18]);
 
 	/**
 	 * Creates the character bonuses.
@@ -41,12 +41,6 @@ public final class CharacterBonuses {
 		case EquipmentBonuses.ABSORB_MELEE:
 		case EquipmentBonuses.ABSORB_RANGE:
 			id = -1;
-			break;
-		case EquipmentBonuses.STRENGTH_MELEE:
-			id = 11;
-			break;
-		case EquipmentBonuses.PRAYER:
-			id = 12;
 			break;
 		default:
 			id = bonus;

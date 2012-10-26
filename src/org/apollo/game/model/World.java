@@ -527,6 +527,7 @@ public final class World {
 	 */
 	public void unregister(Npc npc) {
 		if (npcRepository.remove(npc)) {
+			npc.exit();
 			regionManager.getRegionByLocation(npc.getPosition()).removeNpc(npc);
 		}
 		else {
@@ -540,7 +541,6 @@ public final class World {
 	 */
 	public void unregister(Player player) {
 		if (playerRepository.remove(player)) {
-			context.getService(FrontendService.class).sendAll(new SendPlayerMethod(player.getEncodedName(), false));
 			regionManager.getRegionByLocation(player.getPosition()).removePlayer(player);
 			logger.info("Unregistered player: " + player + " [online=" + playerRepository.size() + "]");
 		}

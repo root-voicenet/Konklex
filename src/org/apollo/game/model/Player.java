@@ -3,6 +3,8 @@ package org.apollo.game.model;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+import org.apollo.api.FrontendService;
+import org.apollo.api.method.impl.SendPlayerMethod;
 import org.apollo.game.event.impl.BuildPlayerMenuEvent;
 import org.apollo.game.event.impl.ChatPrivacySettingsEvent;
 import org.apollo.game.event.impl.IdAssignmentEvent;
@@ -322,11 +324,14 @@ public final class Player extends Character {
 	/**
 	 * Sends the exit player events.
 	 */
+	@Override
 	@SuppressWarnings("deprecation")
-	public void exitInitialEvents() {
+	public void exit() {
 		interfaceSet.interfaceClosed();
-		World.getWorld().getMessaging().deregister(this);
-		World.getWorld().getContext().getService(MinigameService.class).playerDisconnected(this);
+		final World world = World.getWorld();
+		world.getMessaging().deregister(this);
+		world.getContext().getService(MinigameService.class).playerDisconnected(this);
+		world.getContext().getService(FrontendService.class).sendAll(new SendPlayerMethod(getEncodedName(), false));
 	}
 
 	/**

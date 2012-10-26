@@ -8,11 +8,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apollo.game.minigame.event.DeathEvent;
 import org.apollo.game.minigame.event.JoinEvent;
 import org.apollo.game.minigame.event.LeaveEvent;
-import org.apollo.game.minigame.impl.DeathEvent;
 import org.apollo.game.model.Character;
-import org.apollo.game.model.Player;
 
 /**
  * Represents some kind of {@code game} that consists of characters.
@@ -163,7 +162,7 @@ public abstract class Minigame {
 	protected void playerDisconnected(Character player) {
 		for (final MinigameListener listener : listeners) {
 			if (player.isControlling()) {
-				listener.playerDisconnected((Player) player);
+				listener.playerDisconnected(player);
 			}
 		}
 	}
@@ -230,7 +229,7 @@ public abstract class Minigame {
 	public boolean transferTeam(Character player, int team) {
 		final int current = getTeam(player);
 		if (current != -1)
-			return removeCharacter(current, player) == addCharacter(team, player);
+			return removeCharacter(current, player) && addCharacter(team, player);
 		return false;
 	}
 

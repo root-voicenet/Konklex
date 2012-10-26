@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 import org.apollo.Service;
 import org.apollo.game.GameConstants;
 import org.apollo.game.model.Character;
-import org.apollo.game.model.Player;
 import org.apollo.util.NamedThreadFactory;
 
 /**
@@ -78,17 +77,17 @@ public final class MinigameService extends Service {
 	}
 
 	/**
-	 * Called when a player disconnects.
-	 * @param player The player that is disconnecting.
-	 * @deprecated Only allow exitInitialEvents() to access this.
+	 * Called when a character disconnects.
+	 * @param character The character that is disconnecting.
+	 * @deprecated Only allow {@code character}.exit() to access this.
 	 */
 	@Deprecated
-	public void playerDisconnected(Player player) {
+	public void playerDisconnected(Character character) {
 		synchronized (this) {
 			for (final Minigame minigame : minigames)
 				if (minigame != null) {
-					if (minigame.getTeam(player) != -1) {
-						minigame.playerDisconnected(player);
+					if (minigame.getTeam(character) != -1) {
+						minigame.playerDisconnected(character);
 					}
 				}
 				else {
