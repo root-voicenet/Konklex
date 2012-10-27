@@ -82,26 +82,59 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * Closes the current open interface(s).
+	 * Clears the interfaces, leaving the overlay's in the map.
 	 */
+	private void clear() {
+		for (InterfaceType interfaceType : interfaces.keySet()) {
+			if (!interfaceType.equals(InterfaceType.OVERLAY)) {
+				interfaces.remove(interfaceType);
+			}
+		}
+	}
+
+	/**
+	 * Closes the current open interface(s).
+	 * @deprecated Consider using close(boolean) as this will be removed soon.
+	 */
+	@Deprecated
 	public void close() {
-		int temp = interfaces.size();
+		int temp = size();
 		closeAndNotify(false);
-		if (temp > 0)
+		if (temp > 0) {
 			player.send(new CloseInterfaceEvent());
+		}
+	}
+
+	/**
+	 * Closes the current open interfaces(s).
+	 * @param force The forcible flag that closes overlay's also.
+	 */
+	public void close(boolean force) {
+		int temp = force ? interfaces.size() : size();
+		closeAndNotify(false, force);
+		if (temp > 0) {
+			player.send(new CloseInterfaceEvent());
+		}
 	}
 
 	/**
 	 * An internal method for closing the interface, notifying the listener if appropriate, but not sending any events.
 	 * @param manually Flag for if the interface was closed manually (by the player).
 	 */
-	private void closeAndNotify(boolean manually) {
+	private void closeAndNotify(boolean... manually) {
 		amountListener = null;
 		dialogueListener = null;
-		interfaces.clear();
-		if (listener != null) {
-			listener.interfaceClosed(player, manually);
-			listener = null;
+		if (manually.length > 0) {
+			if (listener != null) {
+				listener.interfaceClosed(player, manually[0]);
+				listener = null;
+			}
+			if (manually.length > 1 && manually[1]) {
+				interfaces.clear();
+			}
+			else {
+				clear();
+			}
 		}
 	}
 
@@ -127,8 +160,9 @@ public final class InterfaceSet {
 	 * Called when the player has clicked the "Click here to continue" button on a dialogue.
 	 */
 	public void continueRequested() {
-		if (dialogueListener != null)
+		if (dialogueListener != null) {
 			dialogueListener.continued(player);
+		}
 	}
 
 	/**
@@ -154,8 +188,9 @@ public final class InterfaceSet {
 	 * @param closedInterface The interface that was closed.
 	 */
 	public void interfaceClosed(int closedInterface) {
-		if (interfaces.containsValue(closedInterface))
+		if (interfaces.containsValue(closedInterface)) {
 			closeAndNotify(true);
+		}
 	}
 
 	/**
@@ -186,6 +221,79 @@ public final class InterfaceSet {
 	public void openEnterAmountDialog(EnterAmountListener listener) {
 		this.amountListener = listener;
 		player.send(new EnterAmountEvent());
+	}
+
+	/**
+	 * Opens a overlay window.
+	 * @param windowId The window's id.
+	 */
+	public void openOverlay(int windowId) {
+		openOverlay(null, windowId);
+	}
+
+	/**
+	 * Opens a overlay window with the specified listener.
+	 * @param listener The listener for this interface.
+	 * @param windowId The window's id.
+	 */
+	public void openOverlay(InterfaceListener listener, int windowId) {
+		closeAndNotify(false);
+		this.listener = listener;
+		interfaces.put(InterfaceType.OVERLAY, windowId);
+		player.send(new OpenInterfaceOverlayEvent(windowId));
+	}
+
+	/**
+	 * Opens a window.
+	 * @param windowId The window's id.
+	 */
+	public void openWindow(int windowId) {
+		openWindow(null, windowId);
+	}
+
+	/**
+	 * Opens a window with the specified listener.
+	 * @param listener The listener for this interface.
+	 * @param windowId The window's id.
+	 */
+	public void openWindow(InterfaceListener listener, int windowId) {
+		closeAndNotify(false);
+		this.listener = listener;
+		interfaces.put(InterfaceType.WINDOW, windowId);
+		player.send(new OpenInterfaceEvent(windowId));
+	}
+
+	/**
+	 * Opens a window and inventory sidebar.
+	 * @param windowId The window's id.
+	 * @param sidebarId The sidebar's id.
+	 */
+	public void openWindowWithSidebar(int windowId, int sidebarId) {
+		openWindowWithSidebar(null, windowId, sidebarId);
+	}
+
+	/**
+	 * Opens a window and inventory sidebar with the specified listener.
+	 * @param listener The listener for this interface.
+	 * @param windowId The window's id.
+	 * @param sidebarId The sidebar's id.
+	 */
+	public void openWindowWithSidebar(InterfaceListener listener, int windowId, int sidebarId) {
+		closeAndNotify(false);
+		this.listener = listener;
+		interfaces.put(InterfaceType.WINDOW, windowId);
+		interfaces.put(InterfaceType.SIDEBAR, sidebarId);
+		player.send(new OpenInterfaceSidebarEvent(windowId, sidebarId));
+	}
+
+	/**
+	 * Returns the current listener and removes the old one.
+	 * @return The listener.
+	 */
+	public InterfaceListener removeListener() {
+		final InterfaceListener listener = this.listener;
+		this.listener = null;
+		return listener;
 	}
 
 	/**
@@ -278,68 +386,6 @@ public final class InterfaceSet {
 	}
 
 	/**
-	 * Opens a overlay window.
-	 * @param windowId The window's id.
-	 */
-	public void openWalkable(int windowId) {
-		// interfaces.put(InterfaceType.OVERLAY, windowId);
-		player.send(new OpenInterfaceOverlayEvent(windowId));
-	}
-
-	/**
-	 * Opens a window.
-	 * @param windowId The window's id.
-	 */
-	public void openWindow(int windowId) {
-		openWindow(null, windowId);
-	}
-
-	/**
-	 * Opens a window with the specified listener.
-	 * @param listener The listener for this interface.
-	 * @param windowId The window's id.
-	 */
-	public void openWindow(InterfaceListener listener, int windowId) {
-		closeAndNotify(false);
-		this.listener = listener;
-		interfaces.put(InterfaceType.WINDOW, windowId);
-		player.send(new OpenInterfaceEvent(windowId));
-	}
-
-	/**
-	 * Opens a window and inventory sidebar.
-	 * @param windowId The window's id.
-	 * @param sidebarId The sidebar's id.
-	 */
-	public void openWindowWithSidebar(int windowId, int sidebarId) {
-		openWindowWithSidebar(null, windowId, sidebarId);
-	}
-
-	/**
-	 * Opens a window and inventory sidebar with the specified listener.
-	 * @param listener The listener for this interface.
-	 * @param windowId The window's id.
-	 * @param sidebarId The sidebar's id.
-	 */
-	public void openWindowWithSidebar(InterfaceListener listener, int windowId, int sidebarId) {
-		closeAndNotify(false);
-		this.listener = listener;
-		interfaces.put(InterfaceType.WINDOW, windowId);
-		interfaces.put(InterfaceType.SIDEBAR, sidebarId);
-		player.send(new OpenInterfaceSidebarEvent(windowId, sidebarId));
-	}
-
-	/**
-	 * Returns the current listener and removes the old one.
-	 * @return The listener.
-	 */
-	public InterfaceListener removeListener() {
-		final InterfaceListener listener = this.listener;
-		this.listener = null;
-		return listener;
-	}
-
-	/**
 	 * Sets the text on a window specified listener.
 	 * @param interfaceId The window's id.
 	 * @param text The text to be displayed
@@ -359,5 +405,21 @@ public final class InterfaceSet {
 		this.listener = listener;
 		interfaces.put(InterfaceType.DIALOGUE, interfaceId);
 		player.send(new SetInterfaceTextEvent(interfaceId, text));
+	}
+
+	/**
+	 * Gets the size of the interfaces.
+	 * @return The size of the interfaces.
+	 */
+	public int size() {
+		int i = 0;
+		for (InterfaceType interfaceSet : interfaces.keySet()) {
+			if (interfaceSet.equals(InterfaceType.OVERLAY))
+				return 0;
+			else {
+				i++;
+			}
+		}
+		return i;
 	}
 }

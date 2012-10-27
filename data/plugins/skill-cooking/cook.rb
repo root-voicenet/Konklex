@@ -117,7 +117,7 @@ class CookingDialogListener
   end
 
   def amountEntered(amount)
-    player.get_interface_set.close
+    player.interface_set.close false
     player.start_action CookingAction.new(player, item, event, amount)
   end
 end
@@ -135,10 +135,10 @@ class CookingListener
   def buttonClicked(player, button)
     click = button_to_id button
     if click == -1
-      player.get_interface_set.open_enter_amount_dialog CookingDialogListener.new(player, item, event)
+      player.interface_set.open_enter_amount_dialog CookingDialogListener.new(player, item, event)
     elsif click != 0
       player.start_action CookingAction.new(player, item, event, click)
-      player.get_interface_set.close
+      player.interface_set.close false
     end
   end
 

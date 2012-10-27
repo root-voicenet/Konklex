@@ -17,7 +17,7 @@ class Zombies < Minigame
     @tick = 0
     @round = 1
     @points = 0
-    @shop = Npc.new(534, SHOP)
+    @shop = Npc.new 534, SHOP
   end
 
   def pulse
@@ -47,6 +47,7 @@ class Zombies < Minigame
           if tick == 0
 	     if round == 10
 	       World.world.register shop
+	       shop.send_message "We are now open!"
 	     end
 	     get_characters(PLAYER_TEAM).each do |player|
               player.send_message "Starting round #{round}, good luck!"
@@ -62,13 +63,11 @@ class Zombies < Minigame
 	end
       end
     else
-      if get_characters(WAITING_TEAM).size > 0
-        if tick == 0
-          get_characters(WAITING_TEAM).each do |character|
-            transfer_team character, PLAYER_TEAM
-          end
-          set_attribute 1, true
+      if tick == 0 and get_characters(WAITING_TEAM).size > 0
+        get_characters(WAITING_TEAM).each do |character|
+          transfer_team character, PLAYER_TEAM
         end
+        set_attribute 1, true
       end
       if tick > 0
         @tick -= 1
@@ -127,7 +126,9 @@ on :event, :npc_option do |ctx, player, event|
   if event.get_option == 3
     if event.get_npc.get_id == 534
       if $zombie.get_round >= 10
-        World.world.get_stores.open_shop player, 200
+	if $zombie.get_attribute 1 and $zombie.get_characters(PLAYER_TEAM).contains(player)
+          World.world.get_stores.open_shop player, 200
+	end
       end
     end
   end

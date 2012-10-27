@@ -9,10 +9,10 @@ class ZombieListener < MinigameListener
   def playerAdded(player)
     character = player.get_character
     team = player.get_team
-    time = $zombie.get_tick / 60 == 0 ? 1 : $zombie.get_tick / 60
+    time = $zombie.get_tick / 60
     if team == PLAYER_TEAM
       character.teleport START
-      character.get_interface_set.open_walkable 4958
+      character.interface_set.open_overlay 4958
       character.send SetInterfaceTextEvent.new(4960, "Zombies")  
     elsif team == WAITING_TEAM
       if time > 0
@@ -28,7 +28,11 @@ class ZombieListener < MinigameListener
   end
 
   def playerRemoved(player)
-    # only used for players
+    team = player.get_team
+    if team == PLAYER_TEAM and $zombie.get_round > 9
+      character = player.get_player
+      character.inventory.remove 6199, 5
+    end
   end
 
   def playerDisconnected(character)
@@ -53,8 +57,8 @@ class ZombieListener < MinigameListener
       end
     elsif team == PLAYER_TEAM
       player = event.get_player
-      character.get_interface_set.open_walkable -1
-      transfer_team event.get_player, WAITING_TEAM
+      player.interface_set.close true
+      $zombie.transfer_team player, WAITING_TEAM
     end
   end
 

@@ -19,7 +19,7 @@ class PitListener < MinigameListener
       character.teleport GAME_ENTER
     end
     character.send SetInterfaceTextEvent.new(2805, "Current Champion: #{$pits.get_champion}")
-    character.get_interface_set.open_walkable 2804
+    character.interface_set.open_overlay 2804
   end
 
   def playerRemoved(player)
@@ -27,7 +27,7 @@ class PitListener < MinigameListener
     team = player.get_team
     if team == LOBBY
       character.teleport LOBBY_LEAVE
-      character.get_interface_set.open_walkable -1
+      character.interface_set.close true
     end
   end
 

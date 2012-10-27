@@ -167,14 +167,13 @@ public final class TradeSession {
 		}
 		acquaintance.sendMessage("The other player has declined.");
 		state = State.DECLINING;
-		player.getInterfaceSet().close();
+		player.getInterfaceSet().close(false);
 	}
 
 	private void finalizeTrade() {
 		final TradeSession as = verifyAcquaintanceSession();
-		if (state == State.FINALIZING || as.getState() == State.FINALIZING) {
+		if (state == State.FINALIZING || as.getState() == State.FINALIZING)
 			return;
-		}
 		state = State.FINALIZING;
 		final Inventory pi = player.getInventory();
 		final Inventory ai = acquaintance.getInventory();
@@ -220,8 +219,8 @@ public final class TradeSession {
 		}
 		player.getInterfaceSet().removeListener();
 		acquaintance.getInterfaceSet().removeListener();
-		player.getInterfaceSet().close();
-		acquaintance.getInterfaceSet().close();
+		player.getInterfaceSet().close(false);
+		acquaintance.getInterfaceSet().close(false);
 	}
 
 	Player getAcquaintance() {
@@ -249,13 +248,11 @@ public final class TradeSession {
 	 */
 	public void offerItem(Item item) {
 		final TradeSession as = verifyAcquaintanceSession();
-		if (as.state.ordinal() > 1 || state.ordinal() > 1) {
+		if (as.state.ordinal() > 1 || state.ordinal() > 1)
 			return;
-		}
 		final int amountRemoved = player.getInventory().remove(item);
-		if (amountRemoved < 1) {
+		if (amountRemoved < 1)
 			return;
-		}
 		offeredItems.add(item.getId(), amountRemoved);
 		if (as.state == State.AWAITING_ACCEPTANCE || state == State.AWAITING_ACCEPTANCE) {
 			state = State.TRADING;
@@ -270,13 +267,11 @@ public final class TradeSession {
 	 */
 	public void removeOffer(Item item) {
 		final TradeSession as = verifyAcquaintanceSession();
-		if (as.state.ordinal() > 1 || state.ordinal() > 1) {
+		if (as.state.ordinal() > 1 || state.ordinal() > 1)
 			return;
-		}
 		final int amountRemoved = offeredItems.remove(item);
-		if (amountRemoved < 1) {
+		if (amountRemoved < 1)
 			return;
-		}
 		player.getInventory().add(item.getId(), amountRemoved);
 		if (as.state == State.AWAITING_ACCEPTANCE || state == State.AWAITING_ACCEPTANCE) {
 			state = State.TRADING;

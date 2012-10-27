@@ -73,7 +73,7 @@ class FletchingDialogListener
   end
 
   def amountEntered(amount)
-    player.get_interface_set.close
+    player.interface_set.close false
     player.start_action FletchingAction.new(player, bow, log, amount)
   end
 end
@@ -91,9 +91,9 @@ class FletchingListener
     bow = BOWS[log][button]
     if bow != nil
       if bow.count == -1
-        player.get_interface_set.open_enter_amount_dialog FletchingDialogListener.new(player, bow, log)
+        player.interface_set.open_enter_amount_dialog FletchingDialogListener.new(player, bow, log)
       else
-        player.get_interface_set.close
+        player.interface_set.close false
         player.start_action FletchingAction.new(player, bow, log, bow.count)
       end
     end
