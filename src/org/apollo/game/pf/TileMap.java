@@ -51,9 +51,11 @@ public class TileMap {
 		this.width = width;
 		this.height = height;
 		this.tiles = new Tile[width][height];
-		for (int x = 0; x < width; x++)
-			for (int y = 0; y < width; y++)
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < width; y++) {
 				tiles[x][y] = defaultTile;
+			}
+		}
 	}
 
 	/**
@@ -104,7 +106,7 @@ public class TileMap {
 	 * @throws IllegalArgumentException if the coordinates are out of bounds.
 	 */
 	public Tile getTile(int x, int y) {
-		//checkBounds(x, y);
+		checkBounds(x, y);
 		return tiles[x][y];
 	}
 
@@ -124,7 +126,7 @@ public class TileMap {
 	 * @throws IllegalArgumentException if the coordinates are out of bounds.
 	 */
 	public void setTile(int x, int y, Tile tile) {
-		//checkBounds(x, y);
+		checkBounds(x, y);
 		tiles[x][y] = tile;
 	}
 
