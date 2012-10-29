@@ -197,12 +197,21 @@ public final class Server {
 			logger.info("Loading the SIGAR library...");
 			System.setProperty("org.hyperic.sigar.path", "-");
 			String seperator = getSeperator();
+			String arch = System.getProperty("os.arch");
 			String file = new File(".").getCanonicalPath() + seperator + "data" + seperator + "library" + seperator;
-			if (System.getProperty("os.arch").contains("x86")) {
+			if (arch.contains("x86")) {
 				file += "sigar-32.dll";
 			}
 			else {
-				file += isWindows() ? "sigar.dll" : "sigar.so";
+				if (isWindows()) {
+					file += "sigar.dll";
+				} else {
+					if (arch.contains("x86") || arch.contains("i386")) {
+						file += "sigar-32.so";
+					} else {
+						file += "sigar.so";
+					}
+				}
 			}
 			Runtime.getRuntime().load(file);
 		}

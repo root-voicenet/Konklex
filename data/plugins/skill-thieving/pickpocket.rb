@@ -8,10 +8,6 @@ PICKPOCKET_ANIMATION = Animation.new(881)
 PICKPOCKET_GRAPHIC = Graphic.new(348, 0, 100)
 STEAL_ANIMATION = Animation.new(0x340)
 
-def get_random(list)
-  return list[list.length * rand]
-end
-
 class StealAction < DistancedAction
 
   attr_reader :started, :stall, :position
@@ -44,9 +40,9 @@ class StealAction < DistancedAction
       start_steal
     else
       if rand(2) == 1
-        item = get_random stall.item
-        if character.inventory.add item, 1
-          item_def = ItemDefinition.for_id item
+        item = stall.item.sample
+        if character.inventory.add item
+          item_def = ItemDefinition.for_id item.id
           name = item_def.name.sub(/ object$/, "").downcase
           character.send_message "and recieve #{name}."
           character.skill_set.add_experience Skill::THIEVING, stall.exp
@@ -89,17 +85,8 @@ class PickpocketAction < DistancedAction
       start_thieve
     else
       if rand(2) == 1
-        gave = false
-        while not gave
-          npcz.loot.each do |item, amount|
-            if not gave
-              if rand(4) == 1
-                character.inventory.add item, amount
-                gave = true
-              end
-            end
-          end
-        end
+        item = npcz.loot.sample
+        character.inventory.add item
         character.skill_set.add_experience Skill::THIEVING, 17
         character.send_message "You pick the man's pocket."
       else

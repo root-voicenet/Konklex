@@ -30,6 +30,6 @@ public final class TradeInterfaceListener extends InterfaceAdapter {
 		session.getPlayer().setTradeSession(null);
 		session.getAcquaintance().setTradeSession(null);
 		session.getAcquaintance().getInterfaceSet().removeListener();
-		session.getAcquaintance().getInterfaceSet().close(false);
+		session.getAcquaintance().getInterfaceSet().close();
 	}
 }

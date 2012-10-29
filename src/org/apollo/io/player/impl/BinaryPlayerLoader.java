@@ -31,7 +31,7 @@ public final class BinaryPlayerLoader implements PlayerLoader {
 	/**
 	 * The default spawn position.
 	 */
-	private static final Position SPAWN_POSITION = new Position(3094, 3495);
+	private static final Position SPAWN_POSITION = new Position(2827, 3344);
 
 	/**
 	 * Temporary size.

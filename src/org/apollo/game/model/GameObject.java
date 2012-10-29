@@ -41,6 +41,17 @@ public final class GameObject {
 		this.type = type;
 		this.rotation = rotation;
 	}
+	
+	/**
+	 * Creates the game object.
+	 * @param id The id.
+	 * @param position The location.
+	 * @param type The type.
+	 * @param rotation The rotation.
+	 */
+	public GameObject(int id, Position position, int type, int rotation) {
+		this(ObjectDefinition.forId(id), position, type, rotation);
+	}
 
 	/**
 	 * Gets the definition.

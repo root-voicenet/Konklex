@@ -29,7 +29,7 @@ end
 
 def appendShop(shop)
   worldshop = Shop.new shop.name, shop.type
-  World.get_world.get_stores.addShop shop.id, worldshop
+  World.world.stores.add_shop shop.id, worldshop
   shop.items.each do |item, amount|
     if item >= 0 and item < MAX_ITEM_ID
       worldshop.add_item Item.new(item, amount)

@@ -37,6 +37,7 @@ import org.apollo.game.scheduling.impl.SystemUpdateTask;
 import org.apollo.game.scheduling.impl.UptimeTask;
 import org.apollo.io.EquipmentDefinitionParser;
 import org.apollo.io.NpcSpawnParser;
+import org.apollo.io.ObjectSpawnParser;
 import org.apollo.util.CharacterRepository;
 import org.apollo.util.plugin.PluginManager;
 
@@ -347,16 +348,24 @@ public final class World {
 		logger.info("Done (loaded " + npcDefs.length + " NPC definitions).");
 
 		logger.info("Loading NPC spawns...");
-		nonNull = 0;
 		is = new FileInputStream("data/npc-spawns.xml");
 		final NpcSpawnParser npcParser = new NpcSpawnParser(is);
 		final Npc[] npcSpawns = npcParser.parse();
-		for (final Npc npc : npcSpawns)
-			if (npc != null) { // Shouldn't have to, but just in case.
-				nonNull++;
-				register(npc);
-			}
-		logger.info("Done (loaded " + nonNull + " NPC spawns).");
+		for (final Npc npc : npcSpawns) {
+			register(npc);
+		}
+		is.close();
+		logger.info("Done (loaded " + npcSpawns.length + " NPC spawns).");
+		
+		logger.info("Loading Object spawns...");
+		is = new FileInputStream("data/object-spawns.xml");
+		final ObjectSpawnParser gameObjectParser = new ObjectSpawnParser(is);
+		final GameObject[] objectSpawns = gameObjectParser.parse();
+		for (final GameObject go : objectSpawns) {
+			register(go);
+		}
+		is.close();
+		logger.info("Done (loaded " + objectSpawns.length + " Object spawns).");
 
 		this.pluginManager = mgr;
 		this.context = context;

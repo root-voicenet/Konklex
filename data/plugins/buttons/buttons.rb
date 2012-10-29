@@ -10,5 +10,5 @@ on :button, 21341 do |player|
 end
 
 on :button, 21299 do |player|
-  player.get_interface_set.close false
+  player.get_interface_set.close
 end

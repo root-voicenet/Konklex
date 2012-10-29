@@ -86,7 +86,7 @@ class SmithingListener
     if bar != nil
       player.start_action SmithingAction.new(player, position, bar)
     end
-    player.interface_set.close false
+    player.get_interface_set.close
   end
 
   def interfaceClosed(player, manually)
@@ -108,7 +108,7 @@ on :event, :object_action do |ctx, player, event|
     player.send SetInterfaceItemModelEvent.new(2411, 2359, 150)
     player.send SetInterfaceItemModelEvent.new(2412, 2361, 150)
     player.send SetInterfaceItemModelEvent.new(2413, 2363, 150)
-    player.interface_set.open_dialogue SmithingListener.new(event.get_position), 2400
+    player.get_interface_set.open_dialogue SmithingListener.new(event.get_position), 2400
     ctx.break_handler_chain
   end
 end

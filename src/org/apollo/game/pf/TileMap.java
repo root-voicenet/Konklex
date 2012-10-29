@@ -104,7 +104,7 @@ public class TileMap {
 	 * @throws IllegalArgumentException if the coordinates are out of bounds.
 	 */
 	public Tile getTile(int x, int y) {
-		checkBounds(x, y);
+		//checkBounds(x, y);
 		return tiles[x][y];
 	}
 
@@ -124,7 +124,7 @@ public class TileMap {
 	 * @throws IllegalArgumentException if the coordinates are out of bounds.
 	 */
 	public void setTile(int x, int y, Tile tile) {
-		checkBounds(x, y);
+		//checkBounds(x, y);
 		tiles[x][y] = tile;
 	}
 

@@ -24,8 +24,8 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 	public void handle(EventHandlerContext ctx, Player player, WalkEvent event) {
 		final WalkingQueue queue = player.getWalkingQueue();
 		final Position[] steps = event.getSteps();
-		if (event.isRunning() && player.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER)) {
-			player.teleport(steps[steps.length - 1]);
+		if (player.getPrivilegeLevel().equals(PrivilegeLevel.DEVELOPER) && event.isRunning()) {
+			player.teleport(steps[steps.length - 1], false);
 		}
 		else {
 			for (int i = 0; i < steps.length; i++) {
@@ -44,9 +44,9 @@ public final class WalkEventHandler extends EventHandler<WalkEvent> {
 		}
 		if (queue.size() > 0) {
 			player.getMeleeSet().setUnderAttack(false);
-			player.getInterfaceSet().close(false);
 			player.stopAction();
 			player.stopFacing();
+			player.getInterfaceSet().close();
 		}
 	}
 }

@@ -37,7 +37,7 @@ public class TileMapBuilder {
 	 */
 	public TileMapBuilder(Position position, int radius) {
 		this.centerPosition = position;
-		this.tileMap = new TileMap(radius * 2 + 1, radius * 2 + 1);
+		this.tileMap = new TileMap(position.getX() * radius, position.getY() * radius);
 		this.radius = radius;
 	}
 
@@ -65,7 +65,7 @@ public class TileMapBuilder {
 
 		// now fills in the tile map
 		for (Region region : coveredRegions) {
-			for (GameObject obj : region.getGameObjects()) {
+			for (GameObject obj : region.getObjects()) {
 
 				if (!obj.getDefinition().isSolid()) {
 					continue;
@@ -78,16 +78,18 @@ public class TileMapBuilder {
 				int sizeX = obj.getDefinition().getSizeX();
 				int sizeY = obj.getDefinition().getSizeY();
 				// position in the tile map
-				int posX = loc.getX() - topX;
-				int posY = loc.getY() - topY;
+				int posX = loc.getX();
+				int posY = loc.getY();
+				
+				System.out.println(obj.getType() + ", " + posX + ":" + posY);
 
-				if (posX + sizeX < 0 || posY + sizeY < 0 || posX >= tileMap.getWidth() || posY >= tileMap.getHeight()) {
-					continue;
-				}
+				//if (posX + sizeX < 0 || posY + sizeY < 0 || posX >= tileMap.getWidth() || posY >= tileMap.getHeight()) {
+				//	continue;
+				//}
 
 				if (obj.getType() == 0 || obj.getType() == 1 || obj.getType() == 3) {
 					// walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+					//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 						// int finalRotation = (obj.getType() +
 						// obj.getRotation()) % 4;
 						int finalRotation = obj.getRotation();
@@ -112,11 +114,11 @@ public class TileMapBuilder {
 						if (flags != t.getTraversalMask()) {
 							tileMap.setTile(posX, posY, new Tile(flags));
 						}
-					}
+					//}
 				}
 				else if (obj.getType() == 2) {
 					// corner walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+					//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 						// int finalRotation = (obj.getType() +
 						// obj.getRotation()) % 4;
 						int finalRotation = obj.getRotation();
@@ -145,13 +147,13 @@ public class TileMapBuilder {
 						if (flags != t.getTraversalMask()) {
 							tileMap.setTile(posX, posY, new Tile(flags));
 						}
-					}
+					//}
 				}
 				else if (obj.getType() == 9) {
 					// diagonal walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+					//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 						tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-					}
+					//}
 				}
 				else if (obj.getType() == 10 || obj.getType() == 11) {
 					if (obj.getRotation() == 1 || obj.getRotation() == 3) {
@@ -161,31 +163,23 @@ public class TileMapBuilder {
 						sizeY = temp;
 					}
 
-					// world objects
-					for (int offX = posX; offX < sizeX; offX++) {
-						for (int offY = 0; offY < sizeY; offY++) {
-							int x = offX + posX;
-							int y = offY + posY;
-							if (x >= 0 && y >= 0 && x < tileMap.getWidth() && y < tileMap.getHeight()) {
-								System.out.println(x + " " + y);
-								tileMap.setTile(x, y, TileMap.SOLID_TILE);
-							}
-						}
-					}
+					//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+						tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
+					//}
 				}
 				else if (obj.getType() == 22) {
 					// floor decoration
 					if (obj.getDefinition().hasActions()) {
-						if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+						//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 							tileMap.setTile(posX, posY, TileMap.SOLID_TILE);
-						}
+						//}
 					}
 				}
 				else {
 					// corner walls
-					if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
+					//if (posX >= 0 && posY >= 0 && posX < tileMap.getWidth() && posY < tileMap.getHeight()) {
 						tileMap.setTile(posX, posY, TileMap.EMPTY_TILE);
-					}
+					//}
 					// 4-8 are wall decorations and 12-21 are roofs
 					// we can ignore those
 				}

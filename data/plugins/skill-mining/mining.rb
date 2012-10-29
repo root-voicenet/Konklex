@@ -34,13 +34,14 @@ class MiningAction < DistancedAction
     return nil
   end
 
-  def get_mining_success(ore_level, level)
+  def get_mining_success(pickaxe, level)
     level = level * 2
-    required = ore_level
-    second = required / 2
+    required = ore.level
+    second = pickaxe.level / required
     randNum = rand(second)
     first = ((randNum * level) / 3)
-    return first > second
+    randNumS = SecureRandom.new().next_double * 100.0
+    return first <= randNumS
   end
 
   # starts the mining animation, sets counters/flags and turns the character to
@@ -97,13 +98,13 @@ class MiningAction < DistancedAction
       if counter == 0
         character.play_animation pickaxe.animation
         @counter = pickaxe.pulses
-        if get_mining_success ore.level, level
+        if get_mining_success pickaxe, level
           character.inventory.add ore.id
           ore_def = ItemDefinition.for_id @ore.id # TODO: split off into some method
           name = ore_def.name.sub(/ ore$/, "").downcase
           character.send_message "You manage to mine some #{name}."
           skills.add_experience Skill::MINING, ore.exp
-          if ore.respawn != -1 then 
+          if ore.respawn != -1 then
             expire position
             stop
           end
@@ -128,7 +129,8 @@ class MiningAction < DistancedAction
         append_expired position
         ex_game_object = GameObject.new ObjectDefinition.for_id(expired_obj), position, 10, 1
         World.world.replace_object position, ex_game_object
-        World.world.schedule ExpireOre.new(obj, position, ore.respawn)
+        players = World.world.get_player_repository.size
+        World.world.schedule ExpireOre.new(players, obj, position, ore.respawn)
       end
     end
   end
@@ -143,8 +145,8 @@ class ExpireOre < ScheduledTask
 
   attr_reader :ore, :position
 
-  def initialize(ore, position, tick)
-    super tick, false
+  def initialize(players, ore, position, tick)
+    super respawn_pulses(tick, players), false
     @ore = ore
     @position = position
   end

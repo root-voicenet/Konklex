@@ -22,7 +22,7 @@ public final class CombatUtil {
 		PriorityQueue<Item> allItems = new PriorityQueue<Item>(1, new Comparator<Item>() {
 			@Override
 			public int compare(Item a, Item b) {
-				return b.getDefinition().getValue() - a.getDefinition().getValue();
+				return (a.getDefinition().getValue() * a.getAmount()) - (b.getDefinition().getValue() * b.getAmount());
 			}
 		});
 		for (Item item : items) {
@@ -45,7 +45,7 @@ public final class CombatUtil {
 		PriorityQueue<Item> allItems = new PriorityQueue<Item>(1, new Comparator<Item>() {
 			@Override
 			public int compare(Item a, Item b) {
-				return a.getDefinition().getValue() - b.getDefinition().getValue();
+				return (b.getDefinition().getValue() * b.getAmount()) - (a.getDefinition().getValue() * a.getAmount());
 			}
 		});
 		for (Item item : items) {

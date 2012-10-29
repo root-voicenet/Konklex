@@ -6,7 +6,6 @@ on :command, :test, RIGHTS_DEV do |player, command|
   if args.length == 2
     bar = args[0].to_i
     enabled = args[1].to_i == 1
-    player.get_interface_set.open_walkable 7511
     player.send SpecialEvent.new(enabled, bar)
   else
     player.send_message "Syntax: ::test [bar] [enabled]"

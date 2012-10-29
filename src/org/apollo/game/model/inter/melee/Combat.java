@@ -31,7 +31,12 @@ public final class Combat {
 	/**
 	 * The default spawn position.
 	 */
-	private static final Position SPAWN_POSITION = new Position(3094, 3495);
+	private static final Position SPAWN_POSITION = new Position(2851, 3349);
+	
+	/**
+	 * The default drop for every character.
+	 */
+	private static final Item DROP = new Item(526);
 
 	/**
 	 * Attack type constants.
@@ -71,8 +76,8 @@ public final class Combat {
 
 			@Override
 			public void execute() {
-				if (victim.isControlling()) {
-					victim.teleport(SPAWN_POSITION);
+				if (victim.isControlling()) {		
+					victim.teleport(SPAWN_POSITION.transform(0, -TextUtil.random(1), 0));
 				}
 
 				victim.addHealth(victim.getHealthMax());
@@ -92,9 +97,6 @@ public final class Combat {
 								World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
 							}
 						}
-						else if (!victim.isControlling() && source.isControlling()) {
-							appendNpcDrop((Npc) victim, (Player) source);
-						}
 						else if (source.isControlling()) {
 							for (Item item : inventory) {
 								World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
@@ -113,8 +115,13 @@ public final class Combat {
 							}
 						}
 					}
+				} else {
+					if (source.isControlling()) {
+						appendNpcDrop((Npc) victim, (Player) source);
+					}
 				}
-
+				
+				World.getWorld().register(new GroundItem(DROP, victim.getPosition()));
 				source.resetMeleeSet();
 
 				if (!victim.isControlling()) {
@@ -148,6 +155,9 @@ public final class Combat {
 	 * @return True if hit was successful, false if not.
 	 */
 	private static boolean appendHit(int type, Character source, Character victim, int damage) {
+		if (source.getMeleeSet().isDying() || victim.getMeleeSet().isDying()) {
+			return false;
+		}
 		switch (type) {
 		case RANGED:
 			return appendRange(source, victim, damage);
@@ -307,12 +317,13 @@ public final class Combat {
 	 */
 	private static void appendNpcDrop(Npc victim, Player source) {
 		final Inventory inventory = victim.getInventory();
-		Inventory drops = CombatUtil.getNpcGroundItems(inventory.size(), inventory);
-		for (Item item : drops) {
-			if (TextUtil.random(drops.size() / 2) <= 1) {
-				break;
+		if (inventory.size() > 0) {
+			final int probability = TextUtil.random(inventory.size());
+			final int rate = (probability / 2) < 1 ? 1 : (probability / 2);
+			Inventory drops = CombatUtil.getNpcGroundItems(rate, inventory);
+			for (Item item : drops) {
+				World.getWorld().register(new GroundItem(source.getName(), item, victim.getPosition()));
 			}
-			World.getWorld().register(new GroundItem(source.getName(), item, victim.getPosition()));
 		}
 	}
 
@@ -557,7 +568,7 @@ public final class Combat {
 			return;
 		}
 		int type = grabHitType(source);
-		if (type != MELEE || source.getPosition().isWithinDistance(victim.getPosition(), 2)) {
+		if (type != MELEE || source.getPosition().isWithinDistance(victim.getPosition(), 1)) {
 			if (type == RANGED || type == MAGIC) {
 				source.getWalkingQueue().clear();
 			}
@@ -697,9 +708,11 @@ public final class Combat {
 			Character victim = source.getMeleeSet().getInteractingCharacter();
 			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying()) {
 				source.resetMeleeSet();
+			} else if (source.getHealth() <= 0 || source.getMeleeSet().isDying()) {
+				victim.resetMeleeSet();
 			}
 			final int type = grabHitType(source);
-			if (!source.getPosition().isWithinDistance(victim.getPosition(), type == MAGIC || type == RANGED ? 16 : 1)) {
+			if (!source.getPosition().isWithinDistance(victim.getPosition(), type == RANGED ? 7 : type == MAGIC ? 16 : 1)) {
 				walkToVictim(source, victim, false);
 				return;
 			}

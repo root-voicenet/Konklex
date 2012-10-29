@@ -7,30 +7,40 @@ import org.apollo.game.model.Position;
  * suitable for an NPC.
  * @author Graham Edgecombe
  */
-public class DumbPathFinder extends PathFinder {
+public final class DumbPathFinder extends PathFinder {
 
 	@Override
 	public Path findPath(Position location, int radius, TileMap map, int srcX, int srcY, int dstX, int dstY) {
 		int stepX = 0, stepY = 0;
-		if (srcX > dstX && map.getTile(dstX, srcY).isWesternTraversalPermitted()) {
-			stepX = -1;
-		}
-		else if (srcX < dstX && map.getTile(dstX, srcY).isEasternTraversalPermitted()) {
-			stepX = 1;
-		}
-		if (srcX > dstY && map.getTile(srcX, dstY).isSouthernTraversalPermitted()) {
-			stepY = -1;
-		}
-		else if (srcX > dstY && map.getTile(srcX, dstY).isNorthernTraversalPermitted()) {
-			stepY = 1;
-		}
-		if (stepX != 0 || stepY != 0) {
-			final Path p = new Path();
-			p.addPoint(new Point(srcX, srcY));
-			p.addPoint(new Point(srcX + stepX, srcY + stepY));
-			return p;
-		}
-		return null;
+		//WEST, should check western on this tile and eastern on dest
+        if (srcX > dstX
+                && map.getTile(srcX, srcY).isWesternTraversalPermitted()
+                && map.getTile(dstX, dstY).isEasternTraversalPermitted()) {
+            stepX = -1;
+        //EAST, should check eastern on this tile and western on dest
+        } else if (srcX < dstX
+                && map.getTile(srcX, srcY).isEasternTraversalPermitted()
+                && map.getTile(dstX, dstY).isWesternTraversalPermitted()) {
+            stepX = 1;
+        }
+        //SOUTH, should check southern on this and northern on dest
+        if (srcY > dstY
+                && map.getTile(srcX, srcY).isSouthernTraversalPermitted()
+                && map.getTile(dstX, dstY).isNorthernTraversalPermitted()) {
+            stepY = -1;
+        //NORTH, should check northern on this and southern on dest
+        } else if (srcY < dstY
+                && map.getTile(srcX, srcY).isNorthernTraversalPermitted()
+                && map.getTile(dstX, dstY).isSouthernTraversalPermitted()) {
+            stepY = 1;
+        }
+        if (stepX != 0 || stepY != 0) {
+            Path p = new Path();
+            p.addPoint(new Point(location.getX() + stepX, location.getY() + stepY));
+            p.addPoint(new Point(srcX + location.getX() - radius, srcY + location.getY() - radius));
+            return p;
+        }
+        return null;
 	}
 
 }

@@ -230,7 +230,7 @@ public final class WalkingQueue {
 			first = next.direction;
 			position = next.position;
 			final RegionManager manager = World.getWorld().getRegionManager();
-			final Collection<GameObject> objects = manager.getRegionByLocation(position).getObjects();
+			final Collection<GameObject> objects = manager.getRegionByLocation(position).getGameObjects();
 			for (final GameObject object : objects)
 				if (object.getLocation().equals(position)) {
 					points.clear();

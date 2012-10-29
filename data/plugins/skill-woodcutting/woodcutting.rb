@@ -43,15 +43,13 @@ class WoodcuttingAction < DistancedAction
 
   # The chance of getting a log
   def get_success(hatchet, level)
-    log_chance = 55.0
-    lev_needed = log.level
-    log_stop = hatchet.level
-    multi_a = (log_stop - lev_needed)
-    log_dec = (log_chance / multi_a)
-    multi_b = (level - lev_needed)
-    log_chance -= (multi_b * log_dec)
-    randNum = SecureRandom.new().next_double * 100.0
-    return log_chance <= randNum
+    level = level * 2
+    required = log.level
+    second = hatchet.level / required
+    randNum = rand(second)
+    first = ((randNum * level) / 3)
+    randNumS = SecureRandom.new().next_double * 100.0
+    return first <= randNumS
   end
 
   def executeAction
@@ -134,7 +132,8 @@ class WoodcuttingAction < DistancedAction
         append_expiredd position
         ex_game_object = GameObject.new ObjectDefinition.for_id(expired_obj), position, 10, 1
         World.world.replace_object position, ex_game_object
-        World.world.schedule ExpireLog.new(obj, position, log.respawn)
+        players = World.world.get_player_repository.size
+        World.world.schedule ExpireLog.new(players, obj, position, log.respawn)
       end
     end
   end
@@ -149,8 +148,8 @@ class ExpireLog < ScheduledTask
 
   attr_reader :log, :position
 
-  def initialize(log, position, tick)
-    super tick, false
+  def initialize(players, log, position, tick)
+    super respawn_pulses(tick, players), false
     @log = log
     @position = position
   end

@@ -28,7 +28,6 @@ RIGHTS_MOD      = Player::PrivilegeLevel::MODERATOR
 RIGHTS_ADMIN    = Player::PrivilegeLevel::ADMINISTRATOR
 RIGHTS_DEV      = Player::PrivilegeLevel::DEVELOPER
 RIGHTS_OWNER    = Player::PrivilegeLevel::OWNER
-SHOP_LBUYONLY   = Shop::ShopType::LIMITED_BUY_ONLY
 SHOP_UBUYONLY   = Shop::ShopType::UNLIMITED_BUY_ONLY
 SHOP_BUYANDSELL = Shop::ShopType::BUY_AND_SELL
 

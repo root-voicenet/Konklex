@@ -33,14 +33,11 @@ end
 id = 200
 name = "Zombie Minigame"
 items = {
-  6199 => 5,
+  1 => 1,
 }
-type = SHOP_LBUYONLY
+type = SHOP_BUYANDSELL
 
 # Ship out the shop to the world.
 shop = appendShop Shops.new(id, name, items, type)
 shop.set_payment ZombiePayment.new
-
-# Todo
-# Implement the mystery box
 

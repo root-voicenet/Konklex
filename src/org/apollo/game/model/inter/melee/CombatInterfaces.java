@@ -29,7 +29,8 @@ public final class CombatInterfaces {
 			player.send(new SwitchTabInterfaceEvent(0, 12290));
 			player.send(new SetInterfaceItemModelEvent(12291, id, 200));
 			player.send(new SetInterfaceTextEvent(12293, genericName));
-			player.getMeleeSet().setSpecialBar(12325);
+			//player.getMeleeSet().setSpecialBar(12325);
+			player.getMeleeSet().setSpecialBar(7551);
 		}
 		else if (name.endsWith("Scythe")) {
 			player.send(new SwitchTabInterfaceEvent(0, 776));
