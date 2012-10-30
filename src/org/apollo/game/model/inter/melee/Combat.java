@@ -32,7 +32,7 @@ public final class Combat {
 	 * The default spawn position.
 	 */
 	private static final Position SPAWN_POSITION = new Position(2851, 3349);
-	
+
 	/**
 	 * The default drop for every character.
 	 */
@@ -76,7 +76,7 @@ public final class Combat {
 
 			@Override
 			public void execute() {
-				if (victim.isControlling()) {		
+				if (victim.isControlling()) {
 					victim.teleport(SPAWN_POSITION.transform(0, -TextUtil.random(1), 0));
 				}
 
@@ -120,7 +120,7 @@ public final class Combat {
 						appendNpcDrop((Npc) victim, (Player) source);
 					}
 				}
-				
+
 				World.getWorld().register(new GroundItem(DROP, victim.getPosition()));
 				source.resetMeleeSet();
 
@@ -155,9 +155,8 @@ public final class Combat {
 	 * @return True if hit was successful, false if not.
 	 */
 	private static boolean appendHit(int type, Character source, Character victim, int damage) {
-		if (source.getMeleeSet().isDying() || victim.getMeleeSet().isDying()) {
+		if (source.getMeleeSet().isDying() || victim.getMeleeSet().isDying())
 			return false;
-		}
 		switch (type) {
 		case RANGED:
 			return appendRange(source, victim, damage);
@@ -319,7 +318,7 @@ public final class Combat {
 		final Inventory inventory = victim.getInventory();
 		if (inventory.size() > 0) {
 			final int probability = TextUtil.random(inventory.size());
-			final int rate = (probability / 2) < 1 ? 1 : (probability / 2);
+			final int rate = probability / 2 < 1 ? 1 : probability / 2;
 			Inventory drops = CombatUtil.getNpcGroundItems(rate, inventory);
 			for (Item item : drops) {
 				World.getWorld().register(new GroundItem(source.getName(), item, victim.getPosition()));
@@ -607,11 +606,11 @@ public final class Combat {
 	 * @param victim To have for calculating their defense bonus, etc.
 	 * @return Source's max hit.
 	 */
-	@SuppressWarnings("unused")
 	private static int grabMaxHit(int type, Character source, Character victim) {
 		double MaxHit = 0;
 		switch (type) {
 		case MAGIC:
+			// TODO This is not correct, find a real calculator.
 			int MgBonus = 1; // Magic Bonus
 			int Magic = source.getSkillSet().getSkill(Skill.MAGIC).getCurrentLevel(); // Magic
 			if (source.isControlling()) {
@@ -621,54 +620,28 @@ public final class Combat {
 			MaxHit += Magic * 0.1;
 			break;
 		case RANGED:
-			double d1 = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
-			MaxHit += 1.399D + d1 * 0.00125D;
-			MaxHit += d1 * 0.11D;
-			Item item = source.getEquipment().get(EquipmentConstants.ARROWS);
-			if (item != null) {
-				switch (item.getId()) {
-				case 882:
-				case 883:
-					MaxHit *= 1.042D;
-					break;
-				case 884:
-				case 885:
-					MaxHit *= 1.044D;
-					break;
-				case 886:
-				case 887:
-					MaxHit *= 1.1339999999999999D;
-					break;
-				case 888:
-				case 889:
-					MaxHit *= 1.2D;
-					break;
-				case 890:
-				case 891:
-					MaxHit *= 1.3500000000000001D;
-					break;
-				case 892:
-				case 893:
-					MaxHit *= 1.6000000000000001D;
-					break;
-				case 4740:
-					MaxHit *= 1.95D;
-					break;
-				}
-			}
+			int RANGED_LEVEL = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
+			int R_POTION_BONUS = 0; // TODO Potions
+			int R_PRAYER_BONUS = 1; // TODO Prayer
+			int R_OTHER_BONUS = 1; // TODO Other bonuses
+			int R_STYLE_BONUS = 0; // TODO Style
+			double R_EFFECTIVE_STRENGTH = Math.floor((RANGED_LEVEL + R_POTION_BONUS) * R_PRAYER_BONUS * R_OTHER_BONUS) + R_STYLE_BONUS;
+			double R_RANGE_STRENGTH = source.getBonuses().getBonuses().getStrengthRange();
+			double R_BASE_DAMAGE = 5 + (R_EFFECTIVE_STRENGTH + 8) * (R_RANGE_STRENGTH + 64) / 64;
+			MaxHit = R_BASE_DAMAGE;
 			break;
-		default:
-			int StrBonus = 1; // Strength Bonus
-			int Strength = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel(); // Strength
-			int RngBonus = 1; // Ranged Bonus
-			int Range = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel(); // Ranged
-			StrBonus = (int) source.getBonuses().getBonuses().getStrengthMelee();
-			RngBonus = (int) source.getBonuses().getBonuses().getAttackRange();
-			MaxHit += 1.05 + StrBonus * Strength * 0.00175;
-			MaxHit += Strength * 0.1;
+		case MELEE:
+			int STRENGTH_LEVEL = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel();
+			int M_POTION_BONUS = 0; // TODO Potions
+			int M_PRAYER_BONUS = 0; // TODO Prayer
+			int M_STYLE_BONUS = 1; // TODO Style
+			double M_EFFECTIVE_STRENGTH = 8 + Math.floor((STRENGTH_LEVEL + M_POTION_BONUS) * M_PRAYER_BONUS) + M_STYLE_BONUS;
+			double M_STRENGTH_BONUS = source.getBonuses().getBonuses().getStrengthMelee();
+			double M_BASE_DAMAGE = 5 + M_EFFECTIVE_STRENGTH * (1 + M_STRENGTH_BONUS / 64);
+			MaxHit = M_BASE_DAMAGE;
 			break;
 		}
-		return (int) Math.floor(MaxHit);
+		return (int) Math.floor(MaxHit / 10);
 	}
 
 	/**
