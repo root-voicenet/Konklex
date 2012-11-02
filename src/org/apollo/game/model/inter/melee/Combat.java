@@ -16,6 +16,7 @@ import org.apollo.game.model.Position;
 import org.apollo.game.model.Skill;
 import org.apollo.game.model.World;
 import org.apollo.game.model.inter.melee.MagicConstants.Mage;
+import org.apollo.game.model.inter.melee.Prayer.Prayers;
 import org.apollo.game.model.inter.melee.RangeConstants.Range;
 import org.apollo.game.scheduling.ScheduledTask;
 import org.apollo.util.CombatUtil;
@@ -60,7 +61,8 @@ public final class Combat {
 		inventory.addAll(victim.getEquipment());
 		inventory.addAll(victim.getInventory());
 
-		final Inventory keep = CombatUtil.getItemsKeptOnDeath(3, inventory);
+		int keepN = source.getPrayers().contains(Prayers.PROTECT_ITEM) ? 4 : 3;
+		final Inventory keep = CombatUtil.getItemsKeptOnDeath(keepN, inventory);
 
 		victim.getInventory().stopFiringEvents();
 		victim.getInventory().clear();
@@ -91,28 +93,14 @@ public final class Combat {
 					victim.getEquipment().startFiringEvents();
 					victim.getEquipment().forceRefresh();
 
-					if (source != null) {
-						if (victim.isControlling() && !source.isControlling()) {
-							for (Item item : inventory) {
-								World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
-							}
-						}
-						else if (source.isControlling()) {
-							for (Item item : inventory) {
-								World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
-							}
+					if (victim.isControlling() && !source.isControlling()) {
+						for (Item item : inventory) {
+							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
 						}
 					}
-					else {
-						if (victim.isControlling()) {
-							for (Item item : inventory) {
-								World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
-							}
-						}
-						else {
-							for (Item item : inventory) {
-								World.getWorld().register(new GroundItem(item, position));
-							}
+					else if (source.isControlling()) {
+						for (Item item : inventory) {
+							World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
 						}
 					}
 				} else {
@@ -610,38 +598,38 @@ public final class Combat {
 		double MaxHit = 0;
 		switch (type) {
 		case MAGIC:
-			// TODO This is not correct, find a real calculator.
-			int MgBonus = 1; // Magic Bonus
-			int Magic = source.getSkillSet().getSkill(Skill.MAGIC).getCurrentLevel(); // Magic
-			if (source.isControlling()) {
-				MgBonus = (int) ((Player) source).getBonuses().getBonuses().getMagic();
-			}
-			MaxHit += 1.05 + MgBonus * Magic * 0.00175;
-			MaxHit += Magic * 0.1;
+			short MAGIC_LEVEL = (short) source.getSkillSet().getSkill(Skill.MAGIC).getCurrentLevel();
+			double MA_POTION_BONUS = 0;
+			double MA_PRAYER_BONUS = 1;
+			double MA_STYLE_BONUS = 1;
+			double MA_EFFECTIVE_STRENGTH = 8 + Math.floor((MAGIC_LEVEL + MA_POTION_BONUS) * MA_PRAYER_BONUS) + MA_STYLE_BONUS;
+			double MA_STRENGTH_BONUS = source.getBonuses().getBonuses().getMagic();
+			double MA_BASE_DAMAGE = 5 + MA_EFFECTIVE_STRENGTH * (1 + MA_STRENGTH_BONUS / 64);
+			MaxHit = MA_BASE_DAMAGE;
 			break;
 		case RANGED:
-			int RANGED_LEVEL = source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
-			int R_POTION_BONUS = 0; // TODO Potions
-			int R_PRAYER_BONUS = 1; // TODO Prayer
-			int R_OTHER_BONUS = 1; // TODO Other bonuses
-			int R_STYLE_BONUS = 0; // TODO Style
+			short RANGED_LEVEL = (short) source.getSkillSet().getSkill(Skill.RANGED).getCurrentLevel();
+			double R_POTION_BONUS = 0;
+			double R_PRAYER_BONUS = Prayer.getBonusRange(source) > 0 ? Prayer.getBonusRange(source) : 1;
+			double R_OTHER_BONUS = 1;
+			double R_STYLE_BONUS = 3;
 			double R_EFFECTIVE_STRENGTH = Math.floor((RANGED_LEVEL + R_POTION_BONUS) * R_PRAYER_BONUS * R_OTHER_BONUS) + R_STYLE_BONUS;
 			double R_RANGE_STRENGTH = source.getBonuses().getBonuses().getStrengthRange();
 			double R_BASE_DAMAGE = 5 + (R_EFFECTIVE_STRENGTH + 8) * (R_RANGE_STRENGTH + 64) / 64;
 			MaxHit = R_BASE_DAMAGE;
 			break;
 		case MELEE:
-			int STRENGTH_LEVEL = source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel();
-			int M_POTION_BONUS = 0; // TODO Potions
-			int M_PRAYER_BONUS = 0; // TODO Prayer
-			int M_STYLE_BONUS = 1; // TODO Style
+			short STRENGTH_LEVEL = (short) source.getSkillSet().getSkill(Skill.STRENGTH).getCurrentLevel();
+			double M_POTION_BONUS = 0;
+			double M_PRAYER_BONUS = Prayer.getBonusMelee(source) > 0 ? Prayer.getBonusMelee(source) : 1;
+			double M_STYLE_BONUS = 3;
 			double M_EFFECTIVE_STRENGTH = 8 + Math.floor((STRENGTH_LEVEL + M_POTION_BONUS) * M_PRAYER_BONUS) + M_STYLE_BONUS;
 			double M_STRENGTH_BONUS = source.getBonuses().getBonuses().getStrengthMelee();
 			double M_BASE_DAMAGE = 5 + M_EFFECTIVE_STRENGTH * (1 + M_STRENGTH_BONUS / 64);
 			MaxHit = M_BASE_DAMAGE;
 			break;
 		}
-		return (int) Math.floor(MaxHit / 10);
+		return (int) MaxHit / 10;
 	}
 
 	/**
@@ -695,13 +683,21 @@ public final class Combat {
 				source.getMeleeSet().setAttackTimer(time - 1);
 			}
 			else {
-				int damage = TextUtil.random(grabMaxHit(type, source, victim));
+				int damage = grabMaxHit(type, source, victim);
 				if (appendHit(type, source, victim, damage)) {
 					if (source.getMeleeSet().isUsingSpecial()) {
 						appendSpecial(type, source, victim, damage);
 					}
 					victim.getMeleeSet().setUnderAttack(true);
-					victim.getMeleeSet().damage(damage);
+					final int dealt = TextUtil.random((int) Math.floor(damage));
+					victim.getMeleeSet().damage(dealt);
+					if (source.getPrayers().contains(Prayers.SMITE)) {
+						final Skill skill = victim.getSkillSet().getSkill(Skill.PRAYER);
+						victim.getSkillSet().setSkill(
+								Skill.PRAYER,
+								new Skill(skill.getExperience(), skill.getCurrentLevel() - dealt / 4, skill
+										.getMaximumLevel()));
+					}
 				}
 				source.getMeleeSet().setAttackTimer(type != MAGIC ? 4 : 6);
 				victim.getMeleeSet().setLastAttack(System.currentTimeMillis());

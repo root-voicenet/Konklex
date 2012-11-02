@@ -8,6 +8,7 @@ import org.apollo.game.model.Skill;
 import org.apollo.game.model.SkillSet;
 import org.apollo.game.model.World;
 import org.apollo.game.model.inter.melee.Combat;
+import org.apollo.game.model.inter.melee.Prayer.Prayers;
 
 /**
  * A {@link SkillListener} which sends config values when a player levels up their health.
@@ -51,6 +52,14 @@ public final class HitpointSkillListener extends SkillAdapter {
 					return;
 				}
 				Combat.appendDeath(victim, character);
+			}
+			else if (skill.getCurrentLevel() <= 10) {
+				if (character.getPrayers().contains(Prayers.REDEMPTION)) {
+					Skill prayer = new Skill(skill.getExperience(), 0, skill.getMaximumLevel());
+					int healthToAdd = (int) (character.getSkillSet().getSkill(Skill.PRAYER).getMaximumLevel() * 2.50);
+					character.addHealth(healthToAdd);
+					set.setSkill(id, prayer);
+				}
 			}
 		}
 	}

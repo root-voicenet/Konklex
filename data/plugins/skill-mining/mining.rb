@@ -109,7 +109,7 @@ class MiningAction < DistancedAction
             stop
           end
         else
-          @counter = counter / 2
+          @counter = pickaxe.pulses
         end
       else
         @counter -= 1

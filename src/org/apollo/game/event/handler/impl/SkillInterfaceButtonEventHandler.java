@@ -20,357 +20,99 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	 */
 	private Player player;
 
-	@Override
-	public void handle(EventHandlerContext ctx, Player player, ButtonEvent event) {
-		this.player = player;
-		if (player.getItem() == null)
-			player.setItem(new int[40]);
-		skillGuidesButton(event.getInterfaceId());
-	}
-
 	/**
-	 * Handles the skill guide buttons.
-	 * @param buttonId The button id.
-	 * @return True if sent, false if not.
+	 * Displays the agility screen.
+	 * @param screen The screen.
 	 */
-	public boolean skillGuidesButton(int buttonId) {
-		switch (buttonId) {
-		/* Skill menus */
-		case 8654:
-		case 33206: // attack
-			attackComplex(1);
-			player.setSelected(0);
-			return true;
-		case 8657:
-		case 33209: // strength
-			strengthComplex(1);
-			player.setSelected(1);
-			return true;
-		case 8660:
-		case 33212: // Defence
-			defenceComplex(1);
-			player.setSelected(2);
-			return true;
-		case 8663:
-		case 33215: // range
-			rangedComplex(1);
-			player.setSelected(3);
-			return true;
-		case 8666:
-		case 33218: // prayer
-			prayerComplex(1);
-			player.setSelected(4);
-			return true;
-		case 8669:
-		case 33221: // mage
-			magicComplex(1);
-			player.setSelected(5);
-			return true;
-		case 8672:
-		case 33224: // runecrafting
-			runecraftingComplex(1);
-			player.setSelected(6);
-			return true;
-		case 8655:
-		case 33207: // hp
-			hitpointsComplex(1);
-			player.setSelected(7);
-			return true;
-		case 8658:
-		case 33210: // agility
-			agilityComplex(1);
-			player.setSelected(8);
-			return true;
-		case 8661:
-		case 33213: // herblore
-			herbloreComplex(1);
-			player.setSelected(9);
-			return true;
-		case 8664:
-		case 33216: // theiving
-			thievingComplex(1);
-			player.setSelected(10);
-			return true;
-		case 8667:
-		case 33219: // crafting
-			craftingComplex(1);
-			player.setSelected(11);
-			return true;
-		case 8670:
-		case 33222: // fletching
-			fletchingComplex(1);
-			player.setSelected(12);
-			return true;
-		case 12162:
-		case 47130:// slayer
-			slayerComplex(1);
-			player.setSelected(13);
-			return true;
-		case 8656:
-		case 33208:// mining
-			miningComplex(1);
-			player.setSelected(14);
-			return true;
-		case 8659:
-		case 33211: // smithing
-			smithingComplex(1);
-			player.setSelected(15);
-			return true;
-		case 8662:
-		case 33214: // fishing
-			fishingComplex(1);
-			player.setSelected(16);
-			return true;
-		case 8665:
-		case 33217: // cooking
-			cookingComplex(1);
-			player.setSelected(17);
-			return true;
-		case 8668:
-		case 33220: // firemaking
-			firemakingComplex(1);
-			player.setSelected(18);
-			return true;
-		case 8671:
-		case 33223: // woodcut
-			woodcuttingComplex(1);
-			player.setSelected(19);
-			return true;
-		case 13928:
-		case 54104: // farming
-			farmingComplex(1);
-			player.setSelected(20);
-			return true;
-
-		case 34142: // tab 1
-			menuCompilation(1);
-			return true;
-
-		case 34119: // tab 2
-			menuCompilation(2);
-			return true;
-
-		case 34120: // tab 3
-			menuCompilation(3);
-			return true;
-
-		case 34123: // tab 4
-			menuCompilation(4);
-			return true;
-
-		case 34133: // tab 5
-			menuCompilation(5);
-			return true;
-
-		case 34136: // tab 6
-			menuCompilation(6);
-			return true;
-
-		case 34139: // tab 7
-			menuCompilation(7);
-			return true;
-
-		case 34155: // tab 8
-			menuCompilation(8);
-			return true;
-
-		case 34158: // tab 9
-			menuCompilation(9);
-			return true;
-
-		case 34161: // tab 10
-			menuCompilation(10);
-			return true;
-
-		case 59199: // tab 11
-			menuCompilation(11);
-			return true;
-
-		case 59202: // tab 12
-			menuCompilation(12);
-			return true;
-
-		case 59205: // tab 13
-			menuCompilation(13);
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Opens the menus.
-	 * @param screen The screen id.
-	 */
-	public void menuCompilation(int screen) {
-		if (player.getSelected() == 0) {
-			attackComplex(screen);
-		}
-		else if (player.getSelected() == 1) {
-			strengthComplex(screen);
-		}
-		else if (player.getSelected() == 2) {
-			defenceComplex(screen);
-		}
-		else if (player.getSelected() == 3) {
-			rangedComplex(screen);
-		}
-		else if (player.getSelected() == 4) {
-			prayerComplex(screen);
-		}
-		else if (player.getSelected() == 5) {
-			magicComplex(screen);
-		}
-		else if (player.getSelected() == 6) {
-			runecraftingComplex(screen);
-		}
-		else if (player.getSelected() == 7) {
-			hitpointsComplex(screen);
-		}
-		else if (player.getSelected() == 8) {
-			agilityComplex(screen);
-		}
-		else if (player.getSelected() == 9) {
-			herbloreComplex(screen);
-		}
-		else if (player.getSelected() == 10) {
-			thievingComplex(screen);
-		}
-		else if (player.getSelected() == 11) {
-			craftingComplex(screen);
-		}
-		else if (player.getSelected() == 12) {
-			fletchingComplex(screen);
-		}
-		else if (player.getSelected() == 13) {
-			slayerComplex(screen);
-		}
-		else if (player.getSelected() == 14) {
-			miningComplex(screen);
-		}
-		else if (player.getSelected() == 15) {
-			smithingComplex(screen);
-		}
-		else if (player.getSelected() == 16) {
-			fishingComplex(screen);
-		}
-		else if (player.getSelected() == 17) {
-			cookingComplex(screen);
-		}
-		else if (player.getSelected() == 18) {
-			firemakingComplex(screen);
-		}
-		else if (player.getSelected() == 19) {
-			woodcuttingComplex(screen);
-		}
-		else if (player.getSelected() == 20) {
-			farmingComplex(screen);
-		}
-	}
-
-	/**
-	 * Opens the options tab.
-	 * @param title The title.
-	 * @param currentTab The current tab.
-	 * @param op1 The option text 1.
-	 * @param op2 The option text 2.
-	 * @param op3 The option text 3.
-	 * @param op4 The option text 4.
-	 * @param op5 The option text 5.
-	 * @param op6 The option text 6.
-	 * @param op7 The option text 7.
-	 * @param op8 The option text 8.
-	 * @param op9 The option text 9.
-	 * @param op10 The option text 10.
-	 * @param op11 The option text 11.
-	 * @param op12 The option text 12.
-	 * @param op13 The option text 13.
-	 */
-	private void optionTab(String title, String currentTab, String op1, String op2, String op3, String op4, String op5,
-			String op6, String op7, String op8, String op9, String op10, String op11, String op12, String op13) {
-		int[] interfaceChilds = { 8800, 8844, 8813, 8825, 8828, 8838, 8841, 8850, 8860, 8863, 15294, 15304, 15307 };
-		for (int i : interfaceChilds)
-			player.send(new SetInterfaceComponentEvent(i, false));
-		player.send(new SetInterfaceTextEvent(8716, title));
-		player.send(new SetInterfaceTextEvent(8849, currentTab));
-		player.send(new SetInterfaceTextEvent(8846, op1));
-		player.send(new SetInterfaceTextEvent(8823, op2));
-		player.send(new SetInterfaceTextEvent(8824, op3));
-		player.send(new SetInterfaceTextEvent(8827, op4));
-		player.send(new SetInterfaceTextEvent(8837, op5));
-		player.send(new SetInterfaceTextEvent(8840, op6));
-		player.send(new SetInterfaceTextEvent(8843, op7));
-		player.send(new SetInterfaceTextEvent(8859, op8));
-		player.send(new SetInterfaceTextEvent(8862, op9));
-		player.send(new SetInterfaceTextEvent(8865, op10));
-		player.send(new SetInterfaceTextEvent(15303, op11));
-		player.send(new SetInterfaceTextEvent(15306, op12));
-		player.send(new SetInterfaceTextEvent(15309, op13));
-		player.getInterfaceSet().openWindow(8714);
-		if (op2 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[1], true));
-		if (op3 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[2], true));
-		if (op4 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[3], true));
-		if (op5 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[4], true));
-		if (op6 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[5], true));
-		if (op7 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[6], true));
-		if (op8 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[7], true));
-		if (op9 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[8], true));
-		if (op10 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[9], true));
-		if (op11 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[10], true));
-		if (op12 == "")
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[11], true));
-		if (op13 == "") {
-			player.send(new SetInterfaceComponentEvent(interfaceChilds[12], true));
-
+	public void agilityComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Gnome Agility Course", 2150, 0);// swamptoad
+			menuLine("1", "Gnome Ball", 751, 1);// gnomeball
+			menuLine("1", "Low-Level Agility Arena Obstacles", 2996, 2);// arena
+			// ticket
+			menuLine("20", "Medium-Level Agility Arena )bstacles", 2996, 3);// arena
+			// ticket
+			menuLine("25", "Werewolf Skullball Game", 1061, 4);// boots
+			menuLine("35", "Barbarian Outpost Agility Course", 1365, 5);// steel
+			// baxe
+			menuLine("40", "High-Level Agility Area Obstacles", 2996, 6);
+			menuLine("48", "Ape Atoll Agility Course", 4024, 7);// greegree
+			menuLine("52", "Wilderness Agility Course", 964, 8);// skull
+			menuLine("60", "Werewolf Agility Course", 6465, 9);// charos
+			optionTab("Agility", "Courses", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
 
-	}
-
-	/**
-	 * Appends a menu line.
-	 * @param levels The levels.
-	 * @param lines The lines.
-	 * @param ids The id.
-	 * @param lineCounter The line counter.
-	 */
-	private void menuLine(final String levels, final String lines, final int ids, final int lineCounter) {
-		player.send(new SetInterfaceTextEvent(8760 + lineCounter, lines));
-		player.send(new SetInterfaceTextEvent(8720 + lineCounter, levels));
-		player.getItem()[0 + lineCounter] = ids;
-		writeInterfaceItem(player.getItem());
-	}
-
-	/**
-	 * Clears the menu.
-	 */
-	private void clearMenu() {
-		for (int i = 0; i < 40; i++) {
-			player.getItem()[i] = -1;
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("10", "Moss Giant Island Rope Swing", 6518, 0);
+			menuLine("12", "Karamja Dungeon Stepping Stones", 6518, 1);
+			menuLine("15", "Edgeville Dungeon Monkey Bars", 6518, 2);
+			menuLine("18", "Watchtower Wall Climb", 6521, 3);
+			menuLine("22", "Karamja Dungeon Pipe Contortion", 6520, 4);
+			menuLine("30", "South-east Karamja Stepping Stones", 6518, 5);
+			menuLine("34", "Karamja Dungeon Pipe Contortion", 6520, 6);
+			menuLine("45", "Isafdar Log Balance", 6519, 7);
+			menuLine("49", "Yanille Dungeon Contortion", 6520, 8);
+			menuLine("50", "Rogues' Den(With 50 Thieving)", 6518, 9);
+			menuLine("67", "Yanille Dungeon Rubble Climb", 6521, 10);
+			optionTab("Agility", "Areas", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
 		}
-		for (int i = 8720; i < 8799; i++) {
-			player.send(new SetInterfaceTextEvent(i, ""));
-		}
-	}
 
-	/**
-	 * Writes the interface items.
-	 * @param id The interface items.
-	 */
-	private void writeInterfaceItem(int id[]) {
-		Item[] items = new Item[id.length];
-		for (int i = 0; i < id.length; i++) {
-			items[i] = new Item(id[i]);
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("5", "Falador Agility Shortcut", 6517, 0);
+			menuLine("8", "River Crossing To Al Kharid", 6515, 1);
+			menuLine("11", "Falador Wall", 6517, 2);
+			menuLine("13", "Varrock South Fence Jump", 6514, 3);
+			menuLine("16", "Yanille Agility Shortcut", 6516, 4);
+			menuLine("20", "Coal Truck Log Balance", 6515, 5);
+			menuLine("21", "Varrock Agility Shortcut", 6516, 6);
+			menuLine("26", "Falador wall Crawl", 6516, 7);
+			menuLine("28", "Draynor Manor Broken Railing", 6516, 8);
+			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 9);
+			menuLine("31", "Catherby Cliff", 6515, 10);
+			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 11);
+			menuLine("33", "Water Obelisk Island Escape", 6516, 12);
+			menuLine("36", "Gnome Stronghold Shortcut", 6517, 13);
+			menuLine("37", "Al Kharid Mining Pit Sliffside Scramble", 6517, 14);
+			menuLine("39", "Yanille Wall", 6517, 15);
+			menuLine("40", "Trollheim Easy Cliffside Scramble", 6517, 16);
+			menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 17);
+			menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 18);
+			menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 19);
+			menuLine("44", "Cosmic Temple Medium Narrow Walkway", 6517, 20);
+			menuLine("46", "Trollheim Hard Cliffside Scramble", 6516, 21);
+			menuLine("47", "Log Balance To The Fremennik Province", 6517, 22);
+			menuLine("48", "Edgeville Dungeon To Varrock Sewers Pipe", 6515, 23);
+			menuLine("51", "Karamja Crossing, South Of The Volcano", 6516, 24);
+			menuLine("53", "Port Phasmatys Ectopool Shortcut", 6517, 25);
+			menuLine("58", "Elven Overpass Easy Cliffside Scramble", 6517, 26);
+			menuLine("59", "Slayer Tower Medium Spiked Chain Climb", 6517, 27);
+			menuLine("61", "Slayer Dungon Narrow Crevice", 6517, 28);
+			menuLine("62", "Trollheim Wilderness Route", 6516, 29);
+			menuLine("64", "Paterdomus Temple To Morytania Shortcut", 6517, 30);
+			menuLine("66", "Cosmic Temple Advanced Narrow Walkway", 6517, 31);
+			menuLine("68", "Elven Overpass Medium Cliffside Scramble", 6517, 32);
+			menuLine("70", "Taverly Dungeon Pipe Squeeze", 6516, 33);
+			menuLine("71", "Slayer Tower Advanced Spiked Chain Climb", 6517, 34);
+			menuLine("74", "Shilo Village Stepping Stone", 6514, 35);
+			menuLine("80", "Taverly Dungeon Spiked Blade Jump", 6514, 36);
+			menuLine("81", "Slayer Dungeon Chasm Jump", 6514, 37);
+			menuLine("85", "Elven Overpass Advanced Cliff Scramble", 6517, 38);
+			optionTab("Agility", "Shortcuts", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
+					"", "", "");
 		}
-		player.send(new UpdateItemsEvent(8847, items));
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("50", "Crystal Equipment", 4207, 0);
+			menuLine("", "", -1, 1);
+			optionTab("Agility", "Milestones", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
+					"", "", "");
+		}
 	}
 
 	/**
@@ -577,36 +319,399 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
-	 * Displays the strength screen.
+	 * Clears the menu.
+	 */
+	private void clearMenu() {
+		for (int i = 0; i < 40; i++) {
+			player.setItem(i, -1);
+		}
+		for (int i = 8720; i < 8799; i++) {
+			player.send(new SetInterfaceTextEvent(i, ""));
+		}
+	}
+
+	/**
+	 * Displays the cooking screen.
 	 * @param screen The screen.
 	 */
-	public void strengthComplex(int screen) {
+	public void cookingComplex(int screen) {
 		if (screen == 1) {
 			clearMenu();
-			menuLine("5", "Black Halberd(With 10 Attack)", 3196, 0);
-			menuLine("5", "White Halberd(With 10 Attack)", 6599, 1);
-			menuLine("10", "Mithril Halberd(With 20 Attack)", 3198, 2);
-			menuLine("15", "Adamant Halberd(With 30 Attack)", 3200, 3);
-			menuLine("20", "Rune Halberd(With 40 Attack)", 3202, 4);
-			menuLine("30", "Dragon Halberd(With 60 Attack)", 3204, 5);
-			menuLine("50", "Granite Maul(With 50 Attack)", 4153, 6);
-			menuLine("60", "TzHaar-Ket-Om(Obsidian Maul)", 6528, 7);
-			menuLine("70", "Dharok's Greataxe(With 70 Attack)", 4718, 8);
-			menuLine("70", "Torag's Hammers(With 70 Attack)", 4747, 9);
-			optionTab("Strength", "Weaponry", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			menuLine("1", "Meat", 2142, 0);
+			menuLine("1", "Shrimp", 315, 1);
+			menuLine("1", "Chicken", 2140, 2);
+			menuLine("1", "Rabbit", 3228, 3);
+			menuLine("1", "Anchovies", 319, 4);
+			menuLine("1", "Sardine", 325, 5);
+			menuLine("1", "Karambwanji", 3151, 6);
+			menuLine("1", "Karambwan", 3144, 7);
+			menuLine("1", "Ugthanki Kebab", 1883, 8);
+			menuLine("5", "Herring", 345, 9);
+			menuLine("10", "Mackerel", 355, 10);
+			menuLine("12", "Thin Snail", 3363, 11);
+			menuLine("15", "Trout", 333, 12);
+			menuLine("16", "Spider", 6293, 13);
+			menuLine("16", "Roasted Rabbit", 7223, 14);
+			menuLine("17", "Lean Snail", 3365, 15);
+			menuLine("18", "Cod", 339, 16);
+			menuLine("20", "Pike", 351, 17);
+			menuLine("22", "Fat Snail", 3367, 18);
+			menuLine("25", "Salmon", 329, 19);
+			menuLine("28", "Slimy Eel", 3379, 20);
+			menuLine("30", "Tuna", 361, 21);
+			menuLine("30", "Roasted Chompy", 2878, 22);
+			menuLine("31", "Fishcake", 7530, 23);
+			menuLine("38", "Cave Eel", 5003, 24);
+			menuLine("40", "Lobster", 379, 25);
+			menuLine("41", "Jubbly", 7568, 26);
+			menuLine("43", "Bass", 365, 27);
+			menuLine("45", "Swordfish", 373, 28);
+			menuLine("53", "Lava Eel", 2149, 29);
+			menuLine("80", "Shark", 385, 30);
+			menuLine("82", "Sea Turtle", 397, 31);
+			menuLine("91", "Manta Ray", 391, 32);
+			optionTab("Cooking", "Meats", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 2) {
 			clearMenu();
-			menuLine("50", "Granite Shield(With 50 Defence)", 3122, 0);
-			optionTab("Strength", "Armor", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			menuLine("1", "Bread", 2309, 0);
+			menuLine("58", "Pitta Bread", 1865, 1);
+			menuLine("", "To make bread:", -1, 2);
+			menuLine("", "1.Pick some grain and use a hopper to make flour", -1, 3);
+			menuLine("", "2.Use a pot to collect the flour you have made", -1, 4);
+			menuLine("", "3.Fill a bucket or jug with water from a sink", -1, 5);
+			menuLine("", "4.Mix the flour and water to make some dough", -1, 6);
+			menuLine("", "5.Cook the dough by using it with a stove", -1, 7);
+			optionTab("Cooking", "Bread", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Strength", "Milestones", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "",
-					"");
+			menuLine("10", "Redberry Pie", 2325, 0);
+			menuLine("20", "Meat Pie", 2327, 1);
+			menuLine("29", "Mud Pie", 7170, 2);
+			menuLine("30", "Apple Pie", 2323, 3);
+			menuLine("34", "Garden Pie", 7178, 4);
+			menuLine("47", "Fish Pie", 7188, 5);
+			menuLine("70", "Admiral Pie", 7198, 6);
+			menuLine("85", "Wild Pie", 7208, 7);
+			menuLine("95", "Summer Pie", 7218, 8);
+			menuLine("", "To make a pie:", -1, 9);
+			menuLine("", "1.Mixe flour and water to make pastry dough", -1, 10);
+			menuLine("", "2.Place the dough in an empty pie dish", -1, 11);
+			menuLine("", "3.Use our choice of filling with the empty pie", -1, 12);
+			menuLine("", "4.Cook the pie by using it with a stove", -1, 13);
+			optionTab("Cooking", "Pies", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("25", "Stew", 2003, 0);
+			menuLine("60", "Curry", 2011, 1);
+			menuLine("", "To make stew:", -1, 2);
+			menuLine("", "1.Obtain a bowl and fill it with water", -1, 3);
+			menuLine("", "2.Pick a potato and place it in the bowl.", -1, 4);
+			menuLine("", "3.Cook some meat and place it in the bowl", -1, 5);
+			menuLine("", "4.Cook the stew by using it with a stove or fire", -1, 6);
+			menuLine("", "To make curry:", -1, 7);
+			menuLine("", "Make uncooked stew as above.", -1, 8);
+			menuLine("", "Before cooking, add some spices or curry leaves", -1, 9);
+			optionTab("Cooking", "Stews", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 5) {
+			clearMenu();
+			menuLine("35", "Plain Pizza", 2289, 0);
+			menuLine("45", "Meat Pizza", 2293, 1);
+			menuLine("55", "Anchovy Pizza", 2297, 2);
+			menuLine("65", "Pineapple Pizza", 2301, 3);
+			menuLine("", "To make a pizza:", -1, 4);
+			menuLine("", "1.Mix flour and water to make a pizza base", -1, 5);
+			menuLine("", "2.Add a tomato to the pizza", -1, 6);
+			menuLine("", "3.Add some cheese to the pizza", -1, 7);
+			menuLine("", "4.Cook the pizza by using it with a stove", -1, 8);
+			menuLine("", "5.Add your choice of topping to the pizza", -1, 9);
+			optionTab("Cooking", "Pizzas", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 6) {
+			clearMenu();
+			menuLine("40", "Cake", 1891, 0);
+			menuLine("50", "Chocolate Cake", 1897, 1);
+			menuLine("", "To make a cake:", -1, 2);
+			menuLine("", "1.Mix flour, eggs and milk together in a cake tin", -1, 3);
+			menuLine("", "2.Cook the cake by using it with a stove", -1, 4);
+			menuLine("", "3.Optional:Buy some chocolate and add", -1, 5);
+			menuLine("", "it to the cake to make a chocolate cake", -1, 6);
+			optionTab("Cooking", "Cakes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 7) {
+			clearMenu();
+			menuLine("35", "Wine", 1993, 0);
+			menuLine("", "To make wine:", -1, 1);
+			menuLine("", "1.Fill a jug with water", -1, 2);
+			menuLine("", "2.Use grapes with the jug of water", -1, 3);
+			menuLine("", "3.Wait until the wine ferments", -1, 4);
+			menuLine("", "4.The wine will ferment while left in your", -1, 5);
+			menuLine("", "inventory or the bank", -1, 6);
+			optionTab("Cooking", "Wine", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 8) {
+			clearMenu();
+			menuLine("20", "Nettle Tea", 4239, 0);
+			menuLine("", "To make nettle tea:", -1, 1);
+			menuLine("", "1.Fill a bowl with water", -1, 2);
+			menuLine("", "2.Put some picked nettles into the bowl of water", -1, 3);
+			menuLine("", "3.Boil the nettle-water by using it with a range", -1, 4);
+			menuLine("", "4.Use the bowl of nettle tea with a cup", -1, 5);
+			menuLine("", "5.If you take milk, use some milk on the tea", -1, 6);
+			optionTab("Cooking", "Hot Drinks", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 9) {
+			clearMenu();
+			menuLine("14", "Cider(4 Apple Mush)", 5763, 0);
+			menuLine("19", "Dwarven Stout(4 Hammerstone Hops)", 1913, 1);
+			menuLine("24", "Asgarnian Ale(4 Asgarnian Hops)", 1905, 2);
+			menuLine("29", "Greenman's Ale(4 Harralander Leaves)", 1909, 3);
+			menuLine("34", "Wizard's Mind Bomb(4 Yanillian Hops)", 1907, 4);
+			menuLine("39", "Dragon Bitter(4 Krandorian Hops)", 1911, 5);
+			menuLine("44", "Moonlight Mead(4 Bittercap Mushrooms)", 2955, 6);
+			menuLine("49", "Axeman's Folly(1 Oak Root)", 5751, 7);
+			menuLine("54", "Chef's Delight(4 Portions of Chocolate Dust)", 5755, 8);
+			menuLine("59", "Slayer's Respite(4 Wildblood Hops)", 5759, 9);
+			optionTab("Cooking", "Brewing", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 10) {
+			clearMenu();
+			menuLine("7", "Baked Potato", 6701, 0);
+			menuLine("9", "Spicy Sauce(Topping Ingredient)", 7072, 1);
+			menuLine("11", "Chilli Con Carne(Topping)", 7062, 2);
+			menuLine("13", "Scrambled Egg(Topping Ingredient)", 7078, 3);
+			menuLine("23", "Scrambled Egg and Tomato(Topping)", 7064, 4);
+			menuLine("28", "Sweetcorn", 5988, 5);
+			menuLine("39", "Baked Potato with Butter", 6703, 6);
+			menuLine("41", "Baked Potato with Chilli Con Carne", 7054, 7);
+			menuLine("42", "Fried Onion(Topping Ingredient)", 7084, 8);
+			menuLine("46", "Fried Mushroom(Topping Ingredient)", 7082, 9);
+			menuLine("47", "Baked Potato with Butter and Cheese", 6705, 10);
+			menuLine("51", "Baked Potato with Egg and Tomato", 7056, 11);
+			menuLine("57", "Fried Mushroom and Onion(Topping)", 7066, 12);
+			menuLine("64", "Baked Potato with Mushroom and Onion", 7058, 13);
+			menuLine("67", "Tuna and Sweetcorn(Topping)", 7068, 14);
+			menuLine("68", "Baked Potato with Tuna and Sweetcorn", 7060, 15);
+			menuLine("", "To make baked potatoes with toppings:", -1, 16);
+			menuLine("", "1.Bake the potato on a range", -1, 17);
+			menuLine("", "2.Add some butter", -1, 18);
+			menuLine("", "3.If needed, combine topping ingredients", -1, 19);
+			menuLine("", "by chopping them into a bowl", -1, 20);
+			menuLine("", "Ingredients for toppings:", -1, 21);
+			menuLine("", "1.Chilli con carne: Meat & spicy sauce", -1, 22);
+			menuLine("", "2.Egg and tomato: Scrambled egg & tomato", -1, 23);
+			menuLine("", "3.Mushroom and onion: Fried mushroom & onion", -1, 24);
+			menuLine("", "4.Tuna and sweetcorn: Tuna & cooked sweetcorn", -1, 25);
+			optionTab("Cooking", "Potatoes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 11) {
+			clearMenu();
+			menuLine("4", "Chocolate Milk", 1977, 0);
+			menuLine("21", "Cream", 2130, 1);
+			menuLine("38", "Butter", 6697, 2);
+			menuLine("48", "Cheese", 1985, 3);
+			menuLine("", "To make churned dairy products:", -1, 4);
+			menuLine("", "1.Get a bucket of milk, a pot of cream or butter", -1, 5);
+			menuLine("", "2.Use the milk, cream or butter in a churn", -1, 6);
+			menuLine("", "3.Milk can be churned into cream, ", -1, 7);
+			menuLine("", "then into butter, then into cheese", -1, 8);
+			optionTab("Cooking", "Dairy", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 12) {
+			clearMenu();
+			menuLine("6", "Fruit Blast", 2034, 0);
+			menuLine("8", "Pineapple Punch", 2036, 1);
+			menuLine("10", "Toad Crunchies", 2217, 2);
+			menuLine("12", "Spicy Crunchies", 2213, 3);
+			menuLine("14", "Worm Crunchies", 2237, 4);
+			menuLine("16", "Chocolate Chip Crunchies", 2239, 5);
+			menuLine("18", "Wizard Blizzard", 2040, 6);
+			menuLine("20", "Short Green Guy(SGG)", 2038, 7);
+			menuLine("25", "Fruit Batta", 2225, 8);
+			menuLine("26", "Toad Batta", 2221, 9);
+			menuLine("27", "Worm Batta", 2219, 10);
+			menuLine("28", "Vegetable Batta", 2227, 11);
+			menuLine("29", "Cheese and Tomato Batta", 2223, 12);
+			menuLine("30", "Worm Hole", 2191, 13);
+			menuLine("32", "Drunk Dragon", 2032, 14);
+			menuLine("33", "Chocolate Saturday", 2030, 15);
+			menuLine("35", "Vegetable Ball", 2195, 16);
+			menuLine("37", "Blurberry Special", 2028, 17);
+			menuLine("40", "Tangled Toads' Legs", 2187, 18);
+			menuLine("42", "Chocolate Bomb", 2185, 19);
+			optionTab("Cooking", "Gnome", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
+					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+
+		else if (screen == 13) {
+			clearMenu();
+			menuLine("32", "Chefs' Guild", 1949, 0);
+			menuLine("", "", -1, 1);
+			optionTab("Cooking", "Milestones", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
+					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
+		}
+	}
+
+	/**
+	 * Displays the crafting screen.
+	 * @param screen The screen.
+	 */
+	public void craftingComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("10", "Cloth", 3224, 0);
+			menuLine("21", "Vegetable Sack", 5418, 1);
+			menuLine("36", "Fruit Basket", 5376, 2);
+			optionTab("Crafting", "Weaving", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("1", "Leather Gloves", 1059, 0);
+			menuLine("7", "Leather Boots", 1061, 1);
+			menuLine("9", "Leather Cowl", 1167, 2);
+			menuLine("11", "Leather Vambraces", 1063, 3);
+			menuLine("14", "Leather Body", 1129, 4);
+			menuLine("18", "Leather Chaps", 1095, 5);
+			menuLine("28", "Hard Leather Body", 1131, 6);
+			menuLine("35", "Broodoo Shield", 6257, 7);
+			menuLine("38", "Coif", 1169, 8);
+			menuLine("41", "Studded Body", 1133, 9);
+			menuLine("44", "Studded Chaps", 1097, 10);
+			menuLine("45", "Snakeskin Boots", 6328, 11);
+			menuLine("47", "Snakeskin Vambraces", 6330, 12);
+			menuLine("48", "Snakeskin Bandana", 6326, 13);
+			menuLine("51", "Snakeskin Chaps", 6324, 14);
+			menuLine("53", "Snakeskin Body", 6322, 15);
+			menuLine("57", "Green Dragonhide Vambraces", 1065, 16);
+			menuLine("60", "Green Dragonhide Chaps", 1099, 17);
+			menuLine("63", "Green Dragonhide Body", 1135, 18);
+			menuLine("66", "Blue Dragonhide Vambraces", 2487, 19);
+			menuLine("68", "Blue Dragonhide Chaps", 2493, 20);
+			menuLine("71", "Blue Dragonhide Body", 2499, 21);
+			menuLine("73", "Red Dragonhide Vambraces", 2489, 22);
+			menuLine("75", "Red Dragonhide Chaps", 2495, 23);
+			menuLine("77", "Red Dragonhide Body", 2501, 24);
+			menuLine("79", "Black Dragonhide Vambraces", 2491, 25);
+			menuLine("82", "Black Dragonhide Chaps", 2497, 26);
+			menuLine("84", "Black Dragonhide Body", 2503, 27);
+			optionTab("Crafting", "Armour", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("1", "Wool", 1759, 0);
+			menuLine("10", "Flax into Bow Strings", 1777, 1);
+			optionTab("Crafting", "Spinning", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("1", "Pot", 1931, 0);
+			menuLine("7", "Pie Dish", 2313, 1);
+			menuLine("8", "Bowl", 1923, 2);
+			menuLine("19", "Plant Pot", 5350, 3);
+			menuLine("25", "Pot Lid", 4440, 4);
+			optionTab("Crafting", "Pottery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 5) {
+			clearMenu();
+			menuLine("1", "Beer Glass", 1919, 0);
+			menuLine("4", "Candle Lantern", 4527, 1);
+			menuLine("12", "Oil Lamp", 4525, 2);
+			menuLine("26", "Oil Lantern", 4535, 3);
+			menuLine("33", "Vial", 229, 4);
+			menuLine("42", "Fishbowl", 6667, 5);
+			menuLine("46", "Glass Orb", 567, 6);
+			menuLine("49", "Bullseye Lantern Lens", 4542, 7);
+			optionTab("Crafting", "Glass", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 6) {
+			clearMenu();
+			menuLine("1", "Cut Opal", 1609, 0);
+			menuLine("5", "Gold Ring", 1635, 1);
+			menuLine("6", "Gold Necklace", 1654, 2);
+			menuLine("8", "Gold Amulet", 1673, 3);
+			menuLine("13", "Cut Jade", 1611, 4);
+			menuLine("16", "Holy Symbol", 1714, 5);
+			menuLine("16", "Cut Red Topaz", 1613, 6);
+			menuLine("17", "Unholy Symbol", 1724, 7);
+			menuLine("20", "Cut Sapphire", 1607, 8);
+			menuLine("20", "Sapphire Ring", 1637, 9);
+			menuLine("22", "Sapphire Necklace", 1656, 10);
+			menuLine("23", "Tiara", 5525, 11);
+			menuLine("24", "Sapphire Amulet", 1675, 12);
+			menuLine("27", "Cut Emerald", 1605, 13);
+			menuLine("27", "Emerald Ring", 1639, 14);
+			menuLine("29", "Emerald Necklace", 1658, 15);
+			menuLine("31", "Emerald Amulet", 1677, 16);
+			menuLine("34", "Cut Ruby", 1603, 17);
+			menuLine("34", "Ruby Ring", 1641, 18);
+			menuLine("40", "Ruby Necklace", 1660, 19);
+			menuLine("43", "Cut Diamond", 1601, 20);
+			menuLine("43", "Diamond Ring", 1643, 21);
+			menuLine("50", "Ruby Amulet", 1679, 22);
+			menuLine("55", "Cut Dragonstone", 1615, 23);
+			menuLine("55", "Dragonstone Ring", 1645, 24);
+			menuLine("56", "Diamond Necklace", 1662, 25);
+			menuLine("67", "Cut Onyx", 6573, 26);
+			menuLine("67", "Onyx Ring", 6575, 27);
+			menuLine("70", "Diamond Amulet", 1681, 28);
+			menuLine("80", "Dragonstone Amulet", 1683, 29);
+			menuLine("82", "Onyx Necklace", 6577, 30);
+			menuLine("90", "Onyx Amulet", 6579, 31);
+			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 7) {
+			clearMenu();
+			menuLine("54", "Water battlestaff", 1395, 0);
+			menuLine("58", "Earth battlestaff", 1399, 1);
+			menuLine("62", "Fire battlestaff", 1393, 2);
+			menuLine("66", "Air battlestaff", 1397, 3);
+			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
+		}
+
+		else if (screen == 8) {
+			clearMenu();
+			menuLine("40", "Crafting Guild", 1757, 0);
+			menuLine("", "", -1, 1);
+			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
+					"Weaponry", "Milestones", "", "", "", "", "");
 		}
 	}
 
@@ -863,173 +968,416 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
-	 * Displays the range screen.
+	 * Displays the farming screen.
 	 * @param screen The screen.
 	 */
-	public void rangedComplex(int screen) {
+	public void farmingComplex(int screen) {
 		if (screen == 1) {
 			clearMenu();
-			menuLine("1", "Standard Bow", 839, 0);
-			menuLine("5", "Oak Bow", 845, 1);
-			menuLine("20", "Willow Bow", 847, 2);
-			menuLine("30", "Maple Bow", 851, 3);
-			menuLine("30", "Ogre Bow", 2883, 4);
-			menuLine("30", "Ogre Composite Bow", 4827, 5);
-			menuLine("40", "Yew Bow", 855, 6);
-			menuLine("50", "Magic Bow", 859, 7);
-			menuLine("50", "Seercull", 6724, 8);
-			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 9);
-			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "",
+			menuLine("1", "Potato", 1942, 0);
+			menuLine("5", "Onion", 1957, 1);
+			menuLine("7", "Cabbage", 1965, 2);
+			menuLine("12", "Tomato", 1982, 3);
+			menuLine("20", "Sweetcorn", 5986, 4);
+			menuLine("31", "Strawberry", 5504, 5);
+			menuLine("47", "Watermelon", 5982, 6);
+			optionTab("Farming", "Allotments", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("3", "Barley", 6006, 0);
+			menuLine("4", "Hammerstone Hop", 5994, 1);
+			menuLine("8", "Asgarnian Hop", 5996, 2);
+			menuLine("13", "Jute Plant", 5931, 3);
+			menuLine("16", "Yanillian Hop", 5998, 4);
+			menuLine("21", "Krandorian Hop", 6000, 5);
+			menuLine("28", "Wildblood Hop", 6002, 6);
+			optionTab("Farming", "Hops", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("15", "Oak Tree", 1521, 0);
+			menuLine("30", "Willow Tree", 1519, 1);
+			menuLine("45", "Maple Tree", 1517, 2);
+			menuLine("60", "Yew Tree", 1515, 3);
+			menuLine("75", "Magic Tree", 1513, 4);
+			optionTab("Farming", "Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("27", "Apple Tree", 1955, 0);
+			menuLine("33", "Banana Tree", 1963, 1);
+			menuLine("39", "Orange Tree", 2108, 2);
+			menuLine("42", "Curry Tree", 5970, 3);
+			menuLine("51", "Pineapple Plant", 2114, 4);
+			menuLine("57", "Papaya Tree", 5972, 5);
+			menuLine("68", "Palm Tree", 5974, 6);
+			optionTab("Farming", "Fruit Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 5) {
+			clearMenu();
+			menuLine("10", "Redberry Bush", 1951, 0);
+			menuLine("22", "Cadavaberry Bush", 753, 1);
+			menuLine("36", "Dwellberry Bush", 2126, 2);
+			menuLine("48", "Jangerberry Bush", 247, 3);
+			menuLine("59", "White Berry Bush", 239, 4);
+			menuLine("70", "Poison Ivy Bush", 6018, 5);
+			optionTab("Farming", "Bushes", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 6) {
+			clearMenu();
+			menuLine("2", "Marigold(Protects low level crops from Disease)", 6010, 0);
+			menuLine("11", "Rosemary(Protects Cabbages from Disease)", 6014, 1);
+			menuLine("24", "Nasturtium(Protects Watermelons from Disease)", 6012, 2);
+			menuLine("25", "Woad", 1793, 3);
+			menuLine("26", "Limpwurt", 225, 4);
+			optionTab("Farming", "Flowers", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 7) {
+			clearMenu();
+			menuLine("9", "Guam", 249, 0);
+			menuLine("14", "Marrentill", 251, 1);
+			menuLine("19", "Tarromin", 253, 2);
+			menuLine("26", "Harralander", 255, 3);
+			menuLine("32", "Ranarr", 257, 4);
+			menuLine("38", "Toadflax", 2998, 5);
+			menuLine("44", "Irit", 259, 6);
+			menuLine("50", "Avantoe", 261, 7);
+			menuLine("56", "Kwuarm", 263, 8);
+			menuLine("62", "Snapdragon", 3000, 9);
+			menuLine("67", "Cadantine", 265, 10);
+			menuLine("73", "Lantadyme", 2481, 11);
+			menuLine("79", "Dwarf Weed", 267, 12);
+			menuLine("85", "Torstol", 269, 13);
+			optionTab("Farming", "Herbs", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 8) {
+			clearMenu();
+			menuLine("55", "Cactus", 6016, 0);
+			menuLine("63", "Belladonna", 5281, 1);
+			menuLine("72", "Calquat Tree", 5980, 2);
+			menuLine("83", "Spirit Tree", 6063, 3);
+			optionTab("Farming", "Special", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
+					"Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 9) {
+			clearMenu();
+			menuLine("23", "Able to make and place a scarecrow", 6059, 0);
+			menuLine("", "", -1, 1);
+			menuLine("", "Scarecrows help to stop sweetcorn from", -1, 2);
+			menuLine("", "being attacked by birds, while also", -1, 3);
+			menuLine("", "helping to prevent disease", -1, 4);
+			menuLine("", "", -1, 5);
+			menuLine("", "How to make a scarecrow:", -1, 6);
+			menuLine("", "", -1, 7);
+			menuLine("", "1.Fill an empty sack with straw.", -1, 8);
+			menuLine("", "2.Drive a hay sack onto a bronze spear", -1, 9);
+			menuLine("", "3.Place a watermelon at the top as a head", -1, 10);
+			menuLine("", "4.Stand the scarecrow in a flower patch", -1, 11);
+			optionTab("Farming", "Scarecrows", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+		}
+
+		else if (screen == 10) {
+			clearMenu();
+			menuLine("", "", -1, 0);
+			optionTab("Farming", "Milestones", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
+					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+		}
+	}
+
+	/**
+	 * Displays the firemaking screen.
+	 * @param screen The screen.
+	 */
+	public void firemakingComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Normal Logs", 1511, 0);
+			menuLine("1", "Torch", 596, 1);
+			menuLine("1", "Candle", 36, 2);
+			menuLine("1", "Achey Logs", 2862, 3);
+			menuLine("4", "Candle Lantern", 4527, 4);
+			menuLine("5", "Pyre Logs", 3438, 5);
+			menuLine("12", "Oil Lamp", 4522, 6);
+			menuLine("15", "Oak Logs", 1521, 7);
+			menuLine("20", "Iron Spit", 7225, 8);
+			menuLine("20", "Oak Pyre Logs", 3440, 9);
+			menuLine("26", "Oil Lantern", 4535, 10);
+			menuLine("30", "Willow Logs", 1519, 11);
+			menuLine("33", "Harpie Bug Lantern", 7051, 12);
+			menuLine("35", "Teak Logs", 6333, 13);
+			menuLine("35", "Willow Pyre Logs", 3442, 14);
+			menuLine("40", "Teak Pyre Logs", 6211, 15);
+			menuLine("45", "Maple Logs", 1517, 16);
+			menuLine("49", "Bullseye Lantern", 4546, 17);
+			menuLine("49", "Sapphire Lantern", 4700, 18);
+			menuLine("50", "Mahogany Logs", 6332, 19);
+			menuLine("50", "Maple Pyre Logs", 3444, 20);
+			menuLine("55", "Mahogany Pyre Logs", 6213, 21);
+			menuLine("60", "Yew Logs", 1515, 22);
+			menuLine("65", "Cave Goblin Mining Helmet", 5014, 23);
+			menuLine("65", "Yew Pyre Logs", 3446, 24);
+			menuLine("75", "Magic Logs", 1513, 25);
+			menuLine("80", "Magic Pyre Logs", 3448, 26);
+			optionTab("Firemaking", "Firemaking", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
 					"", "", "");
 		}
 
 		else if (screen == 2) {
 			clearMenu();
-			menuLine("1", "Bronze Dart", 806, 0);
-			menuLine("1", "Bronze Javelin", 825, 1);
-			menuLine("1", "Bronze Throwing Axe", 800, 2);
-			menuLine("1", "Bronze Throwing Knife", 864, 3);
-			menuLine("1", "Iron Dart", 807, 4);
-			menuLine("1", "Iron Javelin", 826, 5);
-			menuLine("1", "Iron Throwing Axe", 801, 6);
-			menuLine("1", "Iron Throwing Knife", 863, 7);
-			menuLine("5", "Steel Dart", 808, 8);
-			menuLine("5", "Steel Javelin", 827, 9);
-			menuLine("5", "Steel Throwing Axe", 802, 10);
-			menuLine("5", "Steel Throwing Knife", 865, 11);
-			menuLine("10", "Black Dart", 3093, 12);
-			menuLine("10", "Black Throwing Knife", 869, 13);
-			menuLine("20", "Mithril Dart", 809, 14);
-			menuLine("20", "Mithril Javelin", 828, 15);
-			menuLine("20", "Mithril Throwing Axe", 803, 16);
-			menuLine("20", "Mithril Throwing Knife", 866, 17);
-			menuLine("30", "Adamant Dart", 810, 18);
-			menuLine("30", "Adamant Javelin", 829, 19);
-			menuLine("30", "Adamant Throwing Axe", 804, 20);
-			menuLine("30", "Adamant Throwing Knife", 867, 21);
-			menuLine("40", "Rune Dart", 811, 22);
-			menuLine("40", "Rune Javelin", 830, 23);
-			menuLine("40", "Rune Throwing Axe", 805, 24);
-			menuLine("40", "Rune Throwing Knife", 868, 25);
-			menuLine("60", "TokTz-Xil-Ul(Obsidian Rings)", 6522, 26);
-			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
-					"", "", "", "");
+			menuLine("1", "Tinderbox", 590, 0);
+			optionTab("Firemaking", "Equipment", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+					"", "", "");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("1", "Leather Items", 1129, 0);
-			menuLine("1", "Hardleather Body(With 10 Defence)", 1131, 1);
-			menuLine("1", "Spined Boots", 6143, 2);
-			menuLine("1", "Spined Gloves", 6149, 3);
-			menuLine("1", "Archer Helm(With 45 Defence)", 3749, 4);
-			menuLine("20", "Studded Leather Body(With 20 Defence)", 1133, 5);
-			menuLine("20", "Studded Leather Chaps", 1097, 6);
-			menuLine("20", "Coif", 1169, 7);
-			menuLine("30", "Snakeskin Body(With 30 Defence)", 6322, 8);
-			menuLine("30", "Snakeskin Chaps(With 30 Defence)", 6324, 9);
-			menuLine("30", "Snakeskin Vambraces(With 30 Defence)", 6330, 10);
-			menuLine("30", "Snakeskin Bandana(With 30 Defence)", 6326, 11);
-			menuLine("30", "Snakeskin Boots(With 30 Defence)", 6328, 12);
-			menuLine("40", "Ranger Boots", 2577, 13);
-			menuLine("40", "Robin Hood Hat", 2581, 14);
-			menuLine("40", "Green Dragonhide Vambraces", 1065, 15);
-			menuLine("40", "Green Dragonhide Chaps", 1099, 16);
-			menuLine("40", "Green Dragonhide Body(With 40 Defence)", 1135, 17);
-			menuLine("40", "Spined Body(With 40 Defence)", 6133, 18);
-			menuLine("40", "Spined Chaps(With 40 Defence)", 6135, 19);
-			menuLine("40", "Spined Helm(With 40 Defence)", 6131, 20);
-			menuLine("50", "Blue Dragonhide Vambraces", 2487, 21);
-			menuLine("50", "Blue Dragonhide Chaps", 2493, 22);
-			menuLine("50", "Blue Dragonhide Body(With 40 Defence)", 2499, 23);
-			menuLine("60", "Red Dragonhide Vambraces", 2489, 24);
-			menuLine("60", "Red Dragonhide Chaps", 2495, 25);
-			menuLine("60", "Red Dragonhide Body(With 40 Defence)", 2501, 26);
-			menuLine("70", "Black Dragonhdie Vambraces", 2491, 27);
-			menuLine("70", "Black Dragonhdie Chaps", 2497, 28);
-			menuLine("70", "Black Dragonhdie Body(With 40 Defence)", 2503, 29);
-			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 30);
-			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 31);
-			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 32);
-			optionTab("Ranged", "Armour", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
-					"", "", "", "");
-		}
-
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("1", "Crossbow", 837, 0);
-			menuLine("1", "Pheonix Crossbow", 767, 1);
-			menuLine("70", "Karil's Crossbow", 4734, 2);
-			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
-					"", "", "", "", "");
-		}
-
-		else if (screen == 5) {
-			clearMenu();
-			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 0);
-			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
-					"", "", "", "");
-		}
-
-		else if (screen == 6) {
-			clearMenu();
-			menuLine("40", "Ranging Guild", 1464, 0);
-			menuLine("", "", -1, 1);
-			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
-					"", "", "", "", "");
+			menuLine("", "", -1, 0);
+			optionTab("Firemaking", "Milestones", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+					"", "", "");
 		}
 	}
 
 	/**
-	 * Displays the prayer screen.
+	 * Displays the fishing screen.
 	 * @param screen The screen.
 	 */
-	public void prayerComplex(int screen) {
+	public void fishingComplex(int screen) {
 		if (screen == 1) {
 			clearMenu();
-			menuLine("", "You can see what each of these prayers", 3840, 0);
-			menuLine("", "does by selecting the Prayer icon on", -1, 1);
-			menuLine("", "your side interface. Move your mouse", 3844, 2);
-			menuLine("", "over the icon of the prayer you want", -1, 3);
-			menuLine("", "and a description will be available", 3842, 4);
-			menuLine("", "", -1, 5);
-			menuLine("1", "Thick Skin", 1714, 6);
-			menuLine("4", "Burst of Strength", 1714, 7);
-			menuLine("7", "Clarity of Thought", 1714, 8);
-			menuLine("10", "Rock Skin", 1714, 9);
-			menuLine("13", "Superhuman Strength", 1714, 10);
-			menuLine("16", "Improved Reflexes", 1714, 11);
-			menuLine("19", "Rapid Restore", 1714, 12);
-			menuLine("22", "Rapid Heal", 1714, 13);
-			menuLine("25", "Protect Item", 1714, 14);
-			menuLine("28", "Steel Skin", 1714, 15);
-			menuLine("31", "Ultimate Strength", 1714, 16);
-			menuLine("34", "Incredible Reflexes", 1714, 17);
-			menuLine("37", "Protect from Magic", 1714, 18);
-			menuLine("40", "Protect from Missles", 1714, 19);
-			menuLine("43", "Protect from Melee", 1714, 20);
-			menuLine("46", "Retribution", 1714, 21);
-			menuLine("49", "Redemption", 1714, 22);
-			menuLine("52", "Smite", 1714, 23);
-			optionTab("Prayer", "Prayers", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+			menuLine("1", "Small Net", 303, 0);
+			menuLine("5", "Bait Fishing", 307, 1);
+			menuLine("16", "Big Net Fishing", 305, 2);
+			menuLine("20", "Fly Fishing Rod", 309, 3);
+			menuLine("35", "Harpoon", 311, 4);
+			menuLine("40", "Lobster Pot", 301, 5);
+			menuLine("65", "Vessel Fishing", 3157, 6);
+			optionTab("Fishing", "Techniques", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
+					"", "");
 		}
 
 		else if (screen == 2) {
 			clearMenu();
-			menuLine("10", "Initiate Helm(With 20 Defence)", 5574, 0);
-			menuLine("10", "Initiate Platemail(With 20 Defence)", 5575, 1);
-			menuLine("10", "Initiate Platelegs(With 20 Defence)", 5576, 2);
-			menuLine("50", "Enchant Unholy And Holy Symbols", 1724, 3);
-			optionTab("Prayer", "Equipment", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+			menuLine("1", "Shrimp - Net Fishing", 317, 0);
+			menuLine("5", "Sardine - Sea Bait Fishing", 327, 1);
+			menuLine("5", "Karambwanji - Net Fishing", 3150, 2);
+			menuLine("10", "Herring - Sea Bait Fishing", 347, 3);
+			menuLine("15", "Anchovie - Net Fishing", 321, 4);
+			menuLine("16", "Mackerel - Big Net Fishing", 353, 5);
+			menuLine("16", "Oyster - Big Net Fishing", 407, 6);
+			menuLine("16", "Casket - Big Net Fishing", 405, 7);
+			menuLine("16", "Seaweed - Big Net Fishing", 401, 8);
+			menuLine("20", "Trout - Fly Fishing", 335, 9);
+			menuLine("23", "Cod - Big Net Fishing", 341, 10);
+			menuLine("25", "Pike - River Bait Fishing", 349, 11);
+			menuLine("28", "Slimy Eel - River Bait Fishing", 3379, 12);
+			menuLine("30", "Salmon - Fly Fishing", 331, 13);
+			menuLine("35", "Tuna - Harpoon Fishing", 359, 14);
+			menuLine("38", "Cave Eel - River Bait Fishing", 5001, 15);
+			menuLine("40", "Lobster - Lobster Pot Fishing", 377, 16);
+			menuLine("46", "Bass - Big Net Fishing", 363, 17);
+			menuLine("50", "Swordfish - Harpoon Fishing", 371, 18);
+			menuLine("65", "Karambwan - Vessel Fishing", 3142, 19);
+			menuLine("76", "Shark - Harpoon Fishing", 383, 20);
+			menuLine("79", "Sea Turtle - Fishing Trawler", 395, 21);
+			menuLine("81", "Manta Ray - Fishing Trawler", 389, 22);
+			optionTab("Fishing", "Catches", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "",
 					"");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
-			menuLine("31", "Monastery", 4674, 0);
+			menuLine("68", "Fishing Guild", 385, 0);
 			menuLine("", "", -1, 1);
-			optionTab("Prayer", "Milestones", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+			optionTab("Fishing", "Milestones", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
+					"", "");
+		}
+	}
+
+	/**
+	 * Displays the fletching screen.
+	 * @param screen The screen.
+	 */
+	public void fletchingComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Bronze arrow", 882, 0);
+			menuLine("5", "Ogre arrow", 2866, 1);
+			menuLine("7", "Bronze 'brutal' arrow", 4773, 2);
+			menuLine("15", "Iron arrow", 884, 3);
+			menuLine("18", "Iron 'brutal' arrow", 4778, 4);
+			menuLine("30", "Steel arrow", 886, 5);
+			menuLine("33", "Steel 'brutal' arrow", 4783, 6);
+			menuLine("38", "Black 'brutal' arrow", 4788, 7);
+			menuLine("45", "Mithril arrow", 888, 8);
+			menuLine("49", "Mithril 'brutal' arrow", 4793, 9);
+			menuLine("60", "Adamant arrow", 890, 10);
+			menuLine("62", "Adamant 'brutal' arrow", 4798, 11);
+			menuLine("75", "Rune arrow", 892, 12);
+			menuLine("77", "Rune 'brutal' arrow", 4803, 13);
+			optionTab("Fletching", "Arrows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "",
 					"");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("5", "Shortbow", 841, 0);
+			menuLine("10", "Longbow", 839, 1);
+			menuLine("20", "Oak Shortbow", 843, 2);
+			menuLine("25", "Oak Longbow", 845, 3);
+			menuLine("30", "Ogre Composite Bow(After Zogre Flesh Eaters)", 4827, 4);
+			menuLine("35", "Willow Shortbow", 849, 5);
+			menuLine("40", "Willow Longbow", 847, 6);
+			menuLine("50", "Maple Shortbow", 853, 7);
+			menuLine("55", "Maple Longbow", 851, 8);
+			menuLine("65", "Yew Shortbow", 857, 9);
+			menuLine("70", "Yew Longbow", 855, 10);
+			menuLine("80", "Magic Shortbow", 861, 11);
+			menuLine("85", "Magic Longbow", 859, 12);
+			optionTab("Fletching", "Bows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("1", "Bronze Dart", 806, 0);
+			menuLine("22", "Iron Dart", 807, 1);
+			menuLine("37", "Steel Dart", 808, 2);
+			menuLine("52", "Mithril Dart", 809, 3);
+			menuLine("67", "Adamant Dart", 810, 4);
+			menuLine("81", "Rune Dart", 811, 5);
+			optionTab("Fletching", "Darts", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("", "", -1, 0);
+			optionTab("Fletching", "Milestones", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "",
+					"", "");
+		}
+	}
+
+	@Override
+	public void handle(EventHandlerContext ctx, Player player, ButtonEvent event) {
+		this.player = player;
+		if (player.getItem() == null) {
+			player.setItem(new int[40]);
+		}
+		skillGuidesButton(event.getInterfaceId());
+	}
+
+	/**
+	 * Displays the herblore screen.
+	 * @param screen The screen.
+	 */
+	public void herbloreComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("3", "Attack potion", 121, 0);
+			menuLine("5", "Anti-poison", 175, 1);
+			menuLine("12", "Strength potion", 115, 2);
+			menuLine("22", "Stat restore potion", 127, 3);
+			menuLine("26", "Energy potion", 3010, 4);
+			menuLine("30", "Defence potion", 133, 5);
+			menuLine("34", "Agility potion", 3034, 6);
+			menuLine("38", "Prayer restore potion", 139, 7);
+			menuLine("45", "Super Attack potion", 145, 8);
+			menuLine("48", "Super anti-poison", 181, 9);
+			menuLine("50", "Fishing potion", 151, 10);
+			menuLine("52", "Super energy potion", 3018, 11);
+			menuLine("55", "Super Strength potion", 157, 12);
+			menuLine("60", "Weapon poison", 187, 13);
+			menuLine("63", "Super restore potion", 3026, 14);
+			menuLine("66", "Super Defence potion", 163, 15);
+			menuLine("68", "Antidote+ (coconut milk)", 5945, 16);
+			menuLine("69", "Ranging potion", 169, 17);
+			menuLine("72", "Antifire potion", 2454, 18);
+			menuLine("73", "Weapon poison+ (coconut milk)", 5937, 19);
+			menuLine("76", "Magic potion", 3042, 20);
+			menuLine("78", "Zamorak brew", 189, 21);
+			menuLine("79", "Antidote++", 5954, 22);
+			menuLine("81", "Saradomin brew", 6687, 23);
+			menuLine("82", "Weapon poison++ (coconut milk)", 5940, 24);
+			menuLine("", "To fill your vials with water, you will have ", -1, 26);
+			menuLine("", "to reach Taverley and use the fountain.", -1, 27);
+			menuLine("", "The Herblore supplies can be bought in Taverley", -1, 28);
+			menuLine("", "All the brews can be made.", -1, 29);
+			menuLine("", "PS : coconut milk required for some potions.", -1, 30);
+			optionTab("Herblore", "Potions", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("1", "Guam Leaf", 249, 0);
+			menuLine("5", "Marrentill", 251, 1);
+			menuLine("11", "Tarromin", 253, 2);
+			menuLine("20", "Harralander", 255, 3);
+			menuLine("25", "Ranarr", 257, 4);
+			menuLine("30", "Toadflax", 2998, 5);
+			menuLine("40", "Irit Leaf", 259, 6);
+			menuLine("48", "Avantoe", 261, 7);
+			menuLine("54", "Kwuarm", 263, 8);
+			menuLine("59", "Snapdragon", 3000, 9);
+			menuLine("65", "Cadantine", 265, 10);
+			menuLine("67", "Lantadyme", 2481, 11);
+			menuLine("70", "Dwarf Weed", 267, 12);
+			menuLine("75", "Torstol", 269, 13);
+			optionTab("Herblore", "Herbs", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("", "", -1, 0);
+			optionTab("Herblore", "Milestones", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
+		}
+	}
+
+	/**
+	 * Displays the hitpoints screen.
+	 * @param screen The screen.
+	 */
+	public void hitpointsComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("", "Hitpoints tell you how healthy your", 4049, 0);
+			menuLine("", "character is. A character who reaches 0", -1, 1);
+			menuLine("", "Hitpoints has died, but will reappear at", -1, 2);
+			menuLine("", "their chosen respawn location", -1, 3);
+			menuLine("", "", -1, 4);
+			menuLine("", "If you see any red 'hitsplats' during", 4049, 5);
+			menuLine("", "combat, the number shown corresponds", -1, 6);
+			menuLine("", "to the number of Hitpoints lost as a", -1, 7);
+			menuLine("", "result of that strike.", -1, 8);
+			menuLine("", "", -1, 9);
+			menuLine("", "Blue hitsplats mean no damage has", 4049, 10);
+			menuLine("", "been dealt.", -1, 11);
+			menuLine("", "", -1, 12);
+			menuLine("", "Green hitsplats are poison damage", 4049, 13);
+			menuLine("", "", -1, 14);
+			menuLine("", "Yellow hitsplats are disease damage", 4049, 15);
+			optionTab("Hitpoints", "Hitpoints", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("", "", -1, 0);
+			optionTab("Hitpoints", "Milestones", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
 
@@ -1169,6 +1517,387 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
+	 * Opens the menus.
+	 * @param screen The screen id.
+	 */
+	public void menuCompilation(int screen) {
+		if (player.getSelected() == 0) {
+			attackComplex(screen);
+		}
+		else if (player.getSelected() == 1) {
+			strengthComplex(screen);
+		}
+		else if (player.getSelected() == 2) {
+			defenceComplex(screen);
+		}
+		else if (player.getSelected() == 3) {
+			rangedComplex(screen);
+		}
+		else if (player.getSelected() == 4) {
+			prayerComplex(screen);
+		}
+		else if (player.getSelected() == 5) {
+			magicComplex(screen);
+		}
+		else if (player.getSelected() == 6) {
+			runecraftingComplex(screen);
+		}
+		else if (player.getSelected() == 7) {
+			hitpointsComplex(screen);
+		}
+		else if (player.getSelected() == 8) {
+			agilityComplex(screen);
+		}
+		else if (player.getSelected() == 9) {
+			herbloreComplex(screen);
+		}
+		else if (player.getSelected() == 10) {
+			thievingComplex(screen);
+		}
+		else if (player.getSelected() == 11) {
+			craftingComplex(screen);
+		}
+		else if (player.getSelected() == 12) {
+			fletchingComplex(screen);
+		}
+		else if (player.getSelected() == 13) {
+			slayerComplex(screen);
+		}
+		else if (player.getSelected() == 14) {
+			miningComplex(screen);
+		}
+		else if (player.getSelected() == 15) {
+			smithingComplex(screen);
+		}
+		else if (player.getSelected() == 16) {
+			fishingComplex(screen);
+		}
+		else if (player.getSelected() == 17) {
+			cookingComplex(screen);
+		}
+		else if (player.getSelected() == 18) {
+			firemakingComplex(screen);
+		}
+		else if (player.getSelected() == 19) {
+			woodcuttingComplex(screen);
+		}
+		else if (player.getSelected() == 20) {
+			farmingComplex(screen);
+		}
+	}
+
+	/**
+	 * Appends a menu line.
+	 * @param levels The levels.
+	 * @param lines The lines.
+	 * @param ids The id.
+	 * @param lineCounter The line counter.
+	 */
+	private void menuLine(final String levels, final String lines, final int ids, final int lineCounter) {
+		player.send(new SetInterfaceTextEvent(8760 + lineCounter, lines));
+		player.send(new SetInterfaceTextEvent(8720 + lineCounter, levels));
+		player.setItem(lineCounter, ids);
+		writeInterfaceItem(player.getItem());
+	}
+
+	/**
+	 * Displays the mining screen.
+	 * @param screen The screen.
+	 */
+	public void miningComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Rune Essence(After Rune Mysteries)", 1436, 0);
+			menuLine("1", "Clay", 434, 1);
+			menuLine("1", "Copper Ore", 436, 2);
+			menuLine("1", "Tin Ore", 438, 3);
+			menuLine("10", "Limestone", 3211, 4);
+			menuLine("10", "Blurite Ore", 668, 5);
+			menuLine("15", "Iron Ore", 440, 6);
+			menuLine("20", "Elemental Ore(After Starting Elemental Workshop)", 2892, 7);
+			menuLine("20", "Silver Ore", 442, 8);
+			menuLine("30", "Coal", 453, 9);
+			menuLine("35", "Sandstone", 6977, 10);
+			menuLine("40", "Gold Ore", 444, 11);
+			menuLine("40", "Gem Rocks", 1603, 12);
+			menuLine("45", "Granite", 6983, 13);
+			menuLine("55", "Mithril Ore", 447, 14);
+			menuLine("70", "Adamantite Ore", 449, 15);
+			menuLine("85", "Runite Ore", 451, 16);
+			optionTab("Mining", "Ores", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("1", "Bronze Pickaxe", 1265, 0);
+			menuLine("1", "Iron Pickaxe", 1267, 1);
+			menuLine("6", "Steel Pickaxe", 1269, 2);
+			menuLine("21", "Mithril Pickaxe", 1273, 3);
+			menuLine("31", "Adamant Pickaxe", 1271, 4);
+			menuLine("41", "Rune Pickaxe", 1275, 5);
+			optionTab("Mining", "Pickaxes", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("60", "Mining Guild", 447, 0);
+			menuLine("99", "Skill Mastery", 1191, 1);
+			optionTab("Mining", "Milestones", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+	}
+
+	/**
+	 * Opens the options tab.
+	 * @param title The title.
+	 * @param currentTab The current tab.
+	 * @param op1 The option text 1.
+	 * @param op2 The option text 2.
+	 * @param op3 The option text 3.
+	 * @param op4 The option text 4.
+	 * @param op5 The option text 5.
+	 * @param op6 The option text 6.
+	 * @param op7 The option text 7.
+	 * @param op8 The option text 8.
+	 * @param op9 The option text 9.
+	 * @param op10 The option text 10.
+	 * @param op11 The option text 11.
+	 * @param op12 The option text 12.
+	 * @param op13 The option text 13.
+	 */
+	private void optionTab(String title, String currentTab, String op1, String op2, String op3, String op4, String op5,
+			String op6, String op7, String op8, String op9, String op10, String op11, String op12, String op13) {
+		int[] interfaceChilds = { 8800, 8844, 8813, 8825, 8828, 8838, 8841, 8850, 8860, 8863, 15294, 15304, 15307 };
+		for (int i : interfaceChilds) {
+			player.send(new SetInterfaceComponentEvent(i, false));
+		}
+		player.send(new SetInterfaceTextEvent(8716, title));
+		player.send(new SetInterfaceTextEvent(8849, currentTab));
+		player.send(new SetInterfaceTextEvent(8846, op1));
+		player.send(new SetInterfaceTextEvent(8823, op2));
+		player.send(new SetInterfaceTextEvent(8824, op3));
+		player.send(new SetInterfaceTextEvent(8827, op4));
+		player.send(new SetInterfaceTextEvent(8837, op5));
+		player.send(new SetInterfaceTextEvent(8840, op6));
+		player.send(new SetInterfaceTextEvent(8843, op7));
+		player.send(new SetInterfaceTextEvent(8859, op8));
+		player.send(new SetInterfaceTextEvent(8862, op9));
+		player.send(new SetInterfaceTextEvent(8865, op10));
+		player.send(new SetInterfaceTextEvent(15303, op11));
+		player.send(new SetInterfaceTextEvent(15306, op12));
+		player.send(new SetInterfaceTextEvent(15309, op13));
+		player.getInterfaceSet().openWindow(8714);
+		if (op2 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[1], true));
+		}
+		if (op3 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[2], true));
+		}
+		if (op4 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[3], true));
+		}
+		if (op5 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[4], true));
+		}
+		if (op6 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[5], true));
+		}
+		if (op7 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[6], true));
+		}
+		if (op8 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[7], true));
+		}
+		if (op9 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[8], true));
+		}
+		if (op10 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[9], true));
+		}
+		if (op11 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[10], true));
+		}
+		if (op12 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[11], true));
+		}
+		if (op13 == "") {
+			player.send(new SetInterfaceComponentEvent(interfaceChilds[12], true));
+
+		}
+
+	}
+
+	/**
+	 * Displays the prayer screen.
+	 * @param screen The screen.
+	 */
+	public void prayerComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("", "You can see what each of these prayers", 3840, 0);
+			menuLine("", "does by selecting the Prayer icon on", -1, 1);
+			menuLine("", "your side interface. Move your mouse", 3844, 2);
+			menuLine("", "over the icon of the prayer you want", -1, 3);
+			menuLine("", "and a description will be available", 3842, 4);
+			menuLine("", "", -1, 5);
+			menuLine("1", "Thick Skin", 1714, 6);
+			menuLine("4", "Burst of Strength", 1714, 7);
+			menuLine("7", "Clarity of Thought", 1714, 8);
+			menuLine("10", "Rock Skin", 1714, 9);
+			menuLine("13", "Superhuman Strength", 1714, 10);
+			menuLine("16", "Improved Reflexes", 1714, 11);
+			menuLine("19", "Rapid Restore", 1714, 12);
+			menuLine("22", "Rapid Heal", 1714, 13);
+			menuLine("25", "Protect Item", 1714, 14);
+			menuLine("28", "Steel Skin", 1714, 15);
+			menuLine("31", "Ultimate Strength", 1714, 16);
+			menuLine("34", "Incredible Reflexes", 1714, 17);
+			menuLine("37", "Protect from Magic", 1714, 18);
+			menuLine("40", "Protect from Missles", 1714, 19);
+			menuLine("43", "Protect from Melee", 1714, 20);
+			menuLine("46", "Retribution", 1714, 21);
+			menuLine("49", "Redemption", 1714, 22);
+			menuLine("52", "Smite", 1714, 23);
+			optionTab("Prayer", "Prayers", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("10", "Initiate Helm(With 20 Defence)", 5574, 0);
+			menuLine("10", "Initiate Platemail(With 20 Defence)", 5575, 1);
+			menuLine("10", "Initiate Platelegs(With 20 Defence)", 5576, 2);
+			menuLine("50", "Enchant Unholy And Holy Symbols", 1724, 3);
+			optionTab("Prayer", "Equipment", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("31", "Monastery", 4674, 0);
+			menuLine("", "", -1, 1);
+			optionTab("Prayer", "Milestones", "Prayers", "Equipment", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
+		}
+	}
+
+	/**
+	 * Displays the range screen.
+	 * @param screen The screen.
+	 */
+	public void rangedComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Standard Bow", 839, 0);
+			menuLine("5", "Oak Bow", 845, 1);
+			menuLine("20", "Willow Bow", 847, 2);
+			menuLine("30", "Maple Bow", 851, 3);
+			menuLine("30", "Ogre Bow", 2883, 4);
+			menuLine("30", "Ogre Composite Bow", 4827, 5);
+			menuLine("40", "Yew Bow", 855, 6);
+			menuLine("50", "Magic Bow", 859, 7);
+			menuLine("50", "Seercull", 6724, 8);
+			menuLine("70", "Crystal Bow(With 50 Agility)", 4212, 9);
+			optionTab("Ranged", "Bows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "", "",
+					"", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("1", "Bronze Dart", 806, 0);
+			menuLine("1", "Bronze Javelin", 825, 1);
+			menuLine("1", "Bronze Throwing Axe", 800, 2);
+			menuLine("1", "Bronze Throwing Knife", 864, 3);
+			menuLine("1", "Iron Dart", 807, 4);
+			menuLine("1", "Iron Javelin", 826, 5);
+			menuLine("1", "Iron Throwing Axe", 801, 6);
+			menuLine("1", "Iron Throwing Knife", 863, 7);
+			menuLine("5", "Steel Dart", 808, 8);
+			menuLine("5", "Steel Javelin", 827, 9);
+			menuLine("5", "Steel Throwing Axe", 802, 10);
+			menuLine("5", "Steel Throwing Knife", 865, 11);
+			menuLine("10", "Black Dart", 3093, 12);
+			menuLine("10", "Black Throwing Knife", 869, 13);
+			menuLine("20", "Mithril Dart", 809, 14);
+			menuLine("20", "Mithril Javelin", 828, 15);
+			menuLine("20", "Mithril Throwing Axe", 803, 16);
+			menuLine("20", "Mithril Throwing Knife", 866, 17);
+			menuLine("30", "Adamant Dart", 810, 18);
+			menuLine("30", "Adamant Javelin", 829, 19);
+			menuLine("30", "Adamant Throwing Axe", 804, 20);
+			menuLine("30", "Adamant Throwing Knife", 867, 21);
+			menuLine("40", "Rune Dart", 811, 22);
+			menuLine("40", "Rune Javelin", 830, 23);
+			menuLine("40", "Rune Throwing Axe", 805, 24);
+			menuLine("40", "Rune Throwing Knife", 868, 25);
+			menuLine("60", "TokTz-Xil-Ul(Obsidian Rings)", 6522, 26);
+			optionTab("Ranged", "Thrown", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("1", "Leather Items", 1129, 0);
+			menuLine("1", "Hardleather Body(With 10 Defence)", 1131, 1);
+			menuLine("1", "Spined Boots", 6143, 2);
+			menuLine("1", "Spined Gloves", 6149, 3);
+			menuLine("1", "Archer Helm(With 45 Defence)", 3749, 4);
+			menuLine("20", "Studded Leather Body(With 20 Defence)", 1133, 5);
+			menuLine("20", "Studded Leather Chaps", 1097, 6);
+			menuLine("20", "Coif", 1169, 7);
+			menuLine("30", "Snakeskin Body(With 30 Defence)", 6322, 8);
+			menuLine("30", "Snakeskin Chaps(With 30 Defence)", 6324, 9);
+			menuLine("30", "Snakeskin Vambraces(With 30 Defence)", 6330, 10);
+			menuLine("30", "Snakeskin Bandana(With 30 Defence)", 6326, 11);
+			menuLine("30", "Snakeskin Boots(With 30 Defence)", 6328, 12);
+			menuLine("40", "Ranger Boots", 2577, 13);
+			menuLine("40", "Robin Hood Hat", 2581, 14);
+			menuLine("40", "Green Dragonhide Vambraces", 1065, 15);
+			menuLine("40", "Green Dragonhide Chaps", 1099, 16);
+			menuLine("40", "Green Dragonhide Body(With 40 Defence)", 1135, 17);
+			menuLine("40", "Spined Body(With 40 Defence)", 6133, 18);
+			menuLine("40", "Spined Chaps(With 40 Defence)", 6135, 19);
+			menuLine("40", "Spined Helm(With 40 Defence)", 6131, 20);
+			menuLine("50", "Blue Dragonhide Vambraces", 2487, 21);
+			menuLine("50", "Blue Dragonhide Chaps", 2493, 22);
+			menuLine("50", "Blue Dragonhide Body(With 40 Defence)", 2499, 23);
+			menuLine("60", "Red Dragonhide Vambraces", 2489, 24);
+			menuLine("60", "Red Dragonhide Chaps", 2495, 25);
+			menuLine("60", "Red Dragonhide Body(With 40 Defence)", 2501, 26);
+			menuLine("70", "Black Dragonhdie Vambraces", 2491, 27);
+			menuLine("70", "Black Dragonhdie Chaps", 2497, 28);
+			menuLine("70", "Black Dragonhdie Body(With 40 Defence)", 2503, 29);
+			menuLine("70", "Karil's Coif(With 70 Defence)", 4732, 30);
+			menuLine("70", "Karil's Leathertop(With 70 Defence)", 4736, 31);
+			menuLine("70", "Karil's Leatherskirt(With 70 Defence)", 4738, 32);
+			optionTab("Ranged", "Armour", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("1", "Crossbow", 837, 0);
+			menuLine("1", "Pheonix Crossbow", 767, 1);
+			menuLine("70", "Karil's Crossbow", 4734, 2);
+			optionTab("Ranged", "Crossbows", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
+					"", "", "", "", "");
+		}
+
+		else if (screen == 5) {
+			clearMenu();
+			menuLine("50", "Broad Arrow(With 55 Slayer)", 4150, 0);
+			optionTab("Ranged", "Other", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "", "",
+					"", "", "", "");
+		}
+
+		else if (screen == 6) {
+			clearMenu();
+			menuLine("40", "Ranging Guild", 1464, 0);
+			menuLine("", "", -1, 1);
+			optionTab("Ranged", "Milestones", "Bows", "Thrown", "Armour", "Crossbows", "Other", "Milestones", "", "",
+					"", "", "", "", "");
+		}
+	}
+
+	/**
 	 * Displays the runecrafting screen.
 	 * @param screen The screen.
 	 */
@@ -1253,472 +1982,172 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
-	 * Displays the hitpoints screen.
-	 * @param screen The screen.
+	 * Handles the skill guide buttons.
+	 * @param buttonId The button id.
+	 * @return True if sent, false if not.
 	 */
-	public void hitpointsComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("", "Hitpoints tell you how healthy your", 4049, 0);
-			menuLine("", "character is. A character who reaches 0", -1, 1);
-			menuLine("", "Hitpoints has died, but will reappear at", -1, 2);
-			menuLine("", "their chosen respawn location", -1, 3);
-			menuLine("", "", -1, 4);
-			menuLine("", "If you see any red 'hitsplats' during", 4049, 5);
-			menuLine("", "combat, the number shown corresponds", -1, 6);
-			menuLine("", "to the number of Hitpoints lost as a", -1, 7);
-			menuLine("", "result of that strike.", -1, 8);
-			menuLine("", "", -1, 9);
-			menuLine("", "Blue hitsplats mean no damage has", 4049, 10);
-			menuLine("", "been dealt.", -1, 11);
-			menuLine("", "", -1, 12);
-			menuLine("", "Green hitsplats are poison damage", 4049, 13);
-			menuLine("", "", -1, 14);
-			menuLine("", "Yellow hitsplats are disease damage", 4049, 15);
-			optionTab("Hitpoints", "Hitpoints", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
-		}
+	public boolean skillGuidesButton(int buttonId) {
+		switch (buttonId) {
+		/* Skill menus */
+		case 8654:
+		case 33206: // attack
+			attackComplex(1);
+			player.setSelected(0);
+			return true;
+		case 8657:
+		case 33209: // strength
+			strengthComplex(1);
+			player.setSelected(1);
+			return true;
+		case 8660:
+		case 33212: // Defence
+			defenceComplex(1);
+			player.setSelected(2);
+			return true;
+		case 8663:
+		case 33215: // range
+			rangedComplex(1);
+			player.setSelected(3);
+			return true;
+		case 8666:
+		case 33218: // prayer
+			prayerComplex(1);
+			player.setSelected(4);
+			return true;
+		case 8669:
+		case 33221: // mage
+			magicComplex(1);
+			player.setSelected(5);
+			return true;
+		case 8672:
+		case 33224: // runecrafting
+			runecraftingComplex(1);
+			player.setSelected(6);
+			return true;
+		case 8655:
+		case 33207: // hp
+			hitpointsComplex(1);
+			player.setSelected(7);
+			return true;
+		case 8658:
+		case 33210: // agility
+			agilityComplex(1);
+			player.setSelected(8);
+			return true;
+		case 8661:
+		case 33213: // herblore
+			herbloreComplex(1);
+			player.setSelected(9);
+			return true;
+		case 8664:
+		case 33216: // theiving
+			thievingComplex(1);
+			player.setSelected(10);
+			return true;
+		case 8667:
+		case 33219: // crafting
+			craftingComplex(1);
+			player.setSelected(11);
+			return true;
+		case 8670:
+		case 33222: // fletching
+			fletchingComplex(1);
+			player.setSelected(12);
+			return true;
+		case 12162:
+		case 47130:// slayer
+			slayerComplex(1);
+			player.setSelected(13);
+			return true;
+		case 8656:
+		case 33208:// mining
+			miningComplex(1);
+			player.setSelected(14);
+			return true;
+		case 8659:
+		case 33211: // smithing
+			smithingComplex(1);
+			player.setSelected(15);
+			return true;
+		case 8662:
+		case 33214: // fishing
+			fishingComplex(1);
+			player.setSelected(16);
+			return true;
+		case 8665:
+		case 33217: // cooking
+			cookingComplex(1);
+			player.setSelected(17);
+			return true;
+		case 8668:
+		case 33220: // firemaking
+			firemakingComplex(1);
+			player.setSelected(18);
+			return true;
+		case 8671:
+		case 33223: // woodcut
+			woodcuttingComplex(1);
+			player.setSelected(19);
+			return true;
+		case 13928:
+		case 54104: // farming
+			farmingComplex(1);
+			player.setSelected(20);
+			return true;
 
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Hitpoints", "Milestones", "Hitpoints", "Milestones", "", "", "", "", "", "", "", "", "", "", "");
-		}
-	}
+		case 34142: // tab 1
+			menuCompilation(1);
+			return true;
 
-	/**
-	 * Displays the agility screen.
-	 * @param screen The screen.
-	 */
-	public void agilityComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Gnome Agility Course", 2150, 0);// swamptoad
-			menuLine("1", "Gnome Ball", 751, 1);// gnomeball
-			menuLine("1", "Low-Level Agility Arena Obstacles", 2996, 2);// arena
-			// ticket
-			menuLine("20", "Medium-Level Agility Arena )bstacles", 2996, 3);// arena
-			// ticket
-			menuLine("25", "Werewolf Skullball Game", 1061, 4);// boots
-			menuLine("35", "Barbarian Outpost Agility Course", 1365, 5);// steel
-			// baxe
-			menuLine("40", "High-Level Agility Area Obstacles", 2996, 6);
-			menuLine("48", "Ape Atoll Agility Course", 4024, 7);// greegree
-			menuLine("52", "Wilderness Agility Course", 964, 8);// skull
-			menuLine("60", "Werewolf Agility Course", 6465, 9);// charos
-			optionTab("Agility", "Courses", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
-					"", "");
-		}
+		case 34119: // tab 2
+			menuCompilation(2);
+			return true;
 
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("10", "Moss Giant Island Rope Swing", 6518, 0);
-			menuLine("12", "Karamja Dungeon Stepping Stones", 6518, 1);
-			menuLine("15", "Edgeville Dungeon Monkey Bars", 6518, 2);
-			menuLine("18", "Watchtower Wall Climb", 6521, 3);
-			menuLine("22", "Karamja Dungeon Pipe Contortion", 6520, 4);
-			menuLine("30", "South-east Karamja Stepping Stones", 6518, 5);
-			menuLine("34", "Karamja Dungeon Pipe Contortion", 6520, 6);
-			menuLine("45", "Isafdar Log Balance", 6519, 7);
-			menuLine("49", "Yanille Dungeon Contortion", 6520, 8);
-			menuLine("50", "Rogues' Den(With 50 Thieving)", 6518, 9);
-			menuLine("67", "Yanille Dungeon Rubble Climb", 6521, 10);
-			optionTab("Agility", "Areas", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "", "",
-					"", "");
-		}
+		case 34120: // tab 3
+			menuCompilation(3);
+			return true;
 
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("5", "Falador Agility Shortcut", 6517, 0);
-			menuLine("8", "River Crossing To Al Kharid", 6515, 1);
-			menuLine("11", "Falador Wall", 6517, 2);
-			menuLine("13", "Varrock South Fence Jump", 6514, 3);
-			menuLine("16", "Yanille Agility Shortcut", 6516, 4);
-			menuLine("20", "Coal Truck Log Balance", 6515, 5);
-			menuLine("21", "Varrock Agility Shortcut", 6516, 6);
-			menuLine("26", "Falador wall Crawl", 6516, 7);
-			menuLine("28", "Draynor Manor Broken Railing", 6516, 8);
-			menuLine("29", "Draynor Manor Stones To The Champions' Guild", 6516, 9);
-			menuLine("31", "Catherby Cliff", 6515, 10);
-			menuLine("32", "Ardougne Log Balance Shortcut", 6517, 11);
-			menuLine("33", "Water Obelisk Island Escape", 6516, 12);
-			menuLine("36", "Gnome Stronghold Shortcut", 6517, 13);
-			menuLine("37", "Al Kharid Mining Pit Sliffside Scramble", 6517, 14);
-			menuLine("39", "Yanille Wall", 6517, 15);
-			menuLine("40", "Trollheim Easy Cliffside Scramble", 6517, 16);
-			menuLine("41", "Dwarven Mine Narrow Crevice", 6517, 17);
-			menuLine("42", "Trollheim Medium Cliffside Scramble", 6516, 18);
-			menuLine("43", "Trollheim Advanced Cliffside Scramble", 6517, 19);
-			menuLine("44", "Cosmic Temple Medium Narrow Walkway", 6517, 20);
-			menuLine("46", "Trollheim Hard Cliffside Scramble", 6516, 21);
-			menuLine("47", "Log Balance To The Fremennik Province", 6517, 22);
-			menuLine("48", "Edgeville Dungeon To Varrock Sewers Pipe", 6515, 23);
-			menuLine("51", "Karamja Crossing, South Of The Volcano", 6516, 24);
-			menuLine("53", "Port Phasmatys Ectopool Shortcut", 6517, 25);
-			menuLine("58", "Elven Overpass Easy Cliffside Scramble", 6517, 26);
-			menuLine("59", "Slayer Tower Medium Spiked Chain Climb", 6517, 27);
-			menuLine("61", "Slayer Dungon Narrow Crevice", 6517, 28);
-			menuLine("62", "Trollheim Wilderness Route", 6516, 29);
-			menuLine("64", "Paterdomus Temple To Morytania Shortcut", 6517, 30);
-			menuLine("66", "Cosmic Temple Advanced Narrow Walkway", 6517, 31);
-			menuLine("68", "Elven Overpass Medium Cliffside Scramble", 6517, 32);
-			menuLine("70", "Taverly Dungeon Pipe Squeeze", 6516, 33);
-			menuLine("71", "Slayer Tower Advanced Spiked Chain Climb", 6517, 34);
-			menuLine("74", "Shilo Village Stepping Stone", 6514, 35);
-			menuLine("80", "Taverly Dungeon Spiked Blade Jump", 6514, 36);
-			menuLine("81", "Slayer Dungeon Chasm Jump", 6514, 37);
-			menuLine("85", "Elven Overpass Advanced Cliff Scramble", 6517, 38);
-			optionTab("Agility", "Shortcuts", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
-					"", "", "");
-		}
+		case 34123: // tab 4
+			menuCompilation(4);
+			return true;
 
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("50", "Crystal Equipment", 4207, 0);
-			menuLine("", "", -1, 1);
-			optionTab("Agility", "Milestones", "Courses", "Areas", "Shortcuts", "Milestones", "", "", "", "", "", "",
-					"", "", "");
-		}
-	}
+		case 34133: // tab 5
+			menuCompilation(5);
+			return true;
 
-	/**
-	 * Displays the herblore screen.
-	 * @param screen The screen.
-	 */
-	public void herbloreComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("3", "Attack potion", 121, 0);
-			menuLine("5", "Anti-poison", 175, 1);
-			menuLine("12", "Strength potion", 115, 2);
-			menuLine("22", "Stat restore potion", 127, 3);
-			menuLine("26", "Energy potion", 3010, 4);
-			menuLine("30", "Defence potion", 133, 5);
-			menuLine("34", "Agility potion", 3034, 6);
-			menuLine("38", "Prayer restore potion", 139, 7);
-			menuLine("45", "Super Attack potion", 145, 8);
-			menuLine("48", "Super anti-poison", 181, 9);
-			menuLine("50", "Fishing potion", 151, 10);
-			menuLine("52", "Super energy potion", 3018, 11);
-			menuLine("55", "Super Strength potion", 157, 12);
-			menuLine("60", "Weapon poison", 187, 13);
-			menuLine("63", "Super restore potion", 3026, 14);
-			menuLine("66", "Super Defence potion", 163, 15);
-			menuLine("68", "Antidote+ (coconut milk)", 5945, 16);
-			menuLine("69", "Ranging potion", 169, 17);
-			menuLine("72", "Antifire potion", 2454, 18);
-			menuLine("73", "Weapon poison+ (coconut milk)", 5937, 19);
-			menuLine("76", "Magic potion", 3042, 20);
-			menuLine("78", "Zamorak brew", 189, 21);
-			menuLine("79", "Antidote++", 5954, 22);
-			menuLine("81", "Saradomin brew", 6687, 23);
-			menuLine("82", "Weapon poison++ (coconut milk)", 5940, 24);
-			menuLine("", "To fill your vials with water, you will have ", -1, 26);
-			menuLine("", "to reach Taverley and use the fountain.", -1, 27);
-			menuLine("", "The Herblore supplies can be bought in Taverley", -1, 28);
-			menuLine("", "All the brews can be made.", -1, 29);
-			menuLine("", "PS : coconut milk required for some potions.", -1, 30);
-			optionTab("Herblore", "Potions", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
-		}
+		case 34136: // tab 6
+			menuCompilation(6);
+			return true;
 
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("1", "Guam Leaf", 249, 0);
-			menuLine("5", "Marrentill", 251, 1);
-			menuLine("11", "Tarromin", 253, 2);
-			menuLine("20", "Harralander", 255, 3);
-			menuLine("25", "Ranarr", 257, 4);
-			menuLine("30", "Toadflax", 2998, 5);
-			menuLine("40", "Irit Leaf", 259, 6);
-			menuLine("48", "Avantoe", 261, 7);
-			menuLine("54", "Kwuarm", 263, 8);
-			menuLine("59", "Snapdragon", 3000, 9);
-			menuLine("65", "Cadantine", 265, 10);
-			menuLine("67", "Lantadyme", 2481, 11);
-			menuLine("70", "Dwarf Weed", 267, 12);
-			menuLine("75", "Torstol", 269, 13);
-			optionTab("Herblore", "Herbs", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "", "");
-		}
+		case 34139: // tab 7
+			menuCompilation(7);
+			return true;
 
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Herblore", "Milestones", "Potions", "Herbs", "Milestones", "", "", "", "", "", "", "", "", "",
-					"");
-		}
-	}
+		case 34155: // tab 8
+			menuCompilation(8);
+			return true;
 
-	/**
-	 * Displays the thieving screen.
-	 * @param screen The screen.
-	 */
-	public void thievingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Man", 3241, 0);
-			menuLine("10", "Farmer", 3243, 1);
-			menuLine("15", "Female H.A.M. Follower", 4295, 2);
-			menuLine("20", "Male H.A.M. Follower", 4297, 3);
-			menuLine("25", "Warrior", 3245, 4);
-			menuLine("32", "Rogue", 3247, 5);
-			menuLine("38", "Master Farmer", 5068, 6);
-			menuLine("40", "Guard", 3249, 7);
-			menuLine("45", "Fremennik Citizen", 3686, 8);
-			menuLine("45", "Beared Pollnivnian Bandit", 6781, 9);
-			menuLine("53", "Desert Bandit", 4625, 10);
-			menuLine("55", "Knight", 3251, 11);
-			menuLine("55", "Pollnivnian Bandit", 6782, 12);
-			menuLine("65", "Watchman", 3253, 13);
-			menuLine("65", "Menaphite Thug", 6780, 14);
-			menuLine("70", "Paladin", 3255, 15);
-			menuLine("75", "Gnome", 3257, 16);
-			menuLine("80", "Hero", 3259, 17);
-			menuLine("85", "Elf", 6105, 18);
-			optionTab("Thieving", "Pickpocket", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
-					"", "", "");
-		}
+		case 34158: // tab 9
+			menuCompilation(9);
+			return true;
 
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("2", "Vegetable stall", 1965, 0);
-			menuLine("5", "Baker's stall", 2309, 1);
-			menuLine("5", "Ape Atoll general stall", 1933, 2);
-			menuLine("5", "Tea stall", 1978, 3);
-			menuLine("5", "Crafting stall", 1755, 4);
-			menuLine("5", "Monkey food stall", 1963, 5);
-			menuLine("15", "Rock cake stall", 2379, 6);
-			menuLine("20", "Silk stall", 950, 7);
-			menuLine("22", "Wine stall", 1993, 8);
-			menuLine("27", "Seed stall", 5318, 9);
-			menuLine("35", "Fur stall", 958, 10);
-			menuLine("42", "Fish stall", 333, 11);
-			menuLine("50", "Silver stall", 2355, 12);
-			menuLine("65", "Magic stall", 6422, 13);
-			menuLine("65", "Scimitar stall", 1323, 14);
-			menuLine("65", "Spice stall", 2007, 15);
-			menuLine("75", "Gem stall", 1607, 16);
-			optionTab("Thieving", "Stalls", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
-					"", "");
-		}
+		case 34161: // tab 10
+			menuCompilation(10);
+			return true;
 
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("13", "Ardougne, Rellekka, and the Wilderness", 617, 0);
-			menuLine("28", "Upstairs in Ardougne and Rellekka", 561, 1);
-			menuLine("43", "Upstairs in Ardougne", 617, 2);
-			menuLine("47", "Hemenster", 41, 3);
-			menuLine("47", "Rellekka", 617, 4);
-			menuLine("59", "Chaos Druid Tower north of Ardougne", 565, 5);
-			menuLine("72", "King Lathas's castle in Ardougne", 383, 6);
-			optionTab("Thieving", "Chests", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
-					"", "");
-		}
+		case 59199: // tab 11
+			menuCompilation(11);
+			return true;
 
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Thieving", "Milestones", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
-					"", "", "");
-		}
-	}
+		case 59202: // tab 12
+			menuCompilation(12);
+			return true;
 
-	/**
-	 * Displays the crafting screen.
-	 * @param screen The screen.
-	 */
-	public void craftingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("10", "Cloth", 3224, 0);
-			menuLine("21", "Vegetable Sack", 5418, 1);
-			menuLine("36", "Fruit Basket", 5376, 2);
-			optionTab("Crafting", "Weaving", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
+		case 59205: // tab 13
+			menuCompilation(13);
+			return true;
 		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("1", "Leather Gloves", 1059, 0);
-			menuLine("7", "Leather Boots", 1061, 1);
-			menuLine("9", "Leather Cowl", 1167, 2);
-			menuLine("11", "Leather Vambraces", 1063, 3);
-			menuLine("14", "Leather Body", 1129, 4);
-			menuLine("18", "Leather Chaps", 1095, 5);
-			menuLine("28", "Hard Leather Body", 1131, 6);
-			menuLine("35", "Broodoo Shield", 6257, 7);
-			menuLine("38", "Coif", 1169, 8);
-			menuLine("41", "Studded Body", 1133, 9);
-			menuLine("44", "Studded Chaps", 1097, 10);
-			menuLine("45", "Snakeskin Boots", 6328, 11);
-			menuLine("47", "Snakeskin Vambraces", 6330, 12);
-			menuLine("48", "Snakeskin Bandana", 6326, 13);
-			menuLine("51", "Snakeskin Chaps", 6324, 14);
-			menuLine("53", "Snakeskin Body", 6322, 15);
-			menuLine("57", "Green Dragonhide Vambraces", 1065, 16);
-			menuLine("60", "Green Dragonhide Chaps", 1099, 17);
-			menuLine("63", "Green Dragonhide Body", 1135, 18);
-			menuLine("66", "Blue Dragonhide Vambraces", 2487, 19);
-			menuLine("68", "Blue Dragonhide Chaps", 2493, 20);
-			menuLine("71", "Blue Dragonhide Body", 2499, 21);
-			menuLine("73", "Red Dragonhide Vambraces", 2489, 22);
-			menuLine("75", "Red Dragonhide Chaps", 2495, 23);
-			menuLine("77", "Red Dragonhide Body", 2501, 24);
-			menuLine("79", "Black Dragonhide Vambraces", 2491, 25);
-			menuLine("82", "Black Dragonhide Chaps", 2497, 26);
-			menuLine("84", "Black Dragonhide Body", 2503, 27);
-			optionTab("Crafting", "Armour", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("1", "Wool", 1759, 0);
-			menuLine("10", "Flax into Bow Strings", 1777, 1);
-			optionTab("Crafting", "Spinning", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("1", "Pot", 1931, 0);
-			menuLine("7", "Pie Dish", 2313, 1);
-			menuLine("8", "Bowl", 1923, 2);
-			menuLine("19", "Plant Pot", 5350, 3);
-			menuLine("25", "Pot Lid", 4440, 4);
-			optionTab("Crafting", "Pottery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 5) {
-			clearMenu();
-			menuLine("1", "Beer Glass", 1919, 0);
-			menuLine("4", "Candle Lantern", 4527, 1);
-			menuLine("12", "Oil Lamp", 4525, 2);
-			menuLine("26", "Oil Lantern", 4535, 3);
-			menuLine("33", "Vial", 229, 4);
-			menuLine("42", "Fishbowl", 6667, 5);
-			menuLine("46", "Glass Orb", 567, 6);
-			menuLine("49", "Bullseye Lantern Lens", 4542, 7);
-			optionTab("Crafting", "Glass", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 6) {
-			clearMenu();
-			menuLine("1", "Cut Opal", 1609, 0);
-			menuLine("5", "Gold Ring", 1635, 1);
-			menuLine("6", "Gold Necklace", 1654, 2);
-			menuLine("8", "Gold Amulet", 1673, 3);
-			menuLine("13", "Cut Jade", 1611, 4);
-			menuLine("16", "Holy Symbol", 1714, 5);
-			menuLine("16", "Cut Red Topaz", 1613, 6);
-			menuLine("17", "Unholy Symbol", 1724, 7);
-			menuLine("20", "Cut Sapphire", 1607, 8);
-			menuLine("20", "Sapphire Ring", 1637, 9);
-			menuLine("22", "Sapphire Necklace", 1656, 10);
-			menuLine("23", "Tiara", 5525, 11);
-			menuLine("24", "Sapphire Amulet", 1675, 12);
-			menuLine("27", "Cut Emerald", 1605, 13);
-			menuLine("27", "Emerald Ring", 1639, 14);
-			menuLine("29", "Emerald Necklace", 1658, 15);
-			menuLine("31", "Emerald Amulet", 1677, 16);
-			menuLine("34", "Cut Ruby", 1603, 17);
-			menuLine("34", "Ruby Ring", 1641, 18);
-			menuLine("40", "Ruby Necklace", 1660, 19);
-			menuLine("43", "Cut Diamond", 1601, 20);
-			menuLine("43", "Diamond Ring", 1643, 21);
-			menuLine("50", "Ruby Amulet", 1679, 22);
-			menuLine("55", "Cut Dragonstone", 1615, 23);
-			menuLine("55", "Dragonstone Ring", 1645, 24);
-			menuLine("56", "Diamond Necklace", 1662, 25);
-			menuLine("67", "Cut Onyx", 6573, 26);
-			menuLine("67", "Onyx Ring", 6575, 27);
-			menuLine("70", "Diamond Amulet", 1681, 28);
-			menuLine("80", "Dragonstone Amulet", 1683, 29);
-			menuLine("82", "Onyx Necklace", 6577, 30);
-			menuLine("90", "Onyx Amulet", 6579, 31);
-			optionTab("Crafting", "Jewellery", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 7) {
-			clearMenu();
-			menuLine("54", "Water battlestaff", 1395, 0);
-			menuLine("58", "Earth battlestaff", 1399, 1);
-			menuLine("62", "Fire battlestaff", 1393, 2);
-			menuLine("66", "Air battlestaff", 1397, 3);
-			optionTab("Crafting", "Weaponry", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-
-		else if (screen == 8) {
-			clearMenu();
-			menuLine("40", "Crafting Guild", 1757, 0);
-			menuLine("", "", -1, 1);
-			optionTab("Crafting", "Milestones", "Weaving", "Armour", "Spinning", "Pottery", "Glass", "Jewellery",
-					"Weaponry", "Milestones", "", "", "", "", "");
-		}
-	}
-
-	/**
-	 * Displays the fletching screen.
-	 * @param screen The screen.
-	 */
-	public void fletchingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Bronze arrow", 882, 0);
-			menuLine("5", "Ogre arrow", 2866, 1);
-			menuLine("7", "Bronze 'brutal' arrow", 4773, 2);
-			menuLine("15", "Iron arrow", 884, 3);
-			menuLine("18", "Iron 'brutal' arrow", 4778, 4);
-			menuLine("30", "Steel arrow", 886, 5);
-			menuLine("33", "Steel 'brutal' arrow", 4783, 6);
-			menuLine("38", "Black 'brutal' arrow", 4788, 7);
-			menuLine("45", "Mithril arrow", 888, 8);
-			menuLine("49", "Mithril 'brutal' arrow", 4793, 9);
-			menuLine("60", "Adamant arrow", 890, 10);
-			menuLine("62", "Adamant 'brutal' arrow", 4798, 11);
-			menuLine("75", "Rune arrow", 892, 12);
-			menuLine("77", "Rune 'brutal' arrow", 4803, 13);
-			optionTab("Fletching", "Arrows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "",
-					"");
-		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("5", "Shortbow", 841, 0);
-			menuLine("10", "Longbow", 839, 1);
-			menuLine("20", "Oak Shortbow", 843, 2);
-			menuLine("25", "Oak Longbow", 845, 3);
-			menuLine("30", "Ogre Composite Bow(After Zogre Flesh Eaters)", 4827, 4);
-			menuLine("35", "Willow Shortbow", 849, 5);
-			menuLine("40", "Willow Longbow", 847, 6);
-			menuLine("50", "Maple Shortbow", 853, 7);
-			menuLine("55", "Maple Longbow", 851, 8);
-			menuLine("65", "Yew Shortbow", 857, 9);
-			menuLine("70", "Yew Longbow", 855, 10);
-			menuLine("80", "Magic Shortbow", 861, 11);
-			menuLine("85", "Magic Longbow", 859, 12);
-			optionTab("Fletching", "Bows", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("1", "Bronze Dart", 806, 0);
-			menuLine("22", "Iron Dart", 807, 1);
-			menuLine("37", "Steel Dart", 808, 2);
-			menuLine("52", "Mithril Dart", 809, 3);
-			menuLine("67", "Adamant Dart", 810, 4);
-			menuLine("81", "Rune Dart", 811, 5);
-			optionTab("Fletching", "Darts", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "", "", "");
-		}
-
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Fletching", "Milestones", "Arrows", "Bows", "Darts", "Milestones", "", "", "", "", "", "", "",
-					"", "");
-		}
+		return false;
 	}
 
 	/**
@@ -1792,52 +2221,6 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 			menuLine("", "", -1, 0);
 			optionTab("Slayer", "Milestones", "Equipment", "Monsters", "Masters", "Milestones", "", "", "", "", "", "",
 					"", "", "");
-		}
-	}
-
-	/**
-	 * Displays the mining screen.
-	 * @param screen The screen.
-	 */
-	public void miningComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Rune Essence(After Rune Mysteries)", 1436, 0);
-			menuLine("1", "Clay", 434, 1);
-			menuLine("1", "Copper Ore", 436, 2);
-			menuLine("1", "Tin Ore", 438, 3);
-			menuLine("10", "Limestone", 3211, 4);
-			menuLine("10", "Blurite Ore", 668, 5);
-			menuLine("15", "Iron Ore", 440, 6);
-			menuLine("20", "Elemental Ore(After Starting Elemental Workshop)", 2892, 7);
-			menuLine("20", "Silver Ore", 442, 8);
-			menuLine("30", "Coal", 453, 9);
-			menuLine("35", "Sandstone", 6977, 10);
-			menuLine("40", "Gold Ore", 444, 11);
-			menuLine("40", "Gem Rocks", 1603, 12);
-			menuLine("45", "Granite", 6983, 13);
-			menuLine("55", "Mithril Ore", 447, 14);
-			menuLine("70", "Adamantite Ore", 449, 15);
-			menuLine("85", "Runite Ore", 451, 16);
-			optionTab("Mining", "Ores", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
-		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("1", "Bronze Pickaxe", 1265, 0);
-			menuLine("1", "Iron Pickaxe", 1267, 1);
-			menuLine("6", "Steel Pickaxe", 1269, 2);
-			menuLine("21", "Mithril Pickaxe", 1273, 3);
-			menuLine("31", "Adamant Pickaxe", 1271, 4);
-			menuLine("41", "Rune Pickaxe", 1275, 5);
-			optionTab("Mining", "Pickaxes", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("60", "Mining Guild", 447, 0);
-			menuLine("99", "Skill Mastery", 1191, 1);
-			optionTab("Mining", "Milestones", "Ores", "Pickaxes", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 	}
 
@@ -2068,357 +2451,109 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
-	 * Displays the fishing screen.
+	 * Displays the strength screen.
 	 * @param screen The screen.
 	 */
-	public void fishingComplex(int screen) {
+	public void strengthComplex(int screen) {
 		if (screen == 1) {
 			clearMenu();
-			menuLine("1", "Small Net", 303, 0);
-			menuLine("5", "Bait Fishing", 307, 1);
-			menuLine("16", "Big Net Fishing", 305, 2);
-			menuLine("20", "Fly Fishing Rod", 309, 3);
-			menuLine("35", "Harpoon", 311, 4);
-			menuLine("40", "Lobster Pot", 301, 5);
-			menuLine("65", "Vessel Fishing", 3157, 6);
-			optionTab("Fishing", "Techniques", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
-					"", "");
+			menuLine("5", "Black Halberd(With 10 Attack)", 3196, 0);
+			menuLine("5", "White Halberd(With 10 Attack)", 6599, 1);
+			menuLine("10", "Mithril Halberd(With 20 Attack)", 3198, 2);
+			menuLine("15", "Adamant Halberd(With 30 Attack)", 3200, 3);
+			menuLine("20", "Rune Halberd(With 40 Attack)", 3202, 4);
+			menuLine("30", "Dragon Halberd(With 60 Attack)", 3204, 5);
+			menuLine("50", "Granite Maul(With 50 Attack)", 4153, 6);
+			menuLine("60", "TzHaar-Ket-Om(Obsidian Maul)", 6528, 7);
+			menuLine("70", "Dharok's Greataxe(With 70 Attack)", 4718, 8);
+			menuLine("70", "Torag's Hammers(With 70 Attack)", 4747, 9);
+			optionTab("Strength", "Weaponry", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 2) {
 			clearMenu();
-			menuLine("1", "Shrimp - Net Fishing", 317, 0);
-			menuLine("5", "Sardine - Sea Bait Fishing", 327, 1);
-			menuLine("5", "Karambwanji - Net Fishing", 3150, 2);
-			menuLine("10", "Herring - Sea Bait Fishing", 347, 3);
-			menuLine("15", "Anchovie - Net Fishing", 321, 4);
-			menuLine("16", "Mackerel - Big Net Fishing", 353, 5);
-			menuLine("16", "Oyster - Big Net Fishing", 407, 6);
-			menuLine("16", "Casket - Big Net Fishing", 405, 7);
-			menuLine("16", "Seaweed - Big Net Fishing", 401, 8);
-			menuLine("20", "Trout - Fly Fishing", 335, 9);
-			menuLine("23", "Cod - Big Net Fishing", 341, 10);
-			menuLine("25", "Pike - River Bait Fishing", 349, 11);
-			menuLine("28", "Slimy Eel - River Bait Fishing", 3379, 12);
-			menuLine("30", "Salmon - Fly Fishing", 331, 13);
-			menuLine("35", "Tuna - Harpoon Fishing", 359, 14);
-			menuLine("38", "Cave Eel - River Bait Fishing", 5001, 15);
-			menuLine("40", "Lobster - Lobster Pot Fishing", 377, 16);
-			menuLine("46", "Bass - Big Net Fishing", 363, 17);
-			menuLine("50", "Swordfish - Harpoon Fishing", 371, 18);
-			menuLine("65", "Karambwan - Vessel Fishing", 3142, 19);
-			menuLine("76", "Shark - Harpoon Fishing", 383, 20);
-			menuLine("79", "Sea Turtle - Fishing Trawler", 395, 21);
-			menuLine("81", "Manta Ray - Fishing Trawler", 389, 22);
-			optionTab("Fishing", "Catches", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "", "",
-					"");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("68", "Fishing Guild", 385, 0);
-			menuLine("", "", -1, 1);
-			optionTab("Fishing", "Milestones", "Techniques", "Catches", "Milestones", "", "", "", "", "", "", "", "",
-					"", "");
-		}
-	}
-
-	/**
-	 * Displays the cooking screen.
-	 * @param screen The screen.
-	 */
-	public void cookingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Meat", 2142, 0);
-			menuLine("1", "Shrimp", 315, 1);
-			menuLine("1", "Chicken", 2140, 2);
-			menuLine("1", "Rabbit", 3228, 3);
-			menuLine("1", "Anchovies", 319, 4);
-			menuLine("1", "Sardine", 325, 5);
-			menuLine("1", "Karambwanji", 3151, 6);
-			menuLine("1", "Karambwan", 3144, 7);
-			menuLine("1", "Ugthanki Kebab", 1883, 8);
-			menuLine("5", "Herring", 345, 9);
-			menuLine("10", "Mackerel", 355, 10);
-			menuLine("12", "Thin Snail", 3363, 11);
-			menuLine("15", "Trout", 333, 12);
-			menuLine("16", "Spider", 6293, 13);
-			menuLine("16", "Roasted Rabbit", 7223, 14);
-			menuLine("17", "Lean Snail", 3365, 15);
-			menuLine("18", "Cod", 339, 16);
-			menuLine("20", "Pike", 351, 17);
-			menuLine("22", "Fat Snail", 3367, 18);
-			menuLine("25", "Salmon", 329, 19);
-			menuLine("28", "Slimy Eel", 3379, 20);
-			menuLine("30", "Tuna", 361, 21);
-			menuLine("30", "Roasted Chompy", 2878, 22);
-			menuLine("31", "Fishcake", 7530, 23);
-			menuLine("38", "Cave Eel", 5003, 24);
-			menuLine("40", "Lobster", 379, 25);
-			menuLine("41", "Jubbly", 7568, 26);
-			menuLine("43", "Bass", 365, 27);
-			menuLine("45", "Swordfish", 373, 28);
-			menuLine("53", "Lava Eel", 2149, 29);
-			menuLine("80", "Shark", 385, 30);
-			menuLine("82", "Sea Turtle", 397, 31);
-			menuLine("91", "Manta Ray", 391, 32);
-			optionTab("Cooking", "Meats", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("1", "Bread", 2309, 0);
-			menuLine("58", "Pitta Bread", 1865, 1);
-			menuLine("", "To make bread:", -1, 2);
-			menuLine("", "1.Pick some grain and use a hopper to make flour", -1, 3);
-			menuLine("", "2.Use a pot to collect the flour you have made", -1, 4);
-			menuLine("", "3.Fill a bucket or jug with water from a sink", -1, 5);
-			menuLine("", "4.Mix the flour and water to make some dough", -1, 6);
-			menuLine("", "5.Cook the dough by using it with a stove", -1, 7);
-			optionTab("Cooking", "Bread", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("10", "Redberry Pie", 2325, 0);
-			menuLine("20", "Meat Pie", 2327, 1);
-			menuLine("29", "Mud Pie", 7170, 2);
-			menuLine("30", "Apple Pie", 2323, 3);
-			menuLine("34", "Garden Pie", 7178, 4);
-			menuLine("47", "Fish Pie", 7188, 5);
-			menuLine("70", "Admiral Pie", 7198, 6);
-			menuLine("85", "Wild Pie", 7208, 7);
-			menuLine("95", "Summer Pie", 7218, 8);
-			menuLine("", "To make a pie:", -1, 9);
-			menuLine("", "1.Mixe flour and water to make pastry dough", -1, 10);
-			menuLine("", "2.Place the dough in an empty pie dish", -1, 11);
-			menuLine("", "3.Use our choice of filling with the empty pie", -1, 12);
-			menuLine("", "4.Cook the pie by using it with a stove", -1, 13);
-			optionTab("Cooking", "Pies", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("25", "Stew", 2003, 0);
-			menuLine("60", "Curry", 2011, 1);
-			menuLine("", "To make stew:", -1, 2);
-			menuLine("", "1.Obtain a bowl and fill it with water", -1, 3);
-			menuLine("", "2.Pick a potato and place it in the bowl.", -1, 4);
-			menuLine("", "3.Cook some meat and place it in the bowl", -1, 5);
-			menuLine("", "4.Cook the stew by using it with a stove or fire", -1, 6);
-			menuLine("", "To make curry:", -1, 7);
-			menuLine("", "Make uncooked stew as above.", -1, 8);
-			menuLine("", "Before cooking, add some spices or curry leaves", -1, 9);
-			optionTab("Cooking", "Stews", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 5) {
-			clearMenu();
-			menuLine("35", "Plain Pizza", 2289, 0);
-			menuLine("45", "Meat Pizza", 2293, 1);
-			menuLine("55", "Anchovy Pizza", 2297, 2);
-			menuLine("65", "Pineapple Pizza", 2301, 3);
-			menuLine("", "To make a pizza:", -1, 4);
-			menuLine("", "1.Mix flour and water to make a pizza base", -1, 5);
-			menuLine("", "2.Add a tomato to the pizza", -1, 6);
-			menuLine("", "3.Add some cheese to the pizza", -1, 7);
-			menuLine("", "4.Cook the pizza by using it with a stove", -1, 8);
-			menuLine("", "5.Add your choice of topping to the pizza", -1, 9);
-			optionTab("Cooking", "Pizzas", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 6) {
-			clearMenu();
-			menuLine("40", "Cake", 1891, 0);
-			menuLine("50", "Chocolate Cake", 1897, 1);
-			menuLine("", "To make a cake:", -1, 2);
-			menuLine("", "1.Mix flour, eggs and milk together in a cake tin", -1, 3);
-			menuLine("", "2.Cook the cake by using it with a stove", -1, 4);
-			menuLine("", "3.Optional:Buy some chocolate and add", -1, 5);
-			menuLine("", "it to the cake to make a chocolate cake", -1, 6);
-			optionTab("Cooking", "Cakes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 7) {
-			clearMenu();
-			menuLine("35", "Wine", 1993, 0);
-			menuLine("", "To make wine:", -1, 1);
-			menuLine("", "1.Fill a jug with water", -1, 2);
-			menuLine("", "2.Use grapes with the jug of water", -1, 3);
-			menuLine("", "3.Wait until the wine ferments", -1, 4);
-			menuLine("", "4.The wine will ferment while left in your", -1, 5);
-			menuLine("", "inventory or the bank", -1, 6);
-			optionTab("Cooking", "Wine", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 8) {
-			clearMenu();
-			menuLine("20", "Nettle Tea", 4239, 0);
-			menuLine("", "To make nettle tea:", -1, 1);
-			menuLine("", "1.Fill a bowl with water", -1, 2);
-			menuLine("", "2.Put some picked nettles into the bowl of water", -1, 3);
-			menuLine("", "3.Boil the nettle-water by using it with a range", -1, 4);
-			menuLine("", "4.Use the bowl of nettle tea with a cup", -1, 5);
-			menuLine("", "5.If you take milk, use some milk on the tea", -1, 6);
-			optionTab("Cooking", "Hot Drinks", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
-					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 9) {
-			clearMenu();
-			menuLine("14", "Cider(4 Apple Mush)", 5763, 0);
-			menuLine("19", "Dwarven Stout(4 Hammerstone Hops)", 1913, 1);
-			menuLine("24", "Asgarnian Ale(4 Asgarnian Hops)", 1905, 2);
-			menuLine("29", "Greenman's Ale(4 Harralander Leaves)", 1909, 3);
-			menuLine("34", "Wizard's Mind Bomb(4 Yanillian Hops)", 1907, 4);
-			menuLine("39", "Dragon Bitter(4 Krandorian Hops)", 1911, 5);
-			menuLine("44", "Moonlight Mead(4 Bittercap Mushrooms)", 2955, 6);
-			menuLine("49", "Axeman's Folly(1 Oak Root)", 5751, 7);
-			menuLine("54", "Chef's Delight(4 Portions of Chocolate Dust)", 5755, 8);
-			menuLine("59", "Slayer's Respite(4 Wildblood Hops)", 5759, 9);
-			optionTab("Cooking", "Brewing", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 10) {
-			clearMenu();
-			menuLine("7", "Baked Potato", 6701, 0);
-			menuLine("9", "Spicy Sauce(Topping Ingredient)", 7072, 1);
-			menuLine("11", "Chilli Con Carne(Topping)", 7062, 2);
-			menuLine("13", "Scrambled Egg(Topping Ingredient)", 7078, 3);
-			menuLine("23", "Scrambled Egg and Tomato(Topping)", 7064, 4);
-			menuLine("28", "Sweetcorn", 5988, 5);
-			menuLine("39", "Baked Potato with Butter", 6703, 6);
-			menuLine("41", "Baked Potato with Chilli Con Carne", 7054, 7);
-			menuLine("42", "Fried Onion(Topping Ingredient)", 7084, 8);
-			menuLine("46", "Fried Mushroom(Topping Ingredient)", 7082, 9);
-			menuLine("47", "Baked Potato with Butter and Cheese", 6705, 10);
-			menuLine("51", "Baked Potato with Egg and Tomato", 7056, 11);
-			menuLine("57", "Fried Mushroom and Onion(Topping)", 7066, 12);
-			menuLine("64", "Baked Potato with Mushroom and Onion", 7058, 13);
-			menuLine("67", "Tuna and Sweetcorn(Topping)", 7068, 14);
-			menuLine("68", "Baked Potato with Tuna and Sweetcorn", 7060, 15);
-			menuLine("", "To make baked potatoes with toppings:", -1, 16);
-			menuLine("", "1.Bake the potato on a range", -1, 17);
-			menuLine("", "2.Add some butter", -1, 18);
-			menuLine("", "3.If needed, combine topping ingredients", -1, 19);
-			menuLine("", "by chopping them into a bowl", -1, 20);
-			menuLine("", "Ingredients for toppings:", -1, 21);
-			menuLine("", "1.Chilli con carne: Meat & spicy sauce", -1, 22);
-			menuLine("", "2.Egg and tomato: Scrambled egg & tomato", -1, 23);
-			menuLine("", "3.Mushroom and onion: Fried mushroom & onion", -1, 24);
-			menuLine("", "4.Tuna and sweetcorn: Tuna & cooked sweetcorn", -1, 25);
-			optionTab("Cooking", "Potatoes", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
-					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 11) {
-			clearMenu();
-			menuLine("4", "Chocolate Milk", 1977, 0);
-			menuLine("21", "Cream", 2130, 1);
-			menuLine("38", "Butter", 6697, 2);
-			menuLine("48", "Cheese", 1985, 3);
-			menuLine("", "To make churned dairy products:", -1, 4);
-			menuLine("", "1.Get a bucket of milk, a pot of cream or butter", -1, 5);
-			menuLine("", "2.Use the milk, cream or butter in a churn", -1, 6);
-			menuLine("", "3.Milk can be churned into cream, ", -1, 7);
-			menuLine("", "then into butter, then into cheese", -1, 8);
-			optionTab("Cooking", "Dairy", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 12) {
-			clearMenu();
-			menuLine("6", "Fruit Blast", 2034, 0);
-			menuLine("8", "Pineapple Punch", 2036, 1);
-			menuLine("10", "Toad Crunchies", 2217, 2);
-			menuLine("12", "Spicy Crunchies", 2213, 3);
-			menuLine("14", "Worm Crunchies", 2237, 4);
-			menuLine("16", "Chocolate Chip Crunchies", 2239, 5);
-			menuLine("18", "Wizard Blizzard", 2040, 6);
-			menuLine("20", "Short Green Guy(SGG)", 2038, 7);
-			menuLine("25", "Fruit Batta", 2225, 8);
-			menuLine("26", "Toad Batta", 2221, 9);
-			menuLine("27", "Worm Batta", 2219, 10);
-			menuLine("28", "Vegetable Batta", 2227, 11);
-			menuLine("29", "Cheese and Tomato Batta", 2223, 12);
-			menuLine("30", "Worm Hole", 2191, 13);
-			menuLine("32", "Drunk Dragon", 2032, 14);
-			menuLine("33", "Chocolate Saturday", 2030, 15);
-			menuLine("35", "Vegetable Ball", 2195, 16);
-			menuLine("37", "Blurberry Special", 2028, 17);
-			menuLine("40", "Tangled Toads' Legs", 2187, 18);
-			menuLine("42", "Chocolate Bomb", 2185, 19);
-			optionTab("Cooking", "Gnome", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine", "Hot Drinks",
-					"Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-
-		else if (screen == 13) {
-			clearMenu();
-			menuLine("32", "Chefs' Guild", 1949, 0);
-			menuLine("", "", -1, 1);
-			optionTab("Cooking", "Milestones", "Meats", "Bread", "Pies", "Stews", "Pizzas", "Cakes", "Wine",
-					"Hot Drinks", "Brewing", "Potatoes", "Dairy", "Gnome", "Milestones");
-		}
-	}
-
-	/**
-	 * Displays the firemaking screen.
-	 * @param screen The screen.
-	 */
-	public void firemakingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Normal Logs", 1511, 0);
-			menuLine("1", "Torch", 596, 1);
-			menuLine("1", "Candle", 36, 2);
-			menuLine("1", "Achey Logs", 2862, 3);
-			menuLine("4", "Candle Lantern", 4527, 4);
-			menuLine("5", "Pyre Logs", 3438, 5);
-			menuLine("12", "Oil Lamp", 4522, 6);
-			menuLine("15", "Oak Logs", 1521, 7);
-			menuLine("20", "Iron Spit", 7225, 8);
-			menuLine("20", "Oak Pyre Logs", 3440, 9);
-			menuLine("26", "Oil Lantern", 4535, 10);
-			menuLine("30", "Willow Logs", 1519, 11);
-			menuLine("33", "Harpie Bug Lantern", 7051, 12);
-			menuLine("35", "Teak Logs", 6333, 13);
-			menuLine("35", "Willow Pyre Logs", 3442, 14);
-			menuLine("40", "Teak Pyre Logs", 6211, 15);
-			menuLine("45", "Maple Logs", 1517, 16);
-			menuLine("49", "Bullseye Lantern", 4546, 17);
-			menuLine("49", "Sapphire Lantern", 4700, 18);
-			menuLine("50", "Mahogany Logs", 6332, 19);
-			menuLine("50", "Maple Pyre Logs", 3444, 20);
-			menuLine("55", "Mahogany Pyre Logs", 6213, 21);
-			menuLine("60", "Yew Logs", 1515, 22);
-			menuLine("65", "Cave Goblin Mining Helmet", 5014, 23);
-			menuLine("65", "Yew Pyre Logs", 3446, 24);
-			menuLine("75", "Magic Logs", 1513, 25);
-			menuLine("80", "Magic Pyre Logs", 3448, 26);
-			optionTab("Firemaking", "Firemaking", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
-					"", "", "");
-		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("1", "Tinderbox", 590, 0);
-			optionTab("Firemaking", "Equipment", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
-					"", "", "");
+			menuLine("50", "Granite Shield(With 50 Defence)", 3122, 0);
+			optionTab("Strength", "Armor", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "", "");
 		}
 
 		else if (screen == 3) {
 			clearMenu();
 			menuLine("", "", -1, 0);
-			optionTab("Firemaking", "Milestones", "Firemaking", "Equipment", "Milestones", "", "", "", "", "", "", "",
+			optionTab("Strength", "Milestones", "Weaponry", "Armor", "Milestones", "", "", "", "", "", "", "", "", "",
+					"");
+		}
+	}
+
+	/**
+	 * Displays the thieving screen.
+	 * @param screen The screen.
+	 */
+	public void thievingComplex(int screen) {
+		if (screen == 1) {
+			clearMenu();
+			menuLine("1", "Man", 3241, 0);
+			menuLine("10", "Farmer", 3243, 1);
+			menuLine("15", "Female H.A.M. Follower", 4295, 2);
+			menuLine("20", "Male H.A.M. Follower", 4297, 3);
+			menuLine("25", "Warrior", 3245, 4);
+			menuLine("32", "Rogue", 3247, 5);
+			menuLine("38", "Master Farmer", 5068, 6);
+			menuLine("40", "Guard", 3249, 7);
+			menuLine("45", "Fremennik Citizen", 3686, 8);
+			menuLine("45", "Beared Pollnivnian Bandit", 6781, 9);
+			menuLine("53", "Desert Bandit", 4625, 10);
+			menuLine("55", "Knight", 3251, 11);
+			menuLine("55", "Pollnivnian Bandit", 6782, 12);
+			menuLine("65", "Watchman", 3253, 13);
+			menuLine("65", "Menaphite Thug", 6780, 14);
+			menuLine("70", "Paladin", 3255, 15);
+			menuLine("75", "Gnome", 3257, 16);
+			menuLine("80", "Hero", 3259, 17);
+			menuLine("85", "Elf", 6105, 18);
+			optionTab("Thieving", "Pickpocket", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
+					"", "", "");
+		}
+
+		else if (screen == 2) {
+			clearMenu();
+			menuLine("2", "Vegetable stall", 1965, 0);
+			menuLine("5", "Baker's stall", 2309, 1);
+			menuLine("5", "Ape Atoll general stall", 1933, 2);
+			menuLine("5", "Tea stall", 1978, 3);
+			menuLine("5", "Crafting stall", 1755, 4);
+			menuLine("5", "Monkey food stall", 1963, 5);
+			menuLine("15", "Rock cake stall", 2379, 6);
+			menuLine("20", "Silk stall", 950, 7);
+			menuLine("22", "Wine stall", 1993, 8);
+			menuLine("27", "Seed stall", 5318, 9);
+			menuLine("35", "Fur stall", 958, 10);
+			menuLine("42", "Fish stall", 333, 11);
+			menuLine("50", "Silver stall", 2355, 12);
+			menuLine("65", "Magic stall", 6422, 13);
+			menuLine("65", "Scimitar stall", 1323, 14);
+			menuLine("65", "Spice stall", 2007, 15);
+			menuLine("75", "Gem stall", 1607, 16);
+			optionTab("Thieving", "Stalls", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
+					"", "");
+		}
+
+		else if (screen == 3) {
+			clearMenu();
+			menuLine("13", "Ardougne, Rellekka, and the Wilderness", 617, 0);
+			menuLine("28", "Upstairs in Ardougne and Rellekka", 561, 1);
+			menuLine("43", "Upstairs in Ardougne", 617, 2);
+			menuLine("47", "Hemenster", 41, 3);
+			menuLine("47", "Rellekka", 617, 4);
+			menuLine("59", "Chaos Druid Tower north of Ardougne", 565, 5);
+			menuLine("72", "King Lathas's castle in Ardougne", 383, 6);
+			optionTab("Thieving", "Chests", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "", "",
+					"", "");
+		}
+
+		else if (screen == 4) {
+			clearMenu();
+			menuLine("", "", -1, 0);
+			optionTab("Thieving", "Milestones", "Pickpocket", "Stalls", "Chests", "Milestones", "", "", "", "", "", "",
 					"", "", "");
 		}
 	}
@@ -2480,137 +2615,15 @@ public final class SkillInterfaceButtonEventHandler extends EventHandler<ButtonE
 	}
 
 	/**
-	 * Displays the farming screen.
-	 * @param screen The screen.
+	 * Writes the interface items.
+	 * @param id The interface items.
 	 */
-	public void farmingComplex(int screen) {
-		if (screen == 1) {
-			clearMenu();
-			menuLine("1", "Potato", 1942, 0);
-			menuLine("5", "Onion", 1957, 1);
-			menuLine("7", "Cabbage", 1965, 2);
-			menuLine("12", "Tomato", 1982, 3);
-			menuLine("20", "Sweetcorn", 5986, 4);
-			menuLine("31", "Strawberry", 5504, 5);
-			menuLine("47", "Watermelon", 5982, 6);
-			optionTab("Farming", "Allotments", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
-					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
+	private void writeInterfaceItem(int id[]) {
+		Item[] items = new Item[id.length];
+		for (int i = 0; i < id.length; i++) {
+			items[i] = new Item(id[i]);
 		}
-
-		else if (screen == 2) {
-			clearMenu();
-			menuLine("3", "Barley", 6006, 0);
-			menuLine("4", "Hammerstone Hop", 5994, 1);
-			menuLine("8", "Asgarnian Hop", 5996, 2);
-			menuLine("13", "Jute Plant", 5931, 3);
-			menuLine("16", "Yanillian Hop", 5998, 4);
-			menuLine("21", "Krandorian Hop", 6000, 5);
-			menuLine("28", "Wildblood Hop", 6002, 6);
-			optionTab("Farming", "Hops", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 3) {
-			clearMenu();
-			menuLine("15", "Oak Tree", 1521, 0);
-			menuLine("30", "Willow Tree", 1519, 1);
-			menuLine("45", "Maple Tree", 1517, 2);
-			menuLine("60", "Yew Tree", 1515, 3);
-			menuLine("75", "Magic Tree", 1513, 4);
-			optionTab("Farming", "Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 4) {
-			clearMenu();
-			menuLine("27", "Apple Tree", 1955, 0);
-			menuLine("33", "Banana Tree", 1963, 1);
-			menuLine("39", "Orange Tree", 2108, 2);
-			menuLine("42", "Curry Tree", 5970, 3);
-			menuLine("51", "Pineapple Plant", 2114, 4);
-			menuLine("57", "Papaya Tree", 5972, 5);
-			menuLine("68", "Palm Tree", 5974, 6);
-			optionTab("Farming", "Fruit Trees", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
-					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 5) {
-			clearMenu();
-			menuLine("10", "Redberry Bush", 1951, 0);
-			menuLine("22", "Cadavaberry Bush", 753, 1);
-			menuLine("36", "Dwellberry Bush", 2126, 2);
-			menuLine("48", "Jangerberry Bush", 247, 3);
-			menuLine("59", "White Berry Bush", 239, 4);
-			menuLine("70", "Poison Ivy Bush", 6018, 5);
-			optionTab("Farming", "Bushes", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 6) {
-			clearMenu();
-			menuLine("2", "Marigold(Protects low level crops from Disease)", 6010, 0);
-			menuLine("11", "Rosemary(Protects Cabbages from Disease)", 6014, 1);
-			menuLine("24", "Nasturtium(Protects Watermelons from Disease)", 6012, 2);
-			menuLine("25", "Woad", 1793, 3);
-			menuLine("26", "Limpwurt", 225, 4);
-			optionTab("Farming", "Flowers", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 7) {
-			clearMenu();
-			menuLine("9", "Guam", 249, 0);
-			menuLine("14", "Marrentill", 251, 1);
-			menuLine("19", "Tarromin", 253, 2);
-			menuLine("26", "Harralander", 255, 3);
-			menuLine("32", "Ranarr", 257, 4);
-			menuLine("38", "Toadflax", 2998, 5);
-			menuLine("44", "Irit", 259, 6);
-			menuLine("50", "Avantoe", 261, 7);
-			menuLine("56", "Kwuarm", 263, 8);
-			menuLine("62", "Snapdragon", 3000, 9);
-			menuLine("67", "Cadantine", 265, 10);
-			menuLine("73", "Lantadyme", 2481, 11);
-			menuLine("79", "Dwarf Weed", 267, 12);
-			menuLine("85", "Torstol", 269, 13);
-			optionTab("Farming", "Herbs", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 8) {
-			clearMenu();
-			menuLine("55", "Cactus", 6016, 0);
-			menuLine("63", "Belladonna", 5281, 1);
-			menuLine("72", "Calquat Tree", 5980, 2);
-			menuLine("83", "Spirit Tree", 6063, 3);
-			optionTab("Farming", "Special", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers", "Herbs",
-					"Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 9) {
-			clearMenu();
-			menuLine("23", "Able to make and place a scarecrow", 6059, 0);
-			menuLine("", "", -1, 1);
-			menuLine("", "Scarecrows help to stop sweetcorn from", -1, 2);
-			menuLine("", "being attacked by birds, while also", -1, 3);
-			menuLine("", "helping to prevent disease", -1, 4);
-			menuLine("", "", -1, 5);
-			menuLine("", "How to make a scarecrow:", -1, 6);
-			menuLine("", "", -1, 7);
-			menuLine("", "1.Fill an empty sack with straw.", -1, 8);
-			menuLine("", "2.Drive a hay sack onto a bronze spear", -1, 9);
-			menuLine("", "3.Place a watermelon at the top as a head", -1, 10);
-			menuLine("", "4.Stand the scarecrow in a flower patch", -1, 11);
-			optionTab("Farming", "Scarecrows", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
-					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
-		}
-
-		else if (screen == 10) {
-			clearMenu();
-			menuLine("", "", -1, 0);
-			optionTab("Farming", "Milestones", "Allotments", "Hops", "Trees", "Fruit Trees", "Bushes", "Flowers",
-					"Herbs", "Special", "Scarecrows", "Milestones", "", "", "");
-		}
+		player.send(new UpdateItemsEvent(8847, items));
 	}
 
 }

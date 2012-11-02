@@ -15,6 +15,7 @@ import org.apollo.game.event.impl.UpdateRunEnergyEvent;
 import org.apollo.game.minigame.MinigameService;
 import org.apollo.game.model.Inventory.StackMode;
 import org.apollo.game.model.inter.bank.BankConstants;
+import org.apollo.game.model.inter.melee.Prayer;
 import org.apollo.game.model.inter.store.Shop;
 import org.apollo.game.model.inter.trade.TradeSession;
 import org.apollo.game.model.inv.AppearanceInventoryListener;
@@ -38,6 +39,7 @@ import org.apollo.game.model.skill.farming.Hops;
 import org.apollo.game.model.skill.farming.Seedling;
 import org.apollo.game.model.skill.farming.SpecialPlantOne;
 import org.apollo.game.model.skill.farming.SpecialPlantTwo;
+import org.apollo.game.scheduling.impl.FarmingScheduledTask;
 import org.apollo.game.scheduling.impl.NormalizeEnergyTask;
 import org.apollo.game.scheduling.impl.UpdateSpecialTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
@@ -254,52 +256,57 @@ public final class Player extends Character {
 	/**
 	 * The allotment.
 	 */
-	private final Allotments allotment = new Allotments(this);
+	private Allotments allotment;
 
 	/**
 	 * The flowers.
 	 */
-	private final Flowers flowers = new Flowers(this);
+	private Flowers flowers;
 
 	/**
 	 * The compost.
 	 */
-	private final Compost compost = new Compost(this);
+	private Compost compost;
 
 	/**
 	 * The herbs.
 	 */
-	private final Herbs herbs = new Herbs(this);
+	private Herbs herbs;
 
 	/**
 	 * The hops.
 	 */
-	private final Hops hops = new Hops(this);
+	private Hops hops;
 
 	/**
 	 * The bushes.
 	 */
-	private final Bushes bushes = new Bushes(this);
+	private Bushes bushes;
 
 	/**
 	 * The special plant one.
 	 */
-	private final SpecialPlantOne specialPlantOne = new SpecialPlantOne(this);
+	private SpecialPlantOne specialPlantOne;
 
 	/**
 	 * The special plant two.
 	 */
-	private final SpecialPlantTwo specialPlantTwo = new SpecialPlantTwo(this);
+	private SpecialPlantTwo specialPlantTwo;
 
 	/**
 	 * The seedling.
 	 */
-	private final Seedling seedling = new Seedling(this);
+	private Seedling seedling;
 
 	/**
 	 * The fruit tree.
 	 */
-	private final FruitTree fruitTree = new FruitTree(this);
+	private FruitTree fruitTree;
+
+	/**
+	 * We are not farming.
+	 */
+	private boolean farming = false;
 
 	/**
 	 * Creates the {@link Player}.
@@ -446,11 +453,20 @@ public final class Player extends Character {
 	}
 
 	/**
-	 * Gets the skill guide selected items.
-	 * @return The skill guide selected items.
+	 * Gets the items.
+	 * @return The items.
 	 */
 	public int[] getItem() {
 		return item;
+	}
+
+	/**
+	 * Gets the item.
+	 * @param slot The slot.
+	 * @return The item.
+	 */
+	public int getItem(int slot) {
+		return item[slot];
 	}
 
 	/**
@@ -805,18 +821,18 @@ public final class Player extends Character {
 		getBank().forceRefresh();
 		// force skills to update
 		getSkillSet().forceRefresh();
-		// send context menues
+		// send context menus
 		send(new BuildPlayerMenuEvent(3, true, "Attack"));
 		send(new BuildPlayerMenuEvent(4, false, "Follow"));
 		send(new BuildPlayerMenuEvent(5, false, "Trade with"));
+		// send prayer configurations
+		Prayer.clearPrayers(this);
 		// send privacy settings
 		send(new ChatPrivacySettingsEvent(publicChat, privateChat, trade));
 		// send the run
 		send(new UpdateRunEnergyEvent(getRunEnergy()));
 		// send private chat
 		World.getWorld().getMessaging().register(this);
-		// allow the players to attack
-		getMeleeSet().setAttackable(true);
 	}
 
 	/**
@@ -850,6 +866,15 @@ public final class Player extends Character {
 	 */
 	public void setHide(boolean hide) {
 		this.hide = hide;
+	}
+
+	/**
+	 * Sets the item.
+	 * @param slot The slot.
+	 * @param value The value.
+	 */
+	public void setItem(int slot, int value) {
+		item[slot] = value;
 	}
 
 	/**
@@ -982,6 +1007,26 @@ public final class Player extends Character {
 	 */
 	public void setWithdrawingNotes(boolean withdrawingNotes) {
 		this.withdrawingNotes = withdrawingNotes;
+	}
+
+	/**
+	 * Sets the farming processing.
+	 */
+	public void startFarming() {
+		if (!farming) {
+			this.allotment = new Allotments(this);
+			this.flowers = new Flowers(this);
+			this.compost = new Compost(this);
+			this.herbs = new Herbs(this);
+			this.hops = new Hops(this);
+			this.bushes = new Bushes(this);
+			this.specialPlantOne = new SpecialPlantOne(this);
+			this.specialPlantTwo = new SpecialPlantTwo(this);
+			this.seedling = new Seedling(this);
+			this.fruitTree = new FruitTree(this);
+			this.farming = true;
+			World.getWorld().schedule(new FarmingScheduledTask(this));
+		}
 	}
 
 	/*

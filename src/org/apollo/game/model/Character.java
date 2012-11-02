@@ -7,6 +7,7 @@ import org.apollo.game.action.Action;
 import org.apollo.game.event.Event;
 import org.apollo.game.event.impl.ServerMessageEvent;
 import org.apollo.game.model.Inventory.StackMode;
+import org.apollo.game.model.inter.melee.Prayer.Prayers;
 import org.apollo.game.model.region.Region;
 import org.apollo.game.model.skill.HitpointSkillListener;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
@@ -71,6 +72,11 @@ public abstract class Character {
 	private final List<Event> localEvents = new ArrayList<Event>();
 
 	/**
+	 * A list of active prayers.
+	 */
+	private final List<Prayers> prayers = new ArrayList<Prayers>();
+
+	/**
 	 * A set of {@link SynchronizationBlock}s.
 	 */
 	private SynchronizationBlockSet blockSet = new SynchronizationBlockSet();
@@ -98,7 +104,7 @@ public abstract class Character {
 	/**
 	 * The character's skill set.
 	 */
-	private final SkillSet skillSet = new SkillSet();
+	private final SkillSet skillSet = new SkillSet(this);
 
 	/**
 	 * The character's melee set.
@@ -270,6 +276,14 @@ public abstract class Character {
 	 */
 	public Position getPosition() {
 		return position;
+	}
+
+	/**
+	 * Gets the list of prayers.
+	 * @return The list of prayers.
+	 */
+	public List<Prayers> getPrayers() {
+		return prayers;
 	}
 
 	/**

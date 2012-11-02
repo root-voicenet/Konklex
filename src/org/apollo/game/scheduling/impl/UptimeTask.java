@@ -2,7 +2,6 @@ package org.apollo.game.scheduling.impl;
 
 import org.apollo.api.FrontendService;
 import org.apollo.api.method.impl.TimeMethod;
-import org.apollo.game.model.Player;
 import org.apollo.game.model.World;
 import org.apollo.game.scheduling.ScheduledTask;
 
@@ -27,16 +26,6 @@ public final class UptimeTask extends ScheduledTask {
 	@Override
 	public void execute() {
 		World.getWorld().setUptime(i++);
-		for (Player player : World.getWorld().getPlayerRepository()) {
-			player.getAllotment().doCalculations();
-			player.getBushes().doCalculations();
-			player.getFlowers().doCalculations();
-			player.getHerbs().doCalculations();
-			player.getHops().doCalculations();
-			player.getSpecialPlantOne().doCalculations();
-			player.getSpecialPlantTwo().doCalculations();
-			player.getFruitTrees().doCalculations();
-		}
 		if (World.getWorld().getContext() != null) {
 			FrontendService service = World.getWorld().getContext().getService(FrontendService.class);
 			if (service != null) {

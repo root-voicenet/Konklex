@@ -10,6 +10,7 @@
   <scripts>
     <script>bury.rb</script>
     <script>bone.rb</script>
+    <script>prayer.rb</script>
   </scripts>
   <dependencies />
 </plugin>

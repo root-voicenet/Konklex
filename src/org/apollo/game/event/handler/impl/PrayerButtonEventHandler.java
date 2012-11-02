@@ -4,22 +4,22 @@ import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.ButtonEvent;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.inter.melee.Prayer;
+import org.apollo.game.model.inter.melee.Prayer.Prayers;
 
 /**
- * An {@link EventHandler} which responds to {@link ButtonEvent}s for trade requests.
+ * An {@link EventHandler} for the {@link ButtonEvent}
  * @author Steve
  */
-public final class TradeButtonEventHandler extends EventHandler<ButtonEvent> {
+public final class PrayerButtonEventHandler extends EventHandler<ButtonEvent> {
 
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, ButtonEvent event) {
-		System.out.println(event.getInterfaceId());
-		final int id = event.getInterfaceId();
-		if (id == 3420 || id == 3546) {
-			if (player.getTradeSession() != null) {
-				player.getTradeSession().accept();
-			}
+		final Prayers prayer = Prayers.forId(event.getInterfaceId());
+		if (prayer != null) {
+			Prayer.togglePrayer(player, prayer);
 			ctx.breakHandlerChain();
 		}
 	}
+
 }

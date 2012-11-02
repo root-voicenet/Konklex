@@ -15,7 +15,7 @@ public final class SetInterfaceComponentEventEncoder extends EventEncoder<SetInt
 	@Override
 	public GamePacket encode(SetInterfaceComponentEvent event) {
 		final GamePacketBuilder builder = new GamePacketBuilder(171);
-		builder.put(DataType.BYTE, event.isVisible() ? 0 : 1);
+		builder.put(DataType.BYTE, event.isVisible() ? 1 : 0);
 		builder.put(DataType.SHORT, event.getComponentId());
 		return builder.toGamePacket();
 	}

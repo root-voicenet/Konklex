@@ -14,7 +14,7 @@ import org.apollo.net.release.EventEncoder;
  * An {@link EventEncoder} for the {@link ConfigEvent}.
  * @author Steve
  */
-public class ConfigEventEncoder extends EventEncoder<ConfigEvent> {
+public final class ConfigEventEncoder extends EventEncoder<ConfigEvent> {
 
 	/*
 	 * (non-Javadoc)

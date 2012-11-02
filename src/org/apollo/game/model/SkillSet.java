@@ -3,6 +3,7 @@ package org.apollo.game.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apollo.game.model.inter.melee.Prayer.Prayers;
 import org.apollo.game.model.skill.SkillListener;
 
 /**
@@ -56,6 +57,11 @@ public final class SkillSet {
 	}
 
 	/**
+	 * The character.
+	 */
+	private final Character character;
+
+	/**
 	 * A list of skill listeners.
 	 */
 	private final List<SkillListener> listeners = new ArrayList<SkillListener>();
@@ -71,9 +77,11 @@ public final class SkillSet {
 	private boolean firingEvents = true;
 
 	/**
-	 * Creates the skill set.
+	 * Sets the skill set.
+	 * @param character The character.
 	 */
-	public SkillSet() {
+	public SkillSet(Character character) {
+		this.character = character;
 		init();
 	}
 
@@ -86,45 +94,20 @@ public final class SkillSet {
 		checkBounds(id);
 		final Skill old = skills[id];
 		double newExperience = old.getExperience() + experience;
-		if (newExperience > MAXIMUM_EXP)
+		if (newExperience > MAXIMUM_EXP) {
 			newExperience = MAXIMUM_EXP;
+		}
 		int newCurrentLevel = old.getCurrentLevel();
 		final int newMaximumLevel = getLevelForExperience(newExperience);
 		final int delta = newMaximumLevel - old.getMaximumLevel();
-		if (delta > 0)
+		if (delta > 0) {
 			newCurrentLevel += delta;
+		}
 		setSkill(id, new Skill(newExperience, newCurrentLevel, newMaximumLevel));
-		if (delta > 0)
+		if (delta > 0) {
 			// here so it gets updated skill
 			notifyLevelledUp(id);
-	}
-
-	/**
-	 * Removes experience from the specified skill.
-	 * @param id The skill id.
-	 * @param experience The amount of experience.
-	 */
-	public void removeExperience(int id, double experience) {
-		checkBounds(id);
-		final Skill old = skills[id];
-		double newExperience = old.getExperience() - experience;
-		if (newExperience > MAXIMUM_EXP)
-			newExperience = MAXIMUM_EXP;
-		int level = getLevelForExperience(newExperience);
-		setSkill(id, new Skill(newExperience, level, level));
-		notifySkillUpdated(id);
-	}
-
-	/**
-	 * Sets a skill.
-	 * @param id The skill id.
-	 * @param experience The amount of experience.
-	 */
-	public void setSkill(int id, double experience) {
-		checkBounds(id);
-		int level = getLevelForExperience(experience);
-		setSkill(id, new Skill(experience, level, level));
-		notifySkillUpdated(id);
+		}
 	}
 
 	/**
@@ -167,12 +150,15 @@ public final class SkillSet {
 		final double melee = (attack + strength) * 0.325;
 		final double ranger = Math.floor(ranged * 1.5) * 0.325;
 		final double mage = Math.floor(magic * 1.5) * 0.325;
-		if (melee >= ranger && melee >= mage)
+		if (melee >= ranger && melee >= mage) {
 			combat += melee;
-		else if (ranger >= melee && ranger >= mage)
+		}
+		else if (ranger >= melee && ranger >= mage) {
 			combat += ranger;
-		else if (mage >= melee && mage >= ranger)
+		}
+		else if (mage >= melee && mage >= ranger) {
 			combat += mage;
+		}
 		return combat < 126 ? combat : 126;
 	}
 
@@ -192,8 +178,9 @@ public final class SkillSet {
 	 */
 	public int getTotalLevel() {
 		int total = 0;
-		for (final Skill skill : skills)
+		for (final Skill skill : skills) {
 			total += skill.getMaximumLevel();
+		}
 		return total;
 	}
 
@@ -212,10 +199,12 @@ public final class SkillSet {
 	 */
 	private void init() {
 		for (int i = 0; i < skills.length; i++)
-			if (i == Skill.HITPOINTS)
+			if (i == Skill.HITPOINTS) {
 				skills[i] = new Skill(1154, 10, 10);
-			else
+			}
+			else {
 				skills[i] = new Skill(0, 1, 1);
+			}
 	}
 
 	/**
@@ -223,15 +212,30 @@ public final class SkillSet {
 	 */
 	public void normalize() {
 		for (int i = 0; i < skills.length; i++) {
-			// TODO I think prayer works differently(?)
+			if (i == Skill.PRAYER) {
+				continue;
+			}
 			int cur = skills[i].getCurrentLevel();
 			final int max = skills[i].getMaximumLevel();
-			if (cur > max)
+			if (cur > max) {
 				cur--;
-			else if (max > cur)
+			}
+			else if (max > cur) {
 				cur++;
-			else
+				if (character.getPrayers().contains(Prayers.RAPID_RESTORE)) {
+					if (i != Skill.PRAYER && i != Skill.HITPOINTS) {
+						cur++;
+					}
+				}
+				else if (character.getPrayers().contains(Prayers.RAPID_HEAL)) {
+					if (i == Skill.HITPOINTS) {
+						cur++;
+					}
+				}
+			}
+			else {
 				continue;
+			}
 			setSkill(i, new Skill(skills[i].getExperience(), cur, max));
 		}
 	}
@@ -242,18 +246,22 @@ public final class SkillSet {
 	 */
 	private void notifyLevelledUp(int id) {
 		checkBounds(id);
-		if (firingEvents)
-			for (final SkillListener listener : listeners)
+		if (firingEvents) {
+			for (final SkillListener listener : listeners) {
 				listener.levelledUp(this, id, skills[id]);
+			}
+		}
 	}
 
 	/**
 	 * Notifies listeners that the skills in this listener have been updated.
 	 */
 	private void notifySkillsUpdated() {
-		if (firingEvents)
-			for (final SkillListener listener : listeners)
+		if (firingEvents) {
+			for (final SkillListener listener : listeners) {
 				listener.skillsUpdated(this);
+			}
+		}
 	}
 
 	/**
@@ -262,9 +270,11 @@ public final class SkillSet {
 	 */
 	private void notifySkillUpdated(int id) {
 		checkBounds(id);
-		if (firingEvents)
-			for (final SkillListener listener : listeners)
+		if (firingEvents) {
+			for (final SkillListener listener : listeners) {
 				listener.skillUpdated(this, id, skills[id]);
+			}
+		}
 	}
 
 	/**
@@ -275,11 +285,40 @@ public final class SkillSet {
 	}
 
 	/**
+	 * Removes experience from the specified skill.
+	 * @param id The skill id.
+	 * @param experience The amount of experience.
+	 */
+	public void removeExperience(int id, double experience) {
+		checkBounds(id);
+		final Skill old = skills[id];
+		double newExperience = old.getExperience() - experience;
+		if (newExperience > MAXIMUM_EXP) {
+			newExperience = MAXIMUM_EXP;
+		}
+		int level = getLevelForExperience(newExperience);
+		setSkill(id, new Skill(newExperience, level, level));
+		notifySkillUpdated(id);
+	}
+
+	/**
 	 * Removes a listener.
 	 * @param listener The listener to remove.
 	 */
 	public void removeListener(SkillListener listener) {
 		listeners.remove(listener);
+	}
+
+	/**
+	 * Sets a skill.
+	 * @param id The skill id.
+	 * @param experience The amount of experience.
+	 */
+	public void setSkill(int id, double experience) {
+		checkBounds(id);
+		int level = getLevelForExperience(experience);
+		setSkill(id, new Skill(experience, level, level));
+		notifySkillUpdated(id);
 	}
 
 	/**
