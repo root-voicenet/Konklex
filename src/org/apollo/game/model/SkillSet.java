@@ -187,10 +187,10 @@ public final class SkillSet {
 	/**
 	 * Increases the skill by the amount.
 	 * @param id The skill id.
-	 * @param amount The skill amount to add.
+	 * @param add The skill amount to add.
 	 */
-	public void increaseSkill(int id, int amount) {
-		setSkill(id, new Skill(getSkill(id).getExperience(), getSkill(id).getCurrentLevel() + amount, getSkill(id)
+	public void increaseSkill(int id, int add) {
+		setSkill(id, new Skill(getSkill(id).getExperience(), getSkill(id).getCurrentLevel() + add, getSkill(id)
 				.getMaximumLevel()));
 	}
 
@@ -212,31 +212,30 @@ public final class SkillSet {
 	 */
 	public void normalize() {
 		for (int i = 0; i < skills.length; i++) {
-			if (i == Skill.PRAYER) {
-				continue;
-			}
 			int cur = skills[i].getCurrentLevel();
 			final int max = skills[i].getMaximumLevel();
 			if (cur > max) {
 				cur--;
 			}
 			else if (max > cur) {
-				cur++;
-				if (character.getPrayers().contains(Prayers.RAPID_RESTORE)) {
-					if (i != Skill.PRAYER && i != Skill.HITPOINTS) {
-						cur++;
+				if (i == Skill.HITPOINTS) {
+					if (character.getPrayers().contains(Prayers.RAPID_HEAL)) {
+						cur += 2;
 					}
 				}
-				else if (character.getPrayers().contains(Prayers.RAPID_HEAL)) {
-					if (i == Skill.HITPOINTS) {
-						cur++;
+				else if (i != Skill.PRAYER) {
+					if (character.getPrayers().contains(Prayers.RAPID_RESTORE)) {
+						cur += 2;
 					}
+				}
+				else {
+					cur++;
 				}
 			}
 			else {
 				continue;
 			}
-			setSkill(i, new Skill(skills[i].getExperience(), cur, max));
+			setSkill(i, new Skill(skills[i].getExperience(), cur > max ? max : cur, max));
 		}
 	}
 

@@ -31,11 +31,13 @@ public final class SkillNormalizationTask extends ScheduledTask {
 	 */
 	@Override
 	public void execute() {
-		if (!character.isActive())
+		if (!character.isActive()) {
 			// could be temporarily removed from
 			// list
 			stop();
-		else
+		}
+		else {
 			character.getSkillSet().normalize();
+		}
 	}
 }

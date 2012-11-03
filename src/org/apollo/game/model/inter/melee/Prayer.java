@@ -1,5 +1,6 @@
 package org.apollo.game.model.inter.melee;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,24 +21,24 @@ public final class Prayer {
 	 * @author Brandyn / Scu11
 	 */
 	public static enum Prayers {
-		THICK_SKIN(new double[] {5609, 1, 83, 12}, DEFENCE_PRAYER, false),
-		BURST_OF_STRENGTH(new double[] {5610, 4, 84, 12}, STRENGTH_PRAYER, false),
-		CLARITY_OF_THOUGHT(new double[] {5611, 7, 85, 12}, ATTACK_PRAYER, false),
+		THICK_SKIN(new double[] {5609, 1, 83, 3}, DEFENCE_PRAYER, false),
+		BURST_OF_STRENGTH(new double[] {5610, 4, 84, 3}, STRENGTH_PRAYER, false),
+		CLARITY_OF_THOUGHT(new double[] {5611, 7, 85, 3}, ATTACK_PRAYER, false),
 		ROCK_SKIN(new double[] {5612, 10, 86, 6}, DEFENCE_PRAYER, false),
 		SUPERHUMAN_STRENGTH(new double[] {5613, 13, 87, 6}, STRENGTH_PRAYER, false),
 		IMPROVED_REFLEXES(new double[] {5614, 16, 88, 6}, ATTACK_PRAYER, false),
-		RAPID_RESTORE(new double[] {5615, 19, 89, 26}, -1, false),
-		RAPID_HEAL(new double[] {5616, 22, 90, 18}, -1, false),
-		PROTECT_ITEM(new double[] {5617, 25, 91, 18}, -1, false),
-		STEEL_SKIN(new double[] {5618, 28, 92, 3}, DEFENCE_PRAYER, false),
-		ULTIMATE_STRENGTH(new double[] {5619, 31, 93, 3}, STRENGTH_PRAYER, false),
-		INCREDIBLE_REFLEXES(new double[] {5620, 34, 94, 3}, ATTACK_PRAYER, false),
-		PROTECT_FROM_MAGIC(new double[] {5621, 37, 95, 3, 2}, OVERHEAD_PRAYER, false),
-		PROTECT_FROM_MISSILES(new double[] {5622, 40, 96, 3, 1}, OVERHEAD_PRAYER, false),
-		PROTECT_FROM_MELEE(new double[] {5623, 43, 97, 3, 0}, OVERHEAD_PRAYER, false),
-		RETRIBUTION(new double[] {683, 46, 98, 1, 3}, OVERHEAD_PRAYER, false),
-		REDEMPTION(new double[] {684, 49, 99, 2, 5}, OVERHEAD_PRAYER, false),
-		SMITE(new double[] {685, 52, 100, 2, 4}, OVERHEAD_PRAYER, false),
+		RAPID_RESTORE(new double[] {5615, 19, 89, 1}, -1, false),
+		RAPID_HEAL(new double[] {5616, 22, 90, 2}, -1, false),
+		PROTECT_ITEM(new double[] {5617, 25, 91, 2}, -1, false),
+		STEEL_SKIN(new double[] {5618, 28, 92, 12}, DEFENCE_PRAYER, false),
+		ULTIMATE_STRENGTH(new double[] {5619, 31, 93, 12}, STRENGTH_PRAYER, false),
+		INCREDIBLE_REFLEXES(new double[] {5620, 34, 94, 12}, ATTACK_PRAYER, false),
+		PROTECT_FROM_MAGIC(new double[] {5621, 37, 95, 12, 2}, OVERHEAD_PRAYER, false),
+		PROTECT_FROM_MISSILES(new double[] {5622, 40, 96, 12, 1}, OVERHEAD_PRAYER, false),
+		PROTECT_FROM_MELEE(new double[] {5623, 43, 97, 12, 0}, OVERHEAD_PRAYER, false),
+		RETRIBUTION(new double[] {683, 46, 98, 3, 3}, OVERHEAD_PRAYER, false),
+		REDEMPTION(new double[] {684, 49, 99, 6, 5}, OVERHEAD_PRAYER, false),
+		SMITE(new double[] {685, 52, 100, 18, 4}, OVERHEAD_PRAYER, false),
 		SHARP_EYE(new double[] {70080, 8, 601, 12}, RANGE_PRAYER | ATTACK_PRAYER | STRENGTH_PRAYER, false),
 		MYSTIC_WILL(new double[] {70082, 9, 602, 12}, MAGIC_PRAYER | ATTACK_PRAYER | STRENGTH_PRAYER, false),
 		HAWK_EYE(new double[] {70084, 26, 603, 6}, RANGE_PRAYER | ATTACK_PRAYER | STRENGTH_PRAYER, false),
@@ -120,17 +121,13 @@ public final class Prayer {
 			this.id = (int) data[0];
 			this.level = (int) data[1];
 			this.config = (int) data[2];
-			this.drain = data[3] * 2;
+			this.drain = data[3];
 			this.icon = (int) (data.length == 5 ? data[4] : -1);
 			this.anim = data.length == 6 ? (int) data[4] : -1;
 			this.graphic = data.length == 6 ? (int) data[5] : -1;
 			this.name = this.toString();
 			this.prayMask = prayerMask;
 			this.curse = curse;
-		}
-
-		public double drainToTick() {
-			return drain / 10 / .6;
 		}
 
 		/**
@@ -226,11 +223,45 @@ public final class Prayer {
 
 	/**
 	 * Clears the prayers.
-	 * @param player The player to clear the prayers from.
+	 * @param character The player to clear the prayers from.
 	 */
-	public static void clearPrayers(Player player) {
-		for (Prayers p : Prayers.values()) {
-			player.send(new ConfigEvent(p.getClientConfiguration(), 0));
+	public static void clearPrayers(Character character, boolean off) {
+		if (!off) {
+			for (Prayers p : Prayers.values()) {
+				character.send(new ConfigEvent(p.getClientConfiguration(), 0));
+				character.getPrayers().remove(p);
+			}
+		}
+		else {
+			List<Prayers> toRemove = new ArrayList<Prayers>();
+			for (Prayers p : character.getPrayers()) {
+				toRemove.add(p);
+				character.send(new ConfigEvent(p.getClientConfiguration(), 0));
+			}
+			character.getPrayers().removeAll(toRemove);
+			if (character.isControlling()) {
+				character.sendMessage("You have run out of prayer points!");
+			}
+		}
+	}
+
+	/**
+	 * Drains the prayer.
+	 * @param source The source.
+	 */
+	public static void drainPrayer(Character source) {
+		double remove = 0;
+		for (Prayers p : source.getPrayers()) {
+			remove += p.getDrain();
+		}
+		if (remove > 0) {
+			source.setPrayerDrain((int) (source.getPrayerDrain() + remove));
+			int bonus = (int) source.getBonuses().getBonuses().getPrayer();
+			int remove_prayer = source.getPrayerDrain() / (60 + bonus * 2);
+			source.setPrayerDrain(source.getPrayerDrain() - remove_prayer * (60 + bonus * 2));
+			if (remove_prayer < source.getSkillSet().getSkill(Skill.PRAYER).getCurrentLevel()) {
+				source.getSkillSet().increaseSkill(Skill.PRAYER, -remove_prayer);
+			}
 		}
 	}
 
@@ -296,11 +327,6 @@ public final class Prayer {
 			final Skill PRAYER = player.getSkillSet().getSkill(Skill.PRAYER);
 			final int CURRENT = PRAYER.getCurrentLevel();
 			final int MAXIMUM = PRAYER.getMaximumLevel();
-			if (prayer == Prayers.CHIVALRY && MAXIMUM < 65 || prayer == Prayers.PIETY && MAXIMUM < 70) {
-				player.sendMessage("You may not use this prayer yet.");
-				player.send(new ConfigEvent(prayer.getClientConfiguration(), 0));
-				return;
-			}
 			if (MAXIMUM < prayer.getLevelRequired()) {
 				player.send(new ConfigEvent(prayer.getClientConfiguration(), 0));
 				player.send(new SetInterfaceTextEvent(357, "You need a @blu@Prayer level of "
@@ -308,7 +334,7 @@ public final class Prayer {
 				player.getInterfaceSet().openDialogue(356);
 				return;
 			}
-			if (CURRENT <= 0) {
+			if (CURRENT <= 1) {
 				player.send(new ConfigEvent(prayer.getClientConfiguration(), 0));
 				player.sendMessage("You have no prayer points!");
 				return;

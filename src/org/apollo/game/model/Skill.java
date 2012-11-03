@@ -115,8 +115,8 @@ public final class Skill {
 	 * The skill names.
 	 */
 	private static final String SKILL_NAMES[] = { "Attack", "Defence", "Strength", "Hitpoints", "Ranged", "Prayer",
-			"Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
-			"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecraft" };
+		"Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
+		"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecraft" };
 
 	/**
 	 * Gets the id of a skill.

@@ -61,7 +61,7 @@ public final class Combat {
 		inventory.addAll(victim.getEquipment());
 		inventory.addAll(victim.getInventory());
 
-		int keepN = source.getPrayers().contains(Prayers.PROTECT_ITEM) ? 4 : 3;
+		int keepN = source != null && source.getPrayers().contains(Prayers.PROTECT_ITEM) ? 4 : 3;
 		final Inventory keep = CombatUtil.getItemsKeptOnDeath(keepN, inventory);
 
 		victim.getInventory().stopFiringEvents();
@@ -93,24 +93,26 @@ public final class Combat {
 					victim.getEquipment().startFiringEvents();
 					victim.getEquipment().forceRefresh();
 
-					if (victim.isControlling() && !source.isControlling()) {
+					if (victim.isControlling() && source != null && !source.isControlling()) {
 						for (Item item : inventory) {
 							World.getWorld().register(new GroundItem(((Player) victim).getName(), item, position));
 						}
 					}
-					else if (source.isControlling()) {
+					else if (source != null && source.isControlling()) {
 						for (Item item : inventory) {
 							World.getWorld().register(new GroundItem(((Player) source).getName(), item, position));
 						}
 					}
 				} else {
-					if (source.isControlling()) {
+					if (source != null && source.isControlling()) {
 						appendNpcDrop((Npc) victim, (Player) source);
 					}
 				}
 
 				World.getWorld().register(new GroundItem(DROP, victim.getPosition()));
-				source.resetMeleeSet();
+				if (source != null) {
+					source.resetMeleeSet();
+				}
 
 				if (!victim.isControlling()) {
 					World.getWorld().unregister((Npc) victim);
@@ -180,7 +182,7 @@ public final class Combat {
 
 			source.playAnimation(spell.getAnimation());
 
-			if (TextUtil.random(4) == 1) {
+			if (TextUtil.random(5) == 1) {
 				victim.playGraphic(new Graphic(339, 0, 100));
 				return false;
 			}
@@ -279,6 +281,12 @@ public final class Combat {
 					}
 				}
 			}
+			if (victim.getPrayers().contains(Prayers.PROTECT_FROM_MAGIC)) {
+				if (!source.isControlling())
+					return false;
+				else if (TextUtil.random(3) == 1)
+					return false;
+			}
 			return true;
 		}
 		return false;
@@ -294,6 +302,12 @@ public final class Combat {
 	private static boolean appendMelee(Character source, Character victim, int damage) {
 		source.playAnimation(new Animation(MeleeConstants.getAttackAnim(source)));
 		victim.playAnimation(new Animation(404));
+		if (victim.getPrayers().contains(Prayers.PROTECT_FROM_MELEE)) {
+			if (!source.isControlling())
+				return false;
+			else if (TextUtil.random(3) == 1)
+				return false;
+		}
 		return true;
 	}
 
@@ -411,6 +425,12 @@ public final class Combat {
 		else
 			return false;
 		source.playAnimation(new Animation(MeleeConstants.getAttackAnim(source)));
+		if (victim.getPrayers().contains(Prayers.PROTECT_FROM_MISSILES)) {
+			if (!source.isControlling())
+				return false;
+			else if (TextUtil.random(3) == 1)
+				return false;
+		}
 		return true;
 	}
 
@@ -657,6 +677,12 @@ public final class Combat {
 			source.getMeleeSet().poison(TextUtil.random(3));
 			source.getMeleeSet().setPoison(poison - 1);
 		}
+		// Prayer drain
+		if (source.getPrayers().size() > 0) {
+			if (source.getSkillSet().getSkill(Skill.PRAYER).getCurrentLevel() >= 0) {
+				Prayer.drainPrayer(source);
+			}
+		}
 		// Melee process
 		if (source.getMeleeSet().getInteractingCharacter() != null && source.getMeleeSet().isUnderAttack()
 				&& System.currentTimeMillis() - source.getMeleeSet().getLastAttack() >= 10000) {
@@ -692,11 +718,13 @@ public final class Combat {
 					final int dealt = TextUtil.random((int) Math.floor(damage));
 					victim.getMeleeSet().damage(dealt);
 					if (source.getPrayers().contains(Prayers.SMITE)) {
-						final Skill skill = victim.getSkillSet().getSkill(Skill.PRAYER);
-						victim.getSkillSet().setSkill(
-								Skill.PRAYER,
-								new Skill(skill.getExperience(), skill.getCurrentLevel() - dealt / 4, skill
-										.getMaximumLevel()));
+						victim.getSkillSet().increaseSkill(Skill.PRAYER, -dealt / 4);
+					}
+				}
+				else {
+					if (!source.getMeleeSet().isDying() && !victim.getMeleeSet().isDying()) {
+						victim.getMeleeSet().setUnderAttack(true);
+						victim.getMeleeSet().damage(0);
 					}
 				}
 				source.getMeleeSet().setAttackTimer(type != MAGIC ? 4 : 6);

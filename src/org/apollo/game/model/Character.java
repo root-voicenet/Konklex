@@ -10,6 +10,7 @@ import org.apollo.game.model.Inventory.StackMode;
 import org.apollo.game.model.inter.melee.Prayer.Prayers;
 import org.apollo.game.model.region.Region;
 import org.apollo.game.model.skill.HitpointSkillListener;
+import org.apollo.game.model.skill.PrayerSkillListener;
 import org.apollo.game.scheduling.impl.SkillNormalizationTask;
 import org.apollo.game.sync.block.SynchronizationBlock;
 import org.apollo.game.sync.block.SynchronizationBlockSet;
@@ -120,6 +121,11 @@ public abstract class Character {
 	 * The default energy level.
 	 */
 	private int runEnergy = 100;
+
+	/**
+	 * The prayer drain.
+	 */
+	private int prayerDrain = 0;
 
 	/**
 	 * True if facing, false if not.
@@ -279,6 +285,14 @@ public abstract class Character {
 	}
 
 	/**
+	 * Gets the prayer drain.
+	 * @return The prayer drain.
+	 */
+	public int getPrayerDrain() {
+		return prayerDrain;
+	}
+
+	/**
 	 * Gets the list of prayers.
 	 * @return The list of prayers.
 	 */
@@ -331,6 +345,7 @@ public abstract class Character {
 	 */
 	private void init() {
 		skillSet.addListener(new HitpointSkillListener(this));
+		skillSet.addListener(new PrayerSkillListener(this));
 		World.getWorld().schedule(new SkillNormalizationTask(this));
 	}
 
@@ -463,6 +478,14 @@ public abstract class Character {
 			region.addCharacter(this);
 		}
 		this.position = position;
+	}
+
+	/**
+	 * Sets the prayer drain.
+	 * @param prayerDrain The prayer drain.
+	 */
+	public void setPrayerDrain(int prayerDrain) {
+		this.prayerDrain = prayerDrain;
 	}
 
 	/**

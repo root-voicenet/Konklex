@@ -826,7 +826,7 @@ public final class Player extends Character {
 		send(new BuildPlayerMenuEvent(4, false, "Follow"));
 		send(new BuildPlayerMenuEvent(5, false, "Trade with"));
 		// send prayer configurations
-		Prayer.clearPrayers(this);
+		Prayer.clearPrayers(this, false);
 		// send privacy settings
 		send(new ChatPrivacySettingsEvent(publicChat, privateChat, trade));
 		// send the run

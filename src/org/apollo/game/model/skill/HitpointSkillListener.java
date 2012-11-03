@@ -53,12 +53,13 @@ public final class HitpointSkillListener extends SkillAdapter {
 				}
 				Combat.appendDeath(victim, character);
 			}
-			else if (skill.getCurrentLevel() <= 10) {
+			else if (character.getMeleeSet().isUnderAttack() && skill.getCurrentLevel() <= 10) {
 				if (character.getPrayers().contains(Prayers.REDEMPTION)) {
-					Skill prayer = new Skill(skill.getExperience(), 0, skill.getMaximumLevel());
-					int healthToAdd = (int) (character.getSkillSet().getSkill(Skill.PRAYER).getMaximumLevel() * 2.50);
+					Skill prayer_b = character.getSkillSet().getSkill(Skill.PRAYER);
+					Skill prayer = new Skill(prayer_b.getExperience(), 0, prayer_b.getMaximumLevel());
+					int healthToAdd = (int) (prayer_b.getMaximumLevel() * 2.50);
 					character.addHealth(healthToAdd);
-					set.setSkill(id, prayer);
+					set.setSkill(Skill.PRAYER, prayer);
 				}
 			}
 		}
