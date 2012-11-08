@@ -7,7 +7,7 @@ on :command, :yell do |player, command|
   args = command.arguments
   if args.length > 0
     if Config.SERVER_YELL
-      message = extract(command)
+      message = command.arguments.to_a.join " "
       World.get_world.get_player_repository.each do |players|
         players.send_message(build(player) << message)
       end
@@ -15,14 +15,6 @@ on :command, :yell do |player, command|
   else
     player.send_message "Syntax: ::yell [message]"
   end
-end
-
-def extract(command)
-  builder = StringBuilder.new()
-  command.get_arguments.each do |message|
-    builder.append(message << " ")
-  end
-  return builder.to_string
 end
 
 def build(player)

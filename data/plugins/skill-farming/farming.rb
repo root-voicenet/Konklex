@@ -4,7 +4,10 @@ java_import 'org.apollo.game.model.skill.farming.Farming'
 on :event, :object_action do |ctx, player, event|
   pos = event.get_position
   if event.get_option == 1
-    result = player.get_compost.handle_object_click event.get_id, pos.get_x, pos.get_y
+    result = false
+    if player.get_compost != nil
+      result = player.get_compost.handle_object_click event.get_id, pos.get_x, pos.get_y
+    end
     if not result
       if Farming.harvest player, pos.get_x, pos.get_y
         ctx.break_handler_chain

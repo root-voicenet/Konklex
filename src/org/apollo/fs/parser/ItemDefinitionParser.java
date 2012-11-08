@@ -61,9 +61,8 @@ public final class ItemDefinitionParser {
 		ItemDefinition def = new ItemDefinition(id);
 		while (true) {
 			int code = buffer.get() & 0xFF;
-			if (code == 0) {
+			if (code == 0)
 				return def;
-			}
 			else if (code == 1) {
 				@SuppressWarnings("unused")
 				int modelId = buffer.getShort() & 0xFFFF;

@@ -205,6 +205,14 @@ public final class RegionManager {
 	}
 
 	/**
+	 * Gets the regions.
+	 * @return The regions.
+	 */
+	public Collection<Region> getRegions() {
+		return activeRegions.values();
+	}
+
+	/**
 	 * Gets the regions surrounding a location.
 	 * @param location The location.
 	 * @return The regions surrounding the location.
