@@ -88,6 +88,14 @@ public final class WorldMessaging {
 				return entry.getKey();
 		return -1;
 	}
+	
+	/**
+	 * Gets the whole network size.
+	 * @return The whole network size.
+	 */
+	public int size() {
+		return players.size() + World.getWorld().getPlayerRepository().size();
+	}
 
 	/**
 	 * Checks if the player is online.

@@ -13,6 +13,7 @@ import org.apollo.game.event.handler.chain.EventHandlerChain;
 import org.apollo.game.event.handler.chain.EventHandlerChainGroup;
 import org.apollo.game.event.impl.LogoutEvent;
 import org.apollo.game.model.Player;
+import org.apollo.game.model.World;
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
@@ -83,33 +84,11 @@ public final class GameSession extends Session {
 	 * Handles pending events for this session.
 	 * @param chainGroup The event chain group.
 	 */
-	@SuppressWarnings("unchecked")
 	public void handlePendingEvents(EventHandlerChainGroup chainGroup) {
-		for (Event event : eventQueue) {
-			Class<? extends Event> eventType = event.getClass();
-			EventHandlerChain<Event> chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
-			while (chain == null && eventType != null) {
-				eventType = (Class<? extends Event>) eventType.getSuperclass();
-				if (eventType == Event.class) {
-					eventType = null;
-				}
-				else {
-					chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
-				}
-			}
-			if (chain == null) {
-				logger.warning("No chain for event: " + event.getClass().getName() + ".");
-			}
-			else {
-				try {
-					chain.handle(player, event);
-				}
-				catch (final Exception ex) {
-					logger.log(Level.SEVERE, "Error handling event.", ex);
-				}
-			}
+		Event event;
+		while ((event = eventQueue.poll()) != null) {
+			handleEvent(event, chainGroup);
 		}
-		eventQueue.clear();
 	}
 
 	/**
@@ -132,7 +111,43 @@ public final class GameSession extends Session {
 			logger.warning("Too many events in queue for game session, dropping...");
 		}
 		else {
-			eventQueue.add(event);
+			if (event.getEventId() == 7) {
+				final ServerContext ctx = World.getWorld().getContext();
+				final GameService service = ctx.getService(GameService.class);
+				final EventHandlerChainGroup chainGroup = service.getEventHandlerChains();
+				handleEvent(event, chainGroup);
+			} else eventQueue.add(event);
+		}
+	}
+
+	/**
+	 * Handles an event.
+	 * @param event The event to handle.
+	 * @param chainGroup The chain group.
+	 */
+	@SuppressWarnings("unchecked")
+	private void handleEvent(Event event, EventHandlerChainGroup chainGroup) {
+		Class<? extends Event> eventType = event.getClass();
+		EventHandlerChain<Event> chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
+		while (chain == null && eventType != null) {
+			eventType = (Class<? extends Event>) eventType.getSuperclass();
+			if (eventType == Event.class) {
+				eventType = null;
+			}
+			else {
+				chain = (EventHandlerChain<Event>) chainGroup.getChain(eventType);
+			}
+		}
+		if (chain == null) {
+			logger.warning("No chain for event: " + event.getClass().getName() + ".");
+		}
+		else {
+			try {
+				chain.handle(player, event);
+			}
+			catch (final Exception ex) {
+				logger.log(Level.SEVERE, "Error handling event.", ex);
+			}
 		}
 	}
 }

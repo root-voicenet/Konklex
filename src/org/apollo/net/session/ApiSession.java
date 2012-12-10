@@ -114,6 +114,14 @@ public final class ApiSession extends Session {
 		}
 		methodQueue.clear();
 	}
+	
+	/**
+	 * Gets the channel.
+	 * @return The channel.
+	 */
+	public final Channel _getChannel() {
+		return getChannel();
+	}
 
 	/*
 	 * (non-Javadoc)

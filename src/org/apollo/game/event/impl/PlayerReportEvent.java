@@ -17,9 +17,9 @@ public final class PlayerReportEvent extends Event {
 	 * The rule that was broken.
 	 */
 	private final int rule;
-
+	
 	/**
-	 * The mute flag.
+	 * The muted flag.
 	 */
 	private final boolean mute;
 
@@ -27,7 +27,7 @@ public final class PlayerReportEvent extends Event {
 	 * Creates the player report event.
 	 * @param player The player that was reported.
 	 * @param rule The rule that was broken.
-	 * @param mute True if muted, false if otherwise.
+	 * @param mute The muted flag.
 	 */
 	public PlayerReportEvent(long player, int rule, boolean mute) {
 		this.player = player;
@@ -50,10 +50,10 @@ public final class PlayerReportEvent extends Event {
 	public int getRule() {
 		return rule;
 	}
-
+	
 	/**
-	 * Gets the mute flag.
-	 * @return True if mutable, false if otherwise.
+	 * Gets the muted flag.
+	 * @return True if the player should be muted, false if otherwise.
 	 */
 	public boolean isMutable() {
 		return mute;

@@ -39,8 +39,9 @@ public final class HypertextResourceProvider extends ResourceProvider {
 		File f = new File(base, path);
 		final URI target = f.toURI().normalize();
 		if (target.toASCIIString().startsWith(base.toURI().normalize().toASCIIString())) {
-			if (f.isDirectory())
+			if (f.isDirectory()) {
 				f = new File(f, "index.html");
+			}
 			return f.exists();
 		}
 		return false;
@@ -54,8 +55,9 @@ public final class HypertextResourceProvider extends ResourceProvider {
 	@Override
 	public ByteBuffer get(Channel channel, HttpRequest request, String path) throws IOException {
 		File f = new File(base, path);
-		if (f.isDirectory())
+		if (f.isDirectory()) {
 			f = new File(f, "index.html");
+		}
 		if (!f.exists())
 			return null;
 		final RandomAccessFile raf = new RandomAccessFile(f, "r");
@@ -66,6 +68,7 @@ public final class HypertextResourceProvider extends ResourceProvider {
 		finally {
 			raf.close();
 		}
+
 		return buf;
 	}
 }

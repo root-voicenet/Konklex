@@ -186,13 +186,12 @@ public final class RegionManager {
 	 */
 	public Region getRegion(int x, int y) {
 		final RegionCoordinates key = new RegionCoordinates(x, y);
-		if (activeRegions.containsKey(key))
-			return activeRegions.get(key);
-		else {
-			final Region region = new Region(key);
+		Region region = activeRegions.get(key);
+		if (region == null) {
+			region = new Region(key);
 			activeRegions.put(key, region);
-			return region;
 		}
+		return region;
 	}
 
 	/**
@@ -202,14 +201,6 @@ public final class RegionManager {
 	 */
 	public Region getRegionByLocation(Position location) {
 		return getRegion(location.getX() / REGION_SIZE, location.getY() / REGION_SIZE);
-	}
-
-	/**
-	 * Gets the regions.
-	 * @return The regions.
-	 */
-	public Collection<Region> getRegions() {
-		return activeRegions.values();
 	}
 
 	/**

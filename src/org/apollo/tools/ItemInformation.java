@@ -23,7 +23,7 @@ public final class ItemInformation {
 	public static void main(String[] args) throws Exception {
 		if (args.length != 2) {
 			System.err.println("Usage:");
-			System.err.println("  java -cp ... org.apollo.tools.ItemInformation [release] [item]");
+			System.err.println("  java -cp ... org.apollo.tools.Test [release] [item]");
 			return;
 		}
 		final String release = args[0];
@@ -45,7 +45,7 @@ public final class ItemInformation {
 			int[] prices = RuneWiki.getAlchValues(item);
 			i = 0;
 			for (Integer price : prices) {
-				System.out.println((i == 0 ? "Low" : "High") + " Alch: " + price);
+				System.out.println((i == 0 ? "High" : "Low") + " Alch: " + price);
 				i++;
 			}
 			System.out.println("\n");

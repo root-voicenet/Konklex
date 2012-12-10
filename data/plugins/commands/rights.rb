@@ -7,7 +7,7 @@ on :command, :promote, RIGHTS_OWNER do |player, command|
     find = args[0]
     if World.world.is_player_online find
       recruit = World.world.get_player find
-      current = recruit.privilege_level.to_i
+      current = recruit.privilege_level.to_integer
       if current != 5
         recruit.set_privilege_level Player::PrivilegeLevel.value_of(current+1)
       end

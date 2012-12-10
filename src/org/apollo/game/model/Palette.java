@@ -97,6 +97,11 @@ public class Palette {
 			return z % 4;
 		}
 
+		@Override
+		public int hashCode() {
+			return ((getX() << 14) | (getY() << 3) | (getZ() << 24) | (getRotation() << 1));
+		}
+
 	}
 
 	/**

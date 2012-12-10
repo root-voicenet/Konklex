@@ -3,6 +3,7 @@ package org.apollo.game.sync.task;
 import org.apollo.game.event.impl.RegionChangeEvent;
 import org.apollo.game.model.Player;
 import org.apollo.game.model.Position;
+import org.apollo.game.model.region.RegionCoordinates;
 
 /**
  * A {@link SynchronizationTask} which does pre-synchronization work for the specified {@link Player}.
@@ -53,10 +54,19 @@ public final class PrePlayerSynchronizationTask extends SynchronizationTask {
 			// or is this correct anyway?!
 			player.resetViewingDistance();
 		if (!player.hasLastKnownRegion() || isRegionUpdateRequired()) {
-			player.setRegionChanged(true);
 			final Position position = player.getPosition();
+			player.setRegionChanged(true);
 			player.setLastKnownRegion(position);
 			player.send(new RegionChangeEvent(position));
+			if (player.isHidden()) {
+				RegionCoordinates coordinates = player.getRegion().getCoordinates();
+				player.sendMessage("Observed.: " + position);
+				player.sendMessage("Region...: " + new Position(coordinates.getX(), coordinates.getY()));
+				player.sendMessage("Players..: " + player.getRegion().getPlayers().size());
+				player.sendMessage("Npcs.....: " + player.getRegion().getNpcs().size());
+				player.sendMessage("Static O.: " + player.getRegion().getStaticObjects().size());
+				player.sendMessage("Global O.: " + player.getRegion().getGameObjects().size());
+			}
 		}
 	}
 }

@@ -17,4 +17,9 @@ public abstract class ItemOptionEvent extends InventoryItemEvent {
 	public ItemOptionEvent(int option, int interfaceId, int id, int slot) {
 		super(option, interfaceId, id, slot);
 	}
+	
+	@Override
+	public int getEventId() {
+		return 7;
+	}
 }

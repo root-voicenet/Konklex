@@ -1,6 +1,7 @@
 package org.apollo.update.resource;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -27,5 +28,5 @@ public abstract class ResourceProvider {
 	 * @return The resource, or {@code null} if it doesn't exist.
 	 * @throws IOException if an I/O error occurs.
 	 */
-	public abstract Object get(Channel channel, HttpRequest request, String path) throws IOException;
+	public abstract ByteBuffer get(Channel channel, HttpRequest request, String path) throws IOException;
 }

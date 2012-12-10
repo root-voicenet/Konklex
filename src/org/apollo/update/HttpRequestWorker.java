@@ -8,6 +8,7 @@ import java.util.Date;
 
 import org.apollo.fs.IndexedFileSystem;
 import org.apollo.game.model.Config;
+import org.apollo.update.resource.ApolloResourceProvider;
 import org.apollo.update.resource.CombinedResourceProvider;
 import org.apollo.update.resource.HypertextResourceProvider;
 import org.apollo.update.resource.ResourceProvider;
@@ -30,7 +31,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	/**
 	 * The value of the server header.
 	 */
-	public static final String SERVER_IDENTIFIER = Config.SERVER_NAME + "/3.2";
+	public static final String SERVER_IDENTIFIER = Config.SERVER_NAME + "/3.2 stable";
 
 	/**
 	 * The directory with web files.
@@ -41,16 +42,6 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	 * The default character set.
 	 */
 	public static final Charset CHARACTER_SET = Charset.forName("ISO-8859-1");
-
-	/**
-	 * Creates the HTTP request worker.
-	 * @param dispatcher The dispatcher.
-	 * @param fs The file system.
-	 */
-	public HttpRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
-		super(dispatcher, new CombinedResourceProvider(new VirtualResourceProvider(fs), new HypertextResourceProvider(
-				WWW_DIRECTORY)));
-	}
 
 	/**
 	 * Creates an error page.
@@ -74,32 +65,37 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	}
 
 	/**
+	 * Creates the HTTP request worker.
+	 * @param dispatcher The dispatcher.
+	 * @param fs The file system.
+	 */
+	public HttpRequestWorker(UpdateDispatcher dispatcher, IndexedFileSystem fs) {
+		super(dispatcher, new CombinedResourceProvider(new VirtualResourceProvider(fs), new ApolloResourceProvider(
+				WWW_DIRECTORY), new HypertextResourceProvider(WWW_DIRECTORY)));
+	}
+
+	/**
 	 * Gets the MIME type of a file by its name.
 	 * @param name The file name.
 	 * @return The MIME type.
 	 */
 	private String getMimeType(String name) {
-		if (name.endsWith(".htm") || name.endsWith(".html")) {
+		if (name.endsWith(".htm") || name.endsWith(".html") || name.endsWith("/"))
 			return "text/html";
-		}
-		else if (name.endsWith(".css")) {
+		else if (name.endsWith(".css"))
 			return "text/css";
-		}
-		else if (name.endsWith(".js")) {
+		else if (name.endsWith(".js"))
 			return "text/javascript";
-		}
-		else if (name.endsWith(".jpg") || name.endsWith(".jpeg")) {
+		else if (name.endsWith(".jpg") || name.endsWith(".jpeg"))
 			return "image/jpeg";
-		}
-		else if (name.endsWith(".gif")) {
+		else if (name.endsWith(".gif"))
 			return "image/gif";
-		}
-		else if (name.endsWith(".png")) {
+		else if (name.endsWith(".png"))
 			return "image/png";
-		}
-		else if (name.endsWith(".txt")) {
+		else if (name.endsWith(".txt"))
 			return "text/plain";
-		}
+		else if (name.contains(".apollo"))
+			return "script/apollo";
 		return "application/octect-stream";
 	}
 
@@ -121,11 +117,10 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 	@Override
 	protected void service(ResourceProvider provider, Channel channel, HttpRequest request) throws IOException {
 		String path = request.getUri();
-		Object buf = provider.get(channel, request, path);
-		ChannelBuffer wrappedBuf = null;
+		ByteBuffer buf = provider.get(channel, request, path);
 		HttpResponseStatus status = HttpResponseStatus.OK;
-
 		String mimeType = getMimeType(request.getUri());
+		ChannelBuffer wrappedBuf = null;
 
 		if (buf == null) {
 			status = HttpResponseStatus.NOT_FOUND;
@@ -133,7 +128,7 @@ public final class HttpRequestWorker extends RequestWorker<HttpRequest, Resource
 			mimeType = "text/html";
 		}
 		else {
-			wrappedBuf = ChannelBuffers.wrappedBuffer((ByteBuffer) buf);
+			wrappedBuf = ChannelBuffers.wrappedBuffer(buf);
 		}
 
 		HttpResponse resp = new DefaultHttpResponse(request.getProtocolVersion(), status);

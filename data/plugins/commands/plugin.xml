@@ -8,8 +8,10 @@
     <author>Steve</author>
   </authors>
   <scripts>
+    <script>anim.rb</script>
     <script>bank.rb</script>
     <script>config.rb</script>
+    <script>gfx.rb</script>
     <script>hide.rb</script>
     <script>home.rb</script>
     <script>item.rb</script>

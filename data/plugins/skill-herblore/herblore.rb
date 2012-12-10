@@ -11,6 +11,8 @@ HERBLORE_DIALOGUE = 4429
 HERBLORE_ITEM = {}
 HERBLORE_ITEM_ITEM = {}
 
+DRINK_ITEM = {}
+
 # A module which describes an invocable method of the Herblore skill.
 module HerbloreMethod
   def self.new
@@ -49,6 +51,11 @@ on :event, :item_option do |ctx, player, event|
     id = event.id
     method = HERBLORE_ITEM[id]
 	if method != nil
+	  method.invoke player, id, event.slot
+	  ctx.break_handler_chain
+	end
+    method = DRINK_ITEM[id]
+        if method != nil
 	  method.invoke player, id, event.slot
 	  ctx.break_handler_chain
 	end

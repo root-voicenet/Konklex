@@ -344,39 +344,39 @@ def append_unfinished_potion(item, herb, level)
 end
 
 # Unfinished potions
-UNF_GUAM		= append_unfinished_potion(91,	GUAM_LEAF,	3 )
-UNF_MARRENTILL	= append_unfinished_potion(93, MARRENTILL,	5 )
-UNF_TARROMIN	= append_unfinished_potion(95, TARROMIN,	12)
-UNF_HARRALANDER	= append_unfinished_potion(97, HARRALANDER,	22)
+UNF_GUAM		= append_unfinished_potion(91,	GUAM_LEAF,	 3)
+UNF_MARRENTILL		= append_unfinished_potion(93, MARRENTILL,	 5)
+UNF_TARROMIN		= append_unfinished_potion(95, TARROMIN,	12)
+UNF_HARRALANDER		= append_unfinished_potion(97, HARRALANDER,	22)
 UNF_RANARR		= append_unfinished_potion(99, RANARR,		30)
-UNF_TOADFLAX	= append_unfinished_potion(3002, TOADFLAX,	34)
+UNF_TOADFLAX		= append_unfinished_potion(3002, TOADFLAX,	34)
 UNF_IRIT		= append_unfinished_potion(101, IRIT_LEAF,	45)
 UNF_AVANTOE		= append_unfinished_potion(103, AVANTOE,	50)
 UNF_KWUARM		= append_unfinished_potion(105, KWUARM,		55)
-UNF_SNAPDRAGON	= append_unfinished_potion(3004, SNAPDRAGON,63)
-UNF_CADANTINE	= append_unfinished_potion(107, CADANTINE,	66)
-UNF_LANTADYME	= append_unfinished_potion(2483, LANTADYME,	69)
-UNF_DWARF_WEED	= append_unfinished_potion(109, DWARF_WEED,	72)
+UNF_SNAPDRAGON		= append_unfinished_potion(3004, SNAPDRAGON,    63)
+UNF_CADANTINE		= append_unfinished_potion(107, CADANTINE,	66)
+UNF_LANTADYME		= append_unfinished_potion(2483, LANTADYME,	69)
+UNF_DWARF_WEED		= append_unfinished_potion(109, DWARF_WEED,	72)
 UNF_TORSTOL		= append_unfinished_potion(111, TORSTOL,	78)
 
 # Finished potions
 ATTACK_POT			= append_finished_potion 121, UNF_GUAM, EYE_NEWT, 1, 25
-ANTIPOISON_POT		= append_finished_potion 175, UNF_MARRENTILL, UNICORN_HORN_DUST, 5, 37.5
-STRENGTH_POT		= append_finished_potion 115, UNF_TARROMIN, LIMPWURT_ROOT, 12, 50
+ANTIPOISON_POT			= append_finished_potion 175, UNF_MARRENTILL, UNICORN_HORN_DUST, 5, 37.5
+STRENGTH_POT			= append_finished_potion 115, UNF_TARROMIN, LIMPWURT_ROOT, 12, 50
 RESTORE_POT			= append_finished_potion 127, UNF_HARRALANDER, RED_SPIDERS_EGGS, 18, 62.5
 ENERGY_POT			= append_finished_potion 3010, UNF_HARRALANDER, CHOCOLATE_DUST, 26, 67.5
 DEFENCE_POT			= append_finished_potion 133, UNF_RANARR, WHITE_BERRIES, 30, 75
 AGILITY_POT			= append_finished_potion 3034, UNF_TOADFLAX, TOADS_LEGS, 34, 80
 PRAYER_POT			= append_finished_potion 139, UNF_RANARR, SNAPE_GRASS, 38, 87.5
-SUPER_ATTACK_POT	= append_finished_potion 145, UNF_IRIT, EYE_NEWT, 45, 100
-SUPER_ANTIPOISON_POT= append_finished_potion 181, UNF_IRIT, UNICORN_HORN_DUST, 48, 106.3
+SUPER_ATTACK_POT		= append_finished_potion 145, UNF_IRIT, EYE_NEWT, 45, 100
+SUPER_ANTIPOISON_POT		= append_finished_potion 181, UNF_IRIT, UNICORN_HORN_DUST, 48, 106.3
 FISHING_POT			= append_finished_potion 151, UNF_AVANTOE, SNAPE_GRASS, 50, 112.5
-SUPER_ENERGY_POT	= append_finished_potion 3018, UNF_AVANTOE, MORT_MYRE_FUNGI, 52, 117.5
-SUPER_STRENGTH_POT	= append_finished_potion 157, UNF_KWUARM, LIMPWURT_ROOT, 55, 125
-WEAPON_POISON		= append_finished_potion 187, UNF_KWUARM, DRAGON_SCALE_DUST, 60, 137.5
-SUPER_RESTORE_POT	= append_finished_potion 3026, UNF_SNAPDRAGON, RED_SPIDERS_EGGS, 63, 142.5
-SUPER_DEFENCE_POT	= append_finished_potion 163, UNF_CADANTINE, WHITE_BERRIES, 66, 150
-ANTIFIRE_POT		= append_finished_potion 2428, UNF_LANTADYME, DRAGON_SCALE_DUST, 69, 157.5
+SUPER_ENERGY_POT		= append_finished_potion 3018, UNF_AVANTOE, MORT_MYRE_FUNGI, 52, 117.5
+SUPER_STRENGTH_POT		= append_finished_potion 157, UNF_KWUARM, LIMPWURT_ROOT, 55, 125
+WEAPON_POISON			= append_finished_potion 187, UNF_KWUARM, DRAGON_SCALE_DUST, 60, 137.5
+SUPER_RESTORE_POT		= append_finished_potion 3026, UNF_SNAPDRAGON, RED_SPIDERS_EGGS, 63, 142.5
+SUPER_DEFENCE_POT		= append_finished_potion 163, UNF_CADANTINE, WHITE_BERRIES, 66, 150
+ANTIFIRE_POT			= append_finished_potion 2428, UNF_LANTADYME, DRAGON_SCALE_DUST, 69, 157.5
 RANGING_POT			= append_finished_potion 169, UNF_DWARF_WEED, WINE_ZAMORAK, 72, 162.5
 MAGIC_POT			= append_finished_potion 3042, UNF_LANTADYME, POTATO_CACTUS, 76, 172.5
-ZAMORAK_BREW		= append_finished_potion 189, UNF_TORSTOL, JANGERBERRIES, 78, 175
+ZAMORAK_BREW			= append_finished_potion 189, UNF_TORSTOL, JANGERBERRIES, 78, 175

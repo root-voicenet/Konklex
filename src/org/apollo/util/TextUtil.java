@@ -1,6 +1,5 @@
 package org.apollo.util;
 
-import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +17,9 @@ public final class TextUtil {
 	 * chat messages.
 	 */
 	public static final char[] FREQUENCY_ORDERED_CHARS = { ' ', 'e', 't', 'a', 'o', 'i', 'h', 'n', 's', 'r', 'd', 'l',
-			'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5',
-			'6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+',
-			'=', '\243', '$', '%', '"', '[', ']' };
+		'u', 'm', 'w', 'c', 'y', 'f', 'g', 'p', 'b', 'v', 'k', 'x', 'j', 'q', 'z', '0', '1', '2', '3', '4', '5',
+		'6', '7', '8', '9', ' ', '!', '?', '.', ',', ':', ';', '(', ')', '-', '&', '*', '\\', '\'', '@', '#', '+',
+		'=', '\243', '$', '%', '"', '[', ']' };
 
 	/**
 	 * Capitalizes the string correctly.
@@ -37,13 +36,16 @@ public final class TextUtil {
 					chars[i] -= 0x20;
 					sentenceStart = false;
 				}
-				else if (c >= 'A' && c <= 'Z')
+				else if (c >= 'A' && c <= 'Z') {
 					sentenceStart = false;
+				}
 			}
-			else if (c >= 'A' && c <= 'Z')
+			else if (c >= 'A' && c <= 'Z') {
 				chars[i] += 0x20;
-			if (c == '.' || c == '!' || c == '?')
+			}
+			if (c == '.' || c == '!' || c == '?') {
 				sentenceStart = true;
+			}
 		}
 		return new String(chars, 0, chars.length);
 	}
@@ -64,8 +66,9 @@ public final class TextUtil {
 	 * @return The number of bytes written to the output array.
 	 */
 	public static int compress(String in, byte[] out) {
-		if (in.length() > 80)
+		if (in.length() > 80) {
 			in = in.substring(0, 80);
+		}
 		in = in.toLowerCase();
 		int carry = -1;
 		int outPos = 0;
@@ -77,13 +80,16 @@ public final class TextUtil {
 					tblPos = i;
 					break;
 				}
-			if (tblPos > 12)
+			if (tblPos > 12) {
 				tblPos += 195;
+			}
 			if (carry == -1) {
-				if (tblPos < 13)
+				if (tblPos < 13) {
 					carry = tblPos;
-				else
+				}
+				else {
 					out[outPos++] = (byte) tblPos;
+				}
 			}
 			else if (tblPos < 13) {
 				out[outPos++] = (byte) ((carry << 4) + tblPos);
@@ -94,8 +100,9 @@ public final class TextUtil {
 				carry = tblPos & 0xF;
 			}
 		}
-		if (carry != -1)
+		if (carry != -1) {
 			out[outPos++] = (byte) (carry << 4);
+		}
 		return outPos;
 	}
 
@@ -106,12 +113,13 @@ public final class TextUtil {
 	 */
 	public static String filterInvalidCharacters(String str) {
 		final StringBuilder bldr = new StringBuilder();
-		for (final char c : str.toLowerCase().toCharArray())
+		for (final char c : str.toLowerCase().toCharArray()) {
 			for (final char validChar : FREQUENCY_ORDERED_CHARS)
 				if (c == validChar) {
 					bldr.append(c);
 					break;
 				}
+		}
 		return bldr.toString();
 	}
 
@@ -131,32 +139,28 @@ public final class TextUtil {
 
 	/**
 	 * Request url parameters.
-	 * @param url the url
-	 * @return the url parameters
-	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @param url The url query.
+	 * @return A map with the correct key value pairs.
+	 * @throws Exception Exception creating the url.
 	 */
-	@SuppressWarnings("unchecked")
-	public static <E extends Object> Map<String, List<E>> getUrlParameters(String url) {
-		final Map<String, List<E>> params = new HashMap<String, List<E>>();
-		final String[] urlParts = url.split("\\?");
+	public static Map<String, List<String>> getUrlParameters(String url) throws Exception {
+		Map<String, List<String>> params = new HashMap<String, List<String>>();
+		String[] urlParts = url.split("\\?");
 		if (urlParts.length > 1) {
-			final String query = urlParts[1];
-			try {
-				for (final String param : query.split("&")) {
-					final String pair[] = param.split("=");
-					final String key = URLDecoder.decode(pair[0], "UTF-8");
-					String value = "";
-					if (pair.length > 1)
-						value = URLDecoder.decode(pair[1], "UTF-8");
-					List<E> values = params.get(key);
-					if (values == null) {
-						values = new ArrayList<E>();
-						params.put(key, values);
-					}
-					values.add((E) value);
+			String query = urlParts[1];
+			for (String param : query.split("&")) {
+				String pair[] = param.split("=");
+				String key = URLDecoder.decode(pair[0], "UTF-8");
+				String value = "";
+				if (pair.length > 1) {
+					value = URLDecoder.decode(pair[1], "UTF-8");
 				}
-			}
-			catch (final Exception e) {
+				List<String> values = params.get(key);
+				if (values == null) {
+					values = new ArrayList<String>();
+					params.put(key, values);
+				}
+				values.add(value);
 			}
 		}
 		return params;
@@ -174,6 +178,16 @@ public final class TextUtil {
 	}
 
 	/**
+	 * Gets a random number.
+	 * @param range The range.
+	 * @return The number.
+	 */
+	public static int random(int range) {
+		int number = (int) (Math.random() * (range + 1));
+		return number < 0 ? 0 : number;
+	}
+
+	/**
 	 * Uncompresses the compressed data ({@code in}) with the length ({@code len} ) and returns the uncompressed
 	 * {@link String}.
 	 * @param in The compressed input data.
@@ -186,28 +200,20 @@ public final class TextUtil {
 		int carry = -1;
 		for (int i = 0; i < len * 2; i++) {
 			final int tblPos = in[i / 2] >> 4 - 4 * (i % 2) & 0xF;
-			if (carry == -1) {
-				if (tblPos < 13)
-					out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[tblPos];
-				else
-					carry = tblPos;
+		if (carry == -1) {
+			if (tblPos < 13) {
+				out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[tblPos];
 			}
 			else {
-				out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[(carry << 4) + tblPos - 195];
-				carry = -1;
+				carry = tblPos;
 			}
 		}
+		else {
+			out[outPos++] = (byte) FREQUENCY_ORDERED_CHARS[(carry << 4) + tblPos - 195];
+			carry = -1;
+		}
+		}
 		return new String(out, 0, outPos);
-	}
-
-	/**
-	 * Gets a random number.
-	 * @param range The range.
-	 * @return The number.
-	 */
-	public static int random(int range) {
-		int number = (int) (Math.random() * (range + 1));
-		return number < 0 ? 0 : number;
 	}
 
 	/**

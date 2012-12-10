@@ -170,10 +170,6 @@ on :event, :magic_on_ground do |ctx, player, event|
   end
 end
 
-on :event, :magic_on_player do |ctx, player, event|
-  player.send_message "Spell: " + event.spell_id.to_s
-end
-
 on :event, :magic do |ctx, player, event|
   player.send_message "Spell: " + event.get_spell_id.to_s
 end

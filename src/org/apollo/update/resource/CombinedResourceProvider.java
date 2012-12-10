@@ -1,6 +1,7 @@
 package org.apollo.update.resource;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 import org.jboss.netty.channel.Channel;
 import org.jboss.netty.handler.codec.http.HttpRequest;
@@ -40,7 +41,7 @@ public final class CombinedResourceProvider extends ResourceProvider {
 	 * @see org.apollo.update.resource.ResourceProvider#get(java.lang.String)
 	 */
 	@Override
-	public Object get(Channel channel, HttpRequest request, String path) throws IOException {
+	public ByteBuffer get(Channel channel, HttpRequest request, String path) throws IOException {
 		for (final ResourceProvider provider : providers)
 			if (provider.accept(path))
 				return provider.get(channel, request, path);

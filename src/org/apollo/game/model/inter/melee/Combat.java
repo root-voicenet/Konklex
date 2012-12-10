@@ -695,8 +695,10 @@ public final class Combat {
 			Character victim = source.getMeleeSet().getInteractingCharacter();
 			if (victim.getHealth() <= 0 || victim.getMeleeSet().isDying()) {
 				source.resetMeleeSet();
+				return;
 			} else if (source.getHealth() <= 0 || source.getMeleeSet().isDying()) {
 				victim.resetMeleeSet();
+				return;
 			}
 			final int type = grabHitType(source);
 			if (!source.getPosition().isWithinDistance(victim.getPosition(), type == RANGED ? 7 : type == MAGIC ? 16 : 1)) {

@@ -4,7 +4,6 @@ import org.apollo.game.event.handler.EventHandler;
 import org.apollo.game.event.handler.EventHandlerContext;
 import org.apollo.game.event.impl.PlayerReportEvent;
 import org.apollo.game.model.Player;
-import org.apollo.game.model.Player.PrivilegeLevel;
 import org.apollo.util.NameUtil;
 
 /**
@@ -12,28 +11,28 @@ import org.apollo.util.NameUtil;
  * @author Steve
  */
 public final class PlayerReportEventHandler extends EventHandler<PlayerReportEvent> {
+	
+	/**
+	 * The names of the reports.
+	 */
+	private final String[] REPORTS = { "Offensive Language", "Item Scamming", "Password Scamming",
+			"Bug abuse", "3xgaming staff impersonation", "Account sharing/trading", "Macroing",
+			"Multiple logging in", "Encouraging others to break rules", "Misuse of customer support",
+			"Advertising / website", "Real world item trading"};
 
-	private static final String[] REPORT_NAMES = { "Offensive language", "Item scamming", "Password scamming",
-		"Bug abuse", "Staff impersonation", "Other", "Macroing", "Duping", "Encouraging others to break the rules",
-		"Yell abuse", "Advertising", "Possible duped items" };
-
-	@SuppressWarnings("unused")
 	@Override
 	public void handle(EventHandlerContext ctx, Player player, PlayerReportEvent event) {
-		final int rule = event.getRule();
-		if (rule < 0 || rule > REPORT_NAMES.length) {
+		player.sendMessage("Thank you, your report has been recieved.");
+		int rule = event.getRule();
+		if (rule > REPORTS.length) {
 			ctx.breakHandlerChain();
 		}
-
-		final String report = REPORT_NAMES[rule];
-		final String victim = NameUtil.decodeBase37(event.getPlayer());
-
-		if (event.isMutable() && player.getPrivilegeLevel().toInteger() >= PrivilegeLevel.MODERATOR.toInteger()) {
-			// We can mute the player.
-		}
-		else {
-			// Mute is either false xor privilege level is invalid.
-		}
+		String victim = NameUtil.decodeBase37(event.getPlayer());
+		String report = REPORTS[rule];
+		
+		System.out.println(victim);
+		System.out.println(report);
+		System.out.println(Boolean.toString(event.isMutable()));
 	}
 
 }

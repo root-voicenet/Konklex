@@ -1,7 +1,6 @@
 package org.apollo.net.codec.handshake;
 
 import org.apollo.game.model.World;
-import org.apollo.game.model.WorldConstants;
 import org.apollo.net.codec.login.LoginDecoder;
 import org.apollo.net.codec.login.LoginEncoder;
 import org.apollo.net.codec.update.UpdateDecoder;
@@ -36,16 +35,10 @@ public final class HandshakeDecoder extends FrameDecoder {
 		final ChannelBuffer buffer = ChannelBuffers.buffer(capacity);
 		switch (handshake) {
 		case HandshakeConstants.SERVICE_COUNT:
-			buffer.writeShort(World.getWorld().getPlayerRepository().size());
+			buffer.writeShort(World.getWorld().getMessaging().size());
 			break;
 		case HandshakeConstants.SERVICE_UPDATE:
 			buffer.writeLong(0);
-			break;
-		case HandshakeConstants.SERVICE_GAME:
-			buffer.writeByte(1);
-			buffer.writeByte(1);
-			buffer.writeShort(World.getWorld().getPlayerRepository().size());
-			buffer.writeShort(WorldConstants.MAXIMUM_PLAYERS);
 			break;
 		}
 		return buffer;

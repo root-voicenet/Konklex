@@ -1,5 +1,7 @@
 package org.apollo.game.command;
 
+import java.util.Arrays;
+
 /**
  * Represents a command.
  * @author Graham
@@ -40,5 +42,10 @@ public final class Command {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	@Override
+	public String toString() {
+		return Command.class.getName() + " [name=" + name + ", args=" + Arrays.asList(arguments).toString() + "]";
 	}
 }

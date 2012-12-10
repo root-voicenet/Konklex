@@ -6,6 +6,12 @@
     </chain>
   </method>
   <method>
+    <type>org.apollo.api.method.impl.InitializeSessionMethod</type>
+    <chain>
+      <handler>org.apollo.api.method.handler.impl.InitializeSessionMethodHandler</handler>
+    </chain>
+  </method>
+  <method>
     <type>org.apollo.api.method.impl.ReceiveFriendMethod</type>
     <chain>
       <handler>org.apollo.api.method.handler.impl.ReceiveFriendMethodHandler</handler>
