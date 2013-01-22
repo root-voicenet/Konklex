@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-combat</id>
+  <version>1</version>
+  <name>Combat plugin</name>
+  <description>Fighting other entitys.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>combat.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

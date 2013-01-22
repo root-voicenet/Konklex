@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-fletching</id>
+  <version>1</version>
+  <name>Fletching</name>
+  <description>Adds the Fletching skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+	<script>fletch.rb</script>
+        <script>bow.rb</script>
+        <script>arrow.rb</script>
+        <script>item.rb</script>
+        <script>dart.rb</script>
+        <script>bolt.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

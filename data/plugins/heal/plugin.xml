@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>heal</id>
+  <version>1</version>
+  <name>Heal</name>
+  <description>Healing action</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>heal.rb</script>
+    <script>foods.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

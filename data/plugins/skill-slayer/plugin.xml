@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-slayer</id>
+  <version>1</version>
+  <name>Slayer</name>
+  <description>Adds the Slayer skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+     <script>utils.rb</script>
+     <script>slayernpc.rb</script>
+     <script>slayer.rb</script>
+     <script>rewards.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

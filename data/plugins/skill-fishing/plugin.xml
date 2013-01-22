@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-fishing</id>
+  <version>1</version>
+  <name>Fishing</name>
+  <description>Adds the Fishing skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+	<script>fish.rb</script>
+        <script>fishing.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

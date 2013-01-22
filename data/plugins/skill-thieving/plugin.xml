@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-thieving</id>
+  <version>1</version>
+  <name>Thieving</name>
+  <description>Thieve skill</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>pickpocket.rb</script>
+    <script>stall.rb</script>
+    <script>npc.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

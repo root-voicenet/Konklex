@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>minigame-zombies</id>
+  <version>1</version>
+  <name>Zombies</name>
+  <description>Zombies minigame</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>constants.rb</script>
+    <script>listener.rb</script>
+    <script>game.rb</script>
+    <script>objects.rb</script>
+    <script>shop.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

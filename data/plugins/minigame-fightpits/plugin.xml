@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>minigame-fightpits</id>
+  <version>1</version>
+  <name>Fight pits</name>
+  <description>Tzar fight pits minigame</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>constants.rb</script>
+    <script>listener.rb</script>
+    <script>game.rb</script>
+    <script>objects.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

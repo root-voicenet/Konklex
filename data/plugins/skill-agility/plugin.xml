@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-agility</id>
+  <version>1</version>
+  <name>Agility</name>
+  <description>Agility skill</description>
+  <authors>
+    <author>Steve</author>
+  </authors>  
+  <scripts>
+    <script>objects.rb</script>
+    <script>agility.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

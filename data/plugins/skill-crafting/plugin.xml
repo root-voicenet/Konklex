@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>skill-crafting</id>
+  <version>1</version>
+  <name>Crafting</name>
+  <description>Adds the Crafting skill.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>amulet.rb</script>
+    <script>gem.rb</script>
+    <script>stave.rb</script>
+    <script>flax.rb</script>
+    <script>crafting.rb</script>
+  </scripts>
+  <dependencies />
+</plugin>

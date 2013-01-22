@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<plugin>
+  <id>commands</id>
+  <version>2</version>
+  <name>Commands</name>
+  <description>Adds commands to the world.</description>
+  <authors>
+    <author>Steve</author>
+  </authors>
+  <scripts>
+    <script>anim.rb</script>
+    <script>bank.rb</script>
+    <script>config.rb</script>
+    <script>crsps.rb</script>
+    <script>gfx.rb</script>
+    <script>hide.rb</script>
+    <script>home.rb</script>
+    <script>item.rb</script>
+    <script>npc.rb</script>
+    <script>pnpc.rb</script>
+    <script>rights.rb</script>
+    <script>skill.rb</script>
+    <script>sound.rb</script>
+    <script>teleport.rb</script>
+    <script>vote.rb</script>
+    <script>yell.rb</script>
+  </scripts>
+  <dependencies>
+    <dependency>shops</dependency>
+    <dependency>irc-bot</dependency>
+  </dependencies>
+</plugin>
